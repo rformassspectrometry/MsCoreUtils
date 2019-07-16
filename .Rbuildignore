@@ -1,0 +1,8 @@
+^README\.md$
+^\.editorconfig$
+^\.git$
+^\.gitignore$
+^\.lintr$
+^\.travis.yml$
+^playground$
+^revdep$

@@ -1,0 +1,25 @@
+language: r
+r: bioc-devel
+cache:
+  packages: true
+warnings_are_errors: true
+
+r_packages:
+  - covr
+  - pkgdown
+  - testthat
+  - knitr
+  - roxygen2
+
+before_install:
+  - mkdir -p ~/.R
+  - echo -e 'MAKEFLAGS = -j2' > ~/.R/Makevars
+  - echo 'options(Ncpus = 2)' > ~/.Rprofile
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
