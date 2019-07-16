@@ -127,7 +127,7 @@ closest <- function(x, table, tolerance = Inf,
 #' @export
 #' @examples
 #'
-#' ## Are there common values?
+#' ## Are there any common values?
 #' x <- c(1.6, 1.75, 1.8)
 #' y <- 1:2
 #' common(x, y, tolerance = 0.5)
