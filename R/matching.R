@@ -90,9 +90,9 @@ closest <- function(x, table, tolerance = Inf,
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
         stop("'nomatch' has to be a 'numeric' of length one.")
 
-    tolerance <- rep_len(tolerance, length(table)) + sqrt(.Machine$double.eps)
-    duplicates <- match.arg(duplicates)
     ntable <- length(table)
+    tolerance <- rep_len(tolerance, ntable) + sqrt(.Machine$double.eps)
+    duplicates <- match.arg(duplicates)
 
     lIdx <- findInterval(x, table, rightmost.closed = FALSE, all.inside = TRUE)
     rIdx <- lIdx + 1L
