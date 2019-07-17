@@ -7,15 +7,16 @@
 ppm(x, ppm)
 }
 \arguments{
-\item{x}{`numeric`, mz values.}
+\item{x}{`numeric`, value(s) used for ppm calculation, e.g. mz value(s).}
 
-\item{ppm}{`numeric`, parts per million (ppm) values.}
+\item{ppm}{`numeric`, parts-per-million (ppm) value(s).}
 }
 \value{
-`numeric`: `x * 1e-6`
+`numeric`: parts-per-million of `x`
 }
 \description{
-`ppm` is a small helper function to mulitply *mz* values with a given *ppm*.
+`ppm` is a small helper function to determine the parts-per-million for a
+user-provided value and ppm.
 }
 \examples{
 ppm(c(1000, 2000), 5)

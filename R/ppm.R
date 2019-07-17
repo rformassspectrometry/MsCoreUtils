@@ -1,11 +1,12 @@
 #' PPM - Parts per Million
 #'
-#' `ppm` is a small helper function to mulitply *mz* values with a given *ppm*.
+#' `ppm` is a small helper function to determine the parts-per-million for a
+#' user-provided value and ppm.
 #'
-#' @param x `numeric`, mz values.
-#' @param ppm `numeric`, parts per million (ppm) values.
+#' @param x `numeric`, value(s) used for ppm calculation, e.g. mz value(s).
+#' @param ppm `numeric`, parts-per-million (ppm) value(s).
 #'
-#' @return `numeric`: `x * 1e-6`
+#' @return `numeric`: parts-per-million of `x`
 #'
 #' @author Sebastian Gibb
 #' @export
