@@ -31,16 +31,16 @@
 #'
 #' ## Define example intensities and m/z values
 #' ints <- abs(rnorm(20, mean = 40))
-#' mz <- seq(1:length(vals)) + rnorm(length(vals), sd = 0.001)
+#' mz <- seq(1:length(ints)) + rnorm(length(ints), sd = 0.001)
 #'
 #' ## Bin intensities by m/z bins with a bin size of 2
-#' binValue(ints, mz, size = 2)
+#' bin(ints, mz, size = 2)
 #'
 #' ## Repeat but summing up intensities instead of taking the max
-#' binValues(ints, mz, size = 2, FUN = sum)
-binValues <- function(x, y, size = 1,
-                      breaks = seq(floor(min(y)),
-                                   ceiling(max(y)), by = size), FUN = max) {
+#' bin(ints, mz, size = 2, FUN = sum)
+bin <- function(x, y, size = 1,
+                breaks = seq(floor(min(y)),
+                             ceiling(max(y)), by = size), FUN = max) {
     if (length(x) != length(y))
         stop("lengths of 'x' and 'y' have to match.")
     FUN <- match.fun(FUN)
