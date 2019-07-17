@@ -2,16 +2,16 @@
 #'
 #' @description
 #'
-#' Aggregate values in `x` for bins defined on `toBin`: all values
-#' in `x` for values in `toBin` falling into a bin (defined on `toBin`) are
+#' Aggregate values in `x` for bins defined on `y`: all values
+#' in `x` for values in `y` falling into a bin (defined on `y`) are
 #' aggregated with the provided function `FUN`.
 #'
 #' @param x `numeric` with the values that should be aggregated/binned.
 #'
-#' @param toBin `numeric` with same length than `x` with values to be used for
+#' @param y `numeric` with same length than `x` with values to be used for
 #'     the binning.
 #'
-#' @param binSize `numeric(1)` with the size of a bin.
+#' @param size `numeric(1)` with the size of a bin.
 #'
 #' @param breaks `numeric` defining the breaks (bins).
 #'
@@ -21,32 +21,32 @@
 #' @return `list` with elements `x` (aggregated values of `x`) and `mids` (the
 #'     bin mid points).
 #'
-#' @author Johannes Rainer, Sebastian Gibbals
+#' @author Johannes Rainer, Sebastian Gibb
 #'
 #' @export
 #'
 #' @rdname binning
 #'
-#' @export
+#' @examples
 #'
 #' ## Define example intensities and m/z values
 #' ints <- abs(rnorm(20, mean = 40))
 #' mz <- seq(1:length(vals)) + rnorm(length(vals), sd = 0.001)
 #'
-#' ## Bin intensities by m/z bins with a binSize of 2
-#' bin(ints, mz, binSize = 2)
+#' ## Bin intensities by m/z bins with a bin size of 2
+#' binValue(ints, mz, size = 2)
 #'
 #' ## Repeat but summing up intensities instead of taking the max
-#' bin(ints, mz, binSize = 2, FUN = sum)
-bin <- function(x, toBin, binSize = 1,
-                breaks = seq(floor(min(toBin)),
-                             ceiling(max(toBin)), by = binSize), FUN = max) {
-    if (length(x) != length(toBin))
-        stop("lengths of 'x' and 'toBin' have to match.")
+#' binValues(ints, mz, size = 2, FUN = sum)
+binValues <- function(x, y, size = 1,
+                      breaks = seq(floor(min(y)),
+                                   ceiling(max(y)), by = size), FUN = max) {
+    if (length(x) != length(y))
+        stop("lengths of 'x' and 'y' have to match.")
     FUN <- match.fun(FUN)
-    breaks <- .fix_breaks(breaks, range(toBin))
+    breaks <- .fix_breaks(breaks, range(y))
     nbrks <- length(breaks)
-    idx <- findInterval(toBin, breaks)
+    idx <- findInterval(y, breaks)
     ## Ensure that indices are within breaks.
     idx[idx < 1L] <- 1L
     idx[idx >= nbrks] <- nbrks - 1L
