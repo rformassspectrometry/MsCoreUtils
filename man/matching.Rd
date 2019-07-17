@@ -17,23 +17,10 @@ common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
 \item{table}{`numeric`, the values to be matched against. In contrast to
 [`match`] `table` has to be sorted in increasing order.}
 
-\item{tolerance}{`numeric`, accepted tolerance. Use `0` to get the
-same behaviour as [`match`]. Use `Inf` (default) to match to the closest
-value without restrictions. Could be of length one or the same length as
-`table`.}
+\item{tolerance}{`numeric`, accepted tolerance. Could be of length one or
+the same length as `table`.}
 
-\item{duplicates}{`character(1)`, it is possible that many `x` match one
-element in `table`. For `duplicates="keep"` (default) all of them are
-returned. For `duplicates="closest"` just the `x` that is closest to the
-element in `table` gets an index (all the other will get `nomatch`). If the
-difference is exactly identical the first one in `x` will get an index. For
-`duplicates="remove"` all duplicated matches are returned as `nomatch`. If
-a single element in `x` matches to multiple elements in `table` the *closest*
-is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
-multiple matches isn't possible in this case because the implentation relies
-on [`findInterval`]). If the difference is identical the index of the
-smaller element in `table` is returned.
-For `duplicates="remove"` all multiple matches are returned as `nomatch`.}
+\item{duplicates}{`character(1)`, how to handle duplicated matches.}
 
 \item{nomatch}{`numeric(1)`, if the difference
 between the value in `x` and `table` is larger than
@@ -52,6 +39,29 @@ These functions offer relaxed matching of one vector in another.
 In contrast to the similar [`match`] and [`%in%`] functions they
 just accept `numeric` arguments but have an additional `tolerance`
 argument that allows relaxed matching.
+}
+\details{
+The `tolerance` argument could be set to `0` to get the same results as for
+[`match`]. If it is set to `Inf` (default) the index of the closest values is
+returned without any restriction.
+
+It is not guaranteed that there is a one-to-one matching for neither the
+`x` to `table` nor the `table` to `x` matching.
+
+If multiple elements in `x` match a single element in `table` all their
+corresponding indices are returned if `duplicates="keep"` is set (default).
+This behaviour is identical to [`match`]. For `duplicates="closest"` just
+the closest element in `x` gets the corresponding index in `table` and
+for `duplicates="remove"` all elements in `x` that match to the same element
+in `table` are set to `nomatch`.
+
+If a single element in `x` matches multiple elements in `table` the *closest*
+is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
+multiple matches isn't possible in this case because the implementation relies
+on [`findInterval`]). If the differences between `x` and the corresponding
+matches in `table` are identical the lower index (the smaller element
+in `table`) is returned. For `duplicates="remove"` all multiple matches
+are returned as `nomatch` as above.
 }
 \examples{
 ## Define two vectors to match
@@ -75,10 +85,10 @@ y <- c(3.01, 34.12, 45.021, 46.1, 556.449)
 closest(x, y, tolerance = 0.01)
 
 ## Using a value-specific tolerance accepting differences of 20 ppm
-closest(x, y, tolerance = x * ppm(20))
+closest(x, y, tolerance = y * ppm(20))
 
 ## Same using 50 ppm
-closest(x, y, tolerance = x * ppm(50))
+closest(x, y, tolerance = y * ppm(50))
 
 ## Sometimes multiple elements in `x` match to `table`
 x <- c(1.6, 1.75, 1.8)
@@ -87,7 +97,7 @@ closest(x, y, tolerance = 0.5)
 closest(x, y, tolerance = 0.5, duplicates = "closest")
 closest(x, y, tolerance = 0.5, duplicates = "remove")
 
-## Are there common values?
+## Are there any common values?
 x <- c(1.6, 1.75, 1.8)
 y <- 1:2
 common(x, y, tolerance = 0.5)
