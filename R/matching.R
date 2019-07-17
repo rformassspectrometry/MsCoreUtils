@@ -84,7 +84,7 @@ closest <- function(x, table, tolerance = Inf,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_) {
 
-    if (!is.numeric(tolerance) || tolerance < 0)
+    if (!all(is.numeric(tolerance)) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
     if (!is.numeric(nomatch) || length(nomatch) != 1L)

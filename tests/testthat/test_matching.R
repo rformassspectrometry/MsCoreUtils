@@ -2,6 +2,7 @@ test_that("closest throws errors", {
     expect_error(closest(1, c(0, -1, 3)), "sorted non-decreasingly")
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
+    expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
     expect_error(closest(1:3, 1.3, tolerance = TRUE), "numeric")
     expect_error(closest(1:3, 1:3, nomatch = TRUE), "be a 'numeric'")
     expect_error(closest(1, 1, nomatch = 1:2),
