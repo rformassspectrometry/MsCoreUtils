@@ -69,10 +69,10 @@
 #' closest(x, y, tolerance = 0.01)
 #'
 #' ## Using a value-specific tolerance accepting differences of 20 ppm
-#' closest(x, y, tolerance = y * ppm(20))
+#' closest(x, y, tolerance = ppm(y, 20))
 #'
 #' ## Same using 50 ppm
-#' closest(x, y, tolerance = y * ppm(50))
+#' closest(x, y, tolerance = ppm(y, 50))
 #'
 #' ## Sometimes multiple elements in `x` match to `table`
 #' x <- c(1.6, 1.75, 1.8)

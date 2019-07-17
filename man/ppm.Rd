@@ -4,19 +4,21 @@
 \alias{ppm}
 \title{PPM - Parts per Million}
 \usage{
-ppm(x)
+ppm(x, ppm)
 }
 \arguments{
-\item{x}{`numeric`, ppm values.}
+\item{x}{`numeric`, mz values.}
+
+\item{ppm}{`numeric`, parts per million (ppm) values.}
 }
 \value{
 `numeric`: `x * 1e-6`
 }
 \description{
-`ppm` is a small helper function to mulitply *ppm* values with `1e-6`.
+`ppm` is a small helper function to mulitply *mz* values with a given *ppm*.
 }
 \examples{
-ppm(5)
+ppm(c(1000, 2000), 5)
 }
 \author{
 Sebastian Gibb

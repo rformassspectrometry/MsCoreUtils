@@ -1,13 +1,14 @@
 #' PPM - Parts per Million
 #'
-#' `ppm` is a small helper function to mulitply *ppm* values with `1e-6`.
+#' `ppm` is a small helper function to mulitply *mz* values with a given *ppm*.
 #'
-#' @param x `numeric`, ppm values.
+#' @param x `numeric`, mz values.
+#' @param ppm `numeric`, parts per million (ppm) values.
 #'
 #' @return `numeric`: `x * 1e-6`
 #'
 #' @author Sebastian Gibb
 #' @export
 #' @examples
-#' ppm(5)
-ppm <- function(x)x * 1e-6
+#' ppm(c(1000, 2000), 5)
+ppm <- function(x, ppm)x * ppm * 1e-6
