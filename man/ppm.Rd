@@ -10,10 +10,10 @@ ppm(x)
 \item{x}{`numeric`, ppm values.}
 }
 \value{
-`numeric`: `x * 1e6`
+`numeric`: `x * 1e-6`
 }
 \description{
-`ppm` is a small helper function to mulitply *ppm* values with `1e6`.
+`ppm` is a small helper function to mulitply *ppm* values with `1e-6`.
 }
 \examples{
 ppm(5)
