@@ -13,23 +13,23 @@ vapply1d(X, FUN, ..., USE.NAMES = FALSE)
 vapply1l(X, FUN, ..., USE.NAMES = FALSE)
 }
 \arguments{
-\item{X}{a vector (atomic or `list`).}
+\item{X}{a vector (atomic or \code{list}).}
 
-\item{FUN}{the `function` to be applied to each element of `X`.}
+\item{FUN}{the \code{function} to be applied to each element of \code{X}.}
 
-\item{...}{optional arguments to `FUN`.}
+\item{...}{optional arguments to \code{FUN}.}
 
-\item{USE.NAMES}{`logical`, should the return value be named.}
+\item{USE.NAMES}{\code{logical}, should the return value be named.}
 }
 \value{
-`vapply1c` returns a vector of `character`s of length `X`.
+\code{vapply1c} returns a vector of \code{character}s of length \code{X}.
 
-`vapply1d` returns a vector of `double`s of length `X`.
+\code{vapply1d} returns a vector of \code{double}s of length \code{X}.
 
-`vapply1l` returns a vector of `logical`s of length `X`.
+\code{vapply1l} returns a vector of \code{logical}s of length \code{X}.
 }
 \description{
-These functions are short wrappers around typical `vapply` calls for easier
+These functions are short wrappers around typical \code{vapply} calls for easier
 development.
 }
 \examples{

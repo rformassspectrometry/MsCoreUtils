@@ -8,26 +8,26 @@ bin(x, y, size = 1, breaks = seq(floor(min(y)), ceiling(max(y)), by =
   size), FUN = max)
 }
 \arguments{
-\item{x}{`numeric` with the values that should be aggregated/binned.}
+\item{x}{\code{numeric} with the values that should be aggregated/binned.}
 
-\item{y}{`numeric` with same length than `x` with values to be used for
+\item{y}{\code{numeric} with same length than \code{x} with values to be used for
 the binning.}
 
-\item{size}{`numeric(1)` with the size of a bin.}
+\item{size}{\code{numeric(1)} with the size of a bin.}
 
-\item{breaks}{`numeric` defining the breaks (bins).}
+\item{breaks}{\code{numeric} defining the breaks (bins).}
 
-\item{FUN}{`function` to be used to aggregate values of `x` falling into the
-bins defined by `breaks`.}
+\item{FUN}{\code{function} to be used to aggregate values of \code{x} falling into the
+bins defined by \code{breaks}.}
 }
 \value{
-`list` with elements `x` (aggregated values of `x`) and `mids` (the
-    bin mid points).
+\code{list} with elements \code{x} (aggregated values of \code{x}) and \code{mids} (the
+bin mid points).
 }
 \description{
-Aggregate values in `x` for bins defined on `y`: all values
-in `x` for values in `y` falling into a bin (defined on `y`) are
-aggregated with the provided function `FUN`.
+Aggregate values in \code{x} for bins defined on \code{y}: all values
+in \code{x} for values in \code{y} falling into a bin (defined on \code{y}) are
+aggregated with the provided function \code{FUN}.
 }
 \examples{
 

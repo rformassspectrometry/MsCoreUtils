@@ -1,13 +1,13 @@
 #' Relaxed Value Matching
 #'
 #' These functions offer relaxed matching of one vector in another.
-#' In contrast to the similar [`match`] and [`%in%`] functions they
+#' In contrast to the similar [`match()`] and [`%in%`] functions they
 #' just accept `numeric` arguments but have an additional `tolerance`
 #' argument that allows relaxed matching.
 #'
 #' @param x `numeric`, the values to be matched.
 #' @param table `numeric`, the values to be matched against. In contrast to
-#' [`match`] `table` has to be sorted in increasing order.
+#' [`match()`] `table` has to be sorted in increasing order.
 #' @param tolerance `numeric`, accepted tolerance. Could be of length one or
 #' the same length as `table`.
 #' @param duplicates `character(1)`, how to handle duplicated matches.
@@ -17,15 +17,15 @@
 #'
 #' @details
 #' The `tolerance` argument could be set to `0` to get the same results as for
-#' [`match`]. If it is set to `Inf` (default) the index of the closest values is
-#' returned without any restriction.
+#' [`match()`]. If it is set to `Inf` (default) the index of the closest values
+#' is returned without any restriction.
 #'
 #' It is not guaranteed that there is a one-to-one matching for neither the
 #' `x` to `table` nor the `table` to `x` matching.
 #'
 #' If multiple elements in `x` match a single element in `table` all their
 #' corresponding indices are returned if `duplicates="keep"` is set (default).
-#' This behaviour is identical to [`match`]. For `duplicates="closest"` just
+#' This behaviour is identical to [`match()`]. For `duplicates="closest"` just
 #' the closest element in `x` gets the corresponding index in `table` and
 #' for `duplicates="remove"` all elements in `x` that match to the same element
 #' in `table` are set to `nomatch`.
@@ -44,7 +44,7 @@
 #'
 #' @rdname matching
 #' @author Sebastian Gibb
-#' @seealso [`match`]
+#' @seealso [`match()`]
 #' @aliases closest
 #' @export
 #' @examples

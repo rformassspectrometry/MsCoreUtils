@@ -29,4 +29,5 @@ VignetteBuilder: knitr
 BugReports: https://github.com/RforMassSpectrometry/MsCoreUtils/issues
 URL: https://github.com/RforMassSpectrometry/MsCoreUtils
 biocViews: Infrastructure, Proteomics, MassSpectrometry, Metabolomics
+Roxygen: list(markdown=TRUE)
 RoxygenNote: 6.1.1

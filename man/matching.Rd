@@ -12,56 +12,56 @@ common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
   "remove"))
 }
 \arguments{
-\item{x}{`numeric`, the values to be matched.}
+\item{x}{\code{numeric}, the values to be matched.}
 
-\item{table}{`numeric`, the values to be matched against. In contrast to
-[`match`] `table` has to be sorted in increasing order.}
+\item{table}{\code{numeric}, the values to be matched against. In contrast to
+\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order.}
 
-\item{tolerance}{`numeric`, accepted tolerance. Could be of length one or
-the same length as `table`.}
+\item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
+the same length as \code{table}.}
 
-\item{duplicates}{`character(1)`, how to handle duplicated matches.}
+\item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
 
-\item{nomatch}{`numeric(1)`, if the difference
-between the value in `x` and `table` is larger than
-`tolerance` `nomatch` is returned.}
+\item{nomatch}{\code{numeric(1)}, if the difference
+between the value in \code{x} and \code{table} is larger than
+\code{tolerance} \code{nomatch} is returned.}
 }
 \value{
-`closest` returns an `integer` vector of the same length as `x`
-giving the closest position in `table` of the first match or `nomatch` if
+\code{closest} returns an \code{integer} vector of the same length as \code{x}
+giving the closest position in \code{table} of the first match or \code{nomatch} if
 there is no match.
 
-`common` returns a `logical` vector of length `x` that is `TRUE` if the
-element in `x` was found in `table`. It is similar to [`%in%`].
+\code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
+element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in\%}}.
 }
 \description{
 These functions offer relaxed matching of one vector in another.
-In contrast to the similar [`match`] and [`%in%`] functions they
-just accept `numeric` arguments but have an additional `tolerance`
+In contrast to the similar \code{\link[=match]{match()}} and \code{\link{\%in\%}} functions they
+just accept \code{numeric} arguments but have an additional \code{tolerance}
 argument that allows relaxed matching.
 }
 \details{
-The `tolerance` argument could be set to `0` to get the same results as for
-[`match`]. If it is set to `Inf` (default) the index of the closest values is
-returned without any restriction.
+The \code{tolerance} argument could be set to \code{0} to get the same results as for
+\code{\link[=match]{match()}}. If it is set to \code{Inf} (default) the index of the closest values
+is returned without any restriction.
 
 It is not guaranteed that there is a one-to-one matching for neither the
-`x` to `table` nor the `table` to `x` matching.
+\code{x} to \code{table} nor the \code{table} to \code{x} matching.
 
-If multiple elements in `x` match a single element in `table` all their
-corresponding indices are returned if `duplicates="keep"` is set (default).
-This behaviour is identical to [`match`]. For `duplicates="closest"` just
-the closest element in `x` gets the corresponding index in `table` and
-for `duplicates="remove"` all elements in `x` that match to the same element
-in `table` are set to `nomatch`.
+If multiple elements in \code{x} match a single element in \code{table} all their
+corresponding indices are returned if \code{duplicates="keep"} is set (default).
+This behaviour is identical to \code{\link[=match]{match()}}. For \code{duplicates="closest"} just
+the closest element in \code{x} gets the corresponding index in \code{table} and
+for \code{duplicates="remove"} all elements in \code{x} that match to the same element
+in \code{table} are set to \code{nomatch}.
 
-If a single element in `x` matches multiple elements in `table` the *closest*
-is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
+If a single element in \code{x} matches multiple elements in \code{table} the \emph{closest}
+is returned for \code{duplicates="keep"} or \code{duplicates="duplicates"} (\emph{keeping}
 multiple matches isn't possible in this case because the implementation relies
-on [`findInterval`]). If the differences between `x` and the corresponding
-matches in `table` are identical the lower index (the smaller element
-in `table`) is returned. For `duplicates="remove"` all multiple matches
-are returned as `nomatch` as above.
+on \code{\link{findInterval}}). If the differences between \code{x} and the corresponding
+matches in \code{table} are identical the lower index (the smaller element
+in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
+are returned as \code{nomatch} as above.
 }
 \examples{
 ## Define two vectors to match
@@ -105,9 +105,9 @@ common(x, y, tolerance = 0.5, duplicates = "closest")
 common(x, y, tolerance = 0.5, duplicates = "remove")
 }
 \seealso{
-[`match`]
+\code{\link[=match]{match()}}
 
-[`%in%`]
+\code{\link{\%in\%}}
 }
 \author{
 Sebastian Gibb
