@@ -3,6 +3,7 @@
 \name{closest}
 \alias{closest}
 \alias{common}
+\alias{groupRun}
 \title{Relaxed Value Matching}
 \usage{
 closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
@@ -10,6 +11,8 @@ closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
 
 common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
   "remove"))
+
+groupRun(x, tolerance = 0, ppm = 0)
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched.}
@@ -25,6 +28,9 @@ the same length as \code{table}.}
 \item{nomatch}{\code{numeric(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
+
+\item{ppm}{For \code{groupRun}: \code{numeric(1)} representing a relative,
+value-specific parts-per-million (PPM) tolerance.}
 }
 \value{
 \code{closest} returns an \code{integer} vector of the same length as \code{x}
@@ -33,12 +39,23 @@ there is no match.
 
 \code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
 element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in\%}}.
+
+\code{groupRun} returns an \code{integer} indicating which elements in \code{x} are
+close enough to be considered the \emph{same} (group).
 }
 \description{
 These functions offer relaxed matching of one vector in another.
 In contrast to the similar \code{\link[=match]{match()}} and \code{\link{\%in\%}} functions they
 just accept \code{numeric} arguments but have an additional \code{tolerance}
 argument that allows relaxed matching.
+
+\code{groupRun} groups consecutive values in \code{x} to a \emph{run} if their difference
+is smaller than defined by parameters \code{tolerance} and \code{ppm}. The function
+thus evaluates the differences between consecutive values and if they are
+smaller than \code{< tolerance + ppm(x, ppm)} they are grouped into the same
+run. In other words, if \code{x[3] - x[2]} as well as \code{x[4] - x[3]} is
+\code{< tolerance + ppm(x, ppm)} they are all grouped into the same run. Note
+that \code{x} is expected to be increasingly ordered.
 }
 \details{
 The \code{tolerance} argument could be set to \code{0} to get the same results as for
@@ -103,6 +120,21 @@ y <- 1:2
 common(x, y, tolerance = 0.5)
 common(x, y, tolerance = 0.5, duplicates = "closest")
 common(x, y, tolerance = 0.5, duplicates = "remove")
+
+## Group the input values
+x <- seq(1, 4, 0.1)
+
+## Each element is it's own group
+groupRun(x)
+
+## With tolerance of 0.1 all are assigned to the same group (i.e. difference
+## between consecutive elements is <= tolerance.
+groupRun(x, tolerance = 0.1)
+
+x <- 1:20
+x[20] <- x[19] + ppm(x[19], 20)
+groupRun(x)
+groupRun(x, ppm = 20)
 }
 \seealso{
 \code{\link[=match]{match()}}
@@ -110,5 +142,5 @@ common(x, y, tolerance = 0.5, duplicates = "remove")
 \code{\link{\%in\%}}
 }
 \author{
-Sebastian Gibb
+Sebastian Gibb, Johannes Rainer
 }

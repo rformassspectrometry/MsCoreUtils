@@ -1,9 +1,19 @@
-#' Relaxed Value Matching
+#' @title Relaxed Value Matching
+#'
+#' @description
 #'
 #' These functions offer relaxed matching of one vector in another.
 #' In contrast to the similar [`match()`] and [`%in%`] functions they
 #' just accept `numeric` arguments but have an additional `tolerance`
 #' argument that allows relaxed matching.
+#'
+#' `groupRun` groups consecutive values in `x` to a *run* if their difference
+#' is smaller than defined by parameters `tolerance` and `ppm`. The function
+#' thus evaluates the differences between consecutive values and if they are
+#' smaller than `< tolerance + ppm(x, ppm)` they are grouped into the same
+#' run. In other words, if `x[3] - x[2]` as well as `x[4] - x[3]` is
+#' `< tolerance + ppm(x, ppm)` they are all grouped into the same run. Note
+#' that `x` is expected to be increasingly ordered.
 #'
 #' @param x `numeric`, the values to be matched.
 #' @param table `numeric`, the values to be matched against. In contrast to
@@ -14,6 +24,8 @@
 #' @param nomatch `numeric(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
+#' @param ppm For `groupRun`: `numeric(1)` representing a relative,
+#'     value-specific parts-per-million (PPM) tolerance.
 #'
 #' @details
 #' The `tolerance` argument could be set to `0` to get the same results as for
@@ -43,7 +55,7 @@
 #' there is no match.
 #'
 #' @rdname matching
-#' @author Sebastian Gibb
+#' @author Sebastian Gibb, Johannes Rainer
 #' @seealso [`match()`]
 #' @aliases closest
 #' @export
@@ -147,4 +159,35 @@ common <- function(x, table, tolerance = Inf,
                    duplicates = c("keep", "closest", "remove")) {
     closest(x, table, tolerance = tolerance, duplicates = duplicates,
             nomatch = 0L) > 0L
+}
+
+#' @rdname matching
+#'
+#' @return `groupRun` returns an `integer` indicating which elements in `x` are
+#'     close enough to be considered the *same* (group).
+#'
+#' @export
+#'
+#' @examples
+#'
+#' ## Group the input values
+#' x <- seq(1, 4, 0.1)
+#'
+#' ## Each element is it's own group
+#' groupRun(x)
+#'
+#' ## With tolerance of 0.1 all are assigned to the same group (i.e. difference
+#' ## between consecutive elements is <= tolerance.
+#' groupRun(x, tolerance = 0.1)
+#'
+#' x <- 1:20
+#' x[20] <- x[19] + ppm(x[19], 20)
+#' groupRun(x)
+#' groupRun(x, ppm = 20)
+groupRun <- function(x, tolerance = 0, ppm = 0) {
+    tolerance <- tolerance + sqrt(.Machine$double.eps)
+    if (ppm > 0)
+        cumsum(c(0L, diff(x) > (tolerance + ppm(x[-length(x)], ppm)))) + 1L
+    else
+        cumsum(c(0L, diff(x) > tolerance)) + 1L
 }

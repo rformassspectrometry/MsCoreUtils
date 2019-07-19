@@ -66,3 +66,22 @@ test_that("common", {
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5, duplicates =
                         "remove"), rep(FALSE, 3))
 })
+
+test_that("groupRun works", {
+    x <- 1:6
+    res <- groupRun(x)
+    expect_equal(length(x), length(res))
+    expect_identical(res, 1:6)
+    res <- groupRun(x, tolerance = 1)
+    expect_equal(length(x), length(res))
+    expect_true(all(res == 1))
+
+    x[5] <- x[4] + ppm(x[4], 5)
+    res <- groupRun(x, ppm = 5)
+    expect_equal(length(x), length(res))
+    expect_equal(res, c(1, 2, 3, 4, 4, 5))
+    x[6] <- x[5] + ppm(x[5], 3)
+    res <- groupRun(x, ppm = 5)
+    expect_equal(length(x), length(res))
+    expect_equal(res, c(1, 2, 3, 4, 4, 4))
+})

@@ -3,6 +3,7 @@
 export(bin)
 export(closest)
 export(common)
+export(groupRun)
 export(ppm)
 export(vapply1c)
 export(vapply1d)
