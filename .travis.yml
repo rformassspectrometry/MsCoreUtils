@@ -24,6 +24,18 @@ after_success:
 # https://github.com/travis-ci/travis-ci/issues/6018
 after_failure: sleep 10
 
+before_deploy:
+  - Rscript -e 'pkgdown::build_site()'
+
+deploy:
+  provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_PAT
+    keep-history: true
+    local-dir: docs
+    on:
+      branch: master
+
 notifications:
   email:
     on_failure: change
