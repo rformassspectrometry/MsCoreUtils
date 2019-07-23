@@ -1,5 +1,6 @@
-#' Find Peak Valleys
+#' @title Find Peak Valleys
 #'
+#' @description
 #' This function finds the valleys around peaks.
 #'
 #' @param x `numeric`, e.g. intensity values.
