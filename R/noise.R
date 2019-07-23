@@ -1,5 +1,6 @@
-#' Noise Estimation
+#' @title Noise Estimation
 #'
+#' @description
 #' This functions estimate the noise in the data.
 #'
 #' @param x `numeric`, x values for noise estimation (e.g. *mz*)

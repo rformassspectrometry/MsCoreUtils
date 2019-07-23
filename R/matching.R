@@ -1,5 +1,6 @@
-#' Relaxed Value Matching
+#' @title Relaxed Value Matching
 #'
+#' @description
 #' These functions offer relaxed matching of one vector in another.
 #' In contrast to the similar [`match()`] and [`%in%`] functions they
 #' just accept `numeric` arguments but have an additional `tolerance`

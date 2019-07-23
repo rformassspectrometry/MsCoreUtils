@@ -1,5 +1,6 @@
-#' Local Maxima
+#' @title Local Maxima
 #'
+#' @description
 #' This function finds local maxima in a numeric vector. A local maximum is
 #' defined as maximum in a window of the current index +/- `hws`.
 #'

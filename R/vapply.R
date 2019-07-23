@@ -1,5 +1,6 @@
-#' vapply wrappers
+#' @title vapply wrappers
 #'
+#' @description
 #' These functions are short wrappers around typical `vapply` calls for easier
 #' development.
 #'
