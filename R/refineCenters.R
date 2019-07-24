@@ -51,10 +51,8 @@
 #'                        ", descending =", c("FALSE", "FALSE", "TRUE")),
 #'        col = c("red", "blue", "green"), lwd = 1)
 refineCenters <- function(x, y, p, k = 2, threshold = 0.33, descending = TRUE) {
-    if (!is.numeric(x))
-        stop("'x' has to be a numeric vector.")
-    if (!is.numeric(y) || length(x) != length(y))
-        stop("'y' has to be a numeric vector of the same length as 'x'.")
+    if (!is.numeric(x) || !is.numeric(y) || length(x) != length(y))
+        stop("'x' and 'y' have to be numeric vectors of the same length.")
 
     if (missing(p) || !length(p))
         return(x)
