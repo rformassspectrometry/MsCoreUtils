@@ -32,7 +32,7 @@ problems.
 ints <- c(5, 8, 12, 7, 4, 9, 15, 16, 11, 8, 3, 2, 3, 2, 9, 12, 14, 13, 8, 3)
 mzs <- seq_along(ints)
 peaks <- which(localMaxima(ints, hws = 3))
-cols <- seq_len(peaks) + 1
+cols <- seq_along(peaks) + 1
 
 plot(mzs, ints, type = "h", ylim = c(0, 16))
 points(mzs[peaks], ints[peaks], col = cols, pch = 20)
@@ -42,11 +42,11 @@ segments(mzs[v[, "left"]], 0, mzs[v[, "right"]], col = cols, lwd = 2)
 
 ## Known limitations for plateaus
 y <- c(0, 0, 0, 0, 0, 1:5, 4:1, 0)
-valleys(y, 10) # left should be 5 here but is 1
+valleys(y, 10L) # left should be 5 here but is 1
 
 ## a possible workaround that may cause other problems
 y[min(y) == y] <- Inf
-valleys(y, 10)
+valleys(y, 10L)
 }
 \author{
 Sebastian Gibb
