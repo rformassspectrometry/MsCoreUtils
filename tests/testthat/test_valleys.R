@@ -1,6 +1,6 @@
 test_that("valleys", {
     expect_error(valleys(TRUE, 1), "numeric")
-    expect_error(valleys(1:10, TRUE), "numeric")
+    expect_error(valleys(1:10, TRUE), "integer")
 
     expect_equal(valleys(c(1:5, 4:1), 5),
                  matrix(c(1, 5, 9), nrow = 1,

@@ -5,7 +5,7 @@
 #'
 #' @param x `numeric`, e.g. intensity values.
 #'
-#' @param p `numeric`, indices of identified peaks/local maxima.
+#' @param p `integer`, indices of identified peaks/local maxima.
 #'
 #' @return A `matrix` with three columns representing the index of the left
 #' valley, the peak center, and the right valley.
@@ -26,8 +26,8 @@
 valleys <- function(x, p) {
     if (!is.numeric(x))
         stop("'x' has to be numeric vector.")
-    if (!is.numeric(p))
-        stop("'p' has to be numeric vector.")
+    if (!is.integer(p))
+        stop("'p' has to be an integer vector.")
 
     ## extend x on both sides to ensure that local minima at both extremes are
     ## found

@@ -9,7 +9,7 @@ valleys(x, p)
 \arguments{
 \item{x}{\code{numeric}, e.g. intensity values.}
 
-\item{p}{\code{numeric}, indices of identified peaks/local maxima.}
+\item{p}{\code{integer}, indices of identified peaks/local maxima.}
 }
 \value{
 A \code{matrix} with three columns representing the index of the left
