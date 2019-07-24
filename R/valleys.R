@@ -10,6 +10,16 @@
 #' @return A `matrix` with three columns representing the index of the left
 #' valley, the peak center, and the right valley.
 #'
+#' @note
+#' The detection of the valleys is based on [`localMaxima`]. It returns the
+#' *first* occurence of a local maximum (in this specific case the minimum).
+#' For plateaus, e.g. `c(0, 0, 0, 1:3, 2:1, 0)` this results in a wrongly
+#' reported left valley index of `1` (instead of `3`, see the example section as
+#' well). In real data this should not be a real problem.
+#' `x[x == min(x)] <- Inf` could be used before running `valleys` to circumvent
+#' this specific problem but it is not really tested and could cause different
+#' problems.
+#'
 #' @author Sebastian Gibb
 #' @export
 #' @examples
@@ -23,6 +33,14 @@
 #'
 #' v <- valleys(ints, peaks)
 #' segments(mzs[v[, "left"]], 0, mzs[v[, "right"]], col = cols, lwd = 2)
+#'
+#' ## Known limitations for plateaus
+#' y <- c(0, 0, 0, 0, 0, 1:5, 4:1, 0)
+#' valleys(y, 10) # left should be 5 here but is 1
+#'
+#' ## a possible workaround that may cause other problems
+#' y[min(y) == y] <- Inf
+#' valleys(y, 10)
 valleys <- function(x, p) {
     if (!is.numeric(x))
         stop("'x' has to be numeric vector.")
