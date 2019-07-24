@@ -8,7 +8,7 @@
 #' @param p `integer`, indices of identified peaks/local maxima.
 #'
 #' @return A `matrix` with three columns representing the index of the left
-#' valley, the peak center, and the right valley.
+#' valley, the peak centroid, and the right valley.
 #'
 #' @note
 #' The detection of the valleys is based on [`localMaxima`]. It returns the
@@ -62,6 +62,6 @@ valleys <- function(x, p) {
     r <- rv[findInterval(-p[np:1L], -rv)[np:1L]]
 
     m <- matrix(c(l, p, r), ncol = 3L,
-                dimnames = list(c(), c("left", "center", "right")))
+                dimnames = list(c(), c("left", "centroid", "right")))
     m - 1L
 }

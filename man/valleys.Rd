@@ -13,7 +13,7 @@ valleys(x, p)
 }
 \value{
 A \code{matrix} with three columns representing the index of the left
-valley, the peak center, and the right valley.
+valley, the peak centroid, and the right valley.
 }
 \description{
 This function finds the valleys around peaks.

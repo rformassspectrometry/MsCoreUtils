@@ -1,8 +1,8 @@
-#' @title Refine Peak Centers
+#' @title Refine Peak Centroids
 #'
 #' @description
-#' This function refines the center values of a peak by weighting the y values
-#' in the neightbourhood that belong most likely to the same peak.
+#' This function refines the centroided values of a peak by weighting the y
+#' values in the neighbourhood that belong most likely to the same peak.
 #'
 #' @param x `numeric`, i.e. m/z values.
 #' @param y `numeric`, i.e. intensity values.
@@ -12,16 +12,16 @@
 #' @param threshold `double(1)`, proportion of the maximal peak intensity.
 #'  Just values above are used for the weighted mean calclulation.
 #' @param descending `logical`, if `TRUE` just values between the nearest
-#'  valleys around the peak centers are used.
+#'  valleys around the peak centroids are used.
 #'
 #' @details
 #' For `descending = FALSE` the function looks for the `k` nearest neighbouring
 #' data points and use their `x` for weighted mean with their corresponding `y`
-#' values as weights for calculation of the new peak center. If `k` are chosen
-#' too large it could result in skewed peak centers, see example below.
+#' values as weights for calculation of the new peak centroid. If `k` are chosen
+#' too large it could result in skewed peak centroids, see example below.
 #' If `descending = TRUE` is used the `k` should be general larger because it is
 #' trimmed automatically to the nearest valleys on both sides of the peak so the
-#' problem with skewed centers is rare.
+#' problem with skewed centroids is rare.
 #'
 #' @author Sebastian Gibb, Johannes Rainer
 #' @export
@@ -35,22 +35,23 @@
 #' points(mzs[pidx], ints[pidx], pch = 16)
 #'
 #' ## Use the weighted average considering the adjacent mz
-#' mzs1 <- refineCenters(mzs, ints, pidx,
-#'                       k = 2L, descending = FALSE, threshold = 0)
-#' mzs2 <- refineCenters(mzs, ints, pidx,
-#'                       k = 5L, descending = FALSE, threshold = 0)
-#' mzs3 <- refineCenters(mzs, ints, pidx,
-#'                       k = 5L, descending = TRUE, threshold = 0)
+#' mzs1 <- refineCentroids(mzs, ints, pidx,
+#'                         k = 2L, descending = FALSE, threshold = 0)
+#' mzs2 <- refineCentroids(mzs, ints, pidx,
+#'                         k = 5L, descending = FALSE, threshold = 0)
+#' mzs3 <- refineCentroids(mzs, ints, pidx,
+#'                         k = 5L, descending = TRUE, threshold = 0)
 #' points(mzs1, ints[pidx], col = "red", type = "h")
-#' ## please recognize the artificial moved center of the first peak caused by a
-#' ## too large k, here
+#' ## please recognize the artificial moved centroids of the first peak caused
+#' ## by a too large k, here
 #' points(mzs2, ints[pidx], col = "blue", type = "h")
 #' points(mzs3, ints[pidx], col = "green", type = "h")
 #' legend("topright",
 #'        legend = paste0("k = ", c(2, 5, 5),
 #'                        ", descending =", c("FALSE", "FALSE", "TRUE")),
 #'        col = c("red", "blue", "green"), lwd = 1)
-refineCenters <- function(x, y, p, k = 2, threshold = 0.33, descending = TRUE) {
+refineCentroids <- function(x, y, p, k = 2, threshold = 0.33,
+                            descending = FALSE) {
     if (!is.numeric(x) || !is.numeric(y) || length(x) != length(y))
         stop("'x' and 'y' have to be numeric vectors of the same length.")
 
@@ -107,7 +108,7 @@ refineCenters <- function(x, y, p, k = 2, threshold = 0.33, descending = TRUE) {
 #'     peak that should be looked for valleys.
 #'
 #' @return A `matrix` with a column for each peak in `p` and `2 * k + 1`
-#' rows where the middle row `k + 1` is the peak center. If the values is `1`
+#' rows where the middle row `k + 1` is the peak centroid. If the values is `1`
 #' the index belongs to the peak region.
 #'
 #' @author Sebastian Gibb
@@ -129,10 +130,10 @@ refineCenters <- function(x, y, p, k = 2, threshold = 0.33, descending = TRUE) {
 
     ## valley to peak regions
     ## before/left = (k - l) x `0` => 1:(p - l - 1), region before peak
-    ## pr/center = (l + r + 1 (peak) = x `1` => (p - l):(r - p), peak region
+    ## pr/centroid = (l + r + 1 (peak) = x `1` => (p - l):(r - p), peak region
     ## after/right = (k + 1L - r) x `0` => (r - p + 1):(2 * k + 1), region after
     ## peak
-    v[, "center"] <- v[, "left"] + v[, "right"] + 1L
+    v[, "centroid"] <- v[, "left"] + v[, "right"] + 1L
     v[, c("left", "right")] <- k - v[, c("left", "right")]
     n <- length(p)
     m <- rep.int(rep.int(c(0L, 1L, 0L), n), t(v))
