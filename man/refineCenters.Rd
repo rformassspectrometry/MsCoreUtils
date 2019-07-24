@@ -11,7 +11,7 @@ refineCenters(x, y, p, k = 2, threshold = 0.33, descending = TRUE)
 
 \item{y}{\code{numeric}, i.e. intensity values.}
 
-\item{p}{\code{numeric}, peak centers.}
+\item{p}{\code{integer}, indices of identified peaks/local maxima.}
 
 \item{k}{\code{integer(1)}, number of values left and right of the peak that
 should be considered in the weighted mean calculation.}
@@ -41,7 +41,7 @@ mzs <- seq_along(ints)
 
 plot(mzs, ints, type = "h")
 
-pidx <- c(3, 8, 16)
+pidx <- as.integer(c(3, 8, 16))
 points(mzs[pidx], ints[pidx], pch = 16)
 
 ## Use the weighted average considering the adjacent mz

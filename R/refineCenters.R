@@ -6,7 +6,7 @@
 #'
 #' @param x `numeric`, i.e. m/z values.
 #' @param y `numeric`, i.e. intensity values.
-#' @param p `numeric`, peak centers.
+#' @param p `integer`, indices of identified peaks/local maxima.
 #' @param k `integer(1)`, number of values left and right of the peak that
 #'  should be considered in the weighted mean calculation.
 #' @param threshold `double`, ratio of the maximal peak intensity. Just values
@@ -31,7 +31,7 @@
 #'
 #' plot(mzs, ints, type = "h")
 #'
-#' pidx <- c(3, 8, 16)
+#' pidx <- as.integer(c(3, 8, 16))
 #' points(mzs[pidx], ints[pidx], pch = 16)
 #'
 #' ## Use the weighted average considering the adjacent mz
@@ -58,8 +58,8 @@ refineCenters <- function(x, y, p, k = 2, threshold = 0.33, descending = TRUE) {
 
     if (missing(p) || !length(p))
         return(x)
-    if (!is.numeric(p))
-        stop("'p' has to be a numeric vector.")
+    if (!is.integer(p))
+        stop("'p' has to be an integer vector.")
 
     if (length(k) != 1L || !is.integer(k))
         stop("'k' has to be an integer of length 1.")

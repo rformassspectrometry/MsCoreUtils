@@ -2,23 +2,24 @@ test_that("refineCenters throws errors on wrong input", {
     expect_error(refineCenters(TRUE), "numeric")
     expect_error(refineCenters(1:3, TRUE), "numeric")
     expect_error(refineCenters(1:3, 1:5), "same length")
-    expect_error(refineCenters(1:3, 1:3, p = 1, k = TRUE), "integer")
-    expect_error(refineCenters(1:3, 1:3, p = 1, k = 1:2), "length 1")
-    expect_error(refineCenters(1:3, 1:3, p = 1, k = 2L, threshold = -0.5),
+    expect_error(refineCenters(1:3, 1:3, p = 1), "integer")
+    expect_error(refineCenters(1:3, 1:3, p = 1L, k = TRUE), "integer")
+    expect_error(refineCenters(1:3, 1:3, p = 1L, k = 1:2), "length 1")
+    expect_error(refineCenters(1:3, 1:3, p = 1L, k = 2L, threshold = -0.5),
                  "between 0 and 1")
-    expect_error(refineCenters(1:3, 1:3, p = 1, k = 2L, threshold = 1.5),
+    expect_error(refineCenters(1:3, 1:3, p = 1L, k = 2L, threshold = 1.5),
                  "between 0 and 1")
-    expect_error(refineCenters(1:3, 1:3, p = 1, k = 2L, descending = NA),
+    expect_error(refineCenters(1:3, 1:3, p = 1L, k = 2L, descending = NA),
                  "'TRUE' or 'FALSE'")
 })
 
 test_that("refineCenters", {
     expect_equal(refineCenters(1:3, 1:3), 1:3)
-    expect_equal(refineCenters(1:3, 1:3, p = numeric()), 1:3)
+    expect_equal(refineCenters(1:3, 1:3, p = integer()), 1:3)
 
     y <- c(1:5, 4:2, 1:3, 1:10, 9)
     x <- seq_along(y)
-    p <- c(5, 11, 21)
+    p <- c(5L, 11L, 21L)
 
     expect_equal(refineCenters(x, y, p, k = 2L,
                                descending = FALSE, threshold = 0),
@@ -47,7 +48,7 @@ test_that("refineCenters", {
 
 test_that(".peakRegionMask", {
     y <- c(1:5, 4:2, 1:3, 1:10, 9)
-    p <- c(5, 11, 21)
+    p <- c(5L, 11L, 21L)
     expect_equal(.peakRegionMask(y, p, k = 1),
                  matrix(rep(1, 9), nrow = 3))
     expect_equal(.peakRegionMask(y, p, k = 2),
