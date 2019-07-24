@@ -9,8 +9,8 @@
 #' @param p `integer`, indices of identified peaks/local maxima.
 #' @param k `integer(1)`, number of values left and right of the peak that
 #'  should be considered in the weighted mean calculation.
-#' @param threshold `double`, ratio of the maximal peak intensity. Just values
-#'  above are used for the weighted mean calclulation.
+#' @param threshold `double(1)`, proportion of the maximal peak intensity.
+#'  Just values above are used for the weighted mean calclulation.
 #' @param descending `logical`, if `TRUE` just values between the nearest
 #'  valleys around the peak centers are used.
 #'

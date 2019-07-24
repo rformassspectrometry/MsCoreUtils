@@ -16,8 +16,8 @@ refineCenters(x, y, p, k = 2, threshold = 0.33, descending = TRUE)
 \item{k}{\code{integer(1)}, number of values left and right of the peak that
 should be considered in the weighted mean calculation.}
 
-\item{threshold}{\code{double}, ratio of the maximal peak intensity. Just values
-above are used for the weighted mean calclulation.}
+\item{threshold}{\code{double(1)}, proportion of the maximal peak intensity.
+Just values above are used for the weighted mean calclulation.}
 
 \item{descending}{\code{logical}, if \code{TRUE} just values between the nearest
 valleys around the peak centers are used.}
