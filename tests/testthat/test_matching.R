@@ -85,3 +85,45 @@ test_that("groupRun works", {
     expect_equal(length(x), length(res))
     expect_equal(res, c(1, 2, 3, 4, 4, 4))
 })
+
+test_that("joinNumeric works", {
+    x <- c(12.2, 13.4, 16.5, 23.5, 45.3, 57, 87)
+    y <- c(5.3, 8.9, 13.4 + ppm(13.4, 5), 34.5, 45.3 + ppm(45.3, 10), 57.1, 234.2)
+
+    res <- joinNumeric(x, y)
+    expect_true(length(res$x) == length(res$y))
+    expect_true(length(res$x) == length(c(x, y)))
+
+    res <- joinNumeric(x, y, join = "left")
+    expect_true(length(res$x) == length(x))
+    expect_equal(res$x, seq_along(x))
+    expect_equal(res$y, rep(NA_integer_, length(x)))
+
+    res <- joinNumeric(x, y, join = "right")
+    expect_true(length(res$x) == length(y))
+    expect_equal(res$x, rep(NA_integer_, length(y)))
+    expect_equal(res$y, seq_along(y))
+
+    res <- joinNumeric(x, y, join = "inner")
+    expect_true(length(res$x) == length(res$y))
+    expect_true(length(res$x) == 0)
+
+    res <- joinNumeric(x, y, ppm = 5)
+    expect_true(length(res$x) == length(res$y))
+    expect_true(length(res$x) == length(c(x, y)) - 1) # one element matching
+
+    res <- joinNumeric(x, y, ppm = 5, join = "inner")
+    expect_true(length(res$x) == length(res$y))
+    expect_equal(res$x, 2)
+    expect_equal(res$y, 3)
+
+    res <- joinNumeric(x, y, ppm = 10, join = "inner")
+    expect_true(length(res$x) == length(res$y))
+    expect_equal(res$x, c(2, 5))
+    expect_equal(res$y, c(3, 5))
+
+    res <- joinNumeric(x, y, tolerance = 0.1, join = "inner")
+    expect_true(length(res$x) == length(res$y))
+    expect_equal(res$x, c(2, 5, 6))
+    expect_equal(res$y, c(3, 5, 6))
+})

@@ -4,6 +4,7 @@
 \alias{closest}
 \alias{common}
 \alias{groupRun}
+\alias{joinNumeric}
 \title{Relaxed Value Matching}
 \usage{
 closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
@@ -13,6 +14,9 @@ common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
   "remove"))
 
 groupRun(x, tolerance = 0, ppm = 0)
+
+joinNumeric(x, y, tolerance = 0, ppm = 0, join = c("outer", "left",
+  "right", "inner"))
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched.}
@@ -31,6 +35,12 @@ between the value in \code{x} and \code{table} is larger than
 
 \item{ppm}{For \code{groupRun}: \code{numeric(1)} representing a relative,
 value-specific parts-per-million (PPM) tolerance.}
+
+\item{y}{For \code{joinNumeric}: \code{numeric} to match values in \code{x} against.}
+
+\item{join}{For \code{joinNumeric}: \code{character} defining the way how vectors
+should be joined. Allowed are \code{"outer"}, \code{"left"}, \code{"right"} and
+\code{"inner"}. See function description for details.}
 }
 \value{
 \code{closest} returns an \code{integer} vector of the same length as \code{x}
@@ -42,6 +52,10 @@ element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in
 
 \code{groupRun} returns an \code{integer} indicating which elements in \code{x} are
 close enough to be considered the \emph{same} (group).
+
+\code{joinNumeric} returns a \code{list} with elements \code{x} and \code{y}, each representing
+the index of the values in \code{x} matching the corresponding value in \code{y} (or
+\code{NA} if the value does not match).
 }
 \description{
 These functions offer relaxed matching of one vector in another.
@@ -56,6 +70,20 @@ smaller than \code{< tolerance + ppm(x, ppm)} they are grouped into the same
 run. In other words, if \code{x[3] - x[2]} as well as \code{x[4] - x[3]} is
 \code{< tolerance + ppm(x, ppm)} they are all grouped into the same run. Note
 that \code{x} is expected to be increasingly ordered.
+
+\code{joinNumeric}: joins two \code{numeric} vectors by mapping values in \code{x} with
+values in \code{y} and \emph{vice versa} if they are similar enough (provided the
+\code{tolerance} and \code{ppm} specified). The function returns a list with the
+indices of mapped values in \code{x} and \code{y}. Parameter \code{join} allows to define
+how the vectors will be joined: \code{join = "left"}: values in \code{x} will be
+mapped to values in \code{y}, elements in \code{y} not matching any value in \code{x} will
+be discarded. \code{join = "right"}: same as \code{join = "left"} but for \code{y}.
+\code{join = "outer"}: return matches for all values in \code{x} and in \code{y}.
+\code{join = "inner"}: report only indices of values that could be mapped.
+Note that at present the function will only report one index for multiple
+matches (e.g. if one value in \code{x} could be mapped to more than one value
+in \code{y}). A warning is displayed if multiple matches were found.
+See below for examples.
 }
 \details{
 The \code{tolerance} argument could be set to \code{0} to get the same results as for
@@ -135,6 +163,67 @@ x <- 1:20
 x[20] <- x[19] + ppm(x[19], 20)
 groupRun(x)
 groupRun(x, ppm = 20)
+
+## Examples for joinOrderedNumeric
+x <- c(1, 2, 3, 6)
+y <- c(3, 4, 5, 6, 7)
+
+## Outer joind of the two vectors
+res <- joinNumeric(x, y)
+res
+
+x[res$x]
+y[res$y]
+
+## Left join: keep all from x, only those from y that match a peak in x
+res <- joinNumeric(x, y, join = "left")
+res
+
+x[res$x]
+y[res$y]
+
+## If there are multiple matches, the **last** is reported
+y <- c(3, 4, 5, 6, 6, 7)
+
+res <- joinNumeric(x, y)
+res
+
+x[res$x]
+y[res$y]
+
+## Right join
+res <- joinNumeric(x, y, join = "right")
+res
+
+x[res$x]
+y[res$y]
+
+## Inner join
+res <- joinNumeric(x, y, join = "inner")
+res
+
+x[res$x]
+y[res$y]
+
+## More real case scenario: ppm difference.
+x <- c(23.4, 34.3, 123.5, 213.6, 412.6)
+y <- c(12.2, 23.5, 213.6 + ppm(213.6, 5), 237, 412.5)
+
+res <- joinNumeric(x, y)
+res
+
+res <- joinNumeric(x, y, tolerance = 0.1, join = "outer")
+res
+
+x[res$x]
+y[res$y]
+
+res <- joinNumeric(x, y, ppm = 5, join = "inner")
+res <- joinNumeric(x, rev(y), ppm = 5, join = "outer")
+res <- joinNumeric(y, rev(y), ppm = 5, join = "outer")
+
+x[res$x]
+y[res$y]
 }
 \seealso{
 \code{\link[=match]{match()}}
