@@ -4,7 +4,8 @@ test_that("refineCentroids throws errors on wrong input", {
     expect_error(refineCentroids(1:3, 1:5), "same length")
     expect_error(refineCentroids(1:3, 1:3, p = 1), "integer")
     expect_error(refineCentroids(1:3, 1:3, p = 1L, k = TRUE), "integer")
-    expect_error(refineCentroids(1:3, 1:3, p = 1L, k = 1:2), "length 1")
+    expect_error(refineCentroids(1:3, 1:3, p = 1L, k = 1L:2L), "length 1")
+    expect_error(refineCentroids(1:3, 1:3, p = 1L, k = -1L), ">= 0")
     expect_error(refineCentroids(1:3, 1:3, p = 1L, k = 2L, threshold = -0.5),
                  "between 0 and 1")
     expect_error(refineCentroids(1:3, 1:3, p = 1L, k = 2L, threshold = 1.5),
@@ -16,6 +17,7 @@ test_that("refineCentroids throws errors on wrong input", {
 test_that("refineCentroids", {
     expect_equal(refineCentroids(1:3, 1:3), 1:3)
     expect_equal(refineCentroids(1:3, 1:3, p = integer()), 1:3)
+    expect_equal(refineCentroids(1:3, 1:3, p = 3L, k = 0L), 3)
 
     y <- c(1:5, 4:2, 1:3, 1:10, 9)
     x <- seq_along(y)

@@ -4,7 +4,8 @@
 \alias{refineCentroids}
 \title{Refine Peak Centroids}
 \usage{
-refineCentroids(x, y, p, k = 2, threshold = 0.33, descending = FALSE)
+refineCentroids(x, y, p, k = 2L, threshold = 0.33,
+  descending = FALSE)
 }
 \arguments{
 \item{x}{\code{numeric}, i.e. m/z values.}

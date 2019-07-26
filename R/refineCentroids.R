@@ -50,7 +50,7 @@
 #'        legend = paste0("k = ", c(2, 5, 5),
 #'                        ", descending =", c("FALSE", "FALSE", "TRUE")),
 #'        col = c("red", "blue", "green"), lwd = 1)
-refineCentroids <- function(x, y, p, k = 2, threshold = 0.33,
+refineCentroids <- function(x, y, p, k = 2L, threshold = 0.33,
                             descending = FALSE) {
     if (!is.numeric(x) || !is.numeric(y) || length(x) != length(y))
         stop("'x' and 'y' have to be numeric vectors of the same length.")
@@ -60,8 +60,8 @@ refineCentroids <- function(x, y, p, k = 2, threshold = 0.33,
     if (!is.integer(p))
         stop("'p' has to be an integer vector.")
 
-    if (length(k) != 1L || !is.integer(k))
-        stop("'k' has to be an integer of length 1.")
+    if (length(k) != 1L || !is.integer(k) || k < 0L)
+        stop("'k' has to be an integer of length 1 and >= 0.")
 
     if (length(threshold) != 1L || !is.numeric(threshold) ||
         0 > threshold || threshold > 1)
@@ -118,10 +118,10 @@ refineCentroids <- function(x, y, p, k = 2, threshold = 0.33,
 #' @examples
 #' ints <- c(5, 8, 12, 7, 4, 9, 15, 16, 11, 8, 3, 2, 3, 2, 9, 12, 14, 13, 8, 3)
 #' mzs <- seq_along(ints)
-#' peaks <- which(localMaxima(ints, hws = 3))
+#' peaks <- which(localMaxima(ints, hws = 3L))
 #'
-#' m <- MsCoreUtils:::.peakRegionMask(ints, peaks, k)
-.peakRegionMask <- function(x, p, k = 30) {
+#' m <- MsCoreUtils:::.peakRegionMask(ints, peaks, k = 5L)
+.peakRegionMask <- function(x, p, k = 30L) {
     v <- valleys(x, p)
 
     ## if the valleys outside of the k window, set to k
