@@ -1,5 +1,6 @@
-#' PPM - Parts per Million
+#' @title PPM - Parts per Million
 #'
+#' @description
 #' `ppm` is a small helper function to determine the parts-per-million for a
 #' user-provided value and ppm.
 #'
