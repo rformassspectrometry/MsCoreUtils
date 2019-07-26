@@ -4,5 +4,6 @@
 ^\.gitignore$
 ^\.lintr$
 ^\.travis.yml$
+^pkgdown$
 ^playground$
 ^revdep$
