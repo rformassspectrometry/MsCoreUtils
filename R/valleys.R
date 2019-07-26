@@ -61,7 +61,5 @@ valleys <- function(x, p) {
     np <- length(p)
     r <- rv[findInterval(-p[np:1L], -rv)[np:1L]]
 
-    m <- matrix(c(l, p, r), ncol = 3L,
-                dimnames = list(c(), c("left", "centroid", "right")))
-    m - 1L
+    cbind(left = l, centroid = p, right = r) - 1L
 }
