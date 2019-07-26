@@ -24,3 +24,4 @@ ppm(c(1000, 2000), 5)
 \author{
 Sebastian Gibb
 }
+\concept{helper functions for users}

@@ -47,6 +47,7 @@
 #' @author Sebastian Gibb
 #' @seealso [`match()`]
 #' @aliases closest
+#' @family grouping/matching functions
 #' @export
 #' @examples
 #' ## Define two vectors to match

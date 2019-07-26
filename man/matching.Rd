@@ -108,7 +108,10 @@ common(x, y, tolerance = 0.5, duplicates = "remove")
 \code{\link[=match]{match()}}
 
 \code{\link{\%in\%}}
+
+Other grouping/matching functions: \code{\link{bin}}
 }
 \author{
 Sebastian Gibb
 }
+\concept{grouping/matching functions}

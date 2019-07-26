@@ -24,6 +24,7 @@
 #' problem with skewed centroids is rare.
 #'
 #' @author Sebastian Gibb, Johannes Rainer
+#' @family extreme value functions
 #' @export
 #' @examples
 #' ints <- c(5, 8, 12, 7, 4, 9, 15, 16, 11, 8, 3, 2, 3, 9, 12, 14, 13, 8, 3)
@@ -112,9 +113,9 @@ refineCentroids <- function(x, y, p, k = 2L, threshold = 0.33,
 #' the index belongs to the peak region.
 #'
 #' @author Sebastian Gibb
-#'
-#' @noRd
-#'
+#' @family extreme value functions
+#' @keywords internal
+#' @rdname peakRegionMask
 #' @examples
 #' ints <- c(5, 8, 12, 7, 4, 9, 15, 16, 11, 8, 3, 2, 3, 2, 9, 12, 14, 13, 8, 3)
 #' mzs <- seq_along(ints)

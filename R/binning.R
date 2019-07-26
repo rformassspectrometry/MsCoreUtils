@@ -26,7 +26,7 @@
 #' @export
 #'
 #' @rdname binning
-#'
+#' @family grouping/matching functions
 #' @examples
 #'
 #' ## Define example intensities and m/z values

@@ -9,7 +9,7 @@ localMaxima(x, hws = 1L)
 \arguments{
 \item{x}{\code{numeric}, vector that should be searched for local maxima.}
 
-\item{hws}{\code{numeric}, half window size, the resulting window reaches from
+\item{hws}{\code{integer(1)}, half window size, the resulting window reaches from
 \code{(i - hws):(i + hws)}.}
 }
 \value{
@@ -25,6 +25,11 @@ x <- c(1:5, 4:1, 1:10, 9:1, 1:5, 4:1)
 localMaxima(x)
 localMaxima(x, hws = 10)
 }
+\seealso{
+Other extreme value functions: \code{\link{.peakRegionMask}},
+  \code{\link{refineCentroids}}, \code{\link{valleys}}
+}
 \author{
 Sebastian Gibb
 }
+\concept{extreme value functions}

@@ -10,6 +10,7 @@
 #' @return `numeric`: parts-per-million of `x`
 #'
 #' @author Sebastian Gibb
+#' @family helper functions for users
 #' @export
 #' @examples
 #' ppm(c(1000, 2000), 5)

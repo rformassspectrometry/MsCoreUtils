@@ -48,6 +48,11 @@ valleys(y, 10L) # left should be 5 here but is 1
 y[min(y) == y] <- Inf
 valleys(y, 10L)
 }
+\seealso{
+Other extreme value functions: \code{\link{.peakRegionMask}},
+  \code{\link{localMaxima}}, \code{\link{refineCentroids}}
+}
 \author{
 Sebastian Gibb
 }
+\concept{extreme value functions}

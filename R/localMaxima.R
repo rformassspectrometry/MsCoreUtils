@@ -5,12 +5,13 @@
 #' defined as maximum in a window of the current index +/- `hws`.
 #'
 #' @param x `numeric`, vector that should be searched for local maxima.
-#' @param hws `numeric`, half window size, the resulting window reaches from
+#' @param hws `integer(1)`, half window size, the resulting window reaches from
 #' `(i - hws):(i + hws)`.
 #'
 #' @return A `logical` of the same length as `x` that is `TRUE` for each local
 #' maxima.
 #' @author Sebastian Gibb
+#' @family extreme value functions
 #' @useDynLib MsCoreUtils
 #' @export
 #' @examples

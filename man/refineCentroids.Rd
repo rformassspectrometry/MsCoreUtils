@@ -62,6 +62,11 @@ legend("topright",
                        ", descending =", c("FALSE", "FALSE", "TRUE")),
        col = c("red", "blue", "green"), lwd = 1)
 }
+\seealso{
+Other extreme value functions: \code{\link{.peakRegionMask}},
+  \code{\link{localMaxima}}, \code{\link{valleys}}
+}
 \author{
 Sebastian Gibb, Johannes Rainer
 }
+\concept{extreme value functions}

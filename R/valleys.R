@@ -21,6 +21,7 @@
 #' problems.
 #'
 #' @author Sebastian Gibb
+#' @family extreme value functions
 #' @export
 #' @examples
 #' ints <- c(5, 8, 12, 7, 4, 9, 15, 16, 11, 8, 3, 2, 3, 2, 9, 12, 14, 13, 8, 3)
