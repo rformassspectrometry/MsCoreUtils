@@ -8,6 +8,13 @@
 
 <title>Refine Peak Centroids — refineCentroids • MsCoreUtils</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -115,7 +122,8 @@ values in the neighbourhood that belong most likely to the same peak.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>refineCentroids</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>p</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='fl'>0.33</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>refineCentroids</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>p</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fl'>2L</span>, <span class='kw'>threshold</span> <span class='kw'>=</span> <span class='fl'>0.33</span>,
+  <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,6 +167,11 @@ If <code>descending = TRUE</code> is used the <code>k</code> should be general l
 trimmed automatically to the nearest valleys on both sides of the peak so the
 problem with skewed centroids is rare.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other extreme value functions: <code>.peakRegionMask</code>,
+  <code>localMaxima</code>, <code>valleys</code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>ints</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>9</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>11</span>, <span class='fl'>8</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>9</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>13</span>, <span class='fl'>8</span>, <span class='fl'>3</span>)
@@ -187,6 +200,8 @@ problem with skewed centroids is rare.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
