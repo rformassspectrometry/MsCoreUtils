@@ -39,6 +39,10 @@
 #' in `table`) is returned. For `duplicates="remove"` all multiple matches
 #' are returned as `nomatch` as above.
 #'
+#' @note
+#' All `NA` values in `x` are replaced by `nomatch` (that is identical to the
+#' behaviour of `match`).
+#'
 #' @return `closest` returns an `integer` vector of the same length as `x`
 #' giving the closest position in `table` of the first match or `nomatch` if
 #' there is no match.
@@ -113,19 +117,23 @@ closest <- function(x, table, tolerance = Inf,
     lIdx[d] <- rIdx[d]
 
     ## no match at all
-    lIdx[is.infinite(lDiff) & is.infinite(rDiff)] <- nomatch
+    lIdx[is.infinite(lDiff) & is.infinite(rDiff)] <- NA_integer_
 
     ## duplicated matches
     if (duplicates == "remove") {
-        lIdx[duplicated(lIdx) | duplicated(lIdx, fromLast = TRUE)] <- nomatch
-        lIdx[is.finite(lDiff) & is.finite(rDiff)] <- nomatch
+        lIdx[duplicated(lIdx) | duplicated(lIdx, fromLast = TRUE)] <-
+            NA_integer_
+        lIdx[is.finite(lDiff) & is.finite(rDiff)] <- NA_integer_
     } else if (duplicates == "closest") {
         ## lIdx could be updated
         o <- order(abs(table[lIdx] - x))
         m <- lIdx[o]
-        m[duplicated(m)] <- nomatch
+        m[duplicated(m)] <- NA_integer_
         lIdx[o] <- m
     }
+
+    if (!identical(nomatch, NA_integer_))
+        lIdx[is.na(lIdx)] <- nomatch
 
     as.integer(lIdx)
 }
@@ -147,6 +155,5 @@ closest <- function(x, table, tolerance = Inf,
 #' common(x, y, tolerance = 0.5, duplicates = "remove")
 common <- function(x, table, tolerance = Inf,
                    duplicates = c("keep", "closest", "remove")) {
-    closest(x, table, tolerance = tolerance, duplicates = duplicates,
-            nomatch = 0L) > 0L
+    !is.na(closest(x, table, tolerance = tolerance, duplicates = duplicates))
 }

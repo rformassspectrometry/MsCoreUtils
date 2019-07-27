@@ -63,6 +63,10 @@ matches in \code{table} are identical the lower index (the smaller element
 in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
 are returned as \code{nomatch} as above.
 }
+\note{
+All \code{NA} values in \code{x} are replaced by \code{nomatch} (that is identical to the
+behaviour of \code{match}).
+}
 \examples{
 ## Define two vectors to match
 x <- c(1, 3, 5)

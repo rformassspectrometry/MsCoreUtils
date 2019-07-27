@@ -55,6 +55,8 @@ test_that("closest, duplicates", {
     expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "closest"), 1)
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "keep"), 2)
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "closest"), 2)
+    expect_equal(closest(c(NA, 1.6), 1:2, tolerance = 0.5,
+                         duplicates = "closest"), c(NA, 2))
     expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "remove"),
                  NA_integer_)
 })
@@ -63,6 +65,8 @@ test_that("common", {
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5), rep(TRUE, 3))
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5, duplicates =
                         "closest"), c(FALSE, FALSE, TRUE))
+    expect_equal(common(c(1.6, 1.75, 5.8), 1:2, tolerance = 0.5, duplicates =
+                        "closest"), c(FALSE, TRUE, FALSE))
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5, duplicates =
                         "remove"), rep(FALSE, 3))
 })
