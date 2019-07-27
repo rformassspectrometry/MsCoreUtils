@@ -190,6 +190,11 @@ matches in <code>table</code> are identical the lower index (the smaller element
 in <code>table</code>) is returned. For <code>duplicates="remove"</code> all multiple matches
 are returned as <code>nomatch</code> as above.</p>
     
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+
+    <p>All <code>NA</code> values in <code>x</code> are replaced by <code>nomatch</code> (that is identical to the
+behaviour of <code>match</code>).</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code></p>
@@ -234,6 +239,8 @@ are returned as <code>nomatch</code> as above.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#note">Note</a></li>
 
       <li><a href="#see-also">See also</a></li>
       
