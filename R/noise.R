@@ -14,6 +14,7 @@
 #' @aliases noise
 #' @seealso [`stats::mad()`], [`stats::supsmu()`]
 #' @importFrom stats mad supsmu
+#' @family noise estimation and smoothing functions
 #' @export
 #' @examples
 #' x <- 1:20

@@ -14,6 +14,7 @@
 #' @rdname vapply
 #' @return `vapply1c` returns a vector of `character`s of length `X`.
 #' @aliases vapply1c
+#' @family helper functions for developers
 #' @export
 vapply1c <- function(X, FUN, ..., USE.NAMES=FALSE) {
     vapply(X=X, FUN=FUN, FUN.VALUE=NA_character_, ..., USE.NAMES=USE.NAMES)

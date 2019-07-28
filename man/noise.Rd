@@ -34,3 +34,4 @@ noise(x, y, method = "SuperSmoother", span = 1 / 3)
 \author{
 Sebastian Gibb
 }
+\concept{noise estimation and smoothing functions}

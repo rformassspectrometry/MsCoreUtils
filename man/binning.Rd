@@ -41,6 +41,10 @@ bin(ints, mz, size = 2)
 ## Repeat but summing up intensities instead of taking the max
 bin(ints, mz, size = 2, FUN = sum)
 }
+\seealso{
+Other grouping/matching functions: \code{\link{closest}}
+}
 \author{
 Johannes Rainer, Sebastian Gibb
 }
+\concept{grouping/matching functions}

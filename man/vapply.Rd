@@ -39,3 +39,4 @@ vapply1d(l, sum)
 \author{
 Sebastian Gibb
 }
+\concept{helper functions for developers}
