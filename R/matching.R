@@ -17,9 +17,9 @@
 #' `tolerance` `nomatch` is returned.
 #'
 #' @details
-#' The `tolerance` argument could be set to `0` to get the same results as for
-#' [`match()`]. If it is set to `Inf` (default) the index of the closest values
-#' is returned without any restriction.
+#' For `closest`/`common` the `tolerance` argument could be set to `0` to get
+#' the same results as for [`match()`]/[`%in%`]. If it is set to `Inf` (default)
+#' the index of the closest values is returned without any restriction.
 #'
 #' It is not guaranteed that there is a one-to-one matching for neither the
 #' `x` to `table` nor the `table` to `x` matching.
@@ -40,8 +40,8 @@
 #' are returned as `nomatch` as above.
 #'
 #' @note
-#' All `NA` values in `x` are replaced by `nomatch` (that is identical to the
-#' behaviour of `match`).
+#' `closest` will replace all `NA` values in `x` by `nomatch` (that is identical
+#' to the behaviour of `match`).
 #'
 #' @return `closest` returns an `integer` vector of the same length as `x`
 #' giving the closest position in `table` of the first match or `nomatch` if
@@ -156,4 +156,100 @@ closest <- function(x, table, tolerance = Inf,
 common <- function(x, table, tolerance = Inf,
                    duplicates = c("keep", "closest", "remove")) {
     !is.na(closest(x, table, tolerance = tolerance, duplicates = duplicates))
+}
+
+#' @rdname matching
+#'
+#' @details
+#' `join`: joins two `numeric` vectors by mapping values in `x` with
+#' values in `y` and *vice versa* if they are similar enough (provided the
+#' `tolerance` and `ppm` specified). The function returns a `matrix` with the
+#' indices of mapped values in `x` and `y`. Parameter `type` allows to define
+#' how the vectors will be joined: `type = "left"`: values in `x` will be
+#' mapped to values in `y`, elements in `y` not matching any value in `x` will
+#' be discarded. `type = "right"`: same as `type = "left"` but for `y`.
+#' `type = "outer"`: return matches for all values in `x` and in `y`.
+#' `type = "inner"`: report only indices of values that could be mapped.
+#'
+#' @param y `numeric`, the values to be joined. Should be sorted.
+#' @param ppm `numeric(1)` representing a relative, value-specific
+#'  parts-per-million (PPM) tolerance that is added to `tolerance`.
+#' @param type `character(1)`, defines how `x` and `y` should be joined. See
+#' details for `join`.
+#'
+#' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
+#' That means for multiple matches just the closest one is reported.
+#'
+#' @return `join` returns a `matrix` with two columns, namely `x` and `y`,
+#' representing the index of the values in `x` matching the corresponding value
+#' in `y` (or `NA` if the value does not match).
+#'
+#' @export
+#' @examples
+#'
+#' ## Join two vectors
+#' x <- c(1, 2, 3, 6)
+#' y <- c(3, 4, 5, 6, 7)
+#'
+#' jo <- join(x, y, type = "outer")
+#' jo
+#' x[jo[, "x"]]
+#' y[jo[, "y"]]
+#'
+#' jl <- join(x, y, type = "left")
+#' jl
+#' x[jl[, "x"]]
+#' y[jl[, "y"]]
+#'
+#' jr <- join(x, y, type = "right")
+#' jr
+#' x[jr[, "x"]]
+#' y[jr[, "y"]]
+#'
+#' ji <- join(x, y, type = "inner")
+#' ji
+#' x[ji[, "x"]]
+#' y[ji[, "y"]]
+join <- function(x, y, tolerance = 0, ppm = 0,
+                 type = c("outer", "left", "right", "inner")) {
+    switch(match.arg(type),
+           "outer" = .joinOuter(x, y, tolerance = tolerance + ppm(x, ppm)),
+           "left" = .joinLeft(x, y, tolerance = tolerance + ppm(y, ppm)),
+           "right" = .joinRight(x, y, tolerance = tolerance + ppm(x, ppm)),
+           "inner" = .joinInner(x, y, tolerance = tolerance + ppm(x, ppm))
+    )
+}
+
+.joinLeft <- function(x, y, tolerance) {
+    cbind(x = seq_along(x),
+          y = closest(x, y, tolerance = tolerance, duplicates = "closest"))
+}
+
+.joinRight <- function(x, y, tolerance) {
+    cbind(x = closest(y, x, tolerance = tolerance, duplicates = "closest"),
+          y = seq_along(y))
+}
+
+.joinInner <- function(x, y, tolerance) {
+    yi <- closest(y, x, tolerance = tolerance, duplicates = "closest")
+    notNa <- which(!is.na(yi))
+    cbind(x = yi[notNa],  y = notNa)
+}
+
+.joinOuter <- function(x, y, tolerance) {
+    ji <- .joinInner(x, y, tolerance = tolerance)
+    xn <- length(x)
+    yn <- length(y)
+    xy <- c(x, y)
+    ## replace common values
+    xy[xn + ji[, 2L]] <- xy[ji[, 1L]]
+    ## find position
+    i <- findInterval(xy, sort.int(xy[-(xn + ji[, 2L])]))
+    ## fill gaps with NA
+    ox <- oy <- rep.int(NA_integer_, xn + yn - dim(ji)[1L])
+    sx <- seq_len(xn)
+    sy <- seq_len(yn)
+    ox[i[sx]] <- sx
+    oy[i[xn + sy]] <- sy
+    cbind(x = ox, y = oy)
 }

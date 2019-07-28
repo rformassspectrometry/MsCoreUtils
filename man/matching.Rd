@@ -3,6 +3,7 @@
 \name{closest}
 \alias{closest}
 \alias{common}
+\alias{join}
 \title{Relaxed Value Matching}
 \usage{
 closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
@@ -10,6 +11,9 @@ closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
 
 common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
   "remove"))
+
+join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right",
+  "inner"))
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched.}
@@ -25,6 +29,14 @@ the same length as \code{table}.}
 \item{nomatch}{\code{numeric(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
+
+\item{y}{\code{numeric}, the values to be joined. Should be sorted.}
+
+\item{ppm}{\code{numeric(1)} representing a relative, value-specific
+parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
+
+\item{type}{\code{character(1)}, defines how \code{x} and \code{y} should be joined. See
+details for \code{join}.}
 }
 \value{
 \code{closest} returns an \code{integer} vector of the same length as \code{x}
@@ -33,6 +45,10 @@ there is no match.
 
 \code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
 element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in\%}}.
+
+\code{join} returns a \code{matrix} with two columns, namely \code{x} and \code{y},
+representing the index of the values in \code{x} matching the corresponding value
+in \code{y} (or \code{NA} if the value does not match).
 }
 \description{
 These functions offer relaxed matching of one vector in another.
@@ -41,9 +57,9 @@ just accept \code{numeric} arguments but have an additional \code{tolerance}
 argument that allows relaxed matching.
 }
 \details{
-The \code{tolerance} argument could be set to \code{0} to get the same results as for
-\code{\link[=match]{match()}}. If it is set to \code{Inf} (default) the index of the closest values
-is returned without any restriction.
+For \code{closest}/\code{common} the \code{tolerance} argument could be set to \code{0} to get
+the same results as for \code{\link[=match]{match()}}/\code{\link{\%in\%}}. If it is set to \code{Inf} (default)
+the index of the closest values is returned without any restriction.
 
 It is not guaranteed that there is a one-to-one matching for neither the
 \code{x} to \code{table} nor the \code{table} to \code{x} matching.
@@ -62,10 +78,23 @@ on \code{\link{findInterval}}). If the differences between \code{x} and the corr
 matches in \code{table} are identical the lower index (the smaller element
 in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
 are returned as \code{nomatch} as above.
+
+\code{join}: joins two \code{numeric} vectors by mapping values in \code{x} with
+values in \code{y} and \emph{vice versa} if they are similar enough (provided the
+\code{tolerance} and \code{ppm} specified). The function returns a \code{matrix} with the
+indices of mapped values in \code{x} and \code{y}. Parameter \code{type} allows to define
+how the vectors will be joined: \code{type = "left"}: values in \code{x} will be
+mapped to values in \code{y}, elements in \code{y} not matching any value in \code{x} will
+be discarded. \code{type = "right"}: same as \code{type = "left"} but for \code{y}.
+\code{type = "outer"}: return matches for all values in \code{x} and in \code{y}.
+\code{type = "inner"}: report only indices of values that could be mapped.
 }
 \note{
-All \code{NA} values in \code{x} are replaced by \code{nomatch} (that is identical to the
-behaviour of \code{match}).
+\code{closest} will replace all \code{NA} values in \code{x} by \code{nomatch} (that is identical
+to the behaviour of \code{match}).
+
+\code{join} is based on \code{closest(x, y, tolerance, duplicates = "closest")}.
+That means for multiple matches just the closest one is reported.
 }
 \examples{
 ## Define two vectors to match
@@ -107,6 +136,30 @@ y <- 1:2
 common(x, y, tolerance = 0.5)
 common(x, y, tolerance = 0.5, duplicates = "closest")
 common(x, y, tolerance = 0.5, duplicates = "remove")
+
+## Join two vectors
+x <- c(1, 2, 3, 6)
+y <- c(3, 4, 5, 6, 7)
+
+jo <- join(x, y, type = "outer")
+jo
+x[jo[, "x"]]
+y[jo[, "y"]]
+
+jl <- join(x, y, type = "left")
+jl
+x[jl[, "x"]]
+y[jl[, "y"]]
+
+jr <- join(x, y, type = "right")
+jr
+x[jr[, "x"]]
+y[jr[, "y"]]
+
+ji <- join(x, y, type = "inner")
+ji
+x[ji[, "x"]]
+y[ji[, "y"]]
 }
 \seealso{
 \code{\link[=match]{match()}}

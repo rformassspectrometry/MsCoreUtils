@@ -70,3 +70,35 @@ test_that("common", {
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5, duplicates =
                         "remove"), rep(FALSE, 3))
 })
+
+test_that("join", {
+    x <- c(1, 2, 3, 6)
+    y <- c(3, 4, 5, 6, 7)
+
+    expect_equal(join(x, y, type = "outer"),
+                 cbind(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, type = "left"),
+                 cbind(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, type = "right"),
+                 cbind(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, type = "inner"),
+                 cbind(x = 3:4, y = c(1, 4)))
+
+    x <- x + c(-0.1, 0.1)
+    expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
+                 cbind(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "left"),
+                 cbind(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "right"),
+                 cbind(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 cbind(x = 3:4, y = c(1, 4)))
+
+    ## multiple matches
+    x <- c(3.95, 4.04)
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 cbind(x = 2, y = 2))
+    x <- c(1, 8)
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 cbind(x = integer(), y = integer()))
+})
