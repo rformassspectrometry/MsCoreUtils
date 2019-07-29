@@ -238,18 +238,18 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 
 .joinOuter <- function(x, y, tolerance) {
     ji <- .joinInner(x, y, tolerance = tolerance)
-    xn <- length(x)
-    yn <- length(y)
+    nx <- length(x)
+    ny <- length(y)
     xy <- c(x, y)
-    ## replace common values
-    xy[xn + ji[, 2L]] <- xy[ji[, 1L]]
+    ## equalise values that are identified as common
+    xy[nx + ji[, 2L]] <- xy[ji[, 1L]]
     ## find position
-    i <- findInterval(xy, sort.int(xy[-(xn + ji[, 2L])]))
+    i <- findInterval(xy, sort.int(xy[-(nx + ji[, 2L])]))
     ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, xn + yn - dim(ji)[1L])
-    sx <- seq_len(xn)
-    sy <- seq_len(yn)
+    ox <- oy <- rep.int(NA_integer_, nx + ny - dim(ji)[1L])
+    sx <- seq_len(nx)
+    sy <- seq_len(ny)
     ox[i[sx]] <- sx
-    oy[i[xn + sy]] <- sy
+    oy[i[nx + sy]] <- sy
     cbind(x = ox, y = oy)
 }
