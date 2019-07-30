@@ -143,23 +143,23 @@ y <- c(3, 4, 5, 6, 7)
 
 jo <- join(x, y, type = "outer")
 jo
-x[jo[, "x"]]
-y[jo[, "y"]]
+x[jo$x]
+y[jo$y]
 
 jl <- join(x, y, type = "left")
 jl
-x[jl[, "x"]]
-y[jl[, "y"]]
+x[jl$x]
+y[jl$y]
 
 jr <- join(x, y, type = "right")
 jr
-x[jr[, "x"]]
-y[jr[, "y"]]
+x[jr$x]
+y[jr$y]
 
 ji <- join(x, y, type = "inner")
 ji
-x[ji[, "x"]]
-y[ji[, "y"]]
+x[ji$x]
+y[ji$y]
 }
 \seealso{
 \code{\link[=match]{match()}}

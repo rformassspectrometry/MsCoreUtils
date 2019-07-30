@@ -193,23 +193,23 @@ common <- function(x, table, tolerance = Inf,
 #'
 #' jo <- join(x, y, type = "outer")
 #' jo
-#' x[jo[, "x"]]
-#' y[jo[, "y"]]
+#' x[jo$x]
+#' y[jo$y]
 #'
 #' jl <- join(x, y, type = "left")
 #' jl
-#' x[jl[, "x"]]
-#' y[jl[, "y"]]
+#' x[jl$x]
+#' y[jl$y]
 #'
 #' jr <- join(x, y, type = "right")
 #' jr
-#' x[jr[, "x"]]
-#' y[jr[, "y"]]
+#' x[jr$x]
+#' y[jr$y]
 #'
 #' ji <- join(x, y, type = "inner")
 #' ji
-#' x[ji[, "x"]]
-#' y[ji[, "y"]]
+#' x[ji$x]
+#' y[ji$y]
 join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner")) {
     switch(match.arg(type),
@@ -221,39 +221,39 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 }
 
 .joinLeft <- function(x, y, tolerance) {
-    cbind(x = seq_along(x),
-          y = closest(x, y, tolerance = tolerance, duplicates = "closest"))
+    list(x = seq_along(x),
+         y = closest(x, y, tolerance = tolerance, duplicates = "closest"))
 }
 
 .joinRight <- function(x, y, tolerance) {
-    cbind(x = closest(y, x, tolerance = tolerance, duplicates = "closest"),
-          y = seq_along(y))
+    list(x = closest(y, x, tolerance = tolerance, duplicates = "closest"),
+         y = seq_along(y))
 }
 
 .joinInner <- function(x, y, tolerance) {
     yi <- closest(y, x, tolerance = tolerance, duplicates = "closest")
     notNa <- which(!is.na(yi))
-    cbind(x = yi[notNa],  y = notNa)
+    list(x = yi[notNa],  y = notNa)
 }
 
 .joinOuter <- function(x, y, tolerance) {
     ji <- .joinInner(x, y, tolerance = tolerance)
     nx <- length(x)
     ny <- length(y)
-    nr <- dim(ji)[1L]
+    nlx <- length(ji[[1L]])
     xy <- xys <- c(x, y)
     ## equalise values that are identified as common
-    if (nr) {
-        xy[nx + ji[, 2L]] <- xy[ji[, 1L]]
-        xys <- xy[-(nx + ji[, 2L])]
+    if (nlx) {
+        xy[nx + ji[[2L]]] <- xy[ji[[1L]]]
+        xys <- xy[-(nx + ji[[2L]])]
     }
     ## find position
     i <- findInterval(xy, sort.int(xys))
     ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, nx + ny - nr)
+    ox <- oy <- rep.int(NA_integer_, nx + ny - nlx)
     sx <- seq_len(nx)
     sy <- seq_len(ny)
     ox[i[sx]] <- sx
     oy[i[nx + sy]] <- sy
-    cbind(x = ox, y = oy)
+    list(x = ox, y = oy)
 }
