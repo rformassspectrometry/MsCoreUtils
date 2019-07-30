@@ -11,6 +11,7 @@ reference:
       - '`bin`'
       - '`closest`'
       - '`common`'
+      - '`join`'
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
