@@ -240,13 +240,17 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     ji <- .joinInner(x, y, tolerance = tolerance)
     nx <- length(x)
     ny <- length(y)
-    xy <- c(x, y)
+    nr <- dim(ji)[1L]
+    xy <- xys <- c(x, y)
     ## equalise values that are identified as common
-    xy[nx + ji[, 2L]] <- xy[ji[, 1L]]
+    if (nr) {
+        xy[nx + ji[, 2L]] <- xy[ji[, 1L]]
+        xys <- xy[-(nx + ji[, 2L])]
+    }
     ## find position
-    i <- findInterval(xy, sort.int(xy[-(nx + ji[, 2L])]))
+    i <- findInterval(xy, sort.int(xys))
     ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, nx + ny - dim(ji)[1L])
+    ox <- oy <- rep.int(NA_integer_, nx + ny - nr)
     sx <- seq_len(nx)
     sy <- seq_len(ny)
     ox[i[sx]] <- sx

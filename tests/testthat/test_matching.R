@@ -101,4 +101,11 @@ test_that("join", {
     x <- c(1, 8)
     expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
                  cbind(x = integer(), y = integer()))
+
+    ## no match at all
+    x <- c(1, 2, 3, 6)
+    y <- c(4, 5, 7)
+    expect_equal(join(x, y, type = "outer"),
+                 cbind(x = c(1:3, NA, NA, 4, NA),
+                       y = c(NA, NA, NA, 1:2, NA, 3)))
 })
