@@ -130,7 +130,10 @@ argument that allows relaxed matching.</p>
   <span class='st'>"remove"</span>), <span class='kw'>nomatch</span> <span class='kw'>=</span> <span class='fl'>NA_integer_</span>)
 
 <span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"keep"</span>, <span class='st'>"closest"</span>,
-  <span class='st'>"remove"</span>))</pre>
+  <span class='st'>"remove"</span>))
+
+<span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"outer"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>,
+  <span class='st'>"inner"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,6 +162,20 @@ the same length as <code>table</code>.</p></td>
 between the value in <code>x</code> and <code>table</code> is larger than
 <code>tolerance</code> <code>nomatch</code> is returned.</p></td>
     </tr>
+    <tr>
+      <th>y</th>
+      <td><p><code>numeric</code>, the values to be joined. Should be sorted.</p></td>
+    </tr>
+    <tr>
+      <th>ppm</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code> representing a relative, value-specific
+parts-per-million (PPM) tolerance that is added to <code>tolerance</code>.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>, defines how <code>x</code> and <code>y</code> should be joined. See
+details for <code>join</code>.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -168,12 +185,15 @@ giving the closest position in <code>table</code> of the first match or <code>no
 there is no match.</p>
 <p><code>common</code> returns a <code>logical</code> vector of length <code>x</code> that is <code>TRUE</code> if the
 element in <code>x</code> was found in <code>table</code>. It is similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code>.</p>
+<p><code>join</code> returns a <code>matrix</code> with two columns, namely <code>x</code> and <code>y</code>,
+representing the index of the values in <code>x</code> matching the corresponding value
+in <code>y</code> (or <code>NA</code> if the value does not match).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The <code>tolerance</code> argument could be set to <code>0</code> to get the same results as for
-<code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code>. If it is set to <code>Inf</code> (default) the index of the closest values
-is returned without any restriction.</p>
+    <p>For <code>closest</code>/<code>common</code> the <code>tolerance</code> argument could be set to <code>0</code> to get
+the same results as for <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code>/<code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code>. If it is set to <code>Inf</code> (default)
+the index of the closest values is returned without any restriction.</p>
 <p>It is not guaranteed that there is a one-to-one matching for neither the
 <code>x</code> to <code>table</code> nor the <code>table</code> to <code>x</code> matching.</p>
 <p>If multiple elements in <code>x</code> match a single element in <code>table</code> all their
@@ -189,11 +209,22 @@ on <code><a href='https://www.rdocumentation.org/packages/base/topics/findInterv
 matches in <code>table</code> are identical the lower index (the smaller element
 in <code>table</code>) is returned. For <code>duplicates="remove"</code> all multiple matches
 are returned as <code>nomatch</code> as above.</p>
+<p><code>join</code>: joins two <code>numeric</code> vectors by mapping values in <code>x</code> with
+values in <code>y</code> and <em>vice versa</em> if they are similar enough (provided the
+<code>tolerance</code> and <code>ppm</code> specified). The function returns a <code>matrix</code> with the
+indices of mapped values in <code>x</code> and <code>y</code>. Parameter <code>type</code> allows to define
+how the vectors will be joined: <code>type = "left"</code>: values in <code>x</code> will be
+mapped to values in <code>y</code>, elements in <code>y</code> not matching any value in <code>x</code> will
+be discarded. <code>type = "right"</code>: same as <code>type = "left"</code> but for <code>y</code>.
+<code>type = "outer"</code>: return matches for all values in <code>x</code> and in <code>y</code>.
+<code>type = "inner"</code>: report only indices of values that could be mapped.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>All <code>NA</code> values in <code>x</code> are replaced by <code>nomatch</code> (that is identical to the
-behaviour of <code>match</code>).</p>
+    <p><code>closest</code> will replace all <code>NA</code> values in <code>x</code> by <code>nomatch</code> (that is identical
+to the behaviour of <code>match</code>).</p>
+<p><code>join</code> is based on <code>closest(x, y, tolerance, duplicates = "closest")</code>.
+That means for multiple matches just the closest one is reported.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -229,7 +260,39 @@ behaviour of <code>match</code>).</p>
 <span class='co'>## Are there any common values?</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1.6</span>, <span class='fl'>1.75</span>, <span class='fl'>1.8</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>2</span>
-<span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"closest"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"remove"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE</div></pre>
+<span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"closest"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"remove"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE</div><div class='input'>
+<span class='co'>## Join two vectors</span>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>6</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>7</span>)
+
+<span class='no'>jo</span> <span class='kw'>&lt;-</span> <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"outer"</span>)
+<span class='no'>jo</span></div><div class='output co'>#&gt; $x
+#&gt; [1]  1  2  3 NA NA  4 NA
+#&gt; 
+#&gt; $y
+#&gt; [1] NA NA  1  2  3  4  5
+#&gt; </div><div class='input'><span class='no'>x</span>[<span class='no'>jo</span>$<span class='no'>x</span>]</div><div class='output co'>#&gt; [1]  1  2  3 NA NA  6 NA</div><div class='input'><span class='no'>y</span>[<span class='no'>jo</span>$<span class='no'>y</span>]</div><div class='output co'>#&gt; [1] NA NA  3  4  5  6  7</div><div class='input'>
+<span class='no'>jl</span> <span class='kw'>&lt;-</span> <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"left"</span>)
+<span class='no'>jl</span></div><div class='output co'>#&gt; $x
+#&gt; [1] 1 2 3 4
+#&gt; 
+#&gt; $y
+#&gt; [1] NA NA  1  4
+#&gt; </div><div class='input'><span class='no'>x</span>[<span class='no'>jl</span>$<span class='no'>x</span>]</div><div class='output co'>#&gt; [1] 1 2 3 6</div><div class='input'><span class='no'>y</span>[<span class='no'>jl</span>$<span class='no'>y</span>]</div><div class='output co'>#&gt; [1] NA NA  3  6</div><div class='input'>
+<span class='no'>jr</span> <span class='kw'>&lt;-</span> <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"right"</span>)
+<span class='no'>jr</span></div><div class='output co'>#&gt; $x
+#&gt; [1]  3 NA NA  4 NA
+#&gt; 
+#&gt; $y
+#&gt; [1] 1 2 3 4 5
+#&gt; </div><div class='input'><span class='no'>x</span>[<span class='no'>jr</span>$<span class='no'>x</span>]</div><div class='output co'>#&gt; [1]  3 NA NA  6 NA</div><div class='input'><span class='no'>y</span>[<span class='no'>jr</span>$<span class='no'>y</span>]</div><div class='output co'>#&gt; [1] 3 4 5 6 7</div><div class='input'>
+<span class='no'>ji</span> <span class='kw'>&lt;-</span> <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"inner"</span>)
+<span class='no'>ji</span></div><div class='output co'>#&gt; $x
+#&gt; [1] 3 4
+#&gt; 
+#&gt; $y
+#&gt; [1] 1 4
+#&gt; </div><div class='input'><span class='no'>x</span>[<span class='no'>ji</span>$<span class='no'>x</span>]</div><div class='output co'>#&gt; [1] 3 6</div><div class='input'><span class='no'>y</span>[<span class='no'>ji</span>$<span class='no'>y</span>]</div><div class='output co'>#&gt; [1] 3 6</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
