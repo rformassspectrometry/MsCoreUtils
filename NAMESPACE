@@ -3,6 +3,7 @@
 export(bin)
 export(closest)
 export(common)
+export(join)
 export(localMaxima)
 export(noise)
 export(ppm)
