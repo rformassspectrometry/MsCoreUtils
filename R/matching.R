@@ -233,7 +233,7 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 .joinInner <- function(x, y, tolerance) {
     yi <- closest(y, x, tolerance = tolerance, duplicates = "closest")
     notNa <- which(!is.na(yi))
-    list(x = yi[notNa],  y = notNa)
+    list(x = yi[notNa], y = notNa)
 }
 
 .joinOuter <- function(x, y, tolerance) {
