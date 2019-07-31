@@ -11,6 +11,8 @@
 #' [`match()`] `table` has to be sorted in increasing order.
 #' @param tolerance `numeric`, accepted tolerance. Could be of length one or
 #' the same length as `table`.
+#' @param ppm `numeric(1)` representing a relative, value-specific
+#'  parts-per-million (PPM) tolerance that is added to `tolerance`.
 #' @param duplicates `character(1)`, how to handle duplicated matches.
 #' @param nomatch `numeric(1)`, if the difference
 #' between the value in `x` and `table` is larger than
@@ -86,18 +88,22 @@
 #' closest(x, y, tolerance = 0.5)
 #' closest(x, y, tolerance = 0.5, duplicates = "closest")
 #' closest(x, y, tolerance = 0.5, duplicates = "remove")
-closest <- function(x, table, tolerance = Inf,
+closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_) {
 
     if (!all(is.numeric(tolerance)) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
+    if(!all(is.numeric(ppm)) || any(ppm < 0))
+        stop("'ppm' has to be a 'numeric' larger or equal zero.")
+
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
         stop("'nomatch' has to be a 'numeric' of length one.")
 
     ntable <- length(table)
-    tolerance <- rep_len(tolerance, ntable) + sqrt(.Machine$double.eps)
+    tolerance <- rep_len(tolerance, ntable) + ppm(table, ppm) +
+        sqrt(.Machine$double.eps)
     duplicates <- match.arg(duplicates)
 
     lIdx <- findInterval(x, table, rightmost.closed = FALSE, all.inside = TRUE)
@@ -153,9 +159,10 @@ closest <- function(x, table, tolerance = Inf,
 #' common(x, y, tolerance = 0.5)
 #' common(x, y, tolerance = 0.5, duplicates = "closest")
 #' common(x, y, tolerance = 0.5, duplicates = "remove")
-common <- function(x, table, tolerance = Inf,
+common <- function(x, table, tolerance = Inf, ppm = 0,
                    duplicates = c("keep", "closest", "remove")) {
-    !is.na(closest(x, table, tolerance = tolerance, duplicates = duplicates))
+    !is.na(closest(x, table, tolerance = tolerance, ppm = ppm,
+                   duplicates = duplicates))
 }
 
 #' @rdname matching
@@ -172,8 +179,6 @@ common <- function(x, table, tolerance = Inf,
 #' `type = "inner"`: report only indices of values that could be mapped.
 #'
 #' @param y `numeric`, the values to be joined. Should be sorted.
-#' @param ppm `numeric(1)` representing a relative, value-specific
-#'  parts-per-million (PPM) tolerance that is added to `tolerance`.
 #' @param type `character(1)`, defines how `x` and `y` should be joined. See
 #' details for `join`.
 #'
@@ -213,31 +218,34 @@ common <- function(x, table, tolerance = Inf,
 join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner")) {
     switch(match.arg(type),
-           "outer" = .joinOuter(x, y, tolerance = tolerance + ppm(x, ppm)),
-           "left" = .joinLeft(x, y, tolerance = tolerance + ppm(y, ppm)),
-           "right" = .joinRight(x, y, tolerance = tolerance + ppm(x, ppm)),
-           "inner" = .joinInner(x, y, tolerance = tolerance + ppm(x, ppm))
+           "outer" = .joinOuter(x, y, tolerance = tolerance, ppm = ppm),
+           "left" = .joinLeft(x, y, tolerance = tolerance, ppm = ppm),
+           "right" = .joinRight(x, y, tolerance = tolerance, ppm = ppm),
+           "inner" = .joinInner(x, y, tolerance = tolerance, ppm = ppm)
     )
 }
 
-.joinLeft <- function(x, y, tolerance) {
+.joinLeft <- function(x, y, tolerance, ppm) {
     list(x = seq_along(x),
-         y = closest(x, y, tolerance = tolerance, duplicates = "closest"))
+         y = closest(x, y, tolerance = tolerance, ppm = ppm,
+                     duplicates = "closest"))
 }
 
-.joinRight <- function(x, y, tolerance) {
-    list(x = closest(y, x, tolerance = tolerance, duplicates = "closest"),
+.joinRight <- function(x, y, tolerance, ppm) {
+    list(x = closest(y, x, tolerance = tolerance, ppm = ppm,
+                     duplicates = "closest"),
          y = seq_along(y))
 }
 
-.joinInner <- function(x, y, tolerance) {
-    yi <- closest(y, x, tolerance = tolerance, duplicates = "closest")
+.joinInner <- function(x, y, tolerance, ppm) {
+    yi <- closest(y, x, tolerance = tolerance, ppm = ppm,
+                  duplicates = "closest")
     notNa <- which(!is.na(yi))
     list(x = yi[notNa], y = notNa)
 }
 
-.joinOuter <- function(x, y, tolerance) {
-    ji <- .joinInner(x, y, tolerance = tolerance)
+.joinOuter <- function(x, y, tolerance, ppm) {
+    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm)
     nx <- length(x)
     ny <- length(y)
     nlx <- length(ji[[1L]])

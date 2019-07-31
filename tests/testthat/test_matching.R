@@ -3,6 +3,8 @@ test_that("closest throws errors", {
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
     expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
+    expect_error(closest(1:3, 1:3, ppm = -1), "larger or equal zero")
+    expect_warning(closest(1:3, 1:3, ppm = 1:2), "not a multiple of")
     expect_error(closest(1:3, 1.3, tolerance = TRUE), "numeric")
     expect_error(closest(1:3, 1:3, nomatch = TRUE), "be a 'numeric'")
     expect_error(closest(1, 1, nomatch = 1:2),
@@ -23,9 +25,12 @@ test_that("closest, length(table) == 1, no tolerance", {
     expect_equal(closest(1:3, 4, nomatch = 0, tolerance = 0), c(0, 0, 0))
 })
 
-test_that("closest, tolerance", {
+test_that("closest, tolerance/ppm", {
     expect_equal(closest(1.001, 1:10, tolerance = 0), NA_integer_)
+    expect_equal(closest(1.001, 1:10, tolerance = 0, ppm = 1), NA_integer_)
     expect_equal(closest(1.4, 1:10, tolerance = 0.4), 1)
+    expect_equal(closest(1 + 1 / 1e6, 1:10, tolerance = 0, ppm = 1), 1)
+    expect_equal(closest(1e6 + 1:2, 1e6, tolerance = 0, ppm = 1), c(1, NA))
 
     # exact boundary, see
     # https://github.com/rformassspectrometry/Spectra/pull/45#issuecomment-511680248
@@ -85,6 +90,15 @@ test_that("join", {
                  list(x = 3:4, y = c(1, 4)))
 
     x <- x + c(-0.1, 0.1)
+    expect_equal(join(x, y, type = "outer"),
+                 list(x = c(1:3, rep(NA, 4), 4, NA),
+                      y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(join(x, y, type = "left"),
+                 list(x = 1:4, y = rep(NA_integer_, 4)))
+    expect_equal(join(x, y, type = "right"),
+                 list(x = rep(NA_integer_, 5), y = 1:5))
+    expect_equal(join(x, y, type = "inner"),
+                 list(x = integer(), y = integer()))
     expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
     expect_equal(join(x, y, tolerance = 0.1, type = "left"),
@@ -92,6 +106,25 @@ test_that("join", {
     expect_equal(join(x, y, tolerance = 0.1, type = "right"),
                  list(x = c(3, NA, NA, 4, NA), y = 1:5))
     expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = 3:4, y = c(1, 4)))
+
+    x <- x + c(-2, 2) / 1e6
+    expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
+                 list(x = c(1:3, rep(NA, 4), 4, NA),
+                      y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "left"),
+                 list(x = 1:4, y = rep(NA_integer_, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "right"),
+                 list(x = rep(NA_integer_, 5), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = integer(), y = integer()))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "outer"),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "left"),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "right"),
+                 list(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "inner"),
                  list(x = 3:4, y = c(1, 4)))
 
     ## multiple matches
