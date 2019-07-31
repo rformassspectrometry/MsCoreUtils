@@ -6,11 +6,11 @@
 \alias{join}
 \title{Relaxed Value Matching}
 \usage{
-closest(x, table, tolerance = Inf, duplicates = c("keep", "closest",
-  "remove"), nomatch = NA_integer_)
+closest(x, table, tolerance = Inf, ppm = 0, duplicates = c("keep",
+  "closest", "remove"), nomatch = NA_integer_)
 
-common(x, table, tolerance = Inf, duplicates = c("keep", "closest",
-  "remove"))
+common(x, table, tolerance = Inf, ppm = 0, duplicates = c("keep",
+  "closest", "remove"))
 
 join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right",
   "inner"))
@@ -24,6 +24,9 @@ join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right",
 \item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
 the same length as \code{table}.}
 
+\item{ppm}{\code{numeric(1)} representing a relative, value-specific
+parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
+
 \item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
 
 \item{nomatch}{\code{numeric(1)}, if the difference
@@ -31,9 +34,6 @@ between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
 
 \item{y}{\code{numeric}, the values to be joined. Should be sorted.}
-
-\item{ppm}{\code{numeric(1)} representing a relative, value-specific
-parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 
 \item{type}{\code{character(1)}, defines how \code{x} and \code{y} should be joined. See
 details for \code{join}.}
