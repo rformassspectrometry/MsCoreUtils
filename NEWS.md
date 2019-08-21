@@ -2,7 +2,8 @@
 
 ## MsCoreUtils 0.0.2
 
-- Add `asInteger`, `isClass` and `rbindFill`.
+- Add `asInteger` and `rbindFill`.
+- Add `asRle`, `asRleDataFrame` and `asVectorDataFrame`.
 
 ## MsCoreUtils 0.0.1
 
