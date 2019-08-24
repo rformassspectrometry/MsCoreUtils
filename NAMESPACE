@@ -2,6 +2,9 @@
 
 export(bin)
 export(closest)
+export(coefMA)
+export(coefSG)
+export(coefWMA)
 export(common)
 export(join)
 export(localMaxima)
