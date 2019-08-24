@@ -45,9 +45,9 @@ test_that("rbindFill works", {
     expect_identical(res$b, c(rep(FALSE, nrow(a)), rep(TRUE, nrow(b)), rep(NA, 5)))
 
     ## DataFrame containing SimpleList.
-    a$mz <- IRanges::NumericList(1:3, 1:4, 1:2, 1:3)
+    a$mz <- list(1:3, 1:4, 1:2, 1:3)
     res <- rbindFill(a, b)
-    expect_true(is(res$mz, "NumericList"))
+    expect_true(is(res$mz, "list"))
     expect_true(all(unlist(is.na(res$mz[5:8]))))
     expect_true(is.na(res$mz[[5]]))
 
@@ -56,10 +56,9 @@ test_that("rbindFill works", {
                      b = rep(c(TRUE, FALSE), each = 4L),
                      e = Rle(1:2, 4),
                      a = c(rep(NA_real_, 4L), 1L:4L),
-                     c = c(rep(NA_character_, 4L), letters[1L:4L]),
-                     mz = IRanges::NumericList(NA_real_, NA_real_, NA_real_,
-                                               NA_real_,
-                                               1:3, 1:4, 1:2, 1:3))
+                     c = c(rep(NA_character_, 4L), letters[1L:4L]))
+    res$mz <- list(NA, NA, NA, NA,
+                   1:3, 1:4, 1:2, 1:3)
     expect_equal(rbindFill(b, a), res)
 
     ## Ensure data types are correct after merging.
