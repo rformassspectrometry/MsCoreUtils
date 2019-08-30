@@ -17,6 +17,12 @@ reference:
     contents:
       - '`noise`'
       - '`smooth`'
+  - title: "Coerce Functions"
+    desc: "Functions for converting objects."
+      - '`asInteger`'
+      - '`asRle`'
+      - '`asRleDataFrame`'
+      - '`asVectorDataFrame`'
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:

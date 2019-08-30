@@ -22,11 +22,11 @@
 #'     that should always be converted to type `Rle`.
 #'
 #' @author Johannes Rainer, Sebastian Gibb
-#'
-#' @name rle-utils
+#' @family coerce functions
+#' @name coerce-rle
 NULL
 
-#' @rdname rle-utils
+#' @name coerce-rle
 #'
 #' @importFrom S4Vectors Rle nrun
 #'
@@ -40,7 +40,7 @@ asRle <- function(x) {
     x
 }
 
-#' @rdname rle-utils
+#' @name coerce-rle
 #'
 #' @export
 asRleDataFrame <- function(x, columns = character()) {
@@ -57,7 +57,7 @@ asRleDataFrame <- function(x, columns = character()) {
     x
 }
 
-#' @rdname rle-utils
+#' @name coerce-rle
 #'
 #' @importClassesFrom S4Vectors Rle
 #'

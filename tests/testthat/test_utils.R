@@ -1,10 +1,3 @@
-test_that("asInteger works", {
-    expect_true(is.integer(asInteger(2.3)))
-    expect_error(asInteger("a"))
-    myvar <- "2"
-    expect_error(asInteger(myvar), "Argument myvar should be")
-})
-
 test_that(".validateWindow", {
     expect_error(.validateWindow(3, 10L), "integer")
     expect_error(.validateWindow(3L:4L, 10L), "length")
