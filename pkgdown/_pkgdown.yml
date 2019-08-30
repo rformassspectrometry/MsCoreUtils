@@ -19,6 +19,7 @@ reference:
       - '`smooth`'
   - title: "Coerce Functions"
     desc: "Functions for converting objects."
+    contents:
       - '`asInteger`'
       - '`asRle`'
       - '`asRleDataFrame`'
