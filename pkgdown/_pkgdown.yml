@@ -16,6 +16,7 @@ reference:
     desc: "Functions for noise estimation and smoothing."
     contents:
       - '`noise`'
+      - '`smooth`'
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:
