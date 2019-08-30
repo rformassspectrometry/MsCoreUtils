@@ -49,48 +49,6 @@ asInteger <- function(x) {
     }
 }
 
-#' @rdname utils
-#'
-#' @importMethodsFrom S4Vectors cbind nrow rownames colnames
-#'
-#' @importFrom methods as
-#'
-#' @export
-rbindFill <- function(...) {
-    l <- list(...)
-
-    if (length(l) == 1L)
-        l <- l[[1L]]
-
-    cl <- vapply1c(l, class)
-
-    stopifnot(all(cl %in% c("matrix", "data.frame", "DataFrame", "DFrame")))
-
-    ## convert matrix to data.frame for easier and equal subsetting and class
-    ## determination
-    isMatrix <- cl == "matrix"
-    l[isMatrix] <- lapply(l[isMatrix], as.data.frame)
-
-    allcl <- unlist(lapply(l, vapply1c, class, USE.NAMES = TRUE))
-    allnms <- unique(names(allcl))
-    allcl <- allcl[allnms]
-
-    for (i in seq(along=l)) {
-        diffcn <- setdiff(allnms, names(l[[i]]))
-        if (length(diffcn))
-            l[[i]][, diffcn] <- lapply(allcl[diffcn], as, object = NA)
-    }
-    r <- do.call(rbind, l)
-
-    ## if we had just matrices as input we need to convert our temporary
-    ## data.frame back to a matrix
-    if (all(isMatrix))
-        r <- as.matrix(r)
-    r
-}
-
-setAs("logical", "factor", function(from, to) factor(from))
-
 #' @title Check for valid Window Size
 #'
 #' @param w `integer(1)`, window size

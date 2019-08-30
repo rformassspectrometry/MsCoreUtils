@@ -24,6 +24,7 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
+      - '`rbindFill`'
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'

@@ -3,12 +3,9 @@
 \name{utils}
 \alias{utils}
 \alias{asInteger}
-\alias{rbindFill}
 \title{General utility functions}
 \usage{
 asInteger(x)
-
-rbindFill(...)
 }
 \arguments{
 \item{x}{input argument.}
