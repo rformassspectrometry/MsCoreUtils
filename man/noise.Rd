@@ -30,6 +30,8 @@ noise(x, y, method = "SuperSmoother", span = 1 / 3)
 }
 \seealso{
 \code{\link[stats:mad]{stats::mad()}}, \code{\link[stats:supsmu]{stats::supsmu()}}
+
+Other noise estimation and smoothing functions: \code{\link{smooth}}
 }
 \author{
 Sebastian Gibb
