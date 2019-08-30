@@ -3,6 +3,8 @@ test_that("closest throws errors", {
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
     expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
+    expect_error(closest(1:3, 1:3, ppm = -1), "larger or equal zero")
+    expect_warning(closest(1:3, 1:3, ppm = 1:2), "not a multiple of")
     expect_error(closest(1:3, 1.3, tolerance = TRUE), "numeric")
     expect_error(closest(1:3, 1:3, nomatch = TRUE), "be a 'numeric'")
     expect_error(closest(1, 1, nomatch = 1:2),
@@ -23,9 +25,12 @@ test_that("closest, length(table) == 1, no tolerance", {
     expect_equal(closest(1:3, 4, nomatch = 0, tolerance = 0), c(0, 0, 0))
 })
 
-test_that("closest, tolerance", {
+test_that("closest, tolerance/ppm", {
     expect_equal(closest(1.001, 1:10, tolerance = 0), NA_integer_)
+    expect_equal(closest(1.001, 1:10, tolerance = 0, ppm = 1), NA_integer_)
     expect_equal(closest(1.4, 1:10, tolerance = 0.4), 1)
+    expect_equal(closest(1 + 1 / 1e6, 1:10, tolerance = 0, ppm = 1), 1)
+    expect_equal(closest(1e6 + 1:2, 1e6, tolerance = 0, ppm = 1), c(1, NA))
 
     # exact boundary, see
     # https://github.com/rformassspectrometry/Spectra/pull/45#issuecomment-511680248
@@ -71,63 +76,68 @@ test_that("common", {
                         "remove"), rep(FALSE, 3))
 })
 
-test_that("groupRun works", {
-    x <- 1:6
-    res <- groupRun(x)
-    expect_equal(length(x), length(res))
-    expect_identical(res, 1:6)
-    res <- groupRun(x, tolerance = 1)
-    expect_equal(length(x), length(res))
-    expect_true(all(res == 1))
+test_that("join", {
+    x <- c(1, 2, 3, 6)
+    y <- c(3, 4, 5, 6, 7)
 
-    x[5] <- x[4] + ppm(x[4], 5)
-    res <- groupRun(x, ppm = 5)
-    expect_equal(length(x), length(res))
-    expect_equal(res, c(1, 2, 3, 4, 4, 5))
-    x[6] <- x[5] + ppm(x[5], 3)
-    res <- groupRun(x, ppm = 5)
-    expect_equal(length(x), length(res))
-    expect_equal(res, c(1, 2, 3, 4, 4, 4))
-})
+    expect_equal(join(x, y, type = "outer"),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, type = "left"),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, type = "right"),
+                 list(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, type = "inner"),
+                 list(x = 3:4, y = c(1, 4)))
 
-test_that("joinNumeric works", {
-    x <- c(12.2, 13.4, 16.5, 23.5, 45.3, 57, 87)
-    y <- c(5.3, 8.9, 13.4 + ppm(13.4, 5), 34.5, 45.3 + ppm(45.3, 10), 57.1, 234.2)
+    x <- x + c(-0.1, 0.1)
+    expect_equal(join(x, y, type = "outer"),
+                 list(x = c(1:3, rep(NA, 4), 4, NA),
+                      y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(join(x, y, type = "left"),
+                 list(x = 1:4, y = rep(NA_integer_, 4)))
+    expect_equal(join(x, y, type = "right"),
+                 list(x = rep(NA_integer_, 5), y = 1:5))
+    expect_equal(join(x, y, type = "inner"),
+                 list(x = integer(), y = integer()))
+    expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "left"),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "right"),
+                 list(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = 3:4, y = c(1, 4)))
 
-    res <- joinNumeric(x, y)
-    expect_true(length(res$x) == length(res$y))
-    expect_true(length(res$x) == length(c(x, y)))
+    x <- x + c(-2, 2) / 1e6
+    expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
+                 list(x = c(1:3, rep(NA, 4), 4, NA),
+                      y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "left"),
+                 list(x = 1:4, y = rep(NA_integer_, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, type = "right"),
+                 list(x = rep(NA_integer_, 5), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = integer(), y = integer()))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "outer"),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "left"),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "right"),
+                 list(x = c(3, NA, NA, 4, NA), y = 1:5))
+    expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "inner"),
+                 list(x = 3:4, y = c(1, 4)))
 
-    res <- joinNumeric(x, y, join = "left")
-    expect_true(length(res$x) == length(x))
-    expect_equal(res$x, seq_along(x))
-    expect_equal(res$y, rep(NA_integer_, length(x)))
+    ## multiple matches
+    x <- c(3.95, 4.04)
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = 2, y = 2))
+    x <- c(1, 8)
+    expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
+                 list(x = integer(), y = integer()))
 
-    res <- joinNumeric(x, y, join = "right")
-    expect_true(length(res$x) == length(y))
-    expect_equal(res$x, rep(NA_integer_, length(y)))
-    expect_equal(res$y, seq_along(y))
-
-    res <- joinNumeric(x, y, join = "inner")
-    expect_true(length(res$x) == length(res$y))
-    expect_true(length(res$x) == 0)
-
-    res <- joinNumeric(x, y, ppm = 5)
-    expect_true(length(res$x) == length(res$y))
-    expect_true(length(res$x) == length(c(x, y)) - 1) # one element matching
-
-    res <- joinNumeric(x, y, ppm = 5, join = "inner")
-    expect_true(length(res$x) == length(res$y))
-    expect_equal(res$x, 2)
-    expect_equal(res$y, 3)
-
-    res <- joinNumeric(x, y, ppm = 10, join = "inner")
-    expect_true(length(res$x) == length(res$y))
-    expect_equal(res$x, c(2, 5))
-    expect_equal(res$y, c(3, 5))
-
-    res <- joinNumeric(x, y, tolerance = 0.1, join = "inner")
-    expect_true(length(res$x) == length(res$y))
-    expect_equal(res$x, c(2, 5, 6))
-    expect_equal(res$y, c(3, 5, 6))
+    ## no match at all
+    x <- c(1, 2, 3, 6)
+    y <- c(4, 5, 7)
+    expect_equal(join(x, y, type = "outer"),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, NA, 1:2, NA, 3)))
 })

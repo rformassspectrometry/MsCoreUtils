@@ -65,14 +65,14 @@ refineCentroids <- function(x, y, p, k = 2L, threshold = 0.33,
         stop("'k' has to be an integer of length 1 and >= 0.")
 
     if (length(threshold) != 1L || !is.numeric(threshold) ||
-        0 > threshold || threshold > 1)
+        0L > threshold || threshold > 1L)
         stop("'threshold' has to be a numeric between 0 and 1.")
 
     if (length(descending) != 1L || !is.logical(descending) ||
         is.na(descending))
         stop("'descending' has to be 'TRUE' or 'FALSE'.")
 
-    k2 <- 2 * k + 1L
+    k2 <- 2L * k + 1L
     i <- seq_len(k2) - 1L + rep(p, each = k2)
 
     if (descending)
