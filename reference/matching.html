@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -37,13 +39,14 @@
 
 
 
-<meta property="og:title" content="Relaxed Value Matching — closest" />
 
+<meta property="og:title" content="Relaxed Value Matching — closest" />
 <meta property="og:description" content="These functions offer relaxed matching of one vector in another.
 In contrast to the similar match() and %in% functions they
 just accept numeric arguments but have an additional tolerance
 argument that allows relaxed matching." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -92,7 +95,6 @@ argument that allows relaxed matching." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/RforMassSpectrometry/MsCoreUtils">
@@ -118,12 +120,10 @@ argument that allows relaxed matching." />
     </div>
 
     <div class="ref-description">
-    
     <p>These functions offer relaxed matching of one vector in another.
 In contrast to the similar <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code> functions they
 just accept <code>numeric</code> arguments but have an additional <code>tolerance</code>
 argument that allows relaxed matching.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"keep"</span>,
@@ -134,7 +134,7 @@ argument that allows relaxed matching.</p>
 
 <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"outer"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>,
   <span class='st'>"inner"</span>))</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -177,7 +177,7 @@ between the value in <code>x</code> and <code>table</code> is larger than
 details for <code>join</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>closest</code> returns an <code>integer</code> vector of the same length as <code>x</code>
@@ -188,7 +188,6 @@ element in <code>x</code> was found in <code>table</code>. It is similar to <cod
 <p><code>join</code> returns a <code>matrix</code> with two columns, namely <code>x</code> and <code>y</code>,
 representing the index of the values in <code>x</code> matching the corresponding value
 in <code>y</code> (or <code>NA</code> if the value does not match).</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>closest</code>/<code>common</code> the <code>tolerance</code> argument could be set to <code>0</code> to get
@@ -218,20 +217,17 @@ mapped to values in <code>y</code>, elements in <code>y</code> not matching any 
 be discarded. <code>type = "right"</code>: same as <code>type = "left"</code> but for <code>y</code>.
 <code>type = "outer"</code>: return matches for all values in <code>x</code> and in <code>y</code>.
 <code>type = "inner"</code>: report only indices of values that could be mapped.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><code>closest</code> will replace all <code>NA</code> values in <code>x</code> by <code>nomatch</code> (that is identical
 to the behaviour of <code>match</code>).</p>
 <p><code>join</code> is based on <code>closest(x, y, tolerance, duplicates = "closest")</code>.
 That means for multiple matches just the closest one is reported.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code></p>
 <p><code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code></p>
 <p>Other grouping/matching functions: <code>bin</code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Define two vectors to match</span>
@@ -298,15 +294,10 @@ That means for multiple matches just the closest one is reported.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
