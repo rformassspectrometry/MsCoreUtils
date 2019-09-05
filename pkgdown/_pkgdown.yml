@@ -24,6 +24,7 @@ reference:
       - '`asRle`'
       - '`asRleDataFrame`'
       - '`asVectorDataFrame`'
+      - '`i2index`'
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:
@@ -31,6 +32,7 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
+      - '`i2index`'
       - '`rbindFill`'
       - '`vapply1c`'
       - '`vapply1d`'
