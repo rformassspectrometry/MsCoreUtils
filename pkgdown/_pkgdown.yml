@@ -32,6 +32,8 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
+      - '`%between%`'
+      - '`between`'
       - '`i2index`'
       - '`rbindFill`'
       - '`vapply1c`'
