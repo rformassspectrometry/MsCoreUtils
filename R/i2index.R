@@ -31,7 +31,7 @@
 #'
 #' ## With `i` being a `character`
 #' i2index(c("b", "a", "d"), length = 5, names = c("a", "b", "c", "d", "e"))
-i2index <- function(i, length = 0L, names = NULL) {
+i2index <- function(i, length = length(i), names = NULL) {
     if (is.character(i)) {
         if (!length(names))
             stop("can not subset by name, object does not have names")
@@ -46,7 +46,8 @@ i2index <- function(i, length = 0L, names = NULL) {
     } else if (is.numeric(i))
         i <- as.integer(i)
 
-    if (is.integer(i) && !all(abs(i) %in% seq_len(length)))
+    if (length(i) && is.integer(i) &&
+            !all(range(abs(i)) %between% c(1L, length)))
         stop("index out of bounds: index has to be between 1 and ", length)
     i
 }
