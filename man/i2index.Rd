@@ -4,7 +4,7 @@
 \alias{i2index}
 \title{Input parameter check for subsetting operations}
 \usage{
-i2index(i, length = 0L, names = NULL)
+i2index(i, length = length(i), names = NULL)
 }
 \arguments{
 \item{i}{\code{character} \code{logical} or \code{integer} used in \code{[i]} for subsetting.}
