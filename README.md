@@ -18,4 +18,5 @@ Currently we externalising core functions from `MSnbase`, `MALDIquant`, etc.
 # Contributions
 
 - Sigurdur Smarason (@SiggiSmara): weighted moving average (https://github.com/sgibb/MALDIquant/pull/54)
+- Thomas Naake (@tnaake): dotproduct calculation (https://github.com/rformassspectrometry/MsCoreUtils/pull/17)
 
