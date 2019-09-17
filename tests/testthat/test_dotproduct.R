@@ -7,21 +7,15 @@ test_that("dotproduct", {
              intensity=c(2, 0, 3, 1, 4, 0.4))
     
     ## calculate similarity values
-    expect_equal(dotproduct(x, y, normalize=TRUE, m=0), 0.6230766, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=TRUE, m=0.5), 0.7060411, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=TRUE, m=0, n=0), 1)
-    expect_equal(dotproduct(x, y, normalize=TRUE, n=0), 0.4280249, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=TRUE, n=2), 0.7060411, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=FALSE, m=0), 16303082289, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=FALSE, m=0.5), 864335645426, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=FALSE, m=0, n=0), 6)
-    expect_equal(dotproduct(x, y, normalize=FALSE, n=0), 176.5226, tolerance=1e-06)
-    expect_equal(dotproduct(x, y, normalize=FALSE, n=2), 864335645426, tolerance=1e-06)
+    expect_equal(dotproduct(x, y, m=0, n=2), 0.6230766, tolerance=1e-06)
+    expect_equal(dotproduct(x, y, m=0.5, n=2), 0.7060411, tolerance=1e-06)
+    expect_equal(dotproduct(x, y, m=0, n=0), 1)
+    expect_equal(dotproduct(x, y, n=0), 0.4280249, tolerance=1e-06)
+    expect_equal(dotproduct(x, y, n=2), 0.7060411, tolerance=1e-06)
     
-    ## if the identical spectra are passed and normalize is TRUE, dotproduct
-    ## has to return 1
-    expect_equal(dotproduct(x, x, normalize=TRUE), 1)
-    expect_equal(dotproduct(y, y, normalize=TRUE), 1)
+    ## if the identical spectra are passed, dotproduct has to return 1
+    expect_equal(dotproduct(x, x, n=2), 1)
+    expect_equal(dotproduct(y, y, n=2), 1)
     
     ## check exceptions
     expect_error(dotproduct(x[-1, ], y))
@@ -30,4 +24,8 @@ test_that("dotproduct", {
     expect_error(dotproduct(y=y))
     expect_error(dotproduct(x=x, y="a"))
     expect_error(dotproduct(x="a", y=y))
+    
+    x <- list(mz = 1:3, intensity = 1:3)
+    y <- list(mz = 1:3, intensity = 1:10)
+    expect_error(dotproduct(x, y))
 })
