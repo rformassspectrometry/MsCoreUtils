@@ -3,14 +3,11 @@
 #' @title Calculate the normalized dot product
 #' 
 #' @description 
-#' Calculate the dot product (DP) or normalized dot product (NDP).
-#' `dotproduct` (with `normalize = TRUE`) returns a numeric 
-#'  value ranging between 0 and 1, where 0 
-#' indicates no similarity between the two MS/MS features, while 1 indicates 
-#' that the MS/MS features are identical. `dotproduct` (with 
-#' `normalize = FALSE`) returns a numeric value with a lower bound of 0. 
+#' Calculate the normalized dot product (NDP).`dotproduct` returns a numeric 
+#' value ranging between 0 and 1, where 0 indicates no similarity between the 
+#' two MS/MS features, while 1 indicates that the MS/MS features are identical. 
 #' 
-#' @usage dotproduct(x, y, m=0.5, n=2, normalize=TRUE)
+#' @usage dotproduct(x, y, m=0.5, n=2)
 #' 
 #' @param 
 #' x `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
@@ -24,13 +21,10 @@
 #' 
 #' @param n `numeric(1)`, exponent for m/z-based weights
 #' 
-#' @param normalize `logical` whether to calculate the DP (FALSE) or NDP (TRUE)
-#' 
 #' @details 
-#' `x` and `y` have to be spectrally aligned. Each row in `x` corresponds to the
-#' respective row in `y`.
-#' The dot product is calculated according to the following formula: 
-#' \deqn{NDP = \sum(W_{S1, i} \cdot W_{S2, i})}, 
+#' `x` and `y` have to be spectrally aligned. Each row in `x` corresponds to 
+#' the respective row in `y`. The dot product is calculated according to the 
+#' following formula: \deqn{NDP = \sum(W_{S1, i} \cdot W_{S2, i})}, 
 #' while the the normalized dot product is calculated according to: 
 #' \deqn{NDP = \frac{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2}{ \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2) }}{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2 \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2)},
 #' with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}. 
@@ -44,9 +38,10 @@
 #' analysis. PNAS, E4147--E4155.
 #' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values 
 #' are divided by the maximum intensity value. 
-#' @return `numeric(1)`, `dotproduct` returns a numeric similarity 
-#' coefficient between 0 and 1 (if `normalize = TRUE`). If `normalize = FALSE`,
-#' a numeric similarity value is returned with a lower bound of 0. 
+#' 
+#' @return 
+#' `numeric(1)`, `dotproduct` returns a numeric similarity coefficient between 
+#' 0 and 1.
 #' 
 #' @author Thomas Naake, \email{thomasnaake@@googlemail.com}
 #' 
@@ -55,9 +50,10 @@
 #'         intensity=c(2, 1.5, 0, 1.2, 0.9, 0))
 #' y <- data.frame(mz = c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
 #'         intensity = c(2, 0, 3, 1, 4, 0.4))
-#' dotproduct(x, y, m = 0.5, n = 2, normalize = TRUE) 
+#' dotproduct(x, y, m = 0.5, n = 2) 
+#' 
 #' @export
-dotproduct <- function(x, y, m = 0.5, n = 2, normalize = TRUE) {
+dotproduct <- function(x, y, m = 0.5, n = 2) {
     
     if (!is.list(x)) stop("'x' is not a list")
     if (!is.list(y)) stop("'y' is not a list")
@@ -87,7 +83,5 @@ dotproduct <- function(x, y, m = 0.5, n = 2, normalize = TRUE) {
     
     ## calculate dot product or normalized dot product respectively
     dp <- sum( ws1*ws2, na.rm = TRUE) 
-    if (normalize) dp <- dp ^ 2 / ( sum( ws1^2, na.rm = TRUE) * sum( ws2^2, na.rm = TRUE ) )
-    
-    return(dp)
+    dp ^ 2 / ( sum( ws1^2, na.rm = TRUE) * sum( ws2^2, na.rm = TRUE ) )
 }
