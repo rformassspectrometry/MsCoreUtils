@@ -25,8 +25,24 @@ test_that("dotproduct", {
     expect_error(dotproduct(y=y))
     expect_error(dotproduct(x=x, y="a"))
     expect_error(dotproduct(x="a", y=y))
+    expect_error(dotproduct(x, y, m="a", n=0))
+    expect_error(dotproduct(x, y, m=0.5, n="a"))
+    expect_error(dotproduct(x, y, m=1:2, n=0))
+    expect_error(dotproduct(x, y, m=0.5, n=1:2))
     
     x <- list(mz = 1:3, intensity = 1:3)
     y <- list(mz = 1:3, intensity = 1:10)
     expect_error(dotproduct(x, y))
+    
+    x <- list(mz = 1:3, intensity = 1:10)
+    expect_error(dotproduct(x, y))
+    
+    x <- list(mz = c("a", "b", "c"), intensity = 1:3)
+    y <- list(mz = 1:3, intensity = 1:10)
+    expect_error(dotproduct(x, y))
+    expect_error(dotproduct(y, x))
+    
+    x <- list(mz = 1:3, intensity = c("a", "b", "c"))
+    expect_error(dotproduct(x, y))
+    expect_error(dotproduct(y, x))
 })
