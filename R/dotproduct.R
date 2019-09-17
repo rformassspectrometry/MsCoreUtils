@@ -22,22 +22,20 @@
 #' @param n `numeric(1)`, exponent for m/z-based weights
 #' 
 #' @details 
-#' `x` and `y` have to be spectrally aligned. Each row in `x` corresponds to 
-#' the respective row in `y`. The dot product is calculated according to the 
-#' following formula: \deqn{NDP = \sum(W_{S1, i} \cdot W_{S2, i})}, 
-#' while the the normalized dot product is calculated according to: 
+#' Each row in `x` corresponds to the respective row in `y`, i.e. the peaks 
+#' (entries `"mz"`) per spectrum have to match. 
+#' The normalized dot product is calculated according to: 
 #' \deqn{NDP = \frac{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2}{ \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2) }}{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2 \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2)},
 #' with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}. 
-#' For further information on the dot product see for example
-#' Toprak et al. (2014): Conserved Peptide Fragmentation as a Benchmarking 
-#' Tool for Mass Spectrometers and a Discriminating Feature for Targeted 
-#' Proteomics. Molecular \& Cellular Proteomics, 2056--2071.   
 #' For further information on normalized dot product see for example
+#' Li et al. (2015).
+#' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values 
+#' are divided by the maximum intensity value. 
+#' 
+#' @references 
 #' Li et al. (2015): Navigating natural variation in herbivory-induced
 #' secondary metabolism in coyote tobacco populations using MS/MS structural 
 #' analysis. PNAS, E4147--E4155.
-#' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values 
-#' are divided by the maximum intensity value. 
 #' 
 #' @return 
 #' `numeric(1)`, `dotproduct` returns a numeric similarity coefficient between 
@@ -87,7 +85,6 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
             warning("m/z values in x are not identical to m/z values in y.",
             "If n != 0 this might lead to unexpected results.")    
         }
-        
     }
     
     ## normalize to % intensity
