@@ -19,7 +19,22 @@
 #' 
 #' @details 
 #' Each row in `x` corresponds to the respective row in `y`, i.e. the peaks 
-#' (entries `"mz"`) per spectrum have to match. 
+#' (entries `"mz"`) per spectrum have to match.
+#' `m` and `n` are weights given on the peak intensity and the m/z values 
+#' respectively. As default (`m = 0.5`), the square roots of the intensity 
+#' values are taken to calculate weights. With increasing values for `m`, high
+#' intensity values will be taken more into account for similarity calculation, 
+#' i.e. differences between intensities will be intensified. 
+#' With increasing values for `n`, high m/z values will be taken more into 
+#' account for similarity calculation. Especially when working with small 
+#' molecules, a value `n > 0` can be set, to give a weight on the m/z values to 
+#' accommodate that shared fragments with higher m/z are less likely and will 
+#' mean that molecules might be more similar. If `n != 0`, a warning will be 
+#' raised if the corresponding m/z values are not identical, since small 
+#' differences in m/z values will distort the similarity values with increasing
+#' `n`. If `m=0` or `n=0`, intensity values or m/z values, respectively, are not 
+#' taken into account.
+#' 
 #' The normalized dot product is calculated according to: 
 #' \deqn{NDP = \frac{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2}{ \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2) }}{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2 \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2)},
 #' with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}. 
@@ -63,15 +78,22 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     inten1 <- x$intensity
     inten2 <- y$intensity
     
-    if (length(mz1) != length(mz2)) {
-        stop("length(mz1) not equal to length(mz2)")
-    }
-    if (length(inten1) != length(mz2)) {
-        stop("length(mz1) not equal to length(mz2)")
-    }
+    ## check mz1, inten1, mz2 and inten2
+    if (!all(is.numeric(mz1))) stop("x$mz is not numeric")
+    if (!all(is.numeric(mz2))) stop("y$mz is not numeric")
+    if (!all(is.numeric(inten1))) stop("x$intensity is not numeric")
+    if (!all(is.numeric(inten2))) stop("y$intensity is not numeric")
+    
     if (length(mz1) != length(inten1)) {
-        stop("length(mz1) not equal to length(inten1)")
+        stop("length(x$mz) not equal to length(x$intensity)")
+    }    
+    if (length(mz1) != length(mz2)) {
+        stop("length(x$mz) not equal to length(y$mz)")
     }
+    if (length(mz1) != length(inten2)) {
+        stop("length(x$mz) not equal to length(y$inten)")
+    }
+    
     ## check mz values: if mz1 and mz2 are not identical and the values are
     ## weighted by n, this might to unexpected results in the similarity
     ## calculation
