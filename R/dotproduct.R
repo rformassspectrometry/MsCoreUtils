@@ -1,13 +1,9 @@
-#' @name dotproduct
-#' 
 #' @title Calculate the normalized dot product
 #' 
 #' @description 
 #' Calculate the normalized dot product (NDP).`dotproduct` returns a numeric 
 #' value ranging between 0 and 1, where 0 indicates no similarity between the 
 #' two MS/MS features, while 1 indicates that the MS/MS features are identical. 
-#' 
-#' @usage dotproduct(x, y, m=0.5, n=2)
 #' 
 #' @param 
 #' x `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
