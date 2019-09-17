@@ -1,24 +1,29 @@
 Package: MsCoreUtils
 Title: Core Utils for Mass Spectrometry Data
-Version: 0.0.1
+Version: 0.0.2
 Description: MsCoreUtils defines low-level functions for mass
     spectrometry data and is independent of any high-level data structures.
 Authors@R: c(person(given = "Laurent", family = "Gatto",
-		    comment = c(ORCID = "0000-0002-1520-2268"),
+		            comment = c(ORCID = "0000-0002-1520-2268"),
                     email = "laurent.gatto@uclouvain.be",
                     role = c("aut","cre")),
              person(given = "Johannes", family = "Rainer",
                     email = "Johannes.Rainer@eurac.edu",
                     role = c("aut", "cre"),
-		    comment = c(ORCID = "0000-0002-6977-7147")),
+		            comment = c(ORCID = "0000-0002-6977-7147")),
              person(given = "Sebastian", family = "Gibb",
                     email = "mail@sebastiangibb.de",
                     role = c("aut", "cre"),
-		    comment = c(ORCID = "0000-0001-7406-4443")))
+		            comment = c(ORCID = "0000-0001-7406-4443")),
+             person(given = "Sigurdur", family = "Smarason", role = "ctb")
+            )
 Author: Laurent Gatto, Johannes Rainer and Sebastian Gibb.
 Maintainer: Laurent Gatto <laurent.gatto@uclouvain.be>
 Depends:
     R (>= 3.6.0)
+Imports:
+    methods,
+    S4Vectors
 Suggests:
     testthat,
     knitr,

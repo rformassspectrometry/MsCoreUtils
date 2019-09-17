@@ -1,0 +1,40 @@
+test_that("asRle works", {
+    expect_equal(asRle("a"), "a")
+    expect_equal(asRle(c("a", "a")), rep("a", 2))
+    expect_equal(asRle(c("a", "a", "a")), S4Vectors::Rle("a", 3))
+    expect_equal(asRle(1:4), 1:4)
+    expect_equal(asRle(rep(1, 10)), S4Vectors::Rle(1, 10))
+    expect_equal(asRle(TRUE), TRUE)
+    expect_equal(asRle(c(TRUE, TRUE)), rep(TRUE, 2))
+    expect_equal(asRle(c(TRUE, TRUE, TRUE)), S4Vectors::Rle(TRUE, 3))
+    expect_equal(asRle(list(a = 1:3, b = 2:3)), list(a = 1:3, b = 2:3))
+})
+
+test_that("asRleDataFrame works", {
+    df <- S4Vectors::DataFrame()
+    res <- asRleDataFrame(df)
+    expect_equal(df, res)
+    df <- S4Vectors::DataFrame(msLevel = rep(NA_integer_, 3), a = "a", b = 1:3)
+    res <- asRleDataFrame(df)
+    expect_equal(res$msLevel, S4Vectors::Rle(NA_integer_, 3))
+    expect_equal(res$a, S4Vectors::Rle("a", 3))
+    res$fromFile <- c(1L, 1L, 1L)
+    res <- asRleDataFrame(res)
+    expect_equal(res$msLevel, S4Vectors::Rle(NA_integer_, 3))
+    expect_equal(res$a, S4Vectors::Rle("a", 3))
+    expect_equal(res$b, 1:3)
+    expect_equal(res$fromFile, S4Vectors::Rle(1L, 3))
+    res$dataStorage <- as.character(1:3)
+    res <- asRleDataFrame(res, columns = "dataStorage")
+    expect_equal(res$dataStorage, S4Vectors::Rle(as.character(1:3)))
+})
+
+test_that("asVectorDataFrame works", {
+    df <- S4Vectors::DataFrame(msLevel = c(NA_integer_, NA_integer_),
+                               fromFile = S4Vectors::Rle(1L, 2),
+                               other_col = S4Vectors::Rle("a", 2))
+    res <- asVectorDataFrame(df)
+    expect_true(is.integer(res$msLevel))
+    expect_true(is.integer(res$fromFile))
+    expect_true(is(res$other_col, "character"))
+})

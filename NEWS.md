@@ -1,5 +1,10 @@
 # MsCoreUtils 0.1
 
+## MsCoreUtils 0.0.2
+
+- Add `asInteger` and `rbindFill`.
+- Add `asRle`, `asRleDataFrame` and `asVectorDataFrame`.
+
 ## MsCoreUtils 0.0.1
 
 - Add `vapply1c`, `vapply1d` and `vapply1l`.

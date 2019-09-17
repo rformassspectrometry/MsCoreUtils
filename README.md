@@ -14,3 +14,8 @@ that are needed in multiple packages. We hope to keep the dependencies as small
 as possible.
 
 Currently we externalising core functions from `MSnbase`, `MALDIquant`, etc.
+
+# Contributions
+
+- Sigurdur Smarason (@SiggiSmara): weighted moving average (https://github.com/sgibb/MALDIquant/pull/54)
+

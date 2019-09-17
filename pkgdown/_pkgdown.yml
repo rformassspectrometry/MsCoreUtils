@@ -16,6 +16,14 @@ reference:
     desc: "Functions for noise estimation and smoothing."
     contents:
       - '`noise`'
+      - '`smooth`'
+  - title: "Coerce Functions"
+    desc: "Functions for converting objects."
+    contents:
+      - '`asInteger`'
+      - '`asRle`'
+      - '`asRleDataFrame`'
+      - '`asVectorDataFrame`'
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:
@@ -23,6 +31,7 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
+      - '`rbindFill`'
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'
