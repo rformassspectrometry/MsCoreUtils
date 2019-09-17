@@ -53,11 +53,16 @@
 #' dotproduct(x, y, m = 0.5, n = 2) 
 #' 
 #' @export
-dotproduct <- function(x, y, m = 0.5, n = 2) {
+dotproduct <- function(x, y, m = 0.5, n = 0) {
     
+    ## check valid input 
     if (!is.list(x)) stop("'x' is not a list")
     if (!is.list(y)) stop("'y' is not a list")
-    
+    if (!is.numeric(m)) stop("`m` is not numeric")
+    if (length(m) != 1) stop("`m` has to be of length 1")
+    if (!is.numeric(n)) stop("`n` is not numeric")
+    if (length(n) != 1) stop("`n` has to be of length 1")
+        
     ## retrieve m/z and intensity from x and y
     mz1 <- x$mz
     mz2 <- y$mz
@@ -73,6 +78,17 @@ dotproduct <- function(x, y, m = 0.5, n = 2) {
     if (length(mz1) != length(inten1)) {
         stop("length(mz1) not equal to length(inten1)")
     }
+    ## check mz values: if mz1 and mz2 are not identical and the values are
+    ## weighted by n, this might to unexpected results in the similarity
+    ## calculation
+    na_ind <- is.na(mz1) | is.na(mz2)
+    if (!all(mz1[ !na_ind ] == mz2[ !na_ind ])) {
+        if (n != 0) {
+            warning("m/z values in x are not identical to m/z values in y.",
+            "If n != 0 this might lead to unexpected results.")    
+        }
+        
+    }
     
     ## normalize to % intensity
     inten1 <- inten1 / max(inten1, na.rm = TRUE) * 100
@@ -82,6 +98,6 @@ dotproduct <- function(x, y, m = 0.5, n = 2) {
     ws2 <- inten2 ^ m * mz2 ^ n
     
     ## calculate dot product or normalized dot product respectively
-    dp <- sum( ws1*ws2, na.rm = TRUE) 
-    dp ^ 2 / ( sum( ws1^2, na.rm = TRUE) * sum( ws2^2, na.rm = TRUE ) )
+    dp <- sum(ws1 * ws2, na.rm = TRUE) 
+    dp ^ 2 / (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
 }
