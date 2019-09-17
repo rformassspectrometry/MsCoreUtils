@@ -59,7 +59,7 @@
 #'         intensity=c(2, 1.5, 0, 1.2, 0.9, 0))
 #' y <- data.frame(mz = c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
 #'         intensity = c(2, 0, 3, 1, 4, 0.4))
-#' dotproduct(x, y, m = 0.5, n = 2) 
+#' dotproduct(x, y, m = 0.5, n = 0) 
 #' 
 #' @export
 dotproduct <- function(x, y, m = 0.5, n = 0) {
