@@ -6,12 +6,12 @@
 #' two MS/MS features, while 1 indicates that the MS/MS features are identical. 
 #' 
 #' @param 
-#' x `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
-#' intensity values (`"intensity"`)
+#' x `matrix` with two column where one contains m/z values (column `"mz"`) and 
+#' the second corresponding intensity values (column `"intensity"`)
 #' 
 #' @param 
-#' y `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
-#' intensity values (`"intensity"`)
+#' y `matrix` with two column where one contains m/z values (column `"mz"`) and 
+#' the second corresponding intensity values (column `"intensity"`)
 #' 
 #' @param m `numeric(1)`, exponent for peak intensity-based weights
 #' 
@@ -55,44 +55,31 @@
 #' @author Thomas Naake, \email{thomasnaake@@googlemail.com}
 #' 
 #' @examples 
-#' x <- data.frame(mz=c(100.002, 100.001, NA, 300.01, 300.02, NA), 
-#'         intensity=c(2, 1.5, 0, 1.2, 0.9, 0))
-#' y <- data.frame(mz = c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
-#'         intensity = c(2, 0, 3, 1, 4, 0.4))
+#' x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA), 
+#'         c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2,)
+#' y <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
+#'         c(2, 0, 3, 1, 4, 0.4)), ncol = 2)       
+#' colnames(x) <- colnames(y) <- c("mz", "intensity")
 #' dotproduct(x, y, m = 0.5, n = 0) 
 #' 
 #' @export
 dotproduct <- function(x, y, m = 0.5, n = 0) {
     
     ## check valid input 
-    if (!is.list(x)) stop("'x' is not a list")
-    if (!is.list(y)) stop("'y' is not a list")
+    if (!is.matrix(x)) stop("'x' is not a matrix")
+    if (!is.matrix(y)) stop("'y' is not a matrix")
+    if (mode(x) != "numeric") stop("mode(x) is not numeric")
+    if (mode(y) != "numeric") stop("mode(y) is not numeric")
     if (!is.numeric(m)) stop("`m` is not numeric")
     if (length(m) != 1) stop("`m` has to be of length 1")
     if (!is.numeric(n)) stop("`n` is not numeric")
     if (length(n) != 1) stop("`n` has to be of length 1")
         
     ## retrieve m/z and intensity from x and y
-    mz1 <- x$mz
-    mz2 <- y$mz
-    inten1 <- x$intensity
-    inten2 <- y$intensity
-    
-    ## check mz1, inten1, mz2 and inten2
-    if (!all(is.numeric(mz1))) stop("x$mz is not numeric")
-    if (!all(is.numeric(mz2))) stop("y$mz is not numeric")
-    if (!all(is.numeric(inten1))) stop("x$intensity is not numeric")
-    if (!all(is.numeric(inten2))) stop("y$intensity is not numeric")
-    
-    if (length(mz1) != length(inten1)) {
-        stop("length(x$mz) not equal to length(x$intensity)")
-    }    
-    if (length(mz1) != length(mz2)) {
-        stop("length(x$mz) not equal to length(y$mz)")
-    }
-    if (length(mz1) != length(inten2)) {
-        stop("length(x$mz) not equal to length(y$inten)")
-    }
+    mz1 <- x[, "mz"]
+    mz2 <- y[, "mz"]
+    inten1 <- x[, "intensity"]
+    inten2 <- y[, "intensity"]
     
     ## check mz values: if mz1 and mz2 are not identical and the values are
     ## weighted by n, this might to unexpected results in the similarity
@@ -113,6 +100,7 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     ws2 <- inten2 ^ m * mz2 ^ n
     
     ## calculate dot product or normalized dot product respectively
-    dp <- sum(ws1 * ws2, na.rm = TRUE) 
+    dp <- sum(ws1 * ws2, na.rm = TRUE)
     dp ^ 2 / (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
 }
+
