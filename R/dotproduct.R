@@ -70,6 +70,7 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     if (!is.matrix(y)) stop("'y' is not a matrix")
     if (mode(x) != "numeric") stop("mode(x) is not numeric")
     if (mode(y) != "numeric") stop("mode(y) is not numeric")
+    if (nrow(x) != nrow(y)) stop("nrow(x) and nrow(y) are not identical")
     if (!is.numeric(m)) stop("`m` is not numeric")
     if (length(m) != 1) stop("`m` has to be of length 1")
     if (!is.numeric(n)) stop("`n` is not numeric")

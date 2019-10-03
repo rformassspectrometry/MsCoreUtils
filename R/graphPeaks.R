@@ -1,3 +1,5 @@
+#' @importFrom igraph graph_from_adjacency_matrix components
+
 #' @name graphPeaks
 #' 
 #' @title
@@ -47,12 +49,12 @@
 #' @examples
 #' x <- matrix(c(c(100.001, 100.002, 300.01, 300.02),
 #'     c(1, 1, 1, 1)), ncol = 2, nrow = 4, byrow = FALSE)
-#' colnames(spectrum1) <- c("mz", "intensity")
+#' colnames(x) <- c("mz", "intensity")
 #' 
 #' y <- matrix(c(c(100.0, 200.0, 300.002, 300.025, 300.0255),
 #'     c(1, 1, 1, 1, 1)), ncol = 2, nrow = 5, byrow = FALSE)
-#' colnames(spectrum2) <- c("mz", "intensity")
-#' graphPeaks(x = x, y = y, ppm = 20, FUN = dotproduct, ...)
+#' colnames(y) <- c("mz", "intensity")
+#' graphPeaks(x = x, y = y, ppm = 20, FUN = dotproduct)
 #' @export
 graphPeaks <- function(x, y, ppm = 20, FUN = dotproduct, ...) {
     
@@ -258,7 +260,7 @@ graphPeaks <- function(x, y, ppm = 20, FUN = dotproduct, ...) {
         ind_remove <- sp1_ind == "NA" & sp2_ind == "NA"
         sp1_ind <- sp1_ind[!ind_remove]
         sp2_ind <- sp2_ind[!ind_remove]
-        
+
         ## create vectors that store mz and intensity of combination
         mz1 <- rep(NA, length(sp1_ind))
         int1 <- numeric(length(sp1_ind))
@@ -270,8 +272,10 @@ graphPeaks <- function(x, y, ppm = 20, FUN = dotproduct, ...) {
         int1[sp1_ind != "NA"] <- x[sp1_ind[sp1_ind != "NA"], "intensity"]
         int2[sp2_ind != "NA"] <- y[sp2_ind[sp2_ind != "NA"], "intensity"]
         
-        sp1 <- data.frame(mz = mz1, intensity = int1)
-        sp2 <- data.frame(mz = mz2, intensity = int2)
+        ## create matrices of matched spectra    
+        sp1 <- matrix(c(mz1, int1), ncol = 2)
+        sp2 <- matrix(c(mz2, int2), ncol = 2)
+        colnames(sp1) <- colnames(sp2) <- c("mz", "intensity")
         
         ## get similarity value from function FUN
         value <- FUN(sp1, sp2, ...)

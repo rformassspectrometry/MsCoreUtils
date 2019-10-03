@@ -23,6 +23,7 @@ Maintainer: Laurent Gatto <laurent.gatto@uclouvain.be>
 Depends:
     R (>= 3.6.0)
 Imports:
+    igraph,
     methods,
     S4Vectors
 Suggests:
