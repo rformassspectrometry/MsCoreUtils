@@ -75,7 +75,7 @@ test_that("graphPeaks", {
     ## test for colnames 
     x_colnames <- matrix(c(c(100.001, 100.002, 300.01, 300.02),
                   c(1, 1, 1, 1)), ncol = 2, nrow = 4, byrow = FALSE)
-    expect_error(graph_peaks(x = x_colnames, y = y))
-    expect_error(graph_peaks(x = y, y = x_colnames))
+    expect_error(graphPeaks(x = x_colnames, y = y))
+    expect_error(graphPeaks(x = y, y = x_colnames))
 
 })
