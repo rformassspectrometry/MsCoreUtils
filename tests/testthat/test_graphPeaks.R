@@ -1,19 +1,20 @@
 ## function shiftMatrix
 library("testthat")
 
-## create test matrices
-mat_l <- matrix(letters[1:18], ncol = 6, nrow = 3)
-## n: negative, p: positive
-mat_n1 <- matrix(c("j", "p", NA, "k", "q", NA, "l", "r", NA), 
-                 ncol = 3, nrow = 3, byrow = TRUE)
-mat_n2 <- matrix(c("p", NA, NA, "q", NA, NA, "r", NA, NA), 
-                 ncol = 3, nrow = 3, byrow = TRUE)
-mat_p1 <- matrix(c(NA, "d", "j", NA, "e", "k", NA, "f", "l"), 
-                 ncol = 3, nrow = 3, byrow = TRUE)
-mat_p2 <- matrix(c(NA, NA, "d", NA, NA, "e", NA, NA, "f"), 
-                 ncol = 3, nrow = 3, byrow = TRUE)
-
 test_that("shiftMatrix", {
+    
+    ## create test matrices
+    mat_l <- matrix(letters[1:18], ncol = 6, nrow = 3)
+    ## n: negative, p: positive
+    mat_n1 <- matrix(c("j", "p", NA, "k", "q", NA, "l", "r", NA), 
+                     ncol = 3, nrow = 3, byrow = TRUE)
+    mat_n2 <- matrix(c("p", NA, NA, "q", NA, NA, "r", NA, NA), 
+                     ncol = 3, nrow = 3, byrow = TRUE)
+    mat_p1 <- matrix(c(NA, "d", "j", NA, "e", "k", NA, "f", "l"), 
+                     ncol = 3, nrow = 3, byrow = TRUE)
+    mat_p2 <- matrix(c(NA, NA, "d", NA, NA, "e", NA, NA, "f"), 
+                     ncol = 3, nrow = 3, byrow = TRUE)
+    
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = -1), mat_n1)
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = -2), mat_n2)
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = 1), mat_p1)
@@ -27,28 +28,38 @@ test_that("shiftMatrix", {
 
 ## function graphPeaks
 library("testthat")
-## create example spectrum1 and spectrum2 and perform tests
-spectrum1 <- matrix(c(c(100.001, 100.002, 300.01, 300.02),
-                      c(1, 1, 1, 1)), ncol = 2, nrow = 4, byrow = FALSE)
-colnames(spectrum1) <- c("mz", "intensity")
 
-spectrum2 <- matrix(c(c(100.0, 200.0, 300.002, 300.025, 300.0255),
-                      c(1, 1, 1, 1, 1)), ncol = 2, nrow = 5, byrow = FALSE)
-colnames(spectrum2) <- c("mz", "intensity")
+## create example x and y and perform tests
+x <- matrix(c(c(100.001, 100.002, 300.01, 300.02),
+              c(1, 1, 1, 1)), ncol = 2, nrow = 4, byrow = FALSE)
+colnames(x) <- c("mz", "intensity")
+
+y <- matrix(c(c(100.0, 200.0, 300.002, 300.025, 300.0255),
+              c(1, 1, 1, 1, 1)), ncol = 2, nrow = 5, byrow = FALSE)
+colnames(y) <- c("mz", "intensity")
 
 ## create matrices that contain the result
-spectrum1_match <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02), 
-                            c(NA, 1, 1, 0, 1, 1, 0)), ncol = 2, nrow = 6, byrow = FALSE)
-colnames(spectrum1_match) <- c("mz", "intensity")
+x_match <- matrix(c(c(100.002, 100.001, NA, 300.01,  NA, 300.02), 
+                    c(1, 1, 0, 1, 0, 1)), ncol = 2, nrow = 6)
+colnames(x_match) <- c("mz", "intensity")
 
-spectrum2_match <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
-                            c(1, 0, 1, 1, 1, 1)), ncol = 2, nrow = 6, byrow = FALSE)
+y_match <- matrix(c(c(NA, 100.0, 200.0, 300.002, 300.0255, 300.025),
+                    c(0, 1, 1, 1, 1, 1)), ncol = 2, nrow = 6)
+colnames(y_match) <- c("mz", "intensity")
 
 test_that("graphPeaks", {
-    expect_equal(graphPeaks(x = spectrum1, y = spectrum1), list(x = spectrum1, y = spectrum1))
-    expect_equal(graphPeaks(x = spectrum2, y = spectrum2), list(x = spectrum2, y = spectrum2))
-    expect_error(graphPeaks(x = spectrum1[1, ], y = spectrum2))
-    expect_error(graphPeaks(x = spectrum1))
-    expect_error(graphPeaks(y = spectrum2))
-    expect_error(graphPeaks(x = spectrum1, y = spectrum2, FUN = max))
+    ## tests
+    expect_equal(graphPeaks(x = x, y = x), list(x = x, y = x),
+        tolerance = 1e-05)
+    expect_equal(graphPeaks(x = y, y = y), list(x = y, y = y), 
+        tolerance = 1e-05)
+    ##expect_true(all(graphPeaks(x = x, y = y)$x[, "mz"] == x_match[, "mz"], na.rm = TRUE))##list(x = x_match, y = y_match)$x[, "mz"],
+    expect_equal(graphPeaks(x = x, y = y, m = 0.5, n = 0)$x, x_match, tolerance = 1e-05)
+    expect_equal(graphPeaks(x = x, y = y, m = 0.5, n = 0)$y, y_match, tolerance = 1e-05)
+   # expect_equal(graphPeaks(x = x, y = y, n = 0), list(x = x_match, y = y_match))
+    expect_true(is.list(graphPeaks(x = x, y = y)))
+    expect_error(graphPeaks(x = x[1, ], y = y))
+    expect_error(graphPeaks(x = x))
+    expect_error(graphPeaks(y = y))
+    expect_error(graphPeaks(x = x, y = y, FUN = max))
 })

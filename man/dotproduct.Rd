@@ -7,11 +7,11 @@
 dotproduct(x, y, m = 0.5, n = 0)
 }
 \arguments{
-\item{x}{\code{list}/\code{data.frame} of length 2 with m/z (\code{"mz"}) and corresponding
-intensity values (\code{"intensity"})}
+\item{x}{\code{matrix} with two column where one contains m/z values (column \code{"mz"}) and
+the second corresponding intensity values (column \code{"intensity"})}
 
-\item{y}{\code{list}/\code{data.frame} of length 2 with m/z (\code{"mz"}) and corresponding
-intensity values (\code{"intensity"})}
+\item{y}{\code{matrix} with two column where one contains m/z values (column \code{"mz"}) and
+the second corresponding intensity values (column \code{"intensity"})}
 
 \item{m}{\code{numeric(1)}, exponent for peak intensity-based weights}
 
@@ -53,10 +53,11 @@ Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values
 are divided by the maximum intensity value.
 }
 \examples{
-x <- data.frame(mz=c(100.002, 100.001, NA, 300.01, 300.02, NA), 
-        intensity=c(2, 1.5, 0, 1.2, 0.9, 0))
-y <- data.frame(mz = c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
-        intensity = c(2, 0, 3, 1, 4, 0.4))
+x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA), 
+        c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2,)
+y <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
+        c(2, 0, 3, 1, 4, 0.4)), ncol = 2)       
+colnames(x) <- colnames(y) <- c("mz", "intensity")
 dotproduct(x, y, m = 0.5, n = 0) 
 
 }
