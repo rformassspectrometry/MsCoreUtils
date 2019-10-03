@@ -39,12 +39,12 @@ y <- matrix(c(c(100.0, 200.0, 300.002, 300.025, 300.0255),
 colnames(y) <- c("mz", "intensity")
 
 ## create matrices that contain the result
-x_match <- matrix(c(c(100.002, 100.001, NA, 300.01,  NA, 300.02), 
-                    c(1, 1, 0, 1, 0, 1)), ncol = 2, nrow = 6)
+x_match <- matrix(c(c(100.002, 100.001, NA, 300.01,  300.02, NA), 
+                    c(1, 1, 0, 1, 1, 0)), ncol = 2, nrow = 6)
 colnames(x_match) <- c("mz", "intensity")
 
-y_match <- matrix(c(c(NA, 100.0, 200.0, 300.002, 300.0255, 300.025),
-                    c(0, 1, 1, 1, 1, 1)), ncol = 2, nrow = 6)
+y_match <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
+                    c(1, 0, 1, 1, 1, 1)), ncol = 2, nrow = 6)
 colnames(y_match) <- c("mz", "intensity")
 
 test_that("graphPeaks", {
