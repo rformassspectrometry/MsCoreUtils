@@ -19,6 +19,7 @@ test_that("shiftMatrix", {
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = -2), mat_n2)
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = 1), mat_p1)
     expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = 2), mat_p2)
+    expect_equal(shiftMatrix(mat_l, x = c(2, 4, 6), n = 0), mat_l[, c(2, 4, 6)])
     expect_error(shiftMatrix(x = c(2, 4, 6), n = 1, def = NA))
     expect_error(shiftMatrix(mat = mat_l, n = 1, def = NA))
     expect_error(shiftMatrix(mat = mat_l, x = c(2, 4, 6), def = NA))
@@ -53,13 +54,28 @@ test_that("graphPeaks", {
         tolerance = 1e-05)
     expect_equal(graphPeaks(x = y, y = y), list(x = y, y = y), 
         tolerance = 1e-05)
-    ##expect_true(all(graphPeaks(x = x, y = y)$x[, "mz"] == x_match[, "mz"], na.rm = TRUE))##list(x = x_match, y = y_match)$x[, "mz"],
     expect_equal(graphPeaks(x = x, y = y, m = 0.5, n = 0)$x, x_match, tolerance = 1e-05)
     expect_equal(graphPeaks(x = x, y = y, m = 0.5, n = 0)$y, y_match, tolerance = 1e-05)
-   # expect_equal(graphPeaks(x = x, y = y, n = 0), list(x = x_match, y = y_match))
     expect_true(is.list(graphPeaks(x = x, y = y)))
     expect_error(graphPeaks(x = x[1, ], y = y))
+    expect_error(graphPeaks(x = x, y = y[[1,]]))
     expect_error(graphPeaks(x = x))
     expect_error(graphPeaks(y = y))
     expect_error(graphPeaks(x = x, y = y, FUN = max))
+    
+    ## ppm
+    expect_error(graphPeaks(x = x, y = y, ppm = "a"))
+    expect_error(graphPeaks(x = x, y = y, ppm = -1))
+    
+    ## test for mode
+    x_chr <- matrix(c("a", "b", "c", "d"), ncol = 2)
+    expect_error(graphPeaks(x = x_chr, y = y))
+    expect_error(graphPeaks(x = x, y = x_chr))
+    
+    ## test for colnames 
+    x_colnames <- matrix(c(c(100.001, 100.002, 300.01, 300.02),
+                  c(1, 1, 1, 1)), ncol = 2, nrow = 4, byrow = FALSE)
+    expect_error(graph_peaks(x = x_colnames, y = y))
+    expect_error(graph_peaks(x = y, y = x_colnames))
+
 })
