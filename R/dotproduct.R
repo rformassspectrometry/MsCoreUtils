@@ -20,11 +20,12 @@
 #' @details 
 #' Each row in `x` corresponds to the respective row in `y`, i.e. the peaks 
 #' (entries `"mz"`) per spectrum have to match.
+#' 
 #' `m` and `n` are weights given on the peak intensity and the m/z values 
-#' respectively. As default (`m = 0.5`), the square roots of the intensity 
+#' respectively. As default (`m = 0.5`), the square root of the intensity 
 #' values are taken to calculate weights. With increasing values for `m`, high
-#' intensity values will be taken more into account for similarity calculation, 
-#' i.e. differences between intensities will be intensified. 
+#' intensity values become more important for the similarity calculation, 
+#' i.e. the differences between intensities will be aggravated. 
 #' With increasing values for `n`, high m/z values will be taken more into 
 #' account for similarity calculation. Especially when working with small 
 #' molecules, a value `n > 0` can be set, to give a weight on the m/z values to 
@@ -41,12 +42,12 @@
 #' For further information on normalized dot product see for example
 #' Li et al. (2015).
 #' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values 
-#' are divided by the maximum intensity value. 
+#' are divided by the maximum intensity value and multiplied by 100.
 #' 
 #' @references 
 #' Li et al. (2015): Navigating natural variation in herbivory-induced
 #' secondary metabolism in coyote tobacco populations using MS/MS structural 
-#' analysis. PNAS, E4147--E4155.
+#' analysis. PNAS, E4147--E4155, DOI: 10.1073/pnas.1503106112.
 #' 
 #' @return 
 #' `numeric(1)`, `dotproduct` returns a numeric similarity coefficient between 
@@ -68,14 +69,13 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     ## check valid input 
     if (!is.matrix(x)) stop("'x' is not a matrix")
     if (!is.matrix(y)) stop("'y' is not a matrix")
-    if (mode(x) != "numeric") stop("mode(x) is not numeric")
-    if (mode(y) != "numeric") stop("mode(y) is not numeric")
+    
     if (nrow(x) != nrow(y)) stop("nrow(x) and nrow(y) are not identical")
-    if (!is.numeric(m)) stop("`m` is not numeric")
-    if (length(m) != 1) stop("`m` has to be of length 1")
-    if (!is.numeric(n)) stop("`n` is not numeric")
-    if (length(n) != 1) stop("`n` has to be of length 1")
-        
+    if (!is.numeric(m) || length(m) != 1) 
+        stop("`m` has to be a numeric of length 1.")
+    if (!is.numeric(n) || length(n) != 1) 
+        stop("`n` has to be a numeric of length 1.")
+    
     ## retrieve m/z and intensity from x and y
     mz1 <- x[, "mz"]
     mz2 <- y[, "mz"]
@@ -85,22 +85,17 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     ## check mz values: if mz1 and mz2 are not identical and the values are
     ## weighted by n, this might to unexpected results in the similarity
     ## calculation
-    na_ind <- is.na(mz1) | is.na(mz2)
-    if (!all(mz1[ !na_ind ] == mz2[ !na_ind ])) {
-        if (n != 0) {
-            warning("m/z values in x are not identical to m/z values in y.",
-            "If n != 0 this might lead to unexpected results.")    
-        }
-    }
-    
-    ## normalize to % intensity
+    if (n && any(mz1 != mz2, na.rm = TRUE)) 
+        warning("m/z values in `x` and `y` are not identical. ",
+            "For n != 0 this might yield unexpected results.")    
+        
     inten1 <- inten1 / max(inten1, na.rm = TRUE) * 100
     inten2 <- inten2 / max(inten2, na.rm = TRUE) * 100
     
     ws1 <- inten1 ^ m * mz1 ^ n
     ws2 <- inten2 ^ m * mz2 ^ n
     
-    ## calculate dot product or normalized dot product respectively
+    ## calculate normalized dot product 
     dp <- sum(ws1 * ws2, na.rm = TRUE)
     dp ^ 2 / (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
 }

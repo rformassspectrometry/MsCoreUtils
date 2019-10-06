@@ -29,11 +29,12 @@ two MS/MS features, while 1 indicates that the MS/MS features are identical.
 \details{
 Each row in \code{x} corresponds to the respective row in \code{y}, i.e. the peaks
 (entries \code{"mz"}) per spectrum have to match.
+
 \code{m} and \code{n} are weights given on the peak intensity and the m/z values
-respectively. As default (\code{m = 0.5}), the square roots of the intensity
+respectively. As default (\code{m = 0.5}), the square root of the intensity
 values are taken to calculate weights. With increasing values for \code{m}, high
-intensity values will be taken more into account for similarity calculation,
-i.e. differences between intensities will be intensified.
+intensity values become more important for the similarity calculation,
+i.e. the differences between intensities will be aggravated.
 With increasing values for \code{n}, high m/z values will be taken more into
 account for similarity calculation. Especially when working with small
 molecules, a value \code{n > 0} can be set, to give a weight on the m/z values to
@@ -50,7 +51,7 @@ with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}.
 For further information on normalized dot product see for example
 Li et al. (2015).
 Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values
-are divided by the maximum intensity value.
+are divided by the maximum intensity value and multiplied by 100.
 }
 \examples{
 x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA), 
@@ -64,7 +65,7 @@ dotproduct(x, y, m = 0.5, n = 0)
 \references{
 Li et al. (2015): Navigating natural variation in herbivory-induced
 secondary metabolism in coyote tobacco populations using MS/MS structural
-analysis. PNAS, E4147--E4155.
+analysis. PNAS, E4147--E4155, DOI: 10.1073/pnas.1503106112.
 }
 \author{
 Thomas Naake, \email{thomasnaake@googlemail.com}
