@@ -20,11 +20,12 @@
 #' @details 
 #' Each row in `x` corresponds to the respective row in `y`, i.e. the peaks 
 #' (entries `"mz"`) per spectrum have to match.
+#' 
 #' `m` and `n` are weights given on the peak intensity and the m/z values 
-#' respectively. As default (`m = 0.5`), the square roots of the intensity 
+#' respectively. As default (`m = 0.5`), the square root of the intensity 
 #' values are taken to calculate weights. With increasing values for `m`, high
-#' intensity values will be taken more into account for similarity calculation, 
-#' i.e. differences between intensities will be intensified. 
+#' intensity values become more important, 
+#' i.e. differences between intensities will be aggravated. 
 #' With increasing values for `n`, high m/z values will be taken more into 
 #' account for similarity calculation. Especially when working with small 
 #' molecules, a value `n > 0` can be set, to give a weight on the m/z values to 
@@ -41,7 +42,7 @@
 #' For further information on normalized dot product see for example
 #' Li et al. (2015).
 #' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values 
-#' are divided by the maximum intensity value. 
+#' are divided by the maximum intensity value and multiplied by 100.
 #' 
 #' @references 
 #' Li et al. (2015): Navigating natural variation in herbivory-induced
