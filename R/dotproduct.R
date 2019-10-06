@@ -6,12 +6,12 @@
 #' two MS/MS features, while 1 indicates that the MS/MS features are identical. 
 #' 
 #' @param 
-#' x `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
-#' intensity values (`"intensity"`)
+#' x `matrix` with two column where one contains m/z values (column `"mz"`) and 
+#' the second corresponding intensity values (column `"intensity"`)
 #' 
 #' @param 
-#' y `list`/`data.frame` of length 2 with m/z (`"mz"`) and corresponding 
-#' intensity values (`"intensity"`)
+#' y `matrix` with two column where one contains m/z values (column `"mz"`) and 
+#' the second corresponding intensity values (column `"intensity"`)
 #' 
 #' @param m `numeric(1)`, exponent for peak intensity-based weights
 #' 
@@ -24,8 +24,8 @@
 #' `m` and `n` are weights given on the peak intensity and the m/z values 
 #' respectively. As default (`m = 0.5`), the square root of the intensity 
 #' values are taken to calculate weights. With increasing values for `m`, high
-#' intensity values become more important, 
-#' i.e. differences between intensities will be aggravated. 
+#' intensity values become more important for the similarity calculation, 
+#' i.e. the differences between intensities will be aggravated. 
 #' With increasing values for `n`, high m/z values will be taken more into 
 #' account for similarity calculation. Especially when working with small 
 #' molecules, a value `n > 0` can be set, to give a weight on the m/z values to 
@@ -47,7 +47,7 @@
 #' @references 
 #' Li et al. (2015): Navigating natural variation in herbivory-induced
 #' secondary metabolism in coyote tobacco populations using MS/MS structural 
-#' analysis. PNAS, E4147--E4155.
+#' analysis. PNAS, E4147--E4155, DOI: 10.1073/pnas.1503106112.
 #' 
 #' @return 
 #' `numeric(1)`, `dotproduct` returns a numeric similarity coefficient between 
@@ -56,64 +56,47 @@
 #' @author Thomas Naake, \email{thomasnaake@@googlemail.com}
 #' 
 #' @examples 
-#' x <- data.frame(mz=c(100.002, 100.001, NA, 300.01, 300.02, NA), 
-#'         intensity=c(2, 1.5, 0, 1.2, 0.9, 0))
-#' y <- data.frame(mz = c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
-#'         intensity = c(2, 0, 3, 1, 4, 0.4))
+#' x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA), 
+#'         c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2,)
+#' y <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
+#'         c(2, 0, 3, 1, 4, 0.4)), ncol = 2)       
+#' colnames(x) <- colnames(y) <- c("mz", "intensity")
 #' dotproduct(x, y, m = 0.5, n = 0) 
 #' 
 #' @export
 dotproduct <- function(x, y, m = 0.5, n = 0) {
     
     ## check valid input 
-    if (!is.list(x)) stop("'x' is not a list")
-    if (!is.list(y)) stop("'y' is not a list")
-    if (!is.numeric(m)) stop("`m` is not numeric")
-    if (length(m) != 1) stop("`m` has to be of length 1")
-    if (!is.numeric(n)) stop("`n` is not numeric")
-    if (length(n) != 1) stop("`n` has to be of length 1")
-        
+    if (!is.matrix(x)) stop("'x' is not a matrix")
+    if (!is.matrix(y)) stop("'y' is not a matrix")
+    
+    if (nrow(x) != nrow(y)) stop("nrow(x) and nrow(y) are not identical")
+    if (!is.numeric(m) || length(m) != 1) 
+        stop("`m` has to be a numeric of length 1.")
+    if (!is.numeric(n) || length(n) != 1) 
+        stop("`n` has to be a numeric of length 1.")
+    
     ## retrieve m/z and intensity from x and y
-    mz1 <- x$mz
-    mz2 <- y$mz
-    inten1 <- x$intensity
-    inten2 <- y$intensity
-    
-    ## check mz1, inten1, mz2 and inten2
-    if (!all(is.numeric(mz1))) stop("x$mz is not numeric")
-    if (!all(is.numeric(mz2))) stop("y$mz is not numeric")
-    if (!all(is.numeric(inten1))) stop("x$intensity is not numeric")
-    if (!all(is.numeric(inten2))) stop("y$intensity is not numeric")
-    
-    if (length(mz1) != length(inten1)) {
-        stop("length(x$mz) not equal to length(x$intensity)")
-    }    
-    if (length(mz1) != length(mz2)) {
-        stop("length(x$mz) not equal to length(y$mz)")
-    }
-    if (length(mz1) != length(inten2)) {
-        stop("length(x$mz) not equal to length(y$inten)")
-    }
+    mz1 <- x[, "mz"]
+    mz2 <- y[, "mz"]
+    inten1 <- x[, "intensity"]
+    inten2 <- y[, "intensity"]
     
     ## check mz values: if mz1 and mz2 are not identical and the values are
     ## weighted by n, this might to unexpected results in the similarity
     ## calculation
-    na_ind <- is.na(mz1) | is.na(mz2)
-    if (!all(mz1[ !na_ind ] == mz2[ !na_ind ])) {
-        if (n != 0) {
-            warning("m/z values in x are not identical to m/z values in y.",
-            "If n != 0 this might lead to unexpected results.")    
-        }
-    }
-    
-    ## normalize to % intensity
+    if (n && any(mz1 != mz2, na.rm = TRUE)) 
+        warning("m/z values in `x` and `y` are not identical. ",
+            "For n != 0 this might yield unexpected results.")    
+        
     inten1 <- inten1 / max(inten1, na.rm = TRUE) * 100
     inten2 <- inten2 / max(inten2, na.rm = TRUE) * 100
     
     ws1 <- inten1 ^ m * mz1 ^ n
     ws2 <- inten2 ^ m * mz2 ^ n
     
-    ## calculate dot product or normalized dot product respectively
-    dp <- sum(ws1 * ws2, na.rm = TRUE) 
+    ## calculate normalized dot product 
+    dp <- sum(ws1 * ws2, na.rm = TRUE)
     dp ^ 2 / (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
 }
+
