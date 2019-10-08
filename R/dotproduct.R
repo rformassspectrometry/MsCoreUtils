@@ -55,7 +55,7 @@
 #' 0 and 1.
 #'
 #' @author Thomas Naake, \email{thomasnaake@@googlemail.com}
-#'
+#' @export
 #' @examples
 #' x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA),
 #'         c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2,)
@@ -63,8 +63,6 @@
 #'         c(2, 0, 3, 1, 4, 0.4)), ncol = 2)
 #' colnames(x) <- colnames(y) <- c("mz", "intensity")
 #' dotproduct(x, y, m = 0.5, n = 0)
-#'
-#' @export
 dotproduct <- function(x, y, m = 0.5, n = 0) {
 
     ## check valid input
