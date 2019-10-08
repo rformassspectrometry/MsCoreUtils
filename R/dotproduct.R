@@ -95,6 +95,6 @@ dotproduct <- function(x, y, m = 0.5, n = 0) {
     ws2 <- inten2 ^ m * mz2 ^ n
 
     ## calculate normalized dot product
-    dp <- sum(ws1 * ws2, na.rm = TRUE)
-    dp ^ 2 / (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
+    sum(ws1 * ws2, na.rm = TRUE) ^ 2 /
+        (sum(ws1 ^ 2, na.rm = TRUE) * sum(ws2 ^ 2, na.rm = TRUE))
 }
