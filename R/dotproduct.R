@@ -37,11 +37,11 @@
 #' taken into account.
 #'
 #' The normalized dot product is calculated according to:
-#' \deqn{NDP = \frac{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2}{ \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2) }}{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2 \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2)},
-#' with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}.
+#' \deqn{NDP = \frac{\sum(W_{S1,i} \cdot W_{S2,i})^2}{\sum(W_{S1,i}^2) \cdot \sum(W_{S2,i}^2)}}{NDP = \sum(W_{S1,i} * W_{S2,i})^2 / (\sum(W_{S1,i}^2) * \sum(W_{S2,i}^2))},
+#' with \eqn{W = [peak \quad intensity]^m \cdot [m/z]^n}{W = [peak intensity]^m * [m/z]^n}.
 #' For further information on normalized dot product see for example
 #' Li et al. (2015).
-#' Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values
+#' Prior to calculating \eqn{W_{S1}} or \eqn{W_{S2}}, all intensity values
 #' are divided by the maximum intensity value and multiplied by 100.
 #'
 #' @references
