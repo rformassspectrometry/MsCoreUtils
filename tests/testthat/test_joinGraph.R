@@ -1,3 +1,13 @@
+test_that(".edgeList", {
+
+    x <- c(100.1, 100.2, 300, 500)
+    y <- c(100, 200, 300.1)
+    e <- matrix(c(1, 2, 3, 4, NA, 1, 1, 3, NA, 2), ncol = 2,
+                dimnames = list(c(), c("x", "y")))
+
+    expect_equal(.edgeList(x, y, tolerance = 0.2, ppm = 0), e)
+})
+
 test_that(".orderEdges", {
     x <- c(100.1, 100.2, 300, 500)
     y <- c(100, 200, 300.1)
