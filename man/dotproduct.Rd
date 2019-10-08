@@ -46,11 +46,11 @@ differences in m/z values will distort the similarity values with increasing
 taken into account.
 
 The normalized dot product is calculated according to:
-\deqn{NDP = \frac{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2}{ \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2) }}{\sum(W_{S1, i} \cdot W_{S2, i}) ^ 2 \sum(W_{S1, i} ^ 2) * \sum(W_{S2, i} ^ 2)},
-with \eqn{W = [ peak intensity] ^{m} \cdot [m/z]^n}.
+\deqn{NDP = \frac{\sum(W_{S1,i} \cdot W_{S2,i})^2}{\sum(W_{S1,i}^2) \cdot \sum(W_{S2,i}^2)}}{NDP = \sum(W_{S1,i} * W_{S2,i})^2 / (\sum(W_{S1,i}^2) * \sum(W_{S2,i}^2))},
+with \eqn{W = [peak \quad intensity]^m \cdot [m/z]^n}{W = [peak intensity]^m * [m/z]^n}.
 For further information on normalized dot product see for example
 Li et al. (2015).
-Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values
+Prior to calculating \eqn{W_{S1}} or \eqn{W_{S2}}, all intensity values
 are divided by the maximum intensity value and multiplied by 100.
 }
 \examples{
@@ -64,8 +64,7 @@ dotproduct(x, y, m = 0.5, n = 0)
 \references{
 Li et al. (2015): Navigating natural variation in herbivory-induced
 secondary metabolism in coyote tobacco populations using MS/MS structural
-analysis. PNAS, E4147--E4155,
-\href{https://doi.org/10.1073/pnas.1503106112}{DOI: 10.1073/pnas.1503106112}.
+analysis. PNAS, E4147--E4155, \doi{10.1073/pnas.1503106112}.
 }
 \author{
 Thomas Naake, \email{thomasnaake@googlemail.com}
