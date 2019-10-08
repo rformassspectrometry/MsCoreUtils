@@ -55,6 +55,7 @@
 #' 0 and 1.
 #'
 #' @author Thomas Naake, \email{thomasnaake@@googlemail.com}
+#' @family similarity functions
 #' @export
 #' @examples
 #' x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA),
