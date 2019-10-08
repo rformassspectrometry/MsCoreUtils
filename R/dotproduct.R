@@ -47,8 +47,7 @@
 #' @references
 #' Li et al. (2015): Navigating natural variation in herbivory-induced
 #' secondary metabolism in coyote tobacco populations using MS/MS structural
-#' analysis. PNAS, E4147--E4155,
-#' [DOI: 10.1073/pnas.1503106112](https://doi.org/10.1073/pnas.1503106112).
+#' analysis. PNAS, E4147--E4155, \doi{10.1073/pnas.1503106112}.
 #'
 #' @return
 #' `numeric(1)`, `dotproduct` returns a numeric similarity coefficient between
