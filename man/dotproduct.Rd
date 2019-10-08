@@ -54,18 +54,18 @@ Prior to calculating \deqn{W_{S1}} or \deqn{W_{S2}}, all intensity values
 are divided by the maximum intensity value and multiplied by 100.
 }
 \examples{
-x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA), 
+x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA),
         c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2,)
 y <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
-        c(2, 0, 3, 1, 4, 0.4)), ncol = 2)       
+        c(2, 0, 3, 1, 4, 0.4)), ncol = 2)
 colnames(x) <- colnames(y) <- c("mz", "intensity")
-dotproduct(x, y, m = 0.5, n = 0) 
-
+dotproduct(x, y, m = 0.5, n = 0)
 }
 \references{
 Li et al. (2015): Navigating natural variation in herbivory-induced
 secondary metabolism in coyote tobacco populations using MS/MS structural
-analysis. PNAS, E4147--E4155, DOI: 10.1073/pnas.1503106112.
+analysis. PNAS, E4147--E4155,
+\href{https://doi.org/10.1073/pnas.1503106112}{DOI: 10.1073/pnas.1503106112}.
 }
 \author{
 Thomas Naake, \email{thomasnaake@googlemail.com}
