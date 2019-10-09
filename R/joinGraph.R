@@ -19,6 +19,33 @@
     FALSE
 }
 
+#' @title Find all possible combinations
+#'
+#' @description
+#' Similar to `expand.grid` but expects a `numeric` vector as input and returns
+#' the indices.
+#'
+#' @param `x` `integer`, group numbers
+#' @return `list`, each element represents a possible combination
+#' @noRd
+#' @examples
+#' .combinations(c(1, 2, 2, 2, 3, 3))
+.combinations <- function(x) {
+    r <- rle(x)
+    ncs <- cumsum(c(0L, r$lengths))
+    ncmb <- prod(r$lengths)
+    times <- 1L
+    l <- vector(mode = "list", length = length(r))
+
+    for (i in seq_along(r$lengths)) {
+        n <- r$lengths[i]
+        ncmb <- ncmb / n
+        l[[i]] <- rep.int(rep.int(ncs[i] + seq_len(n), rep.int(times, n)), ncmb)
+        times <- times * n
+    }
+    split(unlist(l), seq_along(l[[1L]]))
+}
+
 #' @title Find Edge Groups
 #'
 #' @description

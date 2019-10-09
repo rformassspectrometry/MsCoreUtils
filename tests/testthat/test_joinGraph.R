@@ -1,3 +1,18 @@
+test_that(".combinations", {
+    g <- c(1, 2, 2, 2, 3, 3)
+    l <- list(
+        "1" = c(1, 2, 5), "2" = c(1, 3, 5), "3" = c(1, 4, 5),
+        "4" = c(1, 2, 6), "5" = c(1, 3, 6), "6" = c(1, 4, 6)
+    )
+
+    expect_equal(.combinations(g), l)
+})
+
+test_that(".anyCrossing", {
+    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
+    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
+})
+
 test_that(".edgeGroups", {
     e1 <- list(x = c(1, 2, NA, 3, 4, 4, 5), y = c(1, 1, 2, 3, 3, 4, 4))
     e2 <- list(x = e1$y, y = e1$x)
@@ -24,9 +39,4 @@ test_that(".orderEdges", {
     o <- list(x = c(1, 2, NA, 3, 4), y = c(1, 1, 2, 3, NA))
 
     expect_equal(.orderEdges(x, y, e), o)
-})
-
-test_that(".anyCrossing", {
-    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
-    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
 })
