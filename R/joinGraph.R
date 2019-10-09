@@ -12,10 +12,10 @@
 #' @param na.rm `logical(1)` should rows with NA removed from the results?
 #' (necessary for [`igraph::graph_from_edge_list()`].
 #'
-#' @return A two-column `matrix` with the undirected edge positions, for
-#' [igraph::graph_from_edge_list()`] the indices in the `y` column have to be
-#' increased by `length(x)` and the `NA` values (no match) have to be removed
-#' manually.
+#' @return A `list` with the undirected edge positions, for
+#' [igraph::graph_from_edge_list()`] the `list` has to be `rbind`ed, the
+#' indices in the `y` column have to be increased by `length(x)` and the `NA`
+#' values (no match) have to be removed manually.
 #' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
@@ -27,14 +27,15 @@
 
     # switching the direction of the second match (yx) to allow using duplicated
     # to remove multiple edges (we use undirected graphs anyway)
-    e <- cbind(x = c(seq_along(x), yx), y = c(xy, seq_along(y)))
-    e[!duplicated(e), ]
+    e <- mapply(c, c(seq_along(x), yx),  c(xy, seq_along(y)), SIMPLIFY = FALSE)
+    e <- e[!duplicated(e)]
+    split(unlist(e), c("x", "y"))
 }
 
 #' @title (Re)order edges
 #'
 #' @description
-#' Ensures matrix/list with edges is ordered increasingly and gaps are filled
+#' Ensures list with edges is ordered increasingly and gaps are filled
 #' with `NA`
 #'
 #' @param x `numeric`, values to be matched, e.g. m/z from spectrum 1.
