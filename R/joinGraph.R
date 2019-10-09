@@ -19,6 +19,27 @@
     FALSE
 }
 
+#' @title Find Edge Groups
+#'
+#' @description
+#' This function finds edges that belong to the same group. A group is definied
+#' by at least one identical point for following edges. It assumes that the
+#' edge list is ordered.
+#'
+#' @param e `list` with edges
+#' @return `integer` group values
+#' @noRd
+#' @examples
+#' .edgeGroups(list(x = c(1, 2, NA, 3, 4, 4, 5), y = c(1, 1, 2, 3, 3, 4, 4)))
+.edgeGroups <- function(e) {
+    n <- lengths(e)
+    if (!is.list(e) || n[1L] != n[2L])
+        stop("'e' has to be a list with two elements of equal length.")
+    gx <- e[[1L]][-1L] != e[[1L]][-n[1L]]
+    gy <- e[[2L]][-1L] != e[[2L]][-n[1L]]
+    pmin(cumsum(c(TRUE, gx | is.na(gx))), cumsum(c(TRUE, gy | is.na(gy))))
+}
+
 #' @title Create Edge List Matrix
 #'
 #' @description
