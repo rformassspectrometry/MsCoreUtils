@@ -46,7 +46,7 @@ there is no match.
 \code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
 element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in\%}}.
 
-\code{join} returns a \code{matrix} with two columns, namely \code{x} and \code{y},
+\code{join} returns a \code{list} with two columns, namely \code{x} and \code{y},
 representing the index of the values in \code{x} matching the corresponding value
 in \code{y} (or \code{NA} if the value does not match).
 }
