@@ -16,6 +16,7 @@
 #' [igraph::graph_from_edge_list()`] the indices in the `y` column have to be
 #' increased by `length(x)` and the `NA` values (no match) have to be removed
 #' manually.
+#' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
 #' y <- c(100, 200, 299.9, 300.1, 505)
@@ -44,6 +45,7 @@
 #' representing the index of the values in `x` matching the corresponding value
 #' in `y` (or `NA` if the value do not match).
 #'
+#' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
 #' y <- c(100, 200, 299.9, 300.1, 505)
