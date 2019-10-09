@@ -15,3 +15,8 @@ test_that(".orderEdges", {
 
     expect_equal(.orderEdges(x, y, e), o)
 })
+
+test_that(".anyCrossing", {
+    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
+    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
+})
