@@ -1,8 +1,8 @@
 test_that(".combinations", {
     g <- c(1, 2, 2, 2, 3, 3)
     l <- list(
-        "1" = c(1, 2, 5), "2" = c(1, 3, 5), "3" = c(1, 4, 5),
-        "4" = c(1, 2, 6), "5" = c(1, 3, 6), "6" = c(1, 4, 6)
+        c(1, 2, 5), c(1, 3, 5), c(1, 4, 5),
+        c(1, 2, 6), c(1, 3, 6), c(1, 4, 6)
     )
 
     expect_equal(.combinations(g), l)
@@ -39,4 +39,12 @@ test_that(".orderEdges", {
     o <- list(x = c(1, 2, NA, 3, 4), y = c(1, 1, 2, 3, NA))
 
     expect_equal(.orderEdges(x, y, e), o)
+})
+
+test_that(".transposeList", {
+    l <- list(a = 1:10, b = 11:20, c = 21:30)
+    r <- mapply(c, 1:10, 11:20, 21:30, SIMPLIFY = FALSE)
+
+    expect_error(.transposeList(list(a = 1:3, b = 1:10)), "length")
+    expect_equal(.transposeList(l), r)
 })

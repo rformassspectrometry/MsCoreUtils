@@ -43,7 +43,7 @@
         l[[i]] <- rep.int(rep.int(ncs[i] + seq_len(n), rep.int(times, n)), ncmb)
         times <- times * n
     }
-    split(unlist(l), seq_along(l[[1L]]))
+    .transposeList(l)
 }
 
 #' @title Find Edge Groups
@@ -98,7 +98,7 @@
     # to remove multiple edges (we use undirected graphs anyway)
     e <- mapply(c, c(seq_along(x), yx),  c(xy, seq_along(y)), SIMPLIFY = FALSE)
     e <- e[!duplicated(e)]
-    split(unlist(e), c("x", "y"))
+    setNames(.transposeList(e), c("x", "y"))
 }
 
 #' @title (Re)order edges
@@ -127,4 +127,24 @@
     xe[na] <- y[e[[2L]][na]]
     o <- order(xe, method = "radix")
     list(x = e[[1L]][o], y = e[[2L]][o])
+}
+
+#' @title Transpose List
+#'
+#' @description
+#' Transpose a `n * m` `list` into an `m * n` one.
+#'
+#' @param x `list`
+#' @return `list`
+#' @noRd
+#' @examples
+#' .transposeList(list(a = 1:10, b = 11:20, c = 21:30))
+.transposeList <- function(x) {
+    n <- unique(lengths(x))
+
+    if (!is.list(x) || length(n) != 1L)
+        stop("'e' has to be a list with elements of equal length.")
+    l <- split(unlist(x, use.names = FALSE), seq_len(n))
+    names(l) <- NULL
+    l
 }
