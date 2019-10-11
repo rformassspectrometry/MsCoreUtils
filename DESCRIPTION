@@ -15,13 +15,15 @@ Authors@R: c(person(given = "Laurent", family = "Gatto",
                     email = "mail@sebastiangibb.de",
                     role = c("aut", "cre"),
 		            comment = c(ORCID = "0000-0001-7406-4443")),
-             person(given = "Sigurdur", family = "Smarason", role = "ctb")
+             person(given = "Sigurdur", family = "Smarason", role = "ctb"),
+	     person(given = "Thomas", family = "Naake", role = "ctb")
             )
 Author: Laurent Gatto, Johannes Rainer and Sebastian Gibb.
 Maintainer: Laurent Gatto <laurent.gatto@uclouvain.be>
 Depends:
     R (>= 3.6.0)
 Imports:
+    igraph,
     methods,
     S4Vectors
 Suggests:
