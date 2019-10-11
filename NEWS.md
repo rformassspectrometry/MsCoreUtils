@@ -4,7 +4,6 @@
 
 - Add `asInteger` and `rbindFill`.
 - Add `asRle`, `asRleDataFrame` and `asVectorDataFrame`.
-- Add `dotproduct`
 
 ## MsCoreUtils 0.0.1
 
