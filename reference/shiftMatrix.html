@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Coerce functions — coerce • MsCoreUtils</title>
+<title>Shift columns of a matrix by n and set added columns to def — shiftMatrix • MsCoreUtils</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,13 +42,9 @@
 
 
 
-<meta property="og:title" content="Coerce functions — coerce" />
-<meta property="og:description" content="
-
-asInteger: convert x to an integer and throw an error if x is not
-a numeric.
-
-" />
+<meta property="og:title" content="Shift columns of a matrix by n and set added columns to def — shiftMatrix" />
+<meta property="og:description" content="shiftMatrix shifts columns of a matrix by n and
+sets the added columns to def." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -120,50 +116,67 @@ a numeric.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Coerce functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/coerce.R'><code>R/coerce.R</code></a></small>
-    <div class="hidden name"><code>coerce.Rd</code></div>
+    <h1>Shift columns of a matrix by n and set added columns to def</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/graphPeaks.R'><code>R/graphPeaks.R</code></a></small>
+    <div class="hidden name"><code>shiftMatrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>asInteger</code>: convert <code>x</code> to an <code>integer</code> and throw an error if <code>x</code> is not
-a <code>numeric</code>.</p></li>
-</ul>
-
+    <p><code>shiftMatrix</code> shifts columns of a matrix by <code>n</code> and
+sets the added columns to <code>def</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>asInteger</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>shiftMatrix</span>(<span class='no'>mat</span>, <span class='no'>x</span>, <span class='no'>n</span>, <span class='kw'>def</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>mat</th>
+      <td><p><code>matrix</code></p></td>
+    </tr>
+    <tr>
       <th>x</th>
-      <td><p>input argument.</p></td>
+      <td><p><code>numeric</code>, col indices to shift</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code>, gives the number by how many positions the columns
+<code>x</code> of <code>mat</code> are shifted</p></td>
+    </tr>
+    <tr>
+      <th>def</th>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>/<code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code>, replacement value for added columns</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Other coerce functions: <code>coerce-rle</code></p></div>
+    <p>matrix with all combinations of shifted rows, only returns the
+columns <code>x</code> of <code>mat</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>helper function for <code>graphPeaks</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>## Convert numeric to integer</span>
-<span class='fu'>asInteger</span>(<span class='fl'>3.4</span>)</div><div class='output co'>#&gt; [1] 3</div><div class='input'>
-<span class='fu'>asInteger</span>(<span class='fl'>3</span>)</div><div class='output co'>#&gt; [1] 3</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>mat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>18</span>], <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>6</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>6</span>)
+<span class='fu'>shiftMatrix</span>(<span class='kw'>mat</span> <span class='kw'>=</span> <span class='no'>mat</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>def</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3]
+#&gt; [1,] NA   "d"  "j" 
+#&gt; [2,] NA   "e"  "k" 
+#&gt; [3,] NA   "f"  "l" </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Johannes Rainer</p>
+    <p>Thomas Naake <a href='mailto:thomasnaake@googlemail.com'>thomasnaake@googlemail.com</a></p>
   </div>
 </div>
 

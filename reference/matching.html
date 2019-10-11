@@ -25,13 +25,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -60,6 +62,7 @@ argument that allows relaxed matching." />
 <![endif]-->
 
 
+
   </head>
 
   <body>
@@ -84,7 +87,7 @@ argument that allows relaxed matching." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,7 +101,7 @@ argument that allows relaxed matching." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/RforMassSpectrometry/MsCoreUtils">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +112,7 @@ argument that allows relaxed matching." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -121,18 +125,18 @@ argument that allows relaxed matching." />
 
     <div class="ref-description">
     <p>These functions offer relaxed matching of one vector in another.
-In contrast to the similar <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code> functions they
+In contrast to the similar <code><a href='https://rdrr.io/r/base/match.html'>match()</a></code> and <code><a href='https://rdrr.io/r/base/match.html'>%in%</a></code> functions they
 just accept <code>numeric</code> arguments but have an additional <code>tolerance</code>
 argument that allows relaxed matching.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"keep"</span>,
+    <pre class="usage"><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"keep"</span>,
   <span class='st'>"closest"</span>, <span class='st'>"remove"</span>), <span class='kw'>nomatch</span> <span class='kw'>=</span> <span class='fl'>NA_integer_</span>)
 
-<span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"keep"</span>,
+<span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>table</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"keep"</span>,
   <span class='st'>"closest"</span>, <span class='st'>"remove"</span>))
 
-<span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"outer"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>,
+<span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ppm</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"outer"</span>, <span class='st'>"left"</span>, <span class='st'>"right"</span>,
   <span class='st'>"inner"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -145,7 +149,7 @@ argument that allows relaxed matching.</p>
     <tr>
       <th>table</th>
       <td><p><code>numeric</code>, the values to be matched against. In contrast to
-<code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code> <code>table</code> has to be sorted in increasing order.</p></td>
+<code><a href='https://rdrr.io/r/base/match.html'>match()</a></code> <code>table</code> has to be sorted in increasing order.</p></td>
     </tr>
     <tr>
       <th>tolerance</th>
@@ -154,16 +158,16 @@ the same length as <code>table</code>.</p></td>
     </tr>
     <tr>
       <th>ppm</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code> representing a relative, value-specific
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code> representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to <code>tolerance</code>.</p></td>
     </tr>
     <tr>
       <th>duplicates</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>, how to handle duplicated matches.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>, how to handle duplicated matches.</p></td>
     </tr>
     <tr>
       <th>nomatch</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>numeric(1)</a></code>, if the difference
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code>, if the difference
 between the value in <code>x</code> and <code>table</code> is larger than
 <code>tolerance</code> <code>nomatch</code> is returned.</p></td>
     </tr>
@@ -173,7 +177,7 @@ between the value in <code>x</code> and <code>table</code> is larger than
     </tr>
     <tr>
       <th>type</th>
-      <td><p><code><a href='https://www.rdocumentation.org/packages/base/topics/character'>character(1)</a></code>, defines how <code>x</code> and <code>y</code> should be joined. See
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>, defines how <code>x</code> and <code>y</code> should be joined. See
 details for <code>join</code>.</p></td>
     </tr>
     </table>
@@ -184,27 +188,27 @@ details for <code>join</code>.</p></td>
 giving the closest position in <code>table</code> of the first match or <code>nomatch</code> if
 there is no match.</p>
 <p><code>common</code> returns a <code>logical</code> vector of length <code>x</code> that is <code>TRUE</code> if the
-element in <code>x</code> was found in <code>table</code>. It is similar to <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code>.</p>
+element in <code>x</code> was found in <code>table</code>. It is similar to <code><a href='https://rdrr.io/r/base/match.html'>%in%</a></code>.</p>
 <p><code>join</code> returns a <code>matrix</code> with two columns, namely <code>x</code> and <code>y</code>,
 representing the index of the values in <code>x</code> matching the corresponding value
 in <code>y</code> (or <code>NA</code> if the value does not match).</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For <code>closest</code>/<code>common</code> the <code>tolerance</code> argument could be set to <code>0</code> to get
-the same results as for <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code>/<code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code>. If it is set to <code>Inf</code> (default)
+the same results as for <code><a href='https://rdrr.io/r/base/match.html'>match()</a></code>/<code><a href='https://rdrr.io/r/base/match.html'>%in%</a></code>. If it is set to <code>Inf</code> (default)
 the index of the closest values is returned without any restriction.</p>
 <p>It is not guaranteed that there is a one-to-one matching for neither the
 <code>x</code> to <code>table</code> nor the <code>table</code> to <code>x</code> matching.</p>
 <p>If multiple elements in <code>x</code> match a single element in <code>table</code> all their
 corresponding indices are returned if <code>duplicates="keep"</code> is set (default).
-This behaviour is identical to <code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code>. For <code>duplicates="closest"</code> just
+This behaviour is identical to <code><a href='https://rdrr.io/r/base/match.html'>match()</a></code>. For <code>duplicates="closest"</code> just
 the closest element in <code>x</code> gets the corresponding index in <code>table</code> and
 for <code>duplicates="remove"</code> all elements in <code>x</code> that match to the same element
 in <code>table</code> are set to <code>nomatch</code>.</p>
 <p>If a single element in <code>x</code> matches multiple elements in <code>table</code> the <em>closest</em>
 is returned for <code>duplicates="keep"</code> or <code>duplicates="duplicates"</code> (<em>keeping</em>
 multiple matches isn't possible in this case because the implementation relies
-on <code><a href='https://www.rdocumentation.org/packages/base/topics/findInterval'>findInterval</a></code>). If the differences between <code>x</code> and the corresponding
+on <code><a href='https://rdrr.io/r/base/findInterval.html'>findInterval</a></code>). If the differences between <code>x</code> and the corresponding
 matches in <code>table</code> are identical the lower index (the smaller element
 in <code>table</code>) is returned. For <code>duplicates="remove"</code> all multiple matches
 are returned as <code>nomatch</code> as above.</p>
@@ -225,23 +229,23 @@ to the behaviour of <code>match</code>).</p>
 That means for multiple matches just the closest one is reported.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/base/topics/match'>match()</a></code></p>
-<p><code><a href='https://www.rdocumentation.org/packages/base/topics/match'>%in%</a></code></p>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/match.html'>match()</a></code></p>
+<p><code><a href='https://rdrr.io/r/base/match.html'>%in%</a></code></p>
 <p>Other grouping/matching functions: <code>bin</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Define two vectors to match</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>5</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>10</span>
 
 <span class='co'>## Compare match and closest</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/match'>match</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'>
 <span class='co'>## If there is no exact match</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>x</span> + <span class='fl'>0.1</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/match'>match</a></span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='co'># no match</span></div><div class='output co'>#&gt; [1] NA NA NA</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='no'>x</span>, <span class='no'>y</span>) <span class='co'># no match</span></div><div class='output co'>#&gt; [1] NA NA NA</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 1 3 5</div><div class='input'>
 <span class='co'>## Some new values</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1.11</span>, <span class='fl'>45.02</span>, <span class='fl'>556.45</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3.01</span>, <span class='fl'>34.12</span>, <span class='fl'>45.021</span>, <span class='fl'>46.1</span>, <span class='fl'>556.449</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.11</span>, <span class='fl'>45.02</span>, <span class='fl'>556.45</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3.01</span>, <span class='fl'>34.12</span>, <span class='fl'>45.021</span>, <span class='fl'>46.1</span>, <span class='fl'>556.449</span>)
 
 <span class='co'>## Using a single tolerance value</span>
 <span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='output co'>#&gt; [1] NA  3  5</div><div class='input'>
@@ -250,16 +254,16 @@ That means for multiple matches just the closest one is reported.</p>
 <span class='co'>## Same using 50 ppm</span>
 <span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fu'>ppm</span>(<span class='no'>y</span>, <span class='fl'>50</span>))</div><div class='output co'>#&gt; [1] NA  3  5</div><div class='input'>
 <span class='co'>## Sometimes multiple elements in `x` match to `table`</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1.6</span>, <span class='fl'>1.75</span>, <span class='fl'>1.8</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.6</span>, <span class='fl'>1.75</span>, <span class='fl'>1.8</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>2</span>
 <span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] 2 2 2</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"closest"</span>)</div><div class='output co'>#&gt; [1] NA NA  2</div><div class='input'><span class='fu'>closest</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"remove"</span>)</div><div class='output co'>#&gt; [1] NA NA NA</div><div class='input'>
 <span class='co'>## Are there any common values?</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1.6</span>, <span class='fl'>1.75</span>, <span class='fl'>1.8</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1.6</span>, <span class='fl'>1.75</span>, <span class='fl'>1.8</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>2</span>
 <span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] TRUE TRUE TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"closest"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE</div><div class='input'><span class='fu'>common</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>duplicates</span> <span class='kw'>=</span> <span class='st'>"remove"</span>)</div><div class='output co'>#&gt; [1] FALSE FALSE FALSE</div><div class='input'>
 <span class='co'>## Join two vectors</span>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>6</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>7</span>)
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>6</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>, <span class='fl'>5</span>, <span class='fl'>6</span>, <span class='fl'>7</span>)
 
 <span class='no'>jo</span> <span class='kw'>&lt;-</span> <span class='fu'>join</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"outer"</span>)
 <span class='no'>jo</span></div><div class='output co'>#&gt; $x
@@ -306,19 +310,23 @@ That means for multiple matches just the closest one is reported.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="copyright">
   <p>Developed by Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
