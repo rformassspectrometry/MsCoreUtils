@@ -66,8 +66,8 @@
 dotproduct <- function(x, y, m = 0.5, n = 0) {
 
     ## check valid input
-    if (!is.matrix(x)) stop("'x' is not a matrix")
-    if (!is.matrix(y)) stop("'y' is not a matrix")
+    validPeaksMatrix(x)
+    validPeaksMatrix(y)
 
     if (nrow(x) != nrow(y)) stop("nrow(x) and nrow(y) are not identical")
     if (!is.numeric(m) || length(m) != 1)
