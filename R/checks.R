@@ -18,6 +18,7 @@ isPeaksMatrix <- function(x) {
         is.matrix(x) &&
         mode(x) == "numeric" &&
         ncol(x) == 2L &&
-        colnames(x) == c("mz", "intensity")
+        !is.null(colnames(x)) &&
+        all(colnames(x) == c("mz", "intensity"))
     )
 }
