@@ -38,7 +38,8 @@ vapply1d(l, sum)
 }
 \seealso{
 Other helper functions for developers: \code{\link{between}},
-  \code{\link{rbindFill}}
+  \code{\link{isPeaksMatrix}}, \code{\link{rbindFill}},
+  \code{\link{validPeaksMatrix}}
 }
 \author{
 Sebastian Gibb
