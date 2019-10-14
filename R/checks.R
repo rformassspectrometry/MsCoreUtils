@@ -26,6 +26,6 @@ isPeaksMatrix <- function(x) {
         ncol(x) == 2L &&
         !is.null(colnames(x)) &&
         all(colnames(x) == c("mz", "intensity")) &&
-        !is.unsorted(x[, 1L])
+        !is.unsorted(x[, 1L], na.rm = TRUE)
     )
 }
