@@ -1,7 +1,7 @@
 test_that("dotproduct", {
 
     ## create two dummy spectra (aligned)
-    x <- matrix(c(c(100.002, 100.001, NA, 300.01, 300.02, NA),
+    x <- matrix(c(c(100.001, 100.002, NA, 300.01, 300.02, NA),
              c(2, 1.5, 0, 1.2, 0.9, 0)), ncol = 2)
     y <- matrix(c(c(100.0, NA, 200.0, 300.002, 300.025, 300.0255),
              intensity = c(2, 0, 3, 1, 4, 0.4)), ncol = 2)
