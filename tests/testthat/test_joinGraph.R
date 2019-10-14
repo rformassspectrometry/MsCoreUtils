@@ -1,3 +1,21 @@
+test_that("joinGraph", {
+    x <- matrix(
+        c(100.001, 100.002, 300.01, 300.02, 1, 9, 1, 9),
+        ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
+    )
+    y <- matrix(
+        c(100.0, 200.0, 300.002, 300.025, 300.0255, 9, 1, 1, 9, 1),
+        ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
+    )
+    l <- list(x = c(NA, 2, NA, 4), y = c(1, NA, NA, 4, NA))
+    expect_equal(joinGraph(x, y), l)
+})
+
+test_that(".anyCrossing", {
+    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
+    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
+})
+
 test_that(".combinations", {
     g <- c(1, 2, 2, 2, 3, 3)
     l <- list(
@@ -6,11 +24,6 @@ test_that(".combinations", {
     )
 
     expect_equal(.combinations(g), l)
-})
-
-test_that(".anyCrossing", {
-    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
-    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
 })
 
 test_that(".edgeGroups", {
