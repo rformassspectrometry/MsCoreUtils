@@ -1,7 +1,11 @@
 #' @title Validation functions
 #'
 #' @description
-#' These functions are used to validate input arguments.
+#' These functions are used to validate input arguments. In general they are
+#' just wrapper around their corresponding `is*` function with an error message.
+#'
+#' @details
+#' `validPeaksMatrix`: see [`isPeaksMatrix`].
 #'
 #' @param x object to test.
 #'
@@ -10,6 +14,7 @@
 #'
 #' @author Sebastian Gibb
 #' @family helper functions for developers
+#' @rdname validation
 #' @export
 #' @examples
 #' try(validPeaksMatrix(1:2))

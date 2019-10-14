@@ -3,12 +3,17 @@
 #' @description
 #' These functions are used to check input arguments.
 #'
+#' @details
+#' `isPeaksMatrix`: test for a `numeric` matrix with two columns named "mz" and
+#' "intensity". The "mz" column has to be sorted increasingly.
+#'
 #' @param x object to test.
 #'
 #' @return `logical(1)`, `TRUE` if checks are successful otherwise `FALSE`.
 #'
 #' @author Sebastian Gibb
 #' @family helper functions for developers
+#' @rdname check
 #' @export
 #' @examples
 #' isPeaksMatrix(1:2)

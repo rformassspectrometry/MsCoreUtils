@@ -14,7 +14,11 @@ validPeaksMatrix(x)
 is thrown.
 }
 \description{
-These functions are used to validate input arguments.
+These functions are used to validate input arguments. In general they are
+just wrapper around their corresponding \code{is*} function with an error message.
+}
+\details{
+\code{validPeaksMatrix}: see \code{\link{isPeaksMatrix}}.
 }
 \examples{
 try(validPeaksMatrix(1:2))

@@ -15,6 +15,10 @@ isPeaksMatrix(x)
 \description{
 These functions are used to check input arguments.
 }
+\details{
+\code{isPeaksMatrix}: test for a \code{numeric} matrix with two columns named "mz" and
+"intensity". The "mz" column has to be sorted increasingly.
+}
 \examples{
 isPeaksMatrix(1:2)
 isPeaksMatrix(cbind(mz = 2:1, intensity = 1:2))
