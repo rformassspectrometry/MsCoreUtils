@@ -12,6 +12,7 @@
 #' @export
 #' @examples
 #' isPeaksMatrix(1:2)
+#' isPeaksMatrix(cbind(mz = 2:1, intensity = 1:2))
 #' isPeaksMatrix(cbind(mz = 1:2, intensity = 1:2))
 isPeaksMatrix <- function(x) {
     isTRUE(
@@ -19,6 +20,7 @@ isPeaksMatrix <- function(x) {
         mode(x) == "numeric" &&
         ncol(x) == 2L &&
         !is.null(colnames(x)) &&
-        all(colnames(x) == c("mz", "intensity"))
+        all(colnames(x) == c("mz", "intensity")) &&
+        !is.unsorted(x[, 1L])
     )
 }

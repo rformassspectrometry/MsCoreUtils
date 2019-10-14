@@ -17,6 +17,7 @@ These functions are used to check input arguments.
 }
 \examples{
 isPeaksMatrix(1:2)
+isPeaksMatrix(cbind(mz = 2:1, intensity = 1:2))
 isPeaksMatrix(cbind(mz = 1:2, intensity = 1:2))
 }
 \seealso{

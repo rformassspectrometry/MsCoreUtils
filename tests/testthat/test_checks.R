@@ -5,5 +5,6 @@ test_that("isPeaksMatrix", {
     expect_false(isPeaksMatrix(cbind(foo = 1, bar = 2)))
     expect_false(isPeaksMatrix(cbind(mz = 1, bar = 2)))
     expect_false(isPeaksMatrix(cbind(mz = "A", intensity = "B")))
+    expect_false(isPeaksMatrix(cbind(mz = 2:1, intensity = 2:1)))
     expect_true(isPeaksMatrix(cbind(mz = 1:2, intensity = 1:2)))
 })

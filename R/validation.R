@@ -17,6 +17,7 @@
 validPeaksMatrix <- function(x) {
     if (!isPeaksMatrix(x))
         stop("'x' has to be a 'numeric' matrix with two columns named ",
-             "'mz' and 'intensity'.")
+             "'mz' and 'intensity'. The 'mz' column has to be sorted ",
+             "increasingly.")
     TRUE
 }
