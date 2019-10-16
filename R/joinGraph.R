@@ -90,7 +90,7 @@
 #' x <- c(100.1, 100.2, 300, 500)
 #' y <- c(100, 200, 299.9, 300.1, 505)
 #' .edgeList(x, y, tolerance = 0.2)
-.edgeList <- function(x, y, tolerance = 0, ppm = 0, na.rm = FALSE) {
+.edgeList <- function(x, y, tolerance = 0, ppm = 0) {
     xy <- closest(x, y, tolerance = tolerance, ppm = ppm, duplicates = "keep")
     yx <- closest(y, x, tolerance = tolerance, ppm = ppm, duplicates = "keep")
 
