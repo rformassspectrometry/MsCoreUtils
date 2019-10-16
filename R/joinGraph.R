@@ -3,20 +3,17 @@
 #' @description
 #' This function tests for crossing edges.
 #'
-#' @param x `list` to test
+#' @param x `numeric`
+#' @param y `numeric`
 #'
 #' @return `logical`, `TRUE` if at least one crossing edge was found, otherwise
 #' `FALSE`.
 #' @noRd
 #' @examples
-#' .anyCrossing(list(x = 1:3, y = c(NA, 1:2)))
-#' .anyCrossing(list(x = 1:3, y = c(2, 1, NA)))
-.anyCrossing <- function(x) {
-    for (i in seq_along(x)) {
-        if (is.unsorted(x[[i]], na.rm = TRUE))
-            return(TRUE)
-    }
-    FALSE
+#' .anyCrossing(x = 1:3, y = c(NA, 1:2))
+#' .anyCrossing(x = 1:3, y = c(2, 1, NA))
+.anyCrossing <- function(x, y) {
+    is.unsorted(x, na.rm = TRUE) || is.unsorted(y, na.rm = TRUE)
 }
 
 #' @title Find all possible combinations

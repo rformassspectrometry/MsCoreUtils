@@ -12,8 +12,8 @@ test_that("joinGraph", {
 })
 
 test_that(".anyCrossing", {
-    expect_false(.anyCrossing(list(x = 1:3, y = c(NA, 1:2))))
-    expect_true(.anyCrossing(list(x = 1:3, y = c(2, 1, NA))))
+    expect_false(.anyCrossing(x = 1:3, y = c(NA, 1:2)))
+    expect_true(.anyCrossing(x = 1:3, y = c(2, 1, NA)))
 })
 
 test_that(".combinations", {
