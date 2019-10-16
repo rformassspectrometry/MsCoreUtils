@@ -12,6 +12,10 @@ reference:
       - '`closest`'
       - '`common`'
       - '`join`'
+  - title: "Similarity"
+    desc: "Functions to calculate similarity."
+    contents:
+      - '`dotproduct`'
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
@@ -35,7 +39,9 @@ reference:
       - '`%between%`'
       - '`between`'
       - '`i2index`'
+      - '`isPeaksMatrix`'
       - '`rbindFill`'
+      - '`validPeaksMatrix`'
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'
