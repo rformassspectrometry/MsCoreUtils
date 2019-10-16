@@ -62,9 +62,15 @@
     n <- lengths(e)
     if (!is.list(e) || n[1L] != n[2L])
         stop("'e' has to be a list with two elements of equal length.")
-    gx <- e[[1L]][-1L] != e[[1L]][-n[1L]]
-    gy <- e[[2L]][-1L] != e[[2L]][-n[1L]]
-    pmin(cumsum(c(TRUE, gx | is.na(gx))), cumsum(c(TRUE, gy | is.na(gy))))
+
+    ## na.rm = FALSE is important here. Otherwise duplicated indices that arn't
+    ## groups could occur.
+    g <- pmin(e[[1L]], e[[2L]], na.rm = FALSE)
+
+    ## that's more or less the same as rle but ignores values.
+    ## So it takes less memory and is slightly faster
+    g <- g[-1L] != g[-n[1L]]
+    cumsum(c(TRUE, g | is.na(g)))
 }
 
 #' @title Create Edge List Matrix

@@ -34,6 +34,14 @@ test_that(".edgeGroups", {
     expect_error(.edgeGroups(list(x = 1, y = 1:2)), "length")
     expect_equal(.edgeGroups(e1), g)
     expect_equal(.edgeGroups(e2), g)
+
+    e3 <- list(x = c(1, 2, NA, NA, 3, 4, 4), y = c(1, 1, 2, 3, NA, 4, 5))
+    g <- c(1, 1, 2, 3, 4, 5, 5)
+    expect_equal(.edgeGroups(e3), g)
+
+    e4 <- list(x = c(1, 2, NA, NA, 3, 3, 3), y = c(1, 1, 2, 3, 4, 5, 6))
+    g <- c(1, 1, 2, 3, 4, 4, 4)
+    expect_equal(.edgeGroups(e4), g)
 })
 
 test_that(".edgeList", {
