@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>vapply wrappers — vapply1c • MsCoreUtils</title>
+<title>Check functions — isPeaksMatrix • MsCoreUtils</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,8 @@
 
 
 
-<meta property="og:title" content="vapply wrappers — vapply1c" />
-<meta property="og:description" content="These functions are short wrappers around typical vapply calls for easier
-development." />
+<meta property="og:title" content="Check functions — isPeaksMatrix" />
+<meta property="og:description" content="These functions are used to check input arguments." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,63 +115,48 @@ development." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>vapply wrappers</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/vapply.R'><code>R/vapply.R</code></a></small>
-    <div class="hidden name"><code>vapply.Rd</code></div>
+    <h1>Check functions</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/checks.R'><code>R/checks.R</code></a></small>
+    <div class="hidden name"><code>check.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions are short wrappers around typical <code>vapply</code> calls for easier
-development.</p>
+    <p>These functions are used to check input arguments.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vapply1c</span>(<span class='no'>X</span>, <span class='no'>FUN</span>, <span class='no'>...</span>, <span class='kw'>USE.NAMES</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>vapply1d</span>(<span class='no'>X</span>, <span class='no'>FUN</span>, <span class='no'>...</span>, <span class='kw'>USE.NAMES</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>vapply1l</span>(<span class='no'>X</span>, <span class='no'>FUN</span>, <span class='no'>...</span>, <span class='kw'>USE.NAMES</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>isPeaksMatrix</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>X</th>
-      <td><p>a vector (atomic or <code>list</code>).</p></td>
-    </tr>
-    <tr>
-      <th>FUN</th>
-      <td><p>the <code>function</code> to be applied to each element of <code>X</code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>optional arguments to <code>FUN</code>.</p></td>
-    </tr>
-    <tr>
-      <th>USE.NAMES</th>
-      <td><p><code>logical</code>, should the return value be named.</p></td>
+      <th>x</th>
+      <td><p>object to test.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>vapply1c</code> returns a vector of <code>character</code>s of length <code>X</code>.</p>
-<p><code>vapply1d</code> returns a vector of <code>double</code>s of length <code>X</code>.</p>
-<p><code>vapply1l</code> returns a vector of <code>logical</code>s of length <code>X</code>.</p>
+    <p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>, <code>TRUE</code> if checks are successful otherwise <code>FALSE</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>isPeaksMatrix</code>: test for a <code>numeric</code> matrix with two columns named "mz" and
+"intensity". The "mz" column has to be sorted increasingly.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other helper functions for developers: <code>between</code>,
-  <code>isPeaksMatrix</code>, <code>rbindFill</code>,
-  <code>validPeaksMatrix</code></p></div>
+  <code>rbindFill</code>, <code>validPeaksMatrix</code>,
+  <code>vapply1c</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>l</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>a</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>b</span><span class='kw'>=</span><span class='fl'>4</span>:<span class='fl'>6</span>)
-<span class='fu'>vapply1d</span>(<span class='no'>l</span>, <span class='no'>sum</span>)</div><div class='output co'>#&gt; [1]  6 15</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>isPeaksMatrix</span>(<span class='fl'>1</span>:<span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>isPeaksMatrix</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>mz</span> <span class='kw'>=</span> <span class='fl'>2</span>:<span class='fl'>1</span>, <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'><span class='fu'>isPeaksMatrix</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>mz</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
