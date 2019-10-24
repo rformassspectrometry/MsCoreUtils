@@ -9,6 +9,9 @@ test_that("joinGraph", {
     )
     l <- list(x = c(NA, 2, NA, 4), y = c(1, NA, NA, 4, NA))
     expect_equal(joinGraph(x, y), l)
+
+    l <- list(x = c(NA, 2, NA, 4), y = c(1, NA, NA, 4, NA))
+    expect_equal(joinGraph(x, y, ppm = 20), l)
 })
 
 test_that(".anyCrossing", {
