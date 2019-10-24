@@ -104,6 +104,28 @@
     setNames(.transposeList(e), c("x", "y"))
 }
 
+#' @title Follower/Prev Identical
+#'
+#' @description
+#' Tests whether the previous/following element in a vector is identical.
+#'
+#' @param x vector
+#'
+#' @return `logical`
+#' @noRd
+#' @examples
+#' x <- c(1, 1, NA, 3, 4, 4, 5, 6, 6, 6, NA, 7, 8, 8)
+#' .isFollowerIdentical(x)
+#' .isPrecursorIdentical(x)
+.isFollowerIdentical <- function(x) {
+    x <- x[-1L] == x[-length(x)]
+    c(x & !is.na(x), FALSE)
+}
+.isPrecursorIdentical <- function(x) {
+    x <- x[-1L] == x[-length(x)]
+    c(FALSE, x & !is.na(x))
+}
+
 #' @title (Re)order edges
 #'
 #' @description

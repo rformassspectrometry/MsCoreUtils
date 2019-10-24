@@ -53,6 +53,18 @@ test_that(".edgeList", {
     expect_equal(.edgeList(x, y, tolerance = 0.2, ppm = 0), e)
 })
 
+test_that(".is{Precursor,Follower}Identical", {
+    x <- c(1, 1, NA, 3, 4, 4, 5, 6, 6, 6, NA, 7, 8, 8)
+    expect_equal(.isFollowerIdentical(x), c(
+        TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, TRUE,
+        TRUE, FALSE, FALSE, FALSE, TRUE, FALSE)
+    )
+    expect_equal(.isPrecursorIdentical(x), c(
+        FALSE, TRUE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE,
+        TRUE, TRUE, FALSE, FALSE, FALSE, TRUE)
+    )
+})
+
 test_that(".orderEdges", {
     x <- c(100.1, 100.2, 300, 500)
     y <- c(100, 200, 300.1)
