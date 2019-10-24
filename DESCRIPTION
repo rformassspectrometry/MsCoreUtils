@@ -10,13 +10,13 @@ Authors@R: c(person(given = "Laurent", family = "Gatto",
              person(given = "Johannes", family = "Rainer",
                     email = "Johannes.Rainer@eurac.edu",
                     role = c("aut", "cre"),
-		            comment = c(ORCID = "0000-0002-6977-7147")),
+	                comment = c(ORCID = "0000-0002-6977-7147")),
              person(given = "Sebastian", family = "Gibb",
                     email = "mail@sebastiangibb.de",
                     role = c("aut", "cre"),
-		            comment = c(ORCID = "0000-0001-7406-4443")),
-             person(given = "Sigurdur", family = "Smarason", role = "ctb")
-            )
+	                comment = c(ORCID = "0000-0001-7406-4443")),
+             person(given = "Sigurdur", family = "Smarason", role = "ctb"),
+	         person(given = "Thomas", family = "Naake", role = "ctb"))
 Author: Laurent Gatto, Johannes Rainer and Sebastian Gibb.
 Maintainer: Laurent Gatto <laurent.gatto@uclouvain.be>
 Depends:

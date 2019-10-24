@@ -31,7 +31,9 @@ rbindFill(a, b)
 rbindFill(b, a, b)
 }
 \seealso{
-Other helper functions for developers: \code{\link{vapply1c}}
+Other helper functions for developers: \code{\link{between}},
+  \code{\link{isPeaksMatrix}},
+  \code{\link{validPeaksMatrix}}, \code{\link{vapply1c}}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

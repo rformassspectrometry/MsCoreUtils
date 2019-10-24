@@ -1,5 +1,6 @@
 test_that("smooth throws errors", {
-
+    expect_error(smooth(1:10, 1), "matrix")
+    expect_error(smooth(1:10, matrix(1:10, nrow = 2, ncol = 5)), "rows")
 })
 
 test_that("smooth", {

@@ -13,6 +13,9 @@ test_that("rbindFill works", {
     expect_equal(res[, "b"], c(a[, "b"], b[, "b"]))
     expect_equal(res[, "d"], c(NA, NA, NA, b[, "d"]))
 
+    res2 <- rbindFill(list(a, b))
+    expect_identical(res, res2)
+
     res <- rbindFill(a, b[, c("b", "a")])
     expect_equal(colnames(res), c("a", "b", "c"))
     expect_equal(res[, "a"], c(a[, "a"], b[, "a"]))

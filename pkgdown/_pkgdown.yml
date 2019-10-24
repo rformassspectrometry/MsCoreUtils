@@ -12,6 +12,10 @@ reference:
       - '`closest`'
       - '`common`'
       - '`join`'
+  - title: "Similarity"
+    desc: "Functions to calculate similarity."
+    contents:
+      - '`dotproduct`'
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
@@ -24,6 +28,7 @@ reference:
       - '`asRle`'
       - '`asRleDataFrame`'
       - '`asVectorDataFrame`'
+      - '`i2index`'
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:
@@ -31,7 +36,12 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
+      - '`%between%`'
+      - '`between`'
+      - '`i2index`'
+      - '`isPeaksMatrix`'
       - '`rbindFill`'
+      - '`validPeaksMatrix`'
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'
