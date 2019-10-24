@@ -44,6 +44,29 @@ test_that(".edgeGroups", {
     expect_equal(.edgeGroups(e4), g)
 })
 
+test_that(".edgeGroupFrom", {
+    expect_error(.edgeGroupFrom(list(1:2, 1:3)), "length")
+    expect_error(.edgeGroupFrom(list(1:2, 1:2), 1:3), "length")
+
+    e1 <- list(x = c(1, 2, NA, 3, 4, 4, 5), y = c(1, 1, 2, 3, 3, 4, 4))
+    g1 <- c(1, 1, 2, 3, 3, 4, 4)
+
+    expect_equal(.edgeGroupFrom(e1, g1), rep_len(2, length(e1$x)))
+    expect_equal(.edgeGroupFrom(e1[2:1], g1), rep_len(1, length(e1$x)))
+
+    e2 <- list(x = c(1, 2, NA, 3, 4, 5, 5), y = c(1, 1, 2, 3, 3, 5, 6))
+    g2 <- c(1, 1, 2, 3, 3, 4, 4)
+    expect_equal(.edgeGroupFrom(e2, g2), c(2, 2, 2, 2, 2, 1, 1))
+
+    e3 <- list(x = c(1, 2, NA, NA, 3, 4, 4), y = c(1, 1, 2, 3, NA, 4, 5))
+    g3 <- c(1, 1, 2, 3, 4, 5, 5)
+    expect_equal(.edgeGroupFrom(e3, g3), c(2, 2, 2, 2, 1, 1, 1))
+
+    e4 <- list(x = c(1, 2, NA, NA, 3, 3, 3), y = c(1, 1, 2, 3, 4, 5, 6))
+    g4 <- c(1, 1, 2, 3, 4, 4, 4)
+    expect_equal(.edgeGroupFrom(e4, g4), c(2, 2, 2, 2, 1, 1, 1))
+})
+
 test_that(".edgeList", {
 
     x <- c(100.1, 100.2, 300, 500)

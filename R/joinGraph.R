@@ -70,6 +70,36 @@
     cumsum(c(TRUE, g | is.na(g)))
 }
 
+#' @title Find Origin of Edge Group
+#'
+#' @description
+#' Finds the index of the list (x or y) to which the group belongs to.
+#'
+#' @param e `list`, edge list
+#' @param g `numeric` group vector
+#'
+#' @return `numeric`, `1` if `x` was lower than `y`, otherwise `2`. If `x` ==
+#' `y` the decision of the previous/next element is returned
+#'
+#' @seealso .edgeGroups
+#'
+#' @noRd
+#' @examples
+#' e <- list(x = c(1, 2, NA, 3, 4, 4, 5), y = c(1, 1, 2, 3, 3, 4, 4))
+#' .edgeGroupFrom (e$x, e$y)
+.edgeGroupFrom <- function(e, g = .edgeGroups(e)) {
+    if (!is.list(e) || length(e[[1L]]) != length(e[[2L]]))
+        stop("'e' has to be a list with two elements of equal length.")
+    if (length(e[[1L]]) != length(g))
+        stop("'g' has to be of the same length as the elements in 'e'.")
+
+    2L - (
+        (!is.na(e[[1L]]) & is.na(e[[2L]])) |
+        (.isPrecursorIdentical(e[[1L]]) & .isPrecursorIdentical(g)) |
+        (.isFollowerIdentical(e[[1L]]) & .isFollowerIdentical(g))
+    )
+}
+
 #' @title Create Edge List Matrix
 #'
 #' @description
