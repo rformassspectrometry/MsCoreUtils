@@ -1,3 +1,67 @@
+#' @rdname matching
+#'
+#' @param FUN `function`, similarity function that should be maximized.
+#' @param \dots further arguments passed to `FUN`.
+#'
+#' @details
+#' `joinGraph`: joins two `matrix` by mapping values in `x` with
+#' values in `y` and *vice versa* if they are similar enough (provided the
+#' `tolerance` and `ppm` specified). For multiple matches in `x` or `y` all
+#' possible combinations are evaluated using the similarity function `FUN`. The
+#' combination that yield the highest return value of `FUN` is used for the final
+#' match.
+#'
+#' @return `joinGraph` returns a `list` with two columns, namely `x` and `y`,
+#' representing the index of the values in `x` matching the corresponding value
+#' in `y` (or `NA` if the value does not match).
+#'
+#' @export
+#' @examples
+#'
+#' x <- matrix(
+#'      c(100.001, 100.002, 300.01, 300.02, 1, 9, 1, 9),
+#'        ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
+#' )
+#' y <- matrix(
+#'     c(100.0, 200.0, 300.002, 300.025, 300.0255, 9, 1, 1, 9, 1),
+#'     ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
+#' )
+#' joinGraph(x, y, ppm = 20)
+joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
+    validPeaksMatrix(x)
+    validPeaksMatrix(y)
+    FUN <- match.fun(FUN)
+
+    e <- .edgeList(x[, 1L], y[, 1L], tolerance = tolerance, ppm = ppm)
+    e <- .orderEdges(x[, 1L], y[, 1L], e)
+    g <- .edgeGroups(e)
+    ei <- .edgeGroupFrom(e, g)
+    gi <- which(.isPrecursorIdentical(g) | .isFollowerIdentical(g))
+
+    if (!length(gi))
+        return(e)
+
+    cmb <- .combinations(g[gi])
+
+    namask <- edges <- cbind(e[[1L]], e[[2L]])
+    namask[cbind(gi, ei[gi])] <- NA_real_
+
+    score <- vapply1d(cmb, function(i) {
+        ii <- namask
+        ii[gi[i],] <- edges[gi[i],]
+        xx <- x[ii[, 1L],]
+        yy <- y[ii[, 2L],]
+        if (.anyCrossing(xx[, 1L], yy[, 1L]))
+            0
+        else
+            FUN(xx, yy, ...)
+    })
+    cmb <- cmb[[which.max(score)]]
+
+    namask[gi[cmb],] <- edges[gi[cmb],]
+    list(x = namask[, 1L], y = namask[, 2L])
+}
+
 #' @title Crossing Edges
 #'
 #' @description
