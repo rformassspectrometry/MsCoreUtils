@@ -20,12 +20,15 @@ test_that(".anyCrossing", {
 })
 
 test_that(".combinations", {
+    expect_error(.combinations(rep(1:100, each = 2)), "too many combinations")
+
     g <- c(1, 2, 2, 2, 3, 3)
     l <- list(
         c(1, 2, 5), c(1, 3, 5), c(1, 4, 5),
         c(1, 2, 6), c(1, 3, 6), c(1, 4, 6)
     )
 
+    expect_equal(.combinations(g), l)
     expect_equal(.combinations(g), l)
 })
 

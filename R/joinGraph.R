@@ -31,6 +31,10 @@
     r <- rle(x)
     ncs <- cumsum(c(0L, r$lengths))
     ncmb <- prod(r$lengths)
+
+    if (ncmb > 1e10)
+        stop("too many possible combinations.")
+
     times <- 1L
     l <- vector(mode = "list", length = length(r))
 
