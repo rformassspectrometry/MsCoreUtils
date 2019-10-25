@@ -159,7 +159,10 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' [igraph::graph_from_edge_list()`] the `list` has to be `rbind`ed, the
 #' indices in the `y` column have to be increased by `length(x)` and the `NA`
 #' values (no match) have to be removed manually.
+#'
 #' @author Sebastian Gibb
+#'
+#' @importFrom stats setNames
 #' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
