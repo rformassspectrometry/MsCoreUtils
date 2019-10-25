@@ -197,7 +197,7 @@ y[ji$y]
 Other grouping/matching functions: \code{\link{bin}}
 }
 \author{
-Sebastian Gibb, Thomas Naake
+\code{joinGraph}: Sebastian Gibb, Thomas Naake
 
 Sebastian Gibb
 }

@@ -15,7 +15,7 @@
 #' representing the index of the values in `x` matching the corresponding value
 #' in `y` (or `NA` if the value does not match).
 #'
-#' @author Sebastian Gibb, Thomas Naake
+#' @author `joinGraph`: Sebastian Gibb, Thomas Naake
 #' @export
 #' @examples
 #'
