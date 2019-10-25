@@ -15,6 +15,7 @@
 #' representing the index of the values in `x` matching the corresponding value
 #' in `y` (or `NA` if the value does not match).
 #'
+#' @author Sebastian Gibb, Thomas Naake
 #' @export
 #' @examples
 #'
@@ -72,6 +73,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #'
 #' @return `logical`, `TRUE` if at least one crossing edge was found, otherwise
 #' `FALSE`.
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' .anyCrossing(x = 1:3, y = c(NA, 1:2))
@@ -88,6 +90,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #'
 #' @param `x` `integer`, group numbers
 #' @return `list`, each element represents a possible combination
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' .combinations(c(1, 2, 2, 2, 3, 3))
@@ -120,6 +123,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #'
 #' @param e `list` with edges
 #' @return `integer` group values
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' .edgeGroups(list(x = c(1, 2, NA, 3, 4, 4, 5), y = c(1, 1, 2, 3, 3, 4, 4)))
@@ -149,6 +153,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' @return `numeric`, `1` if `x` was lower than `y`, otherwise `2`. If `x` ==
 #' `y` the decision of the previous/next element is returned
 #'
+#' @author Sebastian Gibb
 #' @seealso .edgeGroups
 #'
 #' @noRd
@@ -186,6 +191,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' [igraph::graph_from_edge_list()`] the `list` has to be `rbind`ed, the
 #' indices in the `y` column have to be increased by `length(x)` and the `NA`
 #' values (no match) have to be removed manually.
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
@@ -210,6 +216,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' @param x vector
 #'
 #' @return `logical`
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' x <- c(1, 1, NA, 3, 4, 4, 5, 6, 6, 6, NA, 7, 8, 8)
@@ -238,6 +245,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' representing the index of the values in `x` matching the corresponding value
 #' in `y` (or `NA` if the value do not match).
 #'
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' x <- c(100.1, 100.2, 300, 500)
@@ -259,6 +267,7 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #'
 #' @param x `list`
 #' @return `list`
+#' @author Sebastian Gibb
 #' @noRd
 #' @examples
 #' .transposeList(list(a = 1:10, b = 11:20, c = 21:30))
