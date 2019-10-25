@@ -7,10 +7,16 @@ test_that("joinGraph", {
         c(100.0, 200.0, 300.002, 300.025, 300.0255, 9, 1, 1, 9, 1),
         ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
     )
-    l <- list(x = c(NA, 2, NA, 4), y = c(1, NA, NA, 4, NA))
-    expect_equal(joinGraph(x, y), l)
+    l <- list(
+        x = c(NA, 1, 2, NA, NA, 3, 4, NA, NA),
+        y = c(1, NA, NA, 2, 3, NA, NA, 4, 5)
+    )
+    expect_equal(joinGraph(x, y, tolerance = 0, ppm = 0), l)
 
-    l <- list(x = c(NA, 2, NA, 4), y = c(1, NA, NA, 4, NA))
+    l <- list(
+        x = c(1, 2, NA, NA, 3, 4, NA),
+        y = c(NA, 1, 2, 3, NA, 4, 5)
+    )
     expect_equal(joinGraph(x, y, ppm = 20), l)
 })
 
