@@ -1,5 +1,8 @@
 test_that(".combinations", {
-    expect_error(.combinations(rep(1:100, each = 2)), "too many combinations")
+    expect_error(
+        .combinations(rep(1:100, each = 2)),
+        "too many possible combinations"
+    )
 
     g <- c(1, 2, 2, 2, 3, 3)
     l <- list(
