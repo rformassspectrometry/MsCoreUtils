@@ -23,7 +23,7 @@
 #'
 #' @return `integer` of length equal to `x` with the groups.
 #'
-#' @author Johannes Rainer
+#' @author Johannes Rainer, Sebastin Gibb
 #'
 #' @rdname group
 #'
@@ -58,14 +58,10 @@ group <- function(x, tolerance = 0, ppm = 0) {
         idx <- order(x)
         x <- x[idx]
     } else idx <- integer()
-    xdiff <- diff(x)
     tolerance <- tolerance + sqrt(.Machine$double.eps)
-    if (ppm > 0) {
-        res <- cumsum(c(0L, xdiff >= (tolerance +
-                                      ppm(x[-length(x)], ppm)))) + 1L
-    } else
-        res <- cumsum(c(0L, xdiff >= tolerance)) + 1L
-    if (length(idx))
-        res[order(idx)]
-    else res
+    if (ppm > 0)
+        tolerance <- tolerance + ppm(x[-length(x)], ppm)
+    res <- cumsum(c(0L, diff(x) >= tolerance)) + 1L
+    res[idx] <- res
+    res
 }

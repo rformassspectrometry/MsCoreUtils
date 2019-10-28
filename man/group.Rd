@@ -55,5 +55,5 @@ group(x, tolerance = 0.1)
 ## Values 65, 65.1 and 65.2 have been grouped into the same group.
 }
 \author{
-Johannes Rainer
+Johannes Rainer, Sebastin Gibb
 }
