@@ -61,7 +61,7 @@ group <- function(x, tolerance = 0, ppm = 0) {
     tolerance <- tolerance + sqrt(.Machine$double.eps)
     if (ppm > 0)
         tolerance <- tolerance + ppm(x[-length(x)], ppm)
-    res <- cumsum(c(0L, diff(x) >= tolerance)) + 1L
+    res <- cumsum(c(1L, diff(x) >= tolerance))
     res[idx] <- res
     res
 }
