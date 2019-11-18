@@ -11,6 +11,7 @@ reference:
       - '`bin`'
       - '`closest`'
       - '`common`'
+      - '`group`'
       - '`join`'
   - title: "Similarity"
     desc: "Functions to calculate similarity."
