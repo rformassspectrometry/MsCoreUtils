@@ -100,14 +100,16 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
     if (!is.list(e) || n[1L] != n[2L])
         stop("'e' has to be a list with two elements of equal length.")
 
-    ## na.rm = FALSE is important here. Otherwise duplicated indices that arn't
-    ## groups could occur.
-    g <- pmin(e[[1L]], e[[2L]], na.rm = FALSE)
+    px <- .isPrecursorIdentical(e[[1L]])
+    py <- .isPrecursorIdentical(e[[2L]])
 
-    ## that's more or less the same as rle but ignores values.
-    ## So it takes less memory and is slightly faster
-    g <- g[-1L] != g[-n[1L]]
-    cumsum(c(TRUE, g | is.na(g)))
+    for (i in seq_along(px)) {
+        if (px[i] && py[i - 1L])
+            px[i] <- FALSE
+        if (py[i] && px[i - 1L])
+            py[i] <- FALSE
+    }
+    cumsum(!(px | py))
 }
 
 #' @title Find Origin of Edge Group
