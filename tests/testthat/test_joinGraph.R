@@ -41,6 +41,11 @@ test_that(".edgeGroups", {
     e4 <- list(x = c(1, 2, NA, NA, 3, 3, 3), y = c(1, 1, 2, 3, 4, 5, 6))
     g <- c(1, 1, 2, 3, 4, 4, 4)
     expect_equal(.edgeGroups(e4), g)
+
+    e5 <- list(x = c(1, 2, 3, NA, NA, 4, 5, 5, 6, 7, 8),
+               y = c(1, 1, 1, 2, 3, NA, 4, 5, 6, 6, 6))
+    g <- c(1, 1, 1, 2, 3, 4, 5, 5, 6, 6, 6)
+    expect_equal(.edgeGroups(e5), g)
 })
 
 test_that(".edgeGroupFrom", {
