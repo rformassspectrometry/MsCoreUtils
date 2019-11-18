@@ -4,6 +4,8 @@ test_that(".combinations", {
         "too many possible combinations"
     )
 
+    expect_equal(.combinations(c(1, 1, 1)), list(1, 2, 3))
+
     g <- c(1, 2, 2, 2, 3, 3)
     l <- list(
         c(1, 2, 5), c(1, 3, 5), c(1, 4, 5),

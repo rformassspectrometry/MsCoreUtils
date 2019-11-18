@@ -19,7 +19,7 @@
         stop("too many possible combinations.")
 
     times <- 1L
-    l <- vector(mode = "list", length = length(r))
+    l <- vector(mode = "list", length = length(r$lengths))
 
     for (i in seq_along(r$lengths)) {
         n <- r$lengths[i]
