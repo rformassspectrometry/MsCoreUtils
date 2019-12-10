@@ -65,9 +65,11 @@ asRleDataFrame <- function(x, columns = character()) {
 #'
 #' @export
 asVectorDataFrame <- function(x) {
-    cols <- colnames(x)[vapply1l(x, is, "Rle")]
-    for (col in cols) {
-        x[[col]] <- as.vector(x[[col]])
-    }
+    slot(x, "listData", check = FALSE) <- lapply(x, function(col) {
+        if (is(col, "Rle"))
+            as.vector(col)
+        else
+            col
+    })
     x
 }
