@@ -98,7 +98,8 @@ differentiation of data by simplified least square procedure.
 Analytical Chemistry, 44(11), 1906-1909.
 }
 \seealso{
-Other noise estimation and smoothing functions: \code{\link{noise}}
+Other noise estimation and smoothing functions: 
+\code{\link{noise}()}
 }
 \author{
 Sebastian Gibb, Sigurdur Smarason (weighted moving average)

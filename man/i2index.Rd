@@ -7,7 +7,7 @@
 i2index(i, length = length(i), names = NULL)
 }
 \arguments{
-\item{i}{\code{character} \code{logical} or \code{integer} used in \code{[i]} for subsetting.}
+\item{i}{\code{character} \code{logical} or \code{integer} used in \verb{[i]} for subsetting.}
 
 \item{length}{\code{integer} representing the \code{length} of the object to be
 subsetted.}

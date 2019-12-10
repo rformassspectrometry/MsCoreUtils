@@ -23,7 +23,8 @@ asInteger(3.4)
 asInteger(3)
 }
 \seealso{
-Other coerce functions: \code{\link{coerce-rle}}
+Other coerce functions: 
+\code{\link{coerce-rle}}
 }
 \author{
 Johannes Rainer

@@ -6,14 +6,24 @@
 \alias{join}
 \title{Relaxed Value Matching}
 \usage{
-closest(x, table, tolerance = Inf, ppm = 0, duplicates = c("keep",
-  "closest", "remove"), nomatch = NA_integer_)
+closest(
+  x,
+  table,
+  tolerance = Inf,
+  ppm = 0,
+  duplicates = c("keep", "closest", "remove"),
+  nomatch = NA_integer_
+)
 
-common(x, table, tolerance = Inf, ppm = 0, duplicates = c("keep",
-  "closest", "remove"))
+common(
+  x,
+  table,
+  tolerance = Inf,
+  ppm = 0,
+  duplicates = c("keep", "closest", "remove")
+)
 
-join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right",
-  "inner"))
+join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right", "inner"))
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched.}
@@ -166,7 +176,8 @@ y[ji$y]
 
 \code{\link{\%in\%}}
 
-Other grouping/matching functions: \code{\link{bin}}
+Other grouping/matching functions: 
+\code{\link{bin}()}
 }
 \author{
 Sebastian Gibb

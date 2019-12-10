@@ -34,7 +34,8 @@ vectors (using \code{as.vector}).
 }
 }
 \seealso{
-Other coerce functions: \code{\link{coerce}}
+Other coerce functions: 
+\code{\link{coerce}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb
