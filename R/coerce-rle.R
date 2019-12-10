@@ -65,7 +65,7 @@ asRleDataFrame <- function(x, columns = character()) {
 #'
 #' @export
 asVectorDataFrame <- function(x) {
-    slot(x, "listData", check = FALSE) <- lapply(x, function(col) {
+    x@listData <- lapply(x, function(col) {
         if (is(col, "Rle"))
             as.vector(col)
         else
