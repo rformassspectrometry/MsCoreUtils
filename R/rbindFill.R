@@ -34,16 +34,23 @@ rbindFill <- function(...) {
     if (length(l) == 1L)
         l <- l[[1L]]
 
-    cl <- vapply1c(l, class)
+    cnms <- c("matrix", "data.frame", "DataFrame", "DFrame")
+    cls <- vapply(l, inherits, integer(length(cnms)), what = cnms, which = TRUE)
+    rownames(cls) <- cnms
 
-    stopifnot(all(cl %in% c("matrix", "data.frame", "DataFrame", "DFrame")))
+    if (any(!as.logical(colSums(cls))))
+        stop("'rbindFill' just works for ", paste(cls, collapse = ", "))
 
     ## convert matrix to data.frame for easier and equal subsetting and class
     ## determination
-    isMatrix <- cl == "matrix"
+    isMatrix <- as.logical(cls["matrix",])
     l[isMatrix] <- lapply(l[isMatrix], as.data.frame)
 
-    allcl <- unlist(lapply(l, vapply1c, class, USE.NAMES = TRUE))
+    allcl <- unlist(
+        lapply(l, function(ll) {
+            vapply1c(ll, function(lll)class(lll)[1L], USE.NAMES = TRUE)
+        })
+    )
     allnms <- unique(names(allcl))
     allcl <- allcl[allnms]
 
