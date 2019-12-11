@@ -45,7 +45,7 @@ robustSummary <- function(x, ...) {
     ## - Check with base lm if singular values are present.
     ## - If so, these coefficients will be zero, remove this collumn
     ##   from model matrix
-    ## - Rinse and repeat on reduced modelmatrx till no singular
+    ## - Rinse and repeat on reduced modelmatrix till no singular
     ##   values are present
     repeat {
         fit <- stats::.lm.fit(X, expression)
