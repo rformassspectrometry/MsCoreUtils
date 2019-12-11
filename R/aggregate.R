@@ -1,8 +1,10 @@
+##' @title Return the Robust Expression Summary of a matrix
+##'
+##' @description
 ##' This function calculates the robust summarisation for each feature
 ##' (protein). Note that the function assumes that the intensities in
 ##' input `e` are already log-transformed.
 ##'
-##' @title Return the Robust Expression Summary of a matrix
 ##' @param x A feature by sample `matrix` containing quantitative
 ##'     data with mandatory `colnames` and `rownames`.
 ##' @param ... Additional arguments passed to [MASS::rlm()].
@@ -13,16 +15,17 @@
 ##' 
 ##' @export
 ##' 
-##' @importFrom MASS rlm
-##' 
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
 ##' colnames(x) <- letters[1:10]
 ##' rownames(x) <- LETTERS[1:3]
 ##' robustSummary(x)
 robustSummary <- function(x, ...) {
-    stopifnot(!is.null(colnames(x)))
-    stopifnot(!is.null(rownames(x)))
+    if (is.null(colnames(x)))
+        stop("colnames must not be empty.")
+    if (is.null(rownames(x)))
+        stop("rownames must not be empty.")
+
     ## If there is only one 1 peptide for all samples return
     ## expression of that peptide
     if (nrow(x) == 1L) return(x)
@@ -51,7 +54,7 @@ robustSummary <- function(x, ...) {
         fit <- stats::.lm.fit(X, expression)
         id <- fit$coefficients != 0
         X <- X[ , id, drop = FALSE]
-        if (!any(!id)) break
+        if (all(id)) break
     }
     ## Last step is always rlm: calculate estimated effects effects as
     ## summarised values
@@ -72,10 +75,12 @@ robustSummary <- function(x, ...) {
     res
 }
 
+##' @title Return the Median Polish (Robust Twoway Decomposition) of a matrix
+##'
+##' @description
 ##' Fits an additive model (two way decomposition) using Tukey's median
 ##' polish procedure using [stats::medpolish()].
 ##'
-##' @title Return the Median Polish (Robust Twoway Decomposition) of a matrix
 ##' @param x A numeric matrix.
 ##' @param verbose Default is `FALSE`.
 ##' @param ... Additional arguments passed to [stats::medpolish()].
@@ -97,6 +102,9 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 }
 
 
+##' @title Aggreagate quantitative features.
+##' 
+##' @description
 ##' This function takes a matrix of quantitative features `x` and a
 ##' factor (of length equal to `nrow(x)`) defining subsets, and
 ##' applies a user-defined function to aggregate each subset into a
@@ -118,7 +126,6 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##'
 ##' - [matrixStats::colMedians()] to use the median of each column.
 ##'
-##' @title Aggreagate quantitative features.
 ##' @param x A numeric matrix.
 ##' @param INDEX A factor of length `nrow(x)`.
 ##' @param FUN A function to be applied to the subsets of `x`.
@@ -155,8 +162,10 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' aggregate_by_vector(x, k, robustSummary)
 ##' aggregate_by_vector(x, k, medianPolish)
 aggregate_by_vector <- function(x, INDEX, FUN, ...) {
-    stopifnot(inherits(x, "matrix"))
-    stopifnot(identical(length(INDEX), nrow(x)))
+    if (!inherits(x, "matrix"))
+        stop("'x' must be a matrix.")
+    if (!identical(length(INDEX), nrow(x)))
+        stop("The length of 'INDEX' has to be identical to 'nrow(x).")
     res <- by(x, INDEX, FUN, ...)
     return(as.matrix(do.call(rbind, as.list(res))))
 }

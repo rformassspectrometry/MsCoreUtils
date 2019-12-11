@@ -24,8 +24,7 @@ This function takes a matrix of quantitative features \code{x} and a
 factor (of length equal to \code{nrow(x)}) defining subsets, and
 applies a user-defined function to aggregate each subset into a
 vector of quantitative values.
-}
-\details{
+
 User-defined functions must thus return a vector of length equal
 to \code{ncol(x)}. Examples thereof are
 \itemize{

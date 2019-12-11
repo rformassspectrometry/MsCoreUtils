@@ -36,6 +36,18 @@ test_that("aggregation: robustSummary", {
     expect_equal(x2, x2_expected)
 })
 
+test_that("aggregation: robustSummary", {
+    x <- structure(c(10.3961935744407, 10.6379251053134,
+                     7.52885076885599, 11.1339832690524,
+                     11.5154097311056, 7.69906817878979,
+                     11.9394664781386, 12.2958526883634,
+                     9.00858488668671, 12.9033445520186,
+                     13.3390344671153, 9.75719265786117),
+                   .Dim = 3:4)
+    expect_error(robustSummary(x))
+
+})
+
 test_that("aggregation: aggregate_by_vector", {
     ## numeric example taken from `MSnbase::combineFeatures` on
     ## `log(filterNA(msnset), 2)`
