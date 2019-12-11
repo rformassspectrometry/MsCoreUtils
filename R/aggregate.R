@@ -20,7 +20,7 @@
 ##' colnames(x) <- letters[1:10]
 ##' rownames(x) <- LETTERS[1:3]
 ##' robustSummary(x)
-robustSummary <- function(x, residuals = FALSE, ...) {
+robustSummary <- function(x, ...) {
     stopifnot(!is.null(colnames(x)))
     stopifnot(!is.null(rownames(x)))
     ## If there is only one 1 peptide for all samples return
@@ -105,14 +105,16 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' User-defined functions must thus return a vector of length equal
 ##' to `ncol(x)`. Examples thereof are
 ##'
-##' - [medialPolish] to fits an additive model (two way decomposition)
+##' - [medianPolish()] to fits an additive model (two way decomposition)
 ##'   using Tukey's median polish_ procedure using
 ##'   [stats::medpolish()];
 ##'
-##' - [robustSummary] to calculate a robust aggregation using
+##' - [robustSummary()] to calculate a robust aggregation using
 ##'   [MASS::rlm()];
 ##'
 ##' - [base::colMeans()] to use the mean of each column;
+##'
+##' - [base::colMedians()] to use the median of each column;
 ##'
 ##' - [base::colSums()] to use the sum of each column;
 ##' 
@@ -126,6 +128,8 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##'     with `dimnames` equal to `colnames(x)` and `INDEX`.
 ##' 
 ##' @author Laurent Gatto
+##'
+##' @export
 ##' 
 ##' @examples
 ##'

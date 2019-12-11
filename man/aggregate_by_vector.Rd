@@ -29,12 +29,13 @@ vector of quantitative values.
 User-defined functions must thus return a vector of length equal
 to \code{ncol(x)}. Examples thereof are
 \itemize{
-\item \link{medialPolish} to fits an additive model (two way decomposition)
+\item \code{\link[=medianPolish]{medianPolish()}} to fits an additive model (two way decomposition)
 using Tukey's median polish_ procedure using
 \code{\link[stats:medpolish]{stats::medpolish()}};
-\item \link{robustSummary} to calculate a robust aggregation using
+\item \code{\link[=robustSummary]{robustSummary()}} to calculate a robust aggregation using
 \code{\link[MASS:rlm]{MASS::rlm()}};
 \item \code{\link[base:colMeans]{base::colMeans()}} to use the mean of each column;
+\item \code{\link[base:colMedians]{base::colMedians()}} to use the median of each column;
 \item \code{\link[base:colSums]{base::colSums()}} to use the sum of each column;
 }
 }
