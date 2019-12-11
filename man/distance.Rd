@@ -4,11 +4,17 @@
 \alias{distance}
 \alias{ndotproduct}
 \alias{neuclidean}
+\alias{navdist}
+\alias{nspectraangle}
 \title{Spectra Distance/Similarity Measurements}
 \usage{
 ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 
 neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+
+navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+
+nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 }
 \arguments{
 \item{x}{\code{matrix}, two-columns e.g. m/z, intensity}
@@ -52,10 +58,25 @@ values. Most commonly \code{m = 0} and \code{n = 0.5} are used.
 
 \code{neuclidean}: the normalized euclidean distance is described in Stein and
 Scott 1994 as:
-\eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}
+\eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}; where
 \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
 values, respectively. See the details section about \code{ndotproduct} for an
 explanation how to set \code{m} and \code{n}.
+
+\code{navdist}: the normalized absolute values distance is described in Stein and
+Scott 1994 as:
+\eqn{NED = (1 + \frac{\sum(|W_1 - W_2|)}{sum((W_2))})^{-1}}; where
+\eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+values, respectively. See the details section about \code{ndotproduct} for an
+explanation how to set \code{m} and \code{n}.
+
+\code{nspectraangle}: the normalized spectra angle is described in Toprak et al
+2014 as:
+\eqn{NSA = 1 - \frac{2*\cos^{-1}(W_1 \cdot W_2)}{\pi}}; where
+\eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+values, respectively. The weighting was not originally proposed by Toprak et
+al. 2014. See the details section about \code{ndotproduct} for an explanation how
+to set \code{m} and \code{n}.
 }
 \examples{
 
@@ -67,6 +88,10 @@ ndotproduct(x, y, m = 2, n = 0.5)
 ndotproduct(x, y, m = 3, n = 0.6)
 
 neuclidean(x, y)
+
+navdist(x, y)
+
+nspectraangle(x, y)
 }
 \references{
 Stein, S. E., and Scott, D. R. (1994).
@@ -77,8 +102,14 @@ Journal of the American Society for Mass Spectrometry, 5(9), 859--866.
 
 Horai et al. (2010).
 MassBank: a public repository for sharing mass spectral data for life
-sciences. Journal of mass spectrometry, 45(7), 703-714.
-\doi{https://doi.org/10.1002/jms.1777}.
+sciences. Journal of mass spectrometry, 45(7), 703--714.
+\doi{10.1002/jms.1777}.
+
+Toprak et al. (2014).
+Conserved peptide fragmentation as a benchmarking tool for mass spectrometers
+and a discriminating feature for targeted proteomics.
+Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
+\doi{10.1074/mcp.O113.036475}.
 }
 \author{
 Sebastian Gibb
@@ -87,5 +118,9 @@ Sebastian Gibb
 Thomas Naake, \email{thomasnaake@googlemail.com}
 
 \code{neuclidean}: Sebastian Gibb
+
+\code{navdist}: Sebastian Gibb
+
+\code{nspectraangle}: Sebastian Gibb
 }
 \concept{distance/similarity functions}

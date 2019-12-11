@@ -13,6 +13,12 @@ test_that("neuclidean", {
     expect_equal(neuclidean(x, y, m = 3, n = 0.6), 0.3904, tolerance = 1e-4)
 })
 
+test_that("navdist", {
+    expect_equal(navdist(x, x), 1)
+    expect_equal(navdist(x, y), 0.697, tolerance = 1e-4)
+    expect_equal(navdist(x, y, m = 3, n = 0.6), 0.5305, tolerance = 1e-4)
+})
+
 test_that("nspectraangle", {
     expect_equal(nspectraangle(x, x), 1)
     expect_equal(nspectraangle(x, y), 0.5556, tolerance = 1e-4)
