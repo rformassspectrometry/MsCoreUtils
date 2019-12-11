@@ -24,8 +24,15 @@
 #'
 #' Horai et al. (2010).
 #' MassBank: a public repository for sharing mass spectral data for life
-#' sciences. Journal of mass spectrometry, 45(7), 703-714.
-#' \doi{https://doi.org/10.1002/jms.1777}.
+#' sciences. Journal of mass spectrometry, 45(7), 703--714.
+#' \doi{10.1002/jms.1777}.
+#'
+#' Toprak et al. (2014).
+#' Conserved peptide fragmentation as a benchmarking tool for mass spectrometers
+#' and a discriminating feature for targeted proteomics.
+#' Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
+#' \doi{10.1074/mcp.O113.036475}.
+#'
 #' @examples
 #'
 #' x <- matrix(c(1:5, 1:5), ncol = 2, dimnames = list(c(), c("mz", "intensity")))
@@ -81,7 +88,7 @@ ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' @details
 #' `neuclidean`: the normalized euclidean distance is described in Stein and
 #' Scott 1994 as:
-#' \eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}
+#' \eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}; where
 #' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
 #' values, respectively. See the details section about `ndotproduct` for an
 #' explanation how to set `m` and `n`.
@@ -98,6 +105,29 @@ neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
     1 / (1 + sum((wy - wx)^2L, na.rm = na.rm) / sum(wy^2L, na.rm = na.rm))
+}
+
+#' @rdname distance
+#'
+#' @details
+#' `nspectraangle`: the normalized spectra angle is described in Toprak et al
+#' 2014 as:
+#' \eqn{NSA = 1 - \frac{2*\cos^{-1}(W_1 \cdot W_2)}{\pi}}; where
+#' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+#' values, respectively. The weighting was not originally proposed by Toprak et
+#' al. 2014. See the details section about `ndotproduct` for an explanation how
+#' to set `m` and `n`.
+#'
+#' @author
+#' `nspectraangle`: Sebastian Gibb
+#'
+#' @export
+#' @aliases nspectraangle
+#' @examples
+#'
+#' nspectraangle(x, y)
+nspectraangle <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+    1 - 2 * acos(ndotproduct(x, y, m, n, na.rm = na.rm)) / pi
 }
 
 #' Calibrate function (workhorse of normalise)
