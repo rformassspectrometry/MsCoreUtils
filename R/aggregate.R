@@ -155,7 +155,8 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' aggregate_by_vector(x, k, robustSummary)
 ##' aggregate_by_vector(x, k, medianPolish)
 aggregate_by_vector <- function(x, INDEX, FUN, ...) {
-    stopifnot(inherits(x, "matrix"))
+    if (!inherits(x, "matrix"))
+        stop("'x' has to be a 'matrix'.)
     stopifnot(identical(length(INDEX), nrow(x)))
     res <- by(x, INDEX, FUN, ...)
     return(as.matrix(do.call(rbind, as.list(res))))
