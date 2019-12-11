@@ -110,6 +110,30 @@ neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' @rdname distance
 #'
 #' @details
+#' `navdist`: the normalized absolute values distance is described in Stein and
+#' Scott 1994 as:
+#' \eqn{NED = (1 + \frac{\sum(|W_1 - W_2|)}{sum((W_2))})^{-1}}; where
+#' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+#' values, respectively. See the details section about `ndotproduct` for an
+#' explanation how to set `m` and `n`.
+#'
+#' @author
+#' `navdist`: Sebastian Gibb
+#'
+#' @export
+#' @aliases navdist
+#' @examples
+#'
+#' navdist(x, y)
+navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+    wx <- .weightxy(x[, 1L], x[, 2L], m, n)
+    wy <- .weightxy(y[, 1L], y[, 2L], m, n)
+    1 / (1 + sum(abs(wy - wx), na.rm = na.rm) / sum(wy, na.rm = na.rm))
+}
+
+#' @rdname distance
+#'
+#' @details
 #' `nspectraangle`: the normalized spectra angle is described in Toprak et al
 #' 2014 as:
 #' \eqn{NSA = 1 - \frac{2*\cos^{-1}(W_1 \cdot W_2)}{\pi}}; where
