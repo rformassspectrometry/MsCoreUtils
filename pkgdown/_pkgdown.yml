@@ -13,10 +13,13 @@ reference:
       - '`common`'
       - '`group`'
       - '`join`'
-  - title: "Similarity"
-    desc: "Functions to calculate similarity."
+  - title: "Similarity/Distance"
+    desc: "Functions to calculate similarity/distance."
     contents:
-      - '`dotproduct`'
+      - '`navdist`'
+      - '`ndotproduct`'
+      - '`neuclidean`'
+      - '`nspectraangle`'
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
