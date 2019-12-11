@@ -114,13 +114,12 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##'
 ##' - [base::colMeans()] to use the mean of each column;
 ##'
-##' - [base::colMedians()] to use the median of each column;
-##'
 ##' - [base::colSums()] to use the sum of each column;
-##' 
+##'
+##' - [matrixStats::colMedians()] to use the median of each column.
 ##'
 ##' @title Aggreagate quantitative features.
-##' @param x A numeric matrix
+##' @param x A numeric matrix.
 ##' @param INDEX A factor of length `nrow(x)`.
 ##' @param FUN A function to be applied to the subsets of `x`.
 ##' @param ... Additiona arguments passed to `FUN`.
