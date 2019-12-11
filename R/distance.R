@@ -45,8 +45,8 @@ NULL
 #' @details
 #' `ndotproduct`: the normalized dot product is described in Stein and Scott
 #' 1994 as: \eqn{NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}}; where
-#' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the mz and intensity values,
-#' respectively. Stein and Scott 1994 empirically determined the optimal
+#' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+#' values, respectively. Stein and Scott 1994 empirically determined the optimal
 #' exponents as `m = 3` and `n = 0.6` by analyzing ca. 12000 EI-MS data of
 #' 8000 organic compounds in the NIST Mass Spectral Library.
 #' MassBank (Horai et al. 2010) uses `m = 2` and `n = 0.5`
@@ -67,11 +67,37 @@ NULL
 #' @examples
 #'
 #' ndotproduct(x, y)
+#' ndotproduct(x, y, m = 2, n = 0.5)
+#' ndotproduct(x, y, m = 3, n = 0.6)
 ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
     sum(wx * wy, na.rm = na.rm)^2L /
         (sum(wx^2L, na.rm = na.rm) * sum(wy^2L, na.rm = na.rm))
+}
+
+#' @rdname distance
+#'
+#' @details
+#' `neuclidean`: the normalized euclidean distance is described in Stein and
+#' Scott 1994 as:
+#' \eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}
+#' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+#' values, respectively. See the details section about `ndotproduct` for an
+#' explanation how to set `m` and `n`.
+#'
+#' @author
+#' `neuclidean`: Sebastian Gibb
+#'
+#' @export
+#' @aliases neuclidean
+#' @examples
+#'
+#' neuclidean(x, y)
+neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+    wx <- .weightxy(x[, 1L], x[, 2L], m, n)
+    wy <- .weightxy(y[, 1L], y[, 2L], m, n)
+    1 / (1 + sum((wy - wx)^2L, na.rm = na.rm) / sum(wy^2L, na.rm = na.rm))
 }
 
 #' Calibrate function (workhorse of normalise)

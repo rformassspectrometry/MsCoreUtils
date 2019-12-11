@@ -3,9 +3,12 @@
 \name{distance}
 \alias{distance}
 \alias{ndotproduct}
+\alias{neuclidean}
 \title{Spectra Distance/Similarity Measurements}
 \usage{
 ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+
+neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 }
 \arguments{
 \item{x}{\code{matrix}, two-columns e.g. m/z, intensity}
@@ -34,8 +37,8 @@ These functions provide different similariy/distance measurements.
 
 \code{ndotproduct}: the normalized dot product is described in Stein and Scott
 1994 as: \eqn{NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}}; where
-\eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the mz and intensity values,
-respectively. Stein and Scott 1994 empirically determined the optimal
+\eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+values, respectively. Stein and Scott 1994 empirically determined the optimal
 exponents as \code{m = 3} and \code{n = 0.6} by analyzing ca. 12000 EI-MS data of
 8000 organic compounds in the NIST Mass Spectral Library.
 MassBank (Horai et al. 2010) uses \code{m = 2} and \code{n = 0.5}
@@ -46,6 +49,13 @@ to give a weight on the m/z values to accommodate that shared fragments
 with higher m/z are less likely and will mean that molecules might be more
 similar. Increasing \code{n} will result in a higher importance of the intensity
 values. Most commonly \code{m = 0} and \code{n = 0.5} are used.
+
+\code{neuclidean}: the normalized euclidean distance is described in Stein and
+Scott 1994 as:
+\eqn{NED = (1 + \frac{\sum((W_1 - W_2)^2)}{sum((W_2)^2)})^{-1}}
+\eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
+values, respectively. See the details section about \code{ndotproduct} for an
+explanation how to set \code{m} and \code{n}.
 }
 \examples{
 
@@ -53,6 +63,10 @@ x <- matrix(c(1:5, 1:5), ncol = 2, dimnames = list(c(), c("mz", "intensity")))
 y <- matrix(c(1:5, 5:1), ncol = 2, dimnames = list(c(), c("mz", "intensity")))
 
 ndotproduct(x, y)
+ndotproduct(x, y, m = 2, n = 0.5)
+ndotproduct(x, y, m = 3, n = 0.6)
+
+neuclidean(x, y)
 }
 \references{
 Stein, S. E., and Scott, D. R. (1994).
@@ -71,5 +85,7 @@ Sebastian Gibb
 
 \code{ndotproduct}: Sebastian Gibb and
 Thomas Naake, \email{thomasnaake@googlemail.com}
+
+\code{neuclidean}: Sebastian Gibb
 }
 \concept{distance/similarity functions}

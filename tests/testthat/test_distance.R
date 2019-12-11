@@ -3,8 +3,14 @@ y <- matrix(c(1:5, 5:1), ncol = 2)
 
 test_that("ndotproduct", {
     expect_equal(ndotproduct(x, x), 1)
-    expect_equal(ndotproduct(x, y), 0.7661, tolerance = 1e-5)
-    expect_equal(ndotproduct(x, y, m = 3, n = 0.6), 0.91276, tolerance = 1e-5)
+    expect_equal(ndotproduct(x, y), 0.7661, tolerance = 1e-4)
+    expect_equal(ndotproduct(x, y, m = 3, n = 0.6), 0.91276, tolerance = 1e-4)
+})
+
+test_that("ndotproduct", {
+    expect_equal(neuclidean(x, x), 1)
+    expect_equal(neuclidean(x, y), 0.8003, tolerance = 1e-4)
+    expect_equal(neuclidean(x, y, m = 3, n = 0.6), 0.3904, tolerance = 1e-4)
 })
 
 test_that(".calibrate", {
