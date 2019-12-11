@@ -8,8 +8,13 @@
 ##' @param ... Additional arguments passed to [MASS::rlm()].
 ##' @return `numeric()` vector of length `ncol(x)` with robust
 ##'     summarised values.
+##' 
 ##' @author Adriaan Sticker, Sebastian Gibb and Laurent Gatto
+##' 
 ##' @export
+##' 
+##' @importFrom MASS rlm
+##' 
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
 ##' colnames(x) <- letters[1:10]
@@ -80,6 +85,9 @@ robustSummary <- function(x, residuals = FALSE, ...) {
 ##' @author Laurent Gatto
 ##' 
 ##' @export
+##'
+##' @importFrom stats medpolish
+##' 
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
 ##' medianPolish(x)

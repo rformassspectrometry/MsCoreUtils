@@ -1,5 +1,6 @@
 test_that("rbindFill works", {
     require("S4Vectors")
+    expect_error(rbindFill(1:2, 1:4), "just works for")
 
     ## matrix
     a <- matrix(1:9, nrow = 3, ncol = 3)
