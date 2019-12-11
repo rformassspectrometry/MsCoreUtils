@@ -15,7 +15,7 @@ is thrown.
 }
 \description{
 These functions are used to validate input arguments. In general they are
-just wrapper around their corresponding \code{is*} function with an error message.
+just wrapper around their corresponding \verb{is*} function with an error message.
 }
 \details{
 \code{validPeaksMatrix}: see \code{\link{isPeaksMatrix}}.
@@ -25,9 +25,11 @@ try(validPeaksMatrix(1:2))
 validPeaksMatrix(cbind(mz = 1:2, intensity = 1:2))
 }
 \seealso{
-Other helper functions for developers: \code{\link{between}},
-  \code{\link{isPeaksMatrix}}, \code{\link{rbindFill}},
-  \code{\link{vapply1c}}
+Other helper functions for developers: 
+\code{\link{between}()},
+\code{\link{isPeaksMatrix}()},
+\code{\link{rbindFill}()},
+\code{\link{vapply1c}()}
 }
 \author{
 Sebastian Gibb
