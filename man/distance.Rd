@@ -25,11 +25,11 @@ nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 "mz"), default: \code{0} means don't weight by the first column.}
 
 \item{n}{\code{numeric}, weighting for the second column of \code{x} and \code{y} (e.g.
-"intensity), default: \code{0.5} means effectly using \code{sqrt(x[,2])} and
+"intensity"), default: \code{0.5} means effectly using \code{sqrt(x[,2])} and
 \code{sqrt(y[,2])}}
 
-\item{na.rm}{\code{logical(1)}, should \code{NA} removed prior to calculation (default
-\code{TRUE}).}
+\item{na.rm}{\code{logical(1)}, should \code{NA} be removed prior to calculation
+(default \code{TRUE}).}
 }
 \value{
 \code{double(1)} value between \code{0:1}, where \code{0} is completely different

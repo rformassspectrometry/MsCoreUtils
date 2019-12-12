@@ -45,11 +45,11 @@ NULL
 #' "mz"), default: `0` means don't weight by the first column.
 #'
 #' @param n `numeric`, weighting for the second column of `x` and `y` (e.g.
-#' "intensity), default: `0.5` means effectly using `sqrt(x[,2])` and
+#' "intensity"), default: `0.5` means effectly using `sqrt(x[,2])` and
 #' `sqrt(y[,2])`
 #'
-#' @param na.rm `logical(1)`, should `NA` removed prior to calculation (default
-#' `TRUE`).
+#' @param na.rm `logical(1)`, should `NA` be removed prior to calculation
+#' (default `TRUE`).
 #'
 #' @details
 #' `ndotproduct`: the normalized dot product is described in Stein and Scott
