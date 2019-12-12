@@ -171,5 +171,5 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
 }
 
 
-## aggregate_by_vector <- function(x, index, FUN, ...) {    
+## aggregate_by_list <- function(x, INDEX, FUN, ...) {    
 ## }
