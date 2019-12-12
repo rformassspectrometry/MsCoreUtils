@@ -56,7 +56,7 @@ robustSummary <- function(x, ...) {
         X <- X[ , id, drop = FALSE]
         if (all(id)) break
     }
-    ## Last step is always rlm: calculate estimated effects effects as
+    ## Last step is always rlm: calculate estimated effects as
     ## summarised values
     fit <- MASS::rlm(X, expression, ...)
 
@@ -81,11 +81,11 @@ robustSummary <- function(x, ...) {
 ##' Fits an additive model (two way decomposition) using Tukey's median
 ##' polish procedure using [stats::medpolish()].
 ##'
-##' @param x A numeric matrix.
+##' @param x A `matrix` of mode `numeric`.
 ##' @param verbose Default is `FALSE`.
 ##' @param ... Additional arguments passed to [stats::medpolish()].
 ##' 
-##' @return A vector of numerics of length identical to `ncol(x)`.
+##' @return A `numeric` vector of length identical to `ncol(x)`.
 ##' 
 ##' @author Laurent Gatto
 ##' 
@@ -98,7 +98,7 @@ robustSummary <- function(x, ...) {
 ##' medianPolish(x)
 medianPolish <- function(x, verbose = FALSE, ...) {
     medpol <- stats::medpolish(x, trace.iter = verbose, ...)
-    return(medpol$overall + medpol$col)
+    medpol$overall + medpol$col
 }
 
 
@@ -126,10 +126,10 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##'
 ##' - [matrixStats::colMedians()] to use the median of each column.
 ##'
-##' @param x A numeric matrix.
-##' @param INDEX A factor of length `nrow(x)`.
-##' @param FUN A function to be applied to the subsets of `x`.
-##' @param ... Additiona arguments passed to `FUN`.
+##' @param x A `matrix` of mode `numeric`. 
+##' @param INDEX A `factor` of length `nrow(x)`.
+##' @param FUN A `function` to be applied to the subsets of `x`.
+##' @param ... Additional arguments passed to `FUN`.
 ##' @return A new `matrix` of dimensions `ncol(x)` and `length(INDEX)`
 ##'     with `dimnames` equal to `colnames(x)` and `INDEX`.
 ##' 
@@ -166,10 +166,15 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
         stop("'x' must be a matrix.")
     if (!identical(length(INDEX), nrow(x)))
         stop("The length of 'INDEX' has to be identical to 'nrow(x).")
-    res <- by(x, INDEX, FUN, ...)
-    return(as.matrix(do.call(rbind, as.list(res))))
+    res <- tapply(
+        seq_len(nrow(x)),
+        INDEX,
+        FUN = function(i) FUN(x[i, , drop = FALSE], ...),
+        simplify = FALSE
+    )
+    do.call(rbind, res)
+
 }
 
-
-## aggregate_by_vector <- function(x, index, FUN, ...) {    
+## aggregate_by_list <- function(x, INDEX, FUN, ...) {    
 ## }
