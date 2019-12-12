@@ -43,9 +43,11 @@ NULL
 #'
 #' @param m `numeric`, weighting for the first column of `x` and `y` (e.g.
 #' "mz"), default: `0` means don't weight by the first column.
+#'
 #' @param n `numeric`, weighting for the second column of `x` and `y` (e.g.
 #' "intensity), default: `0.5` means effectly using `sqrt(x[,2])` and
 #' `sqrt(y[,2])`
+#'
 #' @param na.rm `logical(1)`, should `NA` removed prior to calculation (default
 #' `TRUE`).
 #'
