@@ -14,6 +14,8 @@
 ##' @author Adriaan Sticker, Sebastian Gibb and Laurent Gatto
 ##' 
 ##' @export
+##'
+##' @importFrom MASS rlm
 ##' 
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
@@ -58,7 +60,7 @@ robustSummary <- function(x, ...) {
     }
     ## Last step is always rlm: calculate estimated effects as
     ## summarised values
-    fit <- MASS::rlm(X, expression, ...)
+    fit <- rlm(X, expression, ...)
 
     sampleid <- seq_along(unique(sample))
     ## This will be needed for NUSE-type of quality control, but will
