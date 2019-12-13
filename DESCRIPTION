@@ -25,9 +25,9 @@ Depends:
 Imports:
     methods,
     S4Vectors,
+    MASS,
     stats
 Suggests:
-    MASS,
     testthat,
     knitr,
     roxygen2

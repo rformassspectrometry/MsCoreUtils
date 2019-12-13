@@ -16,6 +16,7 @@
 ##' @export
 ##'
 ##' @importFrom MASS rlm
+##' @importFrom stats model.matrix .lm.fit
 ##' 
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
@@ -44,8 +45,8 @@ robustSummary <- function(x, ...) {
 
     ## Sum contrast on peptide level so sample effect will be mean
     ## over all peptides instead of reference level.
-    X <- stats::model.matrix(~ -1 + sample + feature,
-                             contrasts.arg = list(feature = 'contr.sum'))
+    X <- model.matrix(~ -1 + sample + feature,
+                      contrasts.arg = list(feature = 'contr.sum'))
     ## MASS::rlm breaks on singulare values.
     ## - Check with base lm if singular values are present.
     ## - If so, these coefficients will be zero, remove this collumn
@@ -53,7 +54,7 @@ robustSummary <- function(x, ...) {
     ## - Rinse and repeat on reduced modelmatrix till no singular
     ##   values are present
     repeat {
-        fit <- stats::.lm.fit(X, expression)
+        fit <- .lm.fit(X, expression)
         id <- fit$coefficients != 0
         X <- X[ , id, drop = FALSE]
         if (all(id)) break
