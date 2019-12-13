@@ -7,14 +7,14 @@
 medianPolish(x, verbose = FALSE, ...)
 }
 \arguments{
-\item{x}{A numeric matrix.}
+\item{x}{A \code{matrix} of mode \code{numeric}.}
 
 \item{verbose}{Default is \code{FALSE}.}
 
 \item{...}{Additional arguments passed to \code{\link[stats:medpolish]{stats::medpolish()}}.}
 }
 \value{
-A vector of numerics of length identical to \code{ncol(x)}.
+A \code{numeric} vector of length identical to \code{ncol(x)}.
 }
 \description{
 Fits an additive model (two way decomposition) using Tukey's median

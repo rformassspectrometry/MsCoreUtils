@@ -7,13 +7,13 @@
 aggregate_by_vector(x, INDEX, FUN, ...)
 }
 \arguments{
-\item{x}{A numeric matrix.}
+\item{x}{A \code{matrix} of mode \code{numeric}.}
 
-\item{INDEX}{A factor of length \code{nrow(x)}.}
+\item{INDEX}{A \code{factor} of length \code{nrow(x)}.}
 
-\item{FUN}{A function to be applied to the subsets of \code{x}.}
+\item{FUN}{A \code{function} to be applied to the subsets of \code{x}.}
 
-\item{...}{Additiona arguments passed to \code{FUN}.}
+\item{...}{Additional arguments passed to \code{FUN}.}
 }
 \value{
 A new \code{matrix} of dimensions \code{ncol(x)} and \code{length(INDEX)}
