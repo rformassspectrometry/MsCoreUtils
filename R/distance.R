@@ -42,11 +42,12 @@ NULL
 #' @rdname distance
 #'
 #' @param m `numeric`, weighting for the first column of `x` and `y` (e.g.
-#' "mz"), default: `0` means don't weight by the first column.
+#' "mz"), default: `0` means don't weight by the first column. For more details
+#' see the `ndotproduct` details section.
 #'
 #' @param n `numeric`, weighting for the second column of `x` and `y` (e.g.
 #' "intensity"), default: `0.5` means effectly using `sqrt(x[,2])` and
-#' `sqrt(y[,2])`
+#' `sqrt(y[,2])`. For more details see the `ndotproduct` details section.
 #'
 #' @param na.rm `logical(1)`, should `NA` be removed prior to calculation
 #' (default `TRUE`).
