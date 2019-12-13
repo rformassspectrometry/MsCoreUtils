@@ -22,11 +22,12 @@ nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 \item{y}{\code{matrix}, two-columns e.g. m/z, intensity}
 
 \item{m}{\code{numeric}, weighting for the first column of \code{x} and \code{y} (e.g.
-"mz"), default: \code{0} means don't weight by the first column.}
+"mz"), default: \code{0} means don't weight by the first column. For more details
+see the \code{ndotproduct} details section.}
 
 \item{n}{\code{numeric}, weighting for the second column of \code{x} and \code{y} (e.g.
 "intensity"), default: \code{0.5} means effectly using \code{sqrt(x[,2])} and
-\code{sqrt(y[,2])}}
+\code{sqrt(y[,2])}. For more details see the \code{ndotproduct} details section.}
 
 \item{na.rm}{\code{logical(1)}, should \code{NA} be removed prior to calculation
 (default \code{TRUE}).}
