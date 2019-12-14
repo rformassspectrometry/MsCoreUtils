@@ -175,8 +175,9 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
         FUN = function(i) FUN(x[i, , drop = FALSE], ...),
         simplify = FALSE
     )
-    do.call(rbind, res)
-
+    res <- do.call(rbind, res)
+    rownames(res) <- levels(INDEX)
+    res
 }
 
 ## aggregate_by_list <- function(x, INDEX, FUN, ...) {    

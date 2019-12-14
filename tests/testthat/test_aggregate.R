@@ -77,8 +77,6 @@ test_that("aggregation: aggregate_by_vector", {
                   .Dimnames = list(c("B", "E", "X"),
                                    c("iTRAQ4.114", "iTRAQ4.115",
                                      "iTRAQ4.116", "iTRAQ4.117")))
-                  
-
     x2_robust <- aggregate_by_vector(x, k, robustSummary)
     expect_equal(x2_robust, x2_robust_expected)
     ## aggregate: medianPolish
@@ -107,7 +105,6 @@ test_that("aggregation: aggregate_by_vector", {
                   .Dimnames = list(c("B", "E", "X"),
                                    c("iTRAQ4.114", "iTRAQ4.115",
                                      "iTRAQ4.116", "iTRAQ4.117")))
-    
     x2_sum <- aggregate_by_vector(x, k, colSums)
     expect_equal(x2_sum, x2_sum_expected)    
 })
