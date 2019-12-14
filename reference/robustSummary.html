@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Validation functions — validPeaksMatrix • MsCoreUtils</title>
+<title>Return the Robust Expression Summary of a matrix — robustSummary • MsCoreUtils</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,9 +42,10 @@
 
 
 
-<meta property="og:title" content="Validation functions — validPeaksMatrix" />
-<meta property="og:description" content="These functions are used to validate input arguments. In general they are
-just wrapper around their corresponding is* function with an error message." />
+<meta property="og:title" content="Return the Robust Expression Summary of a matrix — robustSummary" />
+<meta property="og:description" content="This function calculates the robust summarisation for each feature
+(protein). Note that the function assumes that the intensities in
+input e are already log-transformed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -116,58 +117,57 @@ just wrapper around their corresponding is* function with an error message." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Validation functions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/validation.R'><code>R/validation.R</code></a></small>
-    <div class="hidden name"><code>validation.Rd</code></div>
+    <h1>Return the Robust Expression Summary of a matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/R/aggregate.R'><code>R/aggregate.R</code></a></small>
+    <div class="hidden name"><code>robustSummary.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions are used to validate input arguments. In general they are
-just wrapper around their corresponding <code>is*</code> function with an error message.</p>
+    <p>This function calculates the robust summarisation for each feature
+(protein). Note that the function assumes that the intensities in
+input <code>e</code> are already log-transformed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>validPeaksMatrix</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>robustSummary</span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>object to test.</p></td>
+      <td><p>A feature by sample <code>matrix</code> containing quantitative
+data with mandatory <code>colnames</code> and <code>rownames</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments passed to <code><a href='https://rdrr.io/pkg/MASS/man/rlm.html'>MASS::rlm()</a></code>.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>, <code>TRUE</code> if validation are successful otherwise an error
-is thrown.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>validPeaksMatrix</code>: see <code>isPeaksMatrix</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other helper functions for developers: 
-<code>between()</code>,
-<code>isPeaksMatrix()</code>,
-<code>rbindFill()</code>,
-<code>vapply1c()</code></p></div>
+    <p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(x)</a></code> with robust
+summarised values.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/try.html'>try</a></span>(<span class='fu'>validPeaksMatrix</span>(<span class='fl'>1</span>:<span class='fl'>2</span>))</div><div class='output co'>#&gt; Error in validPeaksMatrix(1:2) : 
-#&gt;   'x' has to be a 'numeric' matrix with two columns named 'mz' and 'intensity'. The 'mz' column has to be sorted increasingly.</div><div class='input'><span class='fu'>validPeaksMatrix</span>(<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>(<span class='kw'>mz</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>intensity</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>2</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]
+<span class='fu'>robustSummary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;          a          b          c          d          e          f          g 
+#&gt; 0.03426428 0.69296648 0.22299803 1.20640348 0.25225278 0.14852736 0.15870875 
+#&gt;          h          i          j 
+#&gt; 0.69123724 0.60155679 0.65551141 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
     <h2>Author</h2>
-    <p>Sebastian Gibb</p>
+    <p>Adriaan Sticker, Sebastian Gibb and Laurent Gatto</p>
   </div>
 </div>
 
