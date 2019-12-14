@@ -169,6 +169,7 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
         stop("'x' must be a matrix.")
     if (!identical(length(INDEX), nrow(x)))
         stop("The length of 'INDEX' has to be identical to 'nrow(x).")
+    INDEX <- factor(INDEX)
     res <- tapply(
         seq_len(nrow(x)),
         INDEX,
@@ -177,6 +178,7 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     )
     res <- do.call(rbind, res)
     rownames(res) <- levels(INDEX)
+    colnames(res) <- colnames(x)
     res
 }
 
