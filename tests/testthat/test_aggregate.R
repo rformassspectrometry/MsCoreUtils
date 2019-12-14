@@ -44,12 +44,11 @@ test_that("aggregation: robustSummary", {
                      9.00858488668671, 12.9033445520186,
                      13.3390344671153, 9.75719265786117),
                    .Dim = 3:4)
-    expect_error(robustSummary(x))
-
+    expect_error(robustSummary(x), "colnames must not be empty")
 })
 
 test_that("aggregation: aggregate_by_vector", {
-    ## numeric example taken from `MSnbase::combineFeatures` on
+    ## Numeric example taken from `MSnbase::combineFeatures` on
     ## `log(filterNA(msnset), 2)`
     x <- structure(c(3.37798349666944, 4.10151322208566, 3.81790550688852, 
                      3.68373564094019, 3.41114487991947, 2.91242966348861, 1.97017675008189, 
@@ -64,7 +63,14 @@ test_that("aggregation: aggregate_by_vector", {
                                       "X53", "X55"),
                                     c("iTRAQ4.114", "iTRAQ4.115", 
                                       "iTRAQ4.116", "iTRAQ4.117")))
-    k <- factor(c("B", "E", "X", "E", "B", "B", "E"))
+    ## Different ways to provide INDEX
+    k_char <- c("B", "E", "X", "E", "B", "B", "E")
+    k_fact <- factor(k_char)
+    k_fact2 <- factor(k_char, levels = c("X", "E", "B"))
+    ## Harmonise row names for comparison - these can change based on
+    ## the different levels.
+    same_row_names <- c("B", "E", "X")
+
     ## aggregate: robustSummary
     x2_robust_expected <- 
         structure(c(3.23385268002584, 3.27016773304649,
@@ -77,8 +83,14 @@ test_that("aggregation: aggregate_by_vector", {
                   .Dimnames = list(c("B", "E", "X"),
                                    c("iTRAQ4.114", "iTRAQ4.115",
                                      "iTRAQ4.116", "iTRAQ4.117")))
-    x2_robust <- aggregate_by_vector(x, k, robustSummary)
-    expect_equal(x2_robust, x2_robust_expected)
+    ## Test for different INDEX types and order
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_char, robustSummary)[same_row_names, ])
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact, robustSummary)[same_row_names, ])
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact2, robustSummary)[same_row_names, ])
+
     ## aggregate: medianPolish
     x2_medpolish_expected <- 
         structure(c(3.36717083720277, 3.63886529932001,
@@ -91,8 +103,14 @@ test_that("aggregation: aggregate_by_vector", {
                   .Dimnames = list(c("B", "E", "X"),
                                    c("iTRAQ4.114", "iTRAQ4.115",
                                      "iTRAQ4.116", "iTRAQ4.117")))
-    x2_medpolish <- aggregate_by_vector(x, k, medianPolish)
-    expect_equal(x2_medpolish, x2_medpolish_expected)
+    ## Test for different INDEX types and order
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_char, medianPolish)[same_row_names, ])
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact, medianPolish)[same_row_names, ])
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact2, medianPolish)[same_row_names, ])
+
     ## aggregate: sum
     x2_sum_expected <-
         structure(c(9.70155804007753, 9.75542561310774,
@@ -105,6 +123,12 @@ test_that("aggregation: aggregate_by_vector", {
                   .Dimnames = list(c("B", "E", "X"),
                                    c("iTRAQ4.114", "iTRAQ4.115",
                                      "iTRAQ4.116", "iTRAQ4.117")))
-    x2_sum <- aggregate_by_vector(x, k, colSums)
-    expect_equal(x2_sum, x2_sum_expected)    
+    ## Test for different INDEX types and order
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_char, colSums)[same_row_names, ])
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact, colSums)[same_row_names, ])
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact2, colSums)[same_row_names, ])
+
 })
