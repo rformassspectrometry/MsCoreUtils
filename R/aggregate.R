@@ -12,6 +12,8 @@
 ##'     summarised values.
 ##' 
 ##' @author Adriaan Sticker, Sebastian Gibb and Laurent Gatto
+##'
+##' @family Quantitative feature aggregation
 ##' 
 ##' @export
 ##'
@@ -91,6 +93,8 @@ robustSummary <- function(x, ...) {
 ##' @return A `numeric` vector of length identical to `ncol(x)`.
 ##' 
 ##' @author Laurent Gatto
+##'
+##' @family Quantitative feature aggregation
 ##' 
 ##' @export
 ##'
@@ -138,6 +142,8 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' 
 ##' @author Laurent Gatto
 ##'
+##' @family Quantitative feature aggregation
+##' 
 ##' @export
 ##' 
 ##' @examples

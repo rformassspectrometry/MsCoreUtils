@@ -27,6 +27,12 @@ colnames(x) <- letters[1:10]
 rownames(x) <- LETTERS[1:3]
 robustSummary(x)
 }
+\seealso{
+Other Quantitative feature aggregation: 
+\code{\link{aggregate_by_vector}()},
+\code{\link{medianPolish}()}
+}
 \author{
 Adriaan Sticker, Sebastian Gibb and Laurent Gatto
 }
+\concept{Quantitative feature aggregation}
