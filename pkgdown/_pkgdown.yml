@@ -46,3 +46,10 @@ reference:
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'
+  - title: "Quantitative feature aggregation"
+    desc: "Quantitative feature aggregation."
+    contents:
+      - '`robustSummary`'
+      - '`medianPolish`'
+      - '`aggregate_by_vector`'
+
