@@ -24,6 +24,12 @@ polish procedure using \code{\link[stats:medpolish]{stats::medpolish()}}.
 x <- matrix(rnorm(30), nrow = 3)
 medianPolish(x)
 }
+\seealso{
+Other Quantitative feature aggregation: 
+\code{\link{aggregate_by_vector}()},
+\code{\link{robustSummary}()}
+}
 \author{
 Laurent Gatto
 }
+\concept{Quantitative feature aggregation}

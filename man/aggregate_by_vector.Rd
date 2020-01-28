@@ -63,6 +63,12 @@ aggregate_by_vector(x, k, colMeans)
 aggregate_by_vector(x, k, robustSummary)
 aggregate_by_vector(x, k, medianPolish)
 }
+\seealso{
+Other Quantitative feature aggregation: 
+\code{\link{medianPolish}()},
+\code{\link{robustSummary}()}
+}
 \author{
 Laurent Gatto
 }
+\concept{Quantitative feature aggregation}
