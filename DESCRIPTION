@@ -31,7 +31,11 @@ Imports:
 Suggests:
     testthat,
     knitr,
-    roxygen2
+    roxygen2,
+    imputeLCMD,
+    impute,
+    norm,
+    pcaMethods
 License: Artistic-2.0
 LazyData: yes
 VignetteBuilder: knitr
