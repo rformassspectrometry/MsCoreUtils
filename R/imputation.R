@@ -88,7 +88,7 @@
 ##' - *min*: Replaces the missing values by the smallest non-missing
 ##'   value in the data.
 ##'
-##' - *zero*: Replaces the missing values by 0. See also [zeroIsNA()].
+##' - *zero*: Replaces the missing values by 0.
 ##'
 ##' - *mixed*: A mixed imputation applying two methods (to be defined
 ##'   by the user as `mar` for values missing at random and `mnar` for
@@ -103,11 +103,9 @@
 ##'
 ##'   Continuous sets `NA` value at the beginning and the end of the
 ##'   quantitation vectors are set to the lowest observed value in the
-##'   data or to a user defined value passed as argument `k`. Them,
+##'   data or to a user defined value passed as argument `k`. Then,
 ##'   when a missing value is flanked by two non-missing neighbouring
-##'   values, it is imputed by the mean of its direct neighbours. A
-##'   stretch of 2 or more missing values will not be imputed. See the
-##'   example below.
+##'   values, it is imputed by the mean of its direct neighbours. 
 ##'
 ##' - *none*: No imputation is performed and the missing values are
 ##'   left untouched. Implemented in case one wants to only impute
@@ -179,11 +177,11 @@ impute_matrix <- function(x,
             stop("Method ", method,
                  "requires the imputeLCMD package.")
     if (method == "knn") {
-        res <- impute(x, ...)
+        res <- impute_knn(x, ...)
     } else if (method == "nbavg") {
-        res <- imp_neighbour_avg(x, ...)
+        res <- impute_neighbour_avg(x, ...)
     } else if (method == "MLE") {
-        res <- impute_mls(x, ...)
+        res <- impute_mle(x, ...)
     } else if (method == "bpca"){
         res <- impute_bpca(x, ...)
     } else if (method == "QRILC") {
@@ -213,11 +211,14 @@ imputeMethods <- function()
 
 ##' @export
 ##' @rdname impute_matrix
+##' @param k `numeric(1)` providing the imputation value used for the
+##'     first and last samples if they contain an `NA`. The default is
+##'     to use the smallest value in the data.
 impute_neighbour_avg <- function(x, k = NULL) {    
     message("Assuming values are ordered.")
     if (is.null(k))
         k <- min(k, na.rm = TRUE)
-    imp_neighbour_avg(x, k)
+    .Call('_MsCoreUtils_imp_neighbour_avg', PACKAGE = 'MsCoreUtils', x, k)
 }
 
 ##' @export
@@ -259,7 +260,7 @@ impute_bpca <- function(x, ...) {
 
 ##' @export
 ##' @rdname impute_matrix
-impute_mixed <- function(x, randna, mar, mnar) {
+impute_mixed <- function(x, randna, mar, mnar, ...) {
     if (missing(randna))
         stop("Mixed imputation requires 'randna' argument. See ?impute.",
              call. = FALSE)
