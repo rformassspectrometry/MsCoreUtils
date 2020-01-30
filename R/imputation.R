@@ -166,11 +166,10 @@
 ##' randna <- rep(TRUE, 10)
 ##' randna[c(3, 9)] <- FALSE
 ##' 
-##' impute_mixed(m, method = "mixed",
-##'              randna = randna,
-##'              mar = "knn",
-##'              mnar = "min")
-##'
+##' impute_matrix(m, method = "mixed",
+##'               randna = randna,
+##'               mar = "knn",
+##'               mnar = "min")
 ##' 
 ##' @param x A matrix with missing values to be imputed.
 ##' 
