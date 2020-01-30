@@ -192,9 +192,7 @@ impute_matrix <- function(x,
                         several.ok = FALSE)
     res <- x
     if (method %in% c("CRILC", "MinDet", "MinProb"))
-        if (!requireNamespace("imputeLCMD"))
-            stop("Method ", method,
-                 "requires the imputeLCMD package.")
+        requireNamespace("imputeLCMD")
     if (method == "knn") {
         res <- impute_knn(x, ...)
     } else if (method == "nbavg") {
