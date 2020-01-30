@@ -236,8 +236,8 @@ imputeMethods <- function()
 impute_neighbour_avg <- function(x, k = NULL) {    
     message("Assuming values are ordered.")
     if (is.null(k))
-        k <- min(k, na.rm = TRUE)
-    imp_neighbour_avg(x, k)
+        k <- min(x, na.rm = TRUE)
+    .Call('_MsCoreUtils_imp_neighbour_avg', x, k)
 }
 
 ##' @export
