@@ -12,7 +12,7 @@
 \alias{impute_zero}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
-impute_matrix(x, method, randna, mar, mnar, ...)
+impute_matrix(x, method, ...)
 
 imputeMethods()
 
@@ -27,14 +27,19 @@ impute_bpca(x, ...)
 impute_mixed(x, randna, mar, mnar, ...)
 
 impute_min(x)
-
-impute_zero(x)
 }
 \arguments{
 \item{x}{A matrix with missing values to be imputed.}
 
 \item{method}{\code{character(1)} defining the imputation method. See
 \code{imputeMethods()} for available ones.}
+
+\item{...}{Additional parameters passed to the inner imputation
+function.}
+
+\item{k}{\code{numeric(1)} providing the imputation value used for the
+first and last samples if they contain an \code{NA}. The default is
+to use the smallest value in the data.}
 
 \item{randna}{\code{logical} of length equal to \code{nrow(object)} defining
 which rows are missing at random. The other ones are
@@ -46,13 +51,6 @@ is \code{mixed}.}
 
 \item{mnar}{Imputation method for values missing not at
 random. See \code{method} above.}
-
-\item{...}{Additional parameters passed to the inner imputation
-function.}
-
-\item{k}{\code{numeric(1)} providing the imputation value used for the
-first and last samples if they contain an \code{NA}. The default is
-to use the smallest value in the data.}
 }
 \description{
 The \code{impute_matrix} function performs data imputation on \code{matrix}
@@ -158,7 +156,34 @@ The \code{imputeMethods()} function returns a vector with valid
 imputation method arguments.
 }
 \examples{
+
+## test data
+set.seed(42)
+m <- matrix(rlnorm(60), 10)
+dimnames(m) <- list(letters[1:10], LETTERS[1:6])
+m[sample(60, 10)] <- NA
+
+## available methods
 imputeMethods()
+
+impute_matrix(m, method = "zero")
+
+impute_matrix(m, method = "min")
+
+impute_matrix(m, method = "knn")
+
+
+## all but third and fourth features' missing values 
+## are the result of random missing values
+randna <- rep(TRUE, 10)
+randna[c(3, 9)] <- FALSE
+
+impute_mixed(m, method = "mixed",
+             randna = randna,
+             mar = "knn",
+             mnar = "min")
+
+
 }
 \references{
 Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,

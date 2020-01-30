@@ -135,34 +135,54 @@
 ##' Res. 2016 Apr 1;15(4):1116-25. doi:
 ##' 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
 ##'
-##' @rdname impute_matrix
+##' @rdname imputation
 ##'
-##' @aliases imputeMethods impute_neighbour_avg impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero
+##' @aliases imputeMethods impute_neighbour_avg impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_matrix
 ##'
 ##' @importFrom Rcpp sourceCpp
+##' 
 ##' @useDynLib MsCoreUtils
 ##'
-##' @param x A matrix with missing values to be imputed. 
+##' @examples
+##'
+##' ## test data
+##' set.seed(42)
+##' m <- matrix(rlnorm(60), 10)
+##' dimnames(m) <- list(letters[1:10], LETTERS[1:6])
+##' m[sample(60, 10)] <- NA
+##' 
+##' ## available methods
+##' imputeMethods()
+##'
+##' impute_matrix(m, method = "zero")
+##'
+##' impute_matrix(m, method = "min")
+##'
+##' impute_matrix(m, method = "knn")
+##'
+##'
+##' ## all but third and fourth features' missing values 
+##' ## are the result of random missing values
+##' randna <- rep(TRUE, 10)
+##' randna[c(3, 9)] <- FALSE
+##' 
+##' impute_mixed(m, method = "mixed",
+##'              randna = randna,
+##'              mar = "knn",
+##'              mnar = "min")
+##'
+##' 
+##' @param x A matrix with missing values to be imputed.
+##' 
 ##' @param method `character(1)` defining the imputation method. See
 ##'     `imputeMethods()` for available ones.
-##' @param randna `logical` of length equal to `nrow(object)` defining
-##'     which rows are missing at random. The other ones are
-##'     considered missing not at random. Only relevant when `methods`
-##'     is `mixed`.
-##' @param mar Imputation method for values missing at random. See
-##'     `method` above.
-##' @param mnar Imputation method for values missing not at
-##'     random. See `method` above.
+##' 
 ##' @param ... Additional parameters passed to the inner imputation
-##'     function. 
+##'     function.
 ##'
-##' @examples
-##' imputeMethods()
+##' @export
 impute_matrix <- function(x,
                           method,
-                          randna,
-                          mar,
-                          mnar,
                           ...) {
     if (!anyNA(x)) return(x)
     if (missing(method))
@@ -203,14 +223,14 @@ impute_matrix <- function(x,
 
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 imputeMethods <- function()
     c("bpca","knn", "QRILC", "MLE",
       "MinDet", "MinProb", "min", "zero",
       "mixed", "nbavg", "none")
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 ##' @param k `numeric(1)` providing the imputation value used for the
 ##'     first and last samples if they contain an `NA`. The default is
 ##'     to use the smallest value in the data.
@@ -218,11 +238,11 @@ impute_neighbour_avg <- function(x, k = NULL) {
     message("Assuming values are ordered.")
     if (is.null(k))
         k <- min(k, na.rm = TRUE)
-    .Call('_MsCoreUtils_imp_neighbour_avg', PACKAGE = 'MsCoreUtils', x, k)
+    imp_neighbour_avg(x, k)
 }
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 impute_knn <- function(x, ...) {
     requireNamespace("impute")        
     imp_res <- impute::impute.knn(x, ...)
@@ -235,7 +255,7 @@ impute_knn <- function(x, ...) {
 }
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 impute_mle <- function(x, ...) {
     requireNamespace("norm")
     s <- norm::prelim.norm(x)  ## preliminary manipulations
@@ -246,7 +266,7 @@ impute_mle <- function(x, ...) {
 }
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 impute_bpca <- function(x, ...) {
     requireNamespace("pcaMethods")
     nSamples <- dim(x)[2]
@@ -258,18 +278,30 @@ impute_bpca <- function(x, ...) {
     pcaMethods::completeObs(.resultBPCA)
 }
 
+##' @param randna `logical` of length equal to `nrow(object)` defining
+##'     which rows are missing at random. The other ones are
+##'     considered missing not at random. Only relevant when `methods`
+##'     is `mixed`.
+##' 
+##' @param mar Imputation method for values missing at random. See
+##'     `method` above.
+##' 
+##' @param mnar Imputation method for values missing not at
+##'     random. See `method` above.
+##'
 ##' @export
-##' @rdname impute_matrix
+##' 
+##' @rdname imputation
 impute_mixed <- function(x, randna, mar, mnar, ...) {
     if (missing(randna))
-        stop("Mixed imputation requires 'randna' argument. See ?impute.",
+        stop("Mixed imputation requires 'randna' argument. See ?impute_mixed.",
              call. = FALSE)
     stopifnot(is.logical(randna))
     if (missing(mar))
-        stop("Mixed imputation requires 'mar' argument. See ?impute.",
+        stop("Mixed imputation requires 'mar' argument. See ?impute_mixed.",
              call. = FALSE)
     if (missing(mnar))
-        stop("Mixed imputation requires 'mnar' argument. See ?impute.",
+        stop("Mixed imputation requires 'mnar' argument. See ?impute_mixed.",
              call. = FALSE)
     if (length(randna) != nrow(x))
         stop("Number of proteins and length of randna must be equal.",
@@ -280,7 +312,7 @@ impute_mixed <- function(x, randna, mar, mnar, ...) {
 }
 
 ##' @export
-##' @rdname impute_matrix
+##' @rdname imputation
 impute_min <- function(x) {
     val <- min(x, na.rm = TRUE)
     x[is.na(x)] <- val
