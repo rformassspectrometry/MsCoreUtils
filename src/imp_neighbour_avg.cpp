@@ -15,7 +15,6 @@ NumericVector subset(NumericVector x, int i) {
 }
 
 
-// [[Rcpp::export]]
 NumericMatrix imp_neighbour_avg(NumericMatrix x, double k) {
   // input matrix is expected to have >= 3 columns
   NumericMatrix ans = clone(x);
