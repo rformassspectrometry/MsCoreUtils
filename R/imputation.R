@@ -137,7 +137,7 @@
 ##'
 ##' @rdname imputation
 ##'
-##' @aliases imputeMethods impute_neighbour_avg impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_matrix
+##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_matrix
 ##'
 ##' @importFrom Rcpp sourceCpp
 ##' 
@@ -196,7 +196,7 @@ impute_matrix <- function(x,
     if (method == "knn") {
         res <- impute_knn(x, ...)
     } else if (method == "nbavg") {
-        res <- impute_neighbour_avg(x, ...)
+        res <- impute_neighbour_average(x, ...)
     } else if (method == "MLE") {
         res <- impute_mle(x, ...)
     } else if (method == "bpca"){
@@ -231,7 +231,7 @@ imputeMethods <- function()
 ##' @param k `numeric(1)` providing the imputation value used for the
 ##'     first and last samples if they contain an `NA`. The default is
 ##'     to use the smallest value in the data.
-impute_neighbour_avg <- function(x, k = NULL) {    
+impute_neighbour_average <- function(x, k = NULL) {    
     message("Assuming values are ordered.")
     if (is.null(k))
         k <- min(x, na.rm = TRUE)

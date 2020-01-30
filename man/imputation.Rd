@@ -3,7 +3,7 @@
 \name{impute_matrix}
 \alias{impute_matrix}
 \alias{imputeMethods}
-\alias{impute_neighbour_avg}
+\alias{impute_neighbour_average}
 \alias{impute_knn}
 \alias{impute_mle}
 \alias{impute_bpca}
@@ -16,7 +16,7 @@ impute_matrix(x, method, ...)
 
 imputeMethods()
 
-impute_neighbour_avg(x, k = NULL)
+impute_neighbour_average(x, k = NULL)
 
 impute_knn(x, ...)
 
