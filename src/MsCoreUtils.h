@@ -8,8 +8,11 @@
 
 extern SEXP C_localMaxima(SEXP, SEXP);
 
+extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
+
 static const R_CallMethodDef CallEntries[] = {
     {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
+    {"_MsCoreUtils_imp_neighbour_avg", (DL_FUNC) &_MsCoreUtils_imp_neighbour_avg, 2},    
     {NULL, NULL, 0}
 };
 

@@ -52,4 +52,16 @@ reference:
       - '`robustSummary`'
       - '`medianPolish`'
       - '`aggregate_by_vector`'
-
+  - title: "Missing data imputation"
+    desc: "Missing data imputation."
+    contents:
+      - '`imputemethods`'
+      - '`impute_matrix`'
+      - '`impute_neighbour_average`'
+      - '`impute_knn`'
+      - '`impute_mle`'
+      - '`impute_bpca`'
+      - '`impute_mixed`'
+      - '`impute_min`'
+      - '`impute_zero`'
+      
