@@ -1604,6 +1604,7 @@ test_that("all imputation methods", {
     m <- imputeMethods()
     m <- m[m != "mixed"]
     m <- m[m != "none"]
+    m <- m[m != "with"]  ## see below
     m <- m[m != "nbavg"] ## see next test
     for (.m in m) {
         xx <- impute_matrix(x, method = .m)

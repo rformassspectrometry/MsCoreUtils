@@ -169,7 +169,7 @@
 ##'
 ##' ## impute with half of the smalles value
 ##' impute_matrix(m, method = "with",
-##'               val = min(x, na.rm = TRUE) * 0.5)
+##'               val = min(m, na.rm = TRUE) * 0.5)
 ##' 
 ##' ## all but third and fourth features' missing values 
 ##' ## are the result of random missing values
