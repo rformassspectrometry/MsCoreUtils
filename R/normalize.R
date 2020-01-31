@@ -47,6 +47,8 @@ normalizeMethods <- function()
 ##' @return A normalised matrix of dimensions `dim(x)`.
 ##'
 ##' @export
+##'
+##' @importFrom stats median
 ##' 
 ##' @rdname normalize
 ##' 
@@ -66,17 +68,20 @@ normalizeMethods <- function()
 ##' normalize_matrix(m, method = "center.mean")
 normalize_matrix <- function(x, method, ...) {
     if (method == "vsn") {
-        e <- Biobase::exprs(vsn::vsn2(x, ...))
+        requireNamespace("vsn")
+        e <- vsn::vsn2(x, ...)@hx
     } else if (method == "quantiles") {
+        requireNamespace("preprocessCore")
         e <- preprocessCore::normalize.quantiles(x, ...)
     } else if (method == "quantiles.robust") {
+        requireNamespace("preprocessCore")
         e <- preprocessCore::normalize.quantiles.robust(x, ...)
     } else if (method == "center.mean") {
         center <- colMeans(x, na.rm = TRUE)
         e <- sweep(x, 2L, center, check.margin = FALSE, ...)
     } else if (method == "center.median") {
         center <- apply(x, 2L, median, na.rm = TRUE)
-        e <- sweep(e, 2L, center, check.margin = FALSE, ...)
+        e <- sweep(x, 2L, center, check.margin = FALSE, ...)
     } else if (method == "diff.median") {
         med <- median(as.numeric(x), na.rm = TRUE)
         cmeds <- apply(x, 2L, median, na.rm = TRUE)

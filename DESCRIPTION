@@ -36,7 +36,9 @@ Suggests:
     imputeLCMD,
     impute,
     norm,
-    pcaMethods
+    pcaMethods,
+    vsn,
+    preprocessCore
 License: Artistic-2.0
 LazyData: yes
 VignetteBuilder: knitr
