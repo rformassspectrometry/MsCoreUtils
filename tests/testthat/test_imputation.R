@@ -1638,6 +1638,12 @@ test_that("none method", {
     expect_identical(x, xx)
 })
 
+test_that("zero and with method", {
+    x1 <- impute_matrix(x, method = "with", val = 0)
+    x2 <- impute_matrix(x, method = "zero")  
+    expect_identical(x1, x2)
+})
+
 test_that("nbavg methods", {
     x2 <- matrix(1:25, 5)
     ## default min value

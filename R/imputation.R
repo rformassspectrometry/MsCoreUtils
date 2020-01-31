@@ -85,10 +85,10 @@
 ##'   function. See [imputeLCMD::impute.MinProb()] for details and
 ##'   additional parameters.
 ##'
-##' - *min*: Replaces the missing values by the smallest non-missing
+##' - *min*: Replaces the missing values with the smallest non-missing
 ##'   value in the data.
 ##'
-##' - *zero*: Replaces the missing values by 0.
+##' - *zero*: Replaces the missing values with 0.
 ##'
 ##' - *mixed*: A mixed imputation applying two methods (to be defined
 ##'   by the user as `mar` for values missing at random and `mnar` for
@@ -105,7 +105,9 @@
 ##'   quantitation vectors are set to the lowest observed value in the
 ##'   data or to a user defined value passed as argument `k`. Then,
 ##'   when a missing value is flanked by two non-missing neighbouring
-##'   values, it is imputed by the mean of its direct neighbours. 
+##'   values, it is imputed by the mean of its direct neighbours.
+##'
+##' - *with*: Replaces all missing values with a user-provided value.
 ##'
 ##' - *none*: No imputation is performed and the missing values are
 ##'   left untouched. Implemented in case one wants to only impute
@@ -137,11 +139,13 @@
 ##'
 ##' @rdname imputation
 ##'
-##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_matrix
+##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix
 ##'
 ##' @importFrom Rcpp sourceCpp
 ##' 
 ##' @useDynLib MsCoreUtils
+##'
+##' @author Laurent Gatto
 ##'
 ##' @examples
 ##'
@@ -160,7 +164,13 @@
 ##'
 ##' impute_matrix(m, method = "knn")
 ##'
+##' ## same as impute_zero
+##' impute_matrix(m, method = "with", val = 0)
 ##'
+##' ## impute with half of the smalles value
+##' impute_matrix(m, method = "with",
+##'               val = min(x, na.rm = TRUE) * 0.5)
+##' 
 ##' ## all but third and fourth features' missing values 
 ##' ## are the result of random missing values
 ##' randna <- rep(TRUE, 10)
@@ -213,6 +223,8 @@ impute_matrix <- function(x,
         res <- impute_mixed(x, ...)
     } else if (method == "zero") {
         res <- impute_zero(x)
+    } else if (method == "with") {
+        res <- impute_with(x, ...)
     }
     ## else method == "none" -- do nothing
     res
@@ -224,7 +236,7 @@ impute_matrix <- function(x,
 imputeMethods <- function()
     c("bpca","knn", "QRILC", "MLE",
       "MinDet", "MinProb", "min", "zero",
-      "mixed", "nbavg", "none")
+      "mixed", "nbavg", "with", "none")
 
 ##' @export
 ##' @rdname imputation
@@ -320,6 +332,18 @@ impute_min <- function(x) {
 ##' @rdname impute_matrix
 impute_zero <- function(x) {
     x[is.na(x)] <- 0
+    x
+}
+
+
+##' @export
+##' @rdname impute_matrix
+##'
+##' @param val `numeric(1)` used to replace all missing values.
+impute_with <- function(x, val) {
+    if (missing(val))
+        stop("Please provide a value.")
+    x[is.na(x)] <- val
     x
 }
 

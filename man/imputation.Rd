@@ -10,6 +10,7 @@
 \alias{impute_mixed}
 \alias{impute_min}
 \alias{impute_zero}
+\alias{impute_with}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
 impute_matrix(x, method, ...)
@@ -128,9 +129,9 @@ peptides/proteins which present more than 50\\% recorded values
 are considered. Implemented in the \code{imputeLCMD::impute.MinProb}
 function. See \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} for details and
 additional parameters.
-\item \emph{min}: Replaces the missing values by the smallest non-missing
+\item \emph{min}: Replaces the missing values with the smallest non-missing
 value in the data.
-\item \emph{zero}: Replaces the missing values by 0.
+\item \emph{zero}: Replaces the missing values with 0.
 \item \emph{mixed}: A mixed imputation applying two methods (to be defined
 by the user as \code{mar} for values missing at random and \code{mnar} for
 values missing not at random, see example) on two M\link{C}AR/MNAR
@@ -146,6 +147,7 @@ quantitation vectors are set to the lowest observed value in the
 data or to a user defined value passed as argument \code{k}. Then,
 when a missing value is flanked by two non-missing neighbouring
 values, it is imputed by the mean of its direct neighbours.
+\item \emph{with}: Replaces all missing values with a user-provided value.
 \item \emph{none}: No imputation is performed and the missing values are
 left untouched. Implemented in case one wants to only impute
 value missing at random or not at random with the \emph{mixed}
@@ -172,6 +174,12 @@ impute_matrix(m, method = "min")
 
 impute_matrix(m, method = "knn")
 
+## same as impute_zero
+impute_matrix(m, method = "with", val = 0)
+
+## impute with half of the smalles value
+impute_matrix(m, method = "with",
+              val = min(x, na.rm = TRUE) * 0.5)
 
 ## all but third and fourth features' missing values 
 ## are the result of random missing values
@@ -202,4 +210,7 @@ Multiple Natures of Missing Values in Label-Free Quantitative
 Proteomics Data Sets to Compare Imputation Strategies. J Proteome
 Res. 2016 Apr 1;15(4):1116-25. doi:
 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
+}
+\author{
+Laurent Gatto
 }
