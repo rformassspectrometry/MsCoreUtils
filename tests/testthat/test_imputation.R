@@ -2,6 +2,7 @@ test_that("all imputation methods", {
     m <- imputeMethods()
     m <- m[m != "mixed"]
     m <- m[m != "none"]
+    m <- m[m != "with"]  ## see below
     m <- m[m != "nbavg"] ## see next test
     for (.m in m) {
         xx <- impute_matrix(x, method = .m)
@@ -34,6 +35,12 @@ test_that("all imputation methods", {
 test_that("none method", {
     xx <- impute_matrix(x, method = "none")
     expect_identical(x, xx)
+})
+
+test_that("zero and with method", {
+    x1 <- impute_matrix(x, method = "with", val = 0)
+    x2 <- impute_matrix(x, method = "zero")  
+    expect_identical(x1, x2)
 })
 
 test_that("nbavg methods", {
