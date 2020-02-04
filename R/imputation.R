@@ -196,7 +196,7 @@ impute_matrix <- function(x,
     if (!anyNA(x)) return(x)
     if (missing(method))
         stop("Please specify an imputation method. ",
-             "See '?impute' for details.")
+             "See '?impute_matrix' for details.")
     method <- match.arg(method,
                         choices = imputeMethods(),
                         several.ok = FALSE)

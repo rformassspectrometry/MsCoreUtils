@@ -46,8 +46,8 @@ reference:
       - '`vapply1c`'
       - '`vapply1d`'
       - '`vapply1l`'
-  - title: "Quantitative feature aggregation"
-    desc: "Quantitative feature aggregation."
+  - title: "Quantitative features aggregation"
+    desc: "Quantitative features aggregation."
     contents:
       - '`robustSummary`'
       - '`medianPolish`'
@@ -64,4 +64,7 @@ reference:
       - '`impute_mixed`'
       - '`impute_min`'
       - '`impute_zero`'
-      
+  - title: "Quantitative features processing"
+    desc: "Quantitative features processing."
+    contents:
+      - '`normalize_matrix`'
