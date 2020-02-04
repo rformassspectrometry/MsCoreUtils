@@ -2,69 +2,61 @@ reference:
   - title: "Extreme Values"
     desc: "Functions for finding extreme values like peaks/centroids/valleys."
     contents:
-      - '`localMaxima`'
-      - '`refineCentroids`'
-      - '`valleys`'
+      - localMaxima
+      - refineCentroids
+      - valleys
   - title: "Grouping/Matching"
     desc: "Functions for grouping/matching values."
     contents:
-      - '`bin`'
-      - '`closest`'
-      - '`common`'
-      - '`group`'
-      - '`join`'
+      - bin
+      - closest
+      - common
+      - group
+      - join
   - title: "Similarity"
     desc: "Functions to calculate similarity."
     contents:
-      - '`dotproduct`'
+      - dotproduct
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
-      - '`noise`'
-      - '`smooth`'
+      - noise
+      - smooth
   - title: "Coerce Functions"
     desc: "Functions for converting objects."
     contents:
-      - '`asInteger`'
-      - '`asRle`'
-      - '`asRleDataFrame`'
-      - '`asVectorDataFrame`'
-      - '`i2index`'
+      - asInteger
+      - asRle
+      - asRleDataFrame
+      - asVectorDataFrame
+      - i2index
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."
     contents:
-      - '`ppm`'
+      - ppm
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
-      - '`%between%`'
-      - '`between`'
-      - '`i2index`'
-      - '`isPeaksMatrix`'
-      - '`rbindFill`'
-      - '`validPeaksMatrix`'
-      - '`vapply1c`'
-      - '`vapply1d`'
-      - '`vapply1l`'
+      - %between%
+      - between
+      - i2index
+      - isPeaksMatrix
+      - rbindFill
+      - validPeaksMatrix
+      - vapply1c
+      - vapply1d
+      - vapply1l
   - title: "Quantitative features aggregation"
     desc: "Quantitative features aggregation."
     contents:
-      - '`robustSummary`'
-      - '`medianPolish`'
-      - '`aggregate_by_vector`'
+      - robustSummary
+      - medianPolish
+      - aggregate_by_vector
   - title: "Missing data imputation"
     desc: "Missing data imputation."
     contents:
-      - '`imputemethods`'
-      - '`impute_matrix`'
-      - '`impute_neighbour_average`'
-      - '`impute_knn`'
-      - '`impute_mle`'
-      - '`impute_bpca`'
-      - '`impute_mixed`'
-      - '`impute_min`'
-      - '`impute_zero`'
+      - starts_with("impute")
   - title: "Quantitative features processing"
     desc: "Quantitative features processing."
     contents:
-      - '`normalize_matrix`'
+      - starts_with("normalize")
