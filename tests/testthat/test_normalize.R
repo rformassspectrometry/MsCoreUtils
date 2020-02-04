@@ -15,7 +15,7 @@ test_that("function: center.mean and center.median", {
         m_exp[, i] <- m_exp[, i] - cm[i]
     expect_identical(m_cmn, m_exp)
     ## col medians are the same
-    expect_identical(matrixStats::colMedians(m), colMeans(m))
+    expect_identical(apply(m, 2, median), colMeans(m))
     m_cmd <- normalize_matrix(m, method = "center.median")
     expect_identical(m_cmn, m_cmd)
 })
@@ -25,13 +25,13 @@ test_that("function: div.mean and div.median", {
     m_dmn <- normalize_matrix(m, method = "div.mean")
     m_dmd <- normalize_matrix(m, method = "div.median")
     expect_equal(colMeans(m_dmn), rep(1, 4))
-    expect_equal(matrixStats::colMedians(m_dmd), rep(1, 4))
+    expect_equal(apply(m_dmd, 2, median), rep(1, 4))
 })
 
 
 test_that("function: diff.median", {
     m <- matrix(rnorm(40, 10), ncol = 4)
     m_dmed <- normalize_matrix(m, method = "diff.median")
-    expect_equal(matrixStats::colMedians(m_dmed),
+    expect_equal(apply(m_dmed, 2, median),
                  rep(median(m), 4))
 })
