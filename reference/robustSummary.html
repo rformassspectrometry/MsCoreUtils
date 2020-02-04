@@ -78,7 +78,7 @@ input e are already log-transformed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
 
@@ -158,10 +158,10 @@ summarised values.</p>
     <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>]
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span>(<span class='no'>x</span>) <span class='kw'>&lt;-</span> <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>3</span>]
-<span class='fu'>robustSummary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;          a          b          c          d          e          f          g 
-#&gt; -1.3200964  0.1719391 -0.2760071  0.1189308 -0.2496790  0.7935911 -1.2646304 
-#&gt;          h          i          j 
-#&gt;  0.5950421 -0.2307220 -0.4940271 </div></pre>
+<span class='fu'>robustSummary</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;           a           b           c           d           e           f 
+#&gt;  0.13327322  0.91145468  0.76502760 -0.23239400 -0.41392131  0.60431427 
+#&gt;           g           h           i           j 
+#&gt; -0.51182415  0.07515504 -0.39439300  0.52412091 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
