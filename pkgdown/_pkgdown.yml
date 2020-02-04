@@ -37,7 +37,7 @@ reference:
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
-      - %between%
+      - "`%between%`"
       - between
       - i2index
       - isPeaksMatrix
@@ -60,3 +60,4 @@ reference:
     desc: "Quantitative features processing."
     contents:
       - starts_with("normalize")
+
