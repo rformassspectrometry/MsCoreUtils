@@ -55,7 +55,7 @@
 #'
 #' ## row-wise RLA values
 #' rowRla(x, grp)
-rla <- function(x, f, log.transform = TRUE, na.rm = TRUE) {
+rla <- function(x, f = rep_len(1, length(x)), log.transform = TRUE, na.rm = TRUE) {
     if (missing(f))
         f <- rep_len(1, length(x))
     if (length(x) != length(f))
