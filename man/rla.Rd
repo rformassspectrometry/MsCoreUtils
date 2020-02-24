@@ -9,7 +9,7 @@
 \code{numeric} vector. \code{rowRla} performs row-wise RLA calculations on a numeric
 \code{matrix}.}
 \usage{
-rla(x, f, log.transform = TRUE, na.rm = TRUE)
+rla(x, f = rep_len(1, length(x)), log.transform = TRUE, na.rm = TRUE)
 
 rowRla(x, f, log.transform = TRUE)
 }
