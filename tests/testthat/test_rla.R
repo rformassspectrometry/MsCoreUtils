@@ -6,6 +6,8 @@ test_that("rla and rowRla works", {
     res <- rla(x)
     expect_true(is.numeric(res))
     expect_true(length(res) == length(x))
+    expect_equal(res, rla(log2(x), transform = "identity"))
+    expect_error(rla(x, transform = "sqrt"))
     res <- rla(x, f = factor(f))
     expect_true(is.numeric(res))
     expect_true(length(res) == length(x))

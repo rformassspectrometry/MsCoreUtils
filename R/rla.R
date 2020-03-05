@@ -18,9 +18,10 @@
 #'     define the grouping of values in `x`. If omitted all values are
 #'     considered to be from the same group.
 #'
-#' @param log.transform `logical(1)` whether `x` should be log2 transformed
-#'     prior to calculation (the default). Set to `log.transform = FALSE` if
-#'     `x` is already in log scale.
+#' @param transform `character(1)` defining the function to transform `x`.
+#'     Defaults to `transform = "log2"` which `log2` transforms `x` prior to
+#'     calculation. If `x` is already in log scale use `transform = "identity"`
+#'     to avoid transformation of the values.
 #'
 #' @param na.rm `logical(1)` whether `NA` values should be removed prior to
 #'     calculation of the group-wise medians.
@@ -55,15 +56,16 @@
 #'
 #' ## row-wise RLA values
 #' rowRla(x, grp)
-rla <- function(x, f = rep_len(1, length(x)), log.transform = TRUE, na.rm = TRUE) {
+rla <- function(x, f = rep_len(1, length(x)),
+                transform = c("log2", "log10", "identity"), na.rm = TRUE) {
+    transform <- match.arg(transform)
     if (missing(f))
         f <- rep_len(1, length(x))
     if (length(x) != length(f))
         stop("length of 'x' has to match length of 'f'", call. = FALSE)
     if (!is.factor(f))
         f <- factor(f, levels = unique(f))
-    if (log.transform)
-        x <- log2(x)
+    x <- do.call(transform, list(x))
     grp_meds <- unlist(lapply(split(x, f), median, na.rm = na.rm))
     res <- x - grp_meds[f]
     names(res) <- names(x)
@@ -73,8 +75,8 @@ rla <- function(x, f = rep_len(1, length(x)), log.transform = TRUE, na.rm = TRUE
 #' @rdname rla
 #'
 #' @export
-rowRla <- function(x, f, log.transform = TRUE) {
-    res <- t(apply(x, MARGIN = 1, rla, f = f, log.transform = log.transform))
+rowRla <- function(x, f, transform = c("log2", "log10", "identity")) {
+    res <- t(apply(x, MARGIN = 1, rla, f = f, transform = transform))
     dimnames(res) <- dimnames(x)
     res
 }
