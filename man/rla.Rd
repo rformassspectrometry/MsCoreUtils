@@ -9,9 +9,14 @@
 \code{numeric} vector. \code{rowRla} performs row-wise RLA calculations on a numeric
 \code{matrix}.}
 \usage{
-rla(x, f = rep_len(1, length(x)), log.transform = TRUE, na.rm = TRUE)
+rla(
+  x,
+  f = rep_len(1, length(x)),
+  transform = c("log2", "log10", "identity"),
+  na.rm = TRUE
+)
 
-rowRla(x, f, log.transform = TRUE)
+rowRla(x, f, transform = c("log2", "log10", "identity"))
 }
 \arguments{
 \item{x}{\code{numeric} (for \code{rla}) or \code{matrix} (for \code{rowRla}) with the
@@ -22,9 +27,10 @@ abundances (in natural scale) on which the RLA should be calculated.}
 define the grouping of values in \code{x}. If omitted all values are
 considered to be from the same group.}
 
-\item{log.transform}{\code{logical(1)} whether \code{x} should be log2 transformed
-prior to calculation (the default). Set to \code{log.transform = FALSE} if
-\code{x} is already in log scale.}
+\item{transform}{\code{character(1)} defining the function to transform \code{x}.
+Defaults to \code{transform = "log2"} which \code{log2} transforms \code{x} prior to
+calculation. If \code{x} is already in log scale use \code{transform = "identity"}
+to avoid transformation of the values.}
 
 \item{na.rm}{\code{logical(1)} whether \code{NA} values should be removed prior to
 calculation of the group-wise medians.}

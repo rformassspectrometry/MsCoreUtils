@@ -10,7 +10,6 @@ r_packages:
   - testthat
   - knitr
   - roxygen2
-  - S4Vectors
 
 before_install:
   - mkdir -p ~/.R
