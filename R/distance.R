@@ -13,7 +13,7 @@
 #' and `1` identically.
 #'
 #' @rdname distance
-#' @author Sebastian Gibb
+#' @author `navdist`, `neuclidean`, `nspectraangle`: Sebastian Gibb
 #' @family distance/similarity functions
 #' @references
 #' Stein, S. E., and Scott, D. R. (1994).
@@ -96,9 +96,6 @@ ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' values, respectively. See the details section about `ndotproduct` for an
 #' explanation how to set `m` and `n`.
 #'
-#' @author
-#' `neuclidean`: Sebastian Gibb
-#'
 #' @export
 #' @aliases neuclidean
 #' @examples
@@ -119,9 +116,6 @@ neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
 #' values, respectively. See the details section about `ndotproduct` for an
 #' explanation how to set `m` and `n`.
-#'
-#' @author
-#' `navdist`: Sebastian Gibb
 #'
 #' @export
 #' @aliases navdist
@@ -144,9 +138,6 @@ navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' values, respectively. The weighting was not originally proposed by Toprak et
 #' al. 2014. See the details section about `ndotproduct` for an explanation how
 #' to set `m` and `n`.
-#'
-#' @author
-#' `nspectraangle`: Sebastian Gibb
 #'
 #' @export
 #' @aliases nspectraangle
