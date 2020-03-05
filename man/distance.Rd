@@ -113,15 +113,9 @@ Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
 \doi{10.1074/mcp.O113.036475}.
 }
 \author{
-Sebastian Gibb
+\code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb
 
 \code{ndotproduct}: Sebastian Gibb and
 Thomas Naake, \email{thomasnaake@googlemail.com}
-
-\code{neuclidean}: Sebastian Gibb
-
-\code{navdist}: Sebastian Gibb
-
-\code{nspectraangle}: Sebastian Gibb
 }
 \concept{distance/similarity functions}
