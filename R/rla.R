@@ -75,7 +75,7 @@ rla <- function(x, f = rep_len(1, length(x)),
 #' @rdname rla
 #'
 #' @export
-rowRla <- function(x, f, transform = c("log2", "log10", "identity")) {
+rowRla <- function(x, f = rep_len(1, ncol(x)), transform = c("log2", "log10", "identity")) {
     res <- t(apply(x, MARGIN = 1, rla, f = f, transform = transform))
     dimnames(res) <- dimnames(x)
     res
