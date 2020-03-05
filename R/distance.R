@@ -9,6 +9,16 @@
 #'
 #' @details
 #'
+#' @note
+#' These methods are implemented as described in Stein and Scott 1994
+#' (`navdist`, `ndotproduct`, `neuclidean`) and Toprak et al. 2014
+#' (`nspectraangle`) but because there is no reference implementation available
+#' we are unable to guarantee that the results are identical.
+#' Please see also the corresponding discussion at the github pull request
+#' linked below. If you find any problems or reference implementation please
+#' open an issue at
+#' <https://github.com/rformassspectrometry/MsCoreUtils/issues>.
+#'
 #' @return `double(1)` value between `0:1`, where `0` is completely different
 #' and `1` identically.
 #'
@@ -32,6 +42,9 @@
 #' and a discriminating feature for targeted proteomics.
 #' Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
 #' \doi{10.1074/mcp.O113.036475}.
+#'
+#' Pull Request for these distance/similarity measurements:
+#' <https://github.com/rformassspectrometry/MsCoreUtils/pull/33>
 #'
 #' @examples
 #'

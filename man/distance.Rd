@@ -79,6 +79,16 @@ values, respectively. The weighting was not originally proposed by Toprak et
 al. 2014. See the details section about \code{ndotproduct} for an explanation how
 to set \code{m} and \code{n}.
 }
+\note{
+These methods are implemented as described in Stein and Scott 1994
+(\code{navdist}, \code{ndotproduct}, \code{neuclidean}) and Toprak et al. 2014
+(\code{nspectraangle}) but because there is no reference implementation available
+we are unable to guarantee that the results are identical.
+Please see also the corresponding discussion at the github pull request
+linked below. If you find any problems or reference implementation please
+open an issue at
+\url{https://github.com/rformassspectrometry/MsCoreUtils/issues}.
+}
 \examples{
 
 x <- matrix(c(1:5, 1:5), ncol = 2, dimnames = list(c(), c("mz", "intensity")))
@@ -111,6 +121,9 @@ Conserved peptide fragmentation as a benchmarking tool for mass spectrometers
 and a discriminating feature for targeted proteomics.
 Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
 \doi{10.1074/mcp.O113.036475}.
+
+Pull Request for these distance/similarity measurements:
+\url{https://github.com/rformassspectrometry/MsCoreUtils/pull/33}
 }
 \author{
 \code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb
