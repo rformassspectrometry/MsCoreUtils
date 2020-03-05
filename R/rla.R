@@ -59,8 +59,6 @@
 rla <- function(x, f = rep_len(1, length(x)),
                 transform = c("log2", "log10", "identity"), na.rm = TRUE) {
     transform <- match.arg(transform)
-    if (missing(f))
-        f <- rep_len(1, length(x))
     if (length(x) != length(f))
         stop("length of 'x' has to match length of 'f'", call. = FALSE)
     if (!is.factor(f))
