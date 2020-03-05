@@ -26,8 +26,10 @@ localMaxima(x)
 localMaxima(x, hws = 10)
 }
 \seealso{
-Other extreme value functions: \code{\link{.peakRegionMask}},
-  \code{\link{refineCentroids}}, \code{\link{valleys}}
+Other extreme value functions: 
+\code{\link{.peakRegionMask}()},
+\code{\link{refineCentroids}()},
+\code{\link{valleys}()}
 }
 \author{
 Sebastian Gibb

@@ -28,13 +28,13 @@ coefSG(hws, k = 3L)
 coefficients.}
 }
 \value{
-A \code{numeric} of the same length as \code{x}.
+\code{smooth}: A \code{numeric} of the same length as \code{x}.
 
-A \code{matrix} with coefficients for a simple moving average.
+\code{coefMA}: A \code{matrix} with coefficients for a simple moving average.
 
-A \code{matrix} with coefficients for a weighted moving average.
+\code{coefWMA}: A \code{matrix} with coefficients for a weighted moving average.
 
-A \code{matrix} with \emph{Savitzky-Golay-Filter} coefficients.
+\code{coefSG}: A \code{matrix} with \emph{Savitzky-Golay-Filter} coefficients.
 }
 \description{
 This function smoothes a numeric vector.
@@ -98,7 +98,8 @@ differentiation of data by simplified least square procedure.
 Analytical Chemistry, 44(11), 1906-1909.
 }
 \seealso{
-Other noise estimation and smoothing functions: \code{\link{noise}}
+Other noise estimation and smoothing functions: 
+\code{\link{noise}()}
 }
 \author{
 Sebastian Gibb, Sigurdur Smarason (weighted moving average)

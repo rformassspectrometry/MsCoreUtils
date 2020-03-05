@@ -4,8 +4,13 @@
 \alias{bin}
 \title{Binning}
 \usage{
-bin(x, y, size = 1, breaks = seq(floor(min(y)), ceiling(max(y)), by =
-  size), FUN = max)
+bin(
+  x,
+  y,
+  size = 1,
+  breaks = seq(floor(min(y)), ceiling(max(y)), by = size),
+  FUN = max
+)
 }
 \arguments{
 \item{x}{\code{numeric} with the values that should be aggregated/binned.}
@@ -42,7 +47,8 @@ bin(ints, mz, size = 2)
 bin(ints, mz, size = 2, FUN = sum)
 }
 \seealso{
-Other grouping/matching functions: \code{\link{joinGraph}}
+Other grouping/matching functions: 
+\code{\link{joinGraph}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

@@ -37,9 +37,11 @@ l <- list(a=1:3, b=4:6)
 vapply1d(l, sum)
 }
 \seealso{
-Other helper functions for developers: \code{\link{between}},
-  \code{\link{isPeaksMatrix}}, \code{\link{rbindFill}},
-  \code{\link{validPeaksMatrix}}
+Other helper functions for developers: 
+\code{\link{between}()},
+\code{\link{isPeaksMatrix}()},
+\code{\link{rbindFill}()},
+\code{\link{validPeaksMatrix}()}
 }
 \author{
 Sebastian Gibb
