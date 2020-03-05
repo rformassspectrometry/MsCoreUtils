@@ -28,7 +28,7 @@ test_that("all imputation methods", {
     mx <- impute_matrix(x, method = "mixed",
                         randna = randna,
                         mnar = "min",
-                        mar = "knn")    
+                        mar = "knn")
     expect_false(any(is.na(mx)))
 })
 
@@ -39,7 +39,7 @@ test_that("none method", {
 
 test_that("zero and with method", {
     x1 <- impute_matrix(x, method = "with", val = 0)
-    x2 <- impute_matrix(x, method = "zero")  
+    x2 <- impute_matrix(x, method = "zero")
     expect_identical(x1, x2)
 })
 
@@ -97,4 +97,3 @@ test_that("impute: absence of missing values", {
     x_imp_2 <- impute_matrix(x_imp, method = "knn")
     expect_identical(x_imp, x_imp_2)
 })
-

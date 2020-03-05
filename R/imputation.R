@@ -35,7 +35,7 @@
 ##' imputation or maximum likelihood methods when values are missing
 ##' at random.
 ##'
-##' Currently, the following imputation methods are available. 
+##' Currently, the following imputation methods are available.
 ##'
 ##' - *MLE*: Maximum likelihood-based imputation method using the EM
 ##'   algorithm. Implemented in the `norm::imp.norm()`. function. See
@@ -141,8 +141,6 @@
 ##'
 ##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix
 ##'
-##' @importFrom Rcpp sourceCpp
-##' 
 ##' @useDynLib MsCoreUtils
 ##'
 ##' @author Laurent Gatto
@@ -154,7 +152,7 @@
 ##' m <- matrix(rlnorm(60), 10)
 ##' dimnames(m) <- list(letters[1:10], LETTERS[1:6])
 ##' m[sample(60, 10)] <- NA
-##' 
+##'
 ##' ## available methods
 ##' imputeMethods()
 ##'
@@ -170,22 +168,22 @@
 ##' ## impute with half of the smalles value
 ##' impute_matrix(m, method = "with",
 ##'               val = min(m, na.rm = TRUE) * 0.5)
-##' 
-##' ## all but third and fourth features' missing values 
+##'
+##' ## all but third and fourth features' missing values
 ##' ## are the result of random missing values
 ##' randna <- rep(TRUE, 10)
 ##' randna[c(3, 9)] <- FALSE
-##' 
+##'
 ##' impute_matrix(m, method = "mixed",
 ##'               randna = randna,
 ##'               mar = "knn",
 ##'               mnar = "min")
-##' 
+##'
 ##' @param x A matrix with missing values to be imputed.
-##' 
+##'
 ##' @param method `character(1)` defining the imputation method. See
 ##'     `imputeMethods()` for available ones.
-##' 
+##'
 ##' @param ... Additional parameters passed to the inner imputation
 ##'     function.
 ##'
@@ -243,17 +241,15 @@ imputeMethods <- function()
 ##' @param k `numeric(1)` providing the imputation value used for the
 ##'     first and last samples if they contain an `NA`. The default is
 ##'     to use the smallest value in the data.
-impute_neighbour_average <- function(x, k = NULL) {    
+impute_neighbour_average <- function(x, k = min(x, na.rm = TRUE)) {
     message("Assuming values are ordered.")
-    if (is.null(k))
-        k <- min(x, na.rm = TRUE)
-    .Call('_MsCoreUtils_imp_neighbour_avg', x, k)
+    .Call("C_impNeighbourAvg", x, k)
 }
 
 ##' @export
 ##' @rdname imputation
 impute_knn <- function(x, ...) {
-    requireNamespace("impute")        
+    requireNamespace("impute")
     imp_res <- impute::impute.knn(x, ...)
     if (!is.null(imp_res$rng.state)) {
         assign(".Random.seed", imp_res$rng.state, envir = .GlobalEnv)
@@ -291,15 +287,15 @@ impute_bpca <- function(x, ...) {
 ##'     which rows are missing at random. The other ones are
 ##'     considered missing not at random. Only relevant when `methods`
 ##'     is `mixed`.
-##' 
+##'
 ##' @param mar Imputation method for values missing at random. See
 ##'     `method` above.
-##' 
+##'
 ##' @param mnar Imputation method for values missing not at
 ##'     random. See `method` above.
 ##'
 ##' @export
-##' 
+##'
 ##' @rdname imputation
 impute_mixed <- function(x, randna, mar, mnar, ...) {
     if (missing(randna))

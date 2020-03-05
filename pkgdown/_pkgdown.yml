@@ -26,9 +26,6 @@ reference:
     desc: "Functions for converting objects."
     contents:
       - asInteger
-      - asRle
-      - asRleDataFrame
-      - asVectorDataFrame
       - i2index
   - title: "Helper Functions for Users"
     desc: "Helper functions for the users."

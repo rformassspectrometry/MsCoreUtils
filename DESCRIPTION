@@ -27,8 +27,7 @@ Imports:
     methods,
     S4Vectors,
     MASS,
-    stats,
-    Rcpp
+    stats
 Suggests:
     testthat,
     knitr,

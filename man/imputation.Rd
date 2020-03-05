@@ -17,7 +17,7 @@ impute_matrix(x, method, ...)
 
 imputeMethods()
 
-impute_neighbour_average(x, k = NULL)
+impute_neighbour_average(x, k = min(x, na.rm = TRUE))
 
 impute_knn(x, ...)
 
@@ -181,7 +181,7 @@ impute_matrix(m, method = "with", val = 0)
 impute_matrix(m, method = "with",
               val = min(m, na.rm = TRUE) * 0.5)
 
-## all but third and fourth features' missing values 
+## all but third and fourth features' missing values
 ## are the result of random missing values
 randna <- rep(TRUE, 10)
 randna[c(3, 9)] <- FALSE

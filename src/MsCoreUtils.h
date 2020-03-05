@@ -8,18 +8,8 @@
 
 extern SEXP C_localMaxima(SEXP, SEXP);
 
+extern SEXP C_impNeighbourAvg(SEXP, SEXP);
+
 extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
 
-static const R_CallMethodDef CallEntries[] = {
-    {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
-    {"_MsCoreUtils_imp_neighbour_avg", (DL_FUNC) &_MsCoreUtils_imp_neighbour_avg, 2},    
-    {NULL, NULL, 0}
-};
-
-void R_init_MsCoreUtils(DllInfo *dll)
-{
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
-    R_forceSymbols(dll, TRUE);
-}
 #endif /* end of MSCOREUTILS_H */
