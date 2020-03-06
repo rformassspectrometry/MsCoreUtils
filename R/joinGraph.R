@@ -79,7 +79,8 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
 #' .anyCrossing(x = 1:3, y = c(NA, 1:2))
 #' .anyCrossing(x = 1:3, y = c(2, 1, NA))
 .anyCrossing <- function(x, y) {
-    is.unsorted(x, na.rm = TRUE) || is.unsorted(y, na.rm = TRUE)
+    is.unsorted(x, na.rm = TRUE, strictly = TRUE) ||
+        is.unsorted(y, na.rm = TRUE, strictly = TRUE)
 }
 
 #' @title Find Edge Groups
