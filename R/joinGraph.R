@@ -29,8 +29,6 @@
 #' )
 #' joinGraph(x, y, ppm = 20)
 joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
-    validPeaksMatrix(x)
-    validPeaksMatrix(y)
     FUN <- match.fun(FUN)
 
     e <- .edgeList(x[, 1L], y[, 1L], tolerance = tolerance, ppm = ppm)
