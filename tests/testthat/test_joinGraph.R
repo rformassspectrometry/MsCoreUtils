@@ -18,6 +18,11 @@ test_that("joinGraph", {
         y = c(NA, 1, 2, 3, NA, 4, 5)
     )
     expect_equal(joinGraph(x, y, ppm = 20), l)
+
+    z <- matrix(
+        c(100, 100, 1, 1), ncol = 2L, dimnames = list(c(), c("mz", "intensity"))
+    )
+    expect_warning(joinGraph(z, z), "score > 0")
 })
 
 test_that(".anyCrossing", {

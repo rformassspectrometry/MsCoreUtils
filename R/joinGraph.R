@@ -57,7 +57,12 @@ joinGraph <- function(x, y, tolerance = 0, ppm = 0, FUN = dotproduct, ...) {
         else
             FUN(xx, yy, ...)
     })
-    cmb <- cmb[[which.max(score)]]
+    iscore <- which.max(score)
+
+    if (!score[iscore])
+        warning("Could not find a matching with a score > 0.")
+
+    cmb <- cmb[[iscore]]
 
     namask[gi[cmb],] <- edges[gi[cmb],]
     list(x = namask[, 1L], y = namask[, 2L])
