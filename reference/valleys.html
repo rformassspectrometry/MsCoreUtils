@@ -76,7 +76,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.1</span>
       </span>
     </div>
 
@@ -166,7 +166,7 @@ problems.</p>
 <span class='no'>peaks</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'>localMaxima</span>(<span class='no'>ints</span>, <span class='kw'>hws</span> <span class='kw'>=</span> <span class='fl'>3</span>))
 <span class='no'>cols</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='no'>peaks</span>) + <span class='fl'>1</span>
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span>(<span class='no'>mzs</span>, <span class='no'>ints</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"h"</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>16</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mzs</span>[<span class='no'>peaks</span>], <span class='no'>ints</span>[<span class='no'>peaks</span>], <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cols</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>mzs</span>, <span class='no'>ints</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"h"</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>16</span>))</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='no'>mzs</span>[<span class='no'>peaks</span>], <span class='no'>ints</span>[<span class='no'>peaks</span>], <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cols</span>, <span class='kw'>pch</span> <span class='kw'>=</span> <span class='fl'>20</span>)</div><div class='input'>
 <span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'>valleys</span>(<span class='no'>ints</span>, <span class='no'>peaks</span>)
 <span class='fu'><a href='https://rdrr.io/r/graphics/segments.html'>segments</a></span>(<span class='no'>mzs</span>[<span class='no'>v</span>[, <span class='st'>"left"</span>]], <span class='fl'>0</span>, <span class='no'>mzs</span>[<span class='no'>v</span>[, <span class='st'>"right"</span>]], <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cols</span>, <span class='kw'>lwd</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='img'><img src='valleys-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## Known limitations for plateaus</span>
@@ -196,7 +196,7 @@ problems.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
 </div>
 
 <div class="pkgdown">

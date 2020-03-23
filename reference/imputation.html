@@ -81,7 +81,7 @@ values with 0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.1</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ values with 0.</p>
 
 <span class='fu'>imputeMethods</span>()
 
-<span class='fu'>impute_neighbour_average</span>(<span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>impute_neighbour_average</span>(<span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='fu'>impute_knn</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -369,7 +369,7 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; h 0.90968305 0.07019660 0.17150153 0.42702719 4.23804154 1.09399145
 #&gt; i 0.02506614 0.02506614 0.02506614 0.08943818 0.64956901 0.05013228
 #&gt; j 0.93921196 3.74384570 0.52729513 1.03678296 1.92639019 1.32960639</div><div class='input'>
-<span class='co'>## all but third and fourth features' missing values </span>
+<span class='co'>## all but third and fourth features' missing values</span>
 <span class='co'>## are the result of random missing values</span>
 <span class='no'>randna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>10</span>)
 <span class='no'>randna</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>9</span>)] <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
@@ -407,7 +407,7 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 
       <footer>
       <div class="copyright">
-  <p>Developed by Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
 </div>
 
 <div class="pkgdown">
