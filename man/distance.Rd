@@ -37,10 +37,11 @@ see the \code{ndotproduct} details section.}
 and \code{1} identically.
 }
 \description{
-These functions provide different similariy/distance measurements.
+These functions provide different normalized similariy/distance measurements.
 }
 \details{
-
+All functions that calculate normalized similarity/distance measurements are
+prefixed with a \emph{n}.
 
 \code{ndotproduct}: the normalized dot product is described in Stein and Scott
 1994 as: \eqn{NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}}; where
