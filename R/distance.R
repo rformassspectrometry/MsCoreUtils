@@ -2,12 +2,14 @@
 #' @title Spectra Distance/Similarity Measurements
 #'
 #' @description
-#' These functions provide different similariy/distance measurements.
+#' These functions provide different normalized similariy/distance measurements.
 #'
 #' @param x `matrix`, two-columns e.g. m/z, intensity
 #' @param y `matrix`, two-columns e.g. m/z, intensity
 #'
 #' @details
+#' All functions that calculate normalized similarity/distance measurements are
+#' prefixed with a *n*.
 #'
 #' @note
 #' These methods are implemented as described in Stein and Scott 1994
