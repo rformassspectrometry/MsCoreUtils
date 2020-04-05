@@ -31,7 +31,7 @@ Spectrometry packages.
 
 For a full list of function, see 
 
-```{r}
+```{r, message = FALSE}
 library("MsCoreUtils")
 ls(pos = "package:MsCoreUtils")
 ```
@@ -60,11 +60,15 @@ robustSummary(x)
 
 This function is typicall to be used to summarise peptide quantitation
 values into protein intensities[^robuststum]. This functionality is
-available in the
-[`MSnbase::combineFeatures()`](http://lgatto.github.io/MSnbase/reference/combineFeatures.html)
-function for `MSnSet` objects and the
-[`Features::aggregateFeatures()`](https://rformassspectrometry.github.io/Features/reference/Features-aggregate.html)
-function for `Features` objects.
+available in 
+
+- the
+  [MSnbase::combineFeatures()](http://lgatto.github.io/MSnbase/reference/combineFeatures.html)
+  function for `MSnSet` objects and
+
+- the
+  [Features::aggregateFeatures()](https://rformassspectrometry.github.io/Features/reference/Features-aggregate.html)
+  function for `Features` objects.
 
 
 [^robuststum]: See Sticker *et al.* Robust summarization and inference
