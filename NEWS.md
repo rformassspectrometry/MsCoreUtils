@@ -3,6 +3,7 @@
 ## MsCoreUtils 0.99.2
 
 - Provide more comprehensive description. 
+- Add vignette.
 
 ## MsCoreUtils 0.99.1
 

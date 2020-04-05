@@ -1,0 +1,81 @@
+---
+title: "Core Utils for Mass Spectrometry Data"
+author:
+- name: MsCoreUtils Package Maintainers
+package: MsCoreUtils
+output:
+  BiocStyle::html_document:
+    toc_float: true
+bibliography: Features.bib
+vignette: >
+  %\VignetteIndexEntry{Core Utils for Mass Spectrometry Data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %%\VignetteKeywords{Mass Spectrometry, MS, MSMS, Proteomics, Metabolomics, Infrastructure, Quantitative }
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r style, echo = FALSE, results = 'asis'}
+BiocStyle::markdown()
+```
+
+
+# Introduction
+
+The `MsCoreUtils` package low-level functions for mass spectrometry
+data and is independent of any high-level data structures. These
+functions include mass spectra processing functions (noise estimation,
+smoothing, binning), quantitative aggregation functions (median
+polish, robust summarisation, ...), missing data imputation, data
+normalisation (quantiles, vsn, ...)  as well as misc helper functions,
+that are used across high level data structure within the R for Mass
+Spectrometry packages.
+
+For a full list of function, see 
+
+```{r}
+library("MsCoreUtils")
+ls(pos = "package:MsCoreUtils")
+```
+
+or the [reference
+page](https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html)
+on the package webpage.
+
+
+# Examples
+
+The functions defined in this package utilise basic classes with the
+aim of being reused in packages that provide a more formal, high-level
+interface.
+
+As an examples, let's take the `robustSummary()` function, that
+calculates the robust summary of the columns of a matrix:
+
+```{r}
+x <- matrix(rnorm(30), nrow = 3)
+colnames(x) <- letters[1:10]
+rownames(x) <- LETTERS[1:3]
+x
+robustSummary(x)
+```
+
+This function is typicall to be used to summarise peptide quantitation
+values into protein intensities[^robuststum]. This functionality is
+available in the
+[`MSnbase::combineFeatures()`](http://lgatto.github.io/MSnbase/reference/combineFeatures.html)
+function for `MSnSet` objects and the
+[`Features::aggregateFeatures()`](https://rformassspectrometry.github.io/Features/reference/Features-aggregate.html)
+function for `Features` objects.
+
+
+[^robuststum]: See Sticker *et al.* Robust summarization and inference
+    in proteome-wide label-free
+    quantification. https://doi.org/10.1101/668863.
+
+
+# Session information {-}
+
+```{r sessioninfo, echo=FALSE}
+sessionInfo()
+```
+
