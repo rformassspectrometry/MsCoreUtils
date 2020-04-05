@@ -6,7 +6,6 @@ package: MsCoreUtils
 output:
   BiocStyle::html_document:
     toc_float: true
-bibliography: Features.bib
 vignette: >
   %\VignetteIndexEntry{Core Utils for Mass Spectrometry Data}
   %\VignetteEngine{knitr::rmarkdown}
@@ -71,6 +70,23 @@ function for `Features` objects.
 [^robuststum]: See Sticker *et al.* Robust summarization and inference
     in proteome-wide label-free
     quantification. https://doi.org/10.1101/668863.
+
+# Contributions
+
+If you would like to contribute any low-level functionality, please
+[open a GitHub
+issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues) to
+discuss it. Please note that any
+[contributions](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions)
+should follow the [style
+guide](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#coding-style)
+and will require an appropriate unit test.
+
+
+If you wish to reuse any functions in this package, please just go
+ahead. If you would like any advice or seek help, please either [open
+a GitHub
+issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
 
 
 # Session information {-}
