@@ -1,5 +1,9 @@
 # MsCoreUtils 0.99
 
+## MsCoreUtils 0.99.2
+
+- Provide more comprehensive description. 
+
 ## MsCoreUtils 0.99.1
 
 - Additional functions, and using Author@R to specify (unique)
