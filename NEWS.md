@@ -1,5 +1,9 @@
 # MsCoreUtils 0.99
 
+## MsCoreUtils 0.99.3
+
+- Trigger build. 
+
 ## MsCoreUtils 0.99.2
 
 - Provide more comprehensive description. 
