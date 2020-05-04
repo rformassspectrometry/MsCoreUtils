@@ -16,7 +16,7 @@ rla(
   na.rm = TRUE
 )
 
-rowRla(x, f, transform = c("log2", "log10", "identity"))
+rowRla(x, f = rep_len(1, ncol(x)), transform = c("log2", "log10", "identity"))
 }
 \arguments{
 \item{x}{\code{numeric} (for \code{rla}) or \code{matrix} (for \code{rowRla}) with the
