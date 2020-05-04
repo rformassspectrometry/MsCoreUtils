@@ -26,7 +26,8 @@ Authors@R: c(person(given = "RforMassSpectrometry Package Maintainer",
                     role = "aut"),
              person(given = "Adriaan", family = "Sticker", role = "ctb"),
              person(given = "Sigurdur", family = "Smarason", role = "ctb"),
-             person(given = "Thomas", family = "Naake", role = "ctb"))
+             person(given = "Thomas", family = "Naake", role = "ctb"),
+             person(given = "Michael", family = "Witting", role = "ctb"))
 Depends:
     R (>= 3.6.0)
 Imports:
@@ -54,4 +55,4 @@ BugReports: https://github.com/RforMassSpectrometry/MsCoreUtils/issues
 URL: https://github.com/RforMassSpectrometry/MsCoreUtils
 biocViews: Infrastructure, Proteomics, MassSpectrometry, Metabolomics
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
