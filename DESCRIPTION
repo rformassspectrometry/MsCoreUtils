@@ -54,4 +54,4 @@ BugReports: https://github.com/RforMassSpectrometry/MsCoreUtils/issues
 URL: https://github.com/RforMassSpectrometry/MsCoreUtils
 biocViews: Infrastructure, Proteomics, MassSpectrometry, Metabolomics
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
