@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
       </span>
     </div>
 
@@ -142,19 +142,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
 <span class="no">x</span></pre></body></html></div>
-<pre><code>##            a          b          c           d          e           f         g
-## A  0.6101086 -1.7504415 -0.9251775 -0.01916712 -0.2388399  0.01586736 0.3822302
-## B -0.6011307  0.8538686  0.8123499  0.48435033 -1.1236071 -0.54605075 0.4245129
-## C  0.8895458 -1.0464301  0.4910785 -0.75131845 -1.5696802  0.24228603 2.2141604
-##            h         i          j
-## A -0.5493608 1.7242500 -1.2403753
-## B  0.4786994 0.4820077  0.6167757
-## C  1.2936470 0.8293979 -1.1236734</code></pre>
+<pre><code>##           a           b          c         d          e         f          g
+## A -0.145966 -0.86883120  0.4861056 0.1155076  1.3771254  1.805469 -2.2190773
+## B  0.574040  0.24144255 -1.3583550 1.1826731 -0.2075306 -2.070484 -0.2882248
+## C  1.544387  0.04171077  0.9185901 1.3172774 -0.4328080  1.121316 -0.5754847
+##            h          i         j
+## A  1.5000727 -0.7533025 1.2443306
+## B -0.2417226  0.3065400 1.0179062
+## C -0.1036592  0.7820739 0.6138069</code></pre>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
-<pre><code>##           a           b           c           d           e           f 
-##  0.29950790 -0.72200315  0.12608362 -0.09537841 -0.97737573 -0.09596578 
-##           g           h           i           j 
-##  1.00696783  0.40766186  1.01188521 -0.58242433</code></pre>
+<pre><code>##          a          b          c          d          e          f          g 
+##  0.6574870 -0.1952260  0.0154469  0.8718193  0.2455956  0.7045348 -1.0275956 
+##          h          i          j 
+##  0.3848970  0.1117705  0.9586812</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] MsCoreUtils_1.1.0 BiocStyle_2.17.0 
+## [1] MsCoreUtils_1.1.1 BiocStyle_2.17.0 
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] Rcpp_1.0.4.6        knitr_1.28          magrittr_1.5       
