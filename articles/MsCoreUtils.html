@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -140,19 +140,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
 <span class="no">x</span></pre></body></html></div>
-<pre><code>##           a          b          c          d          e          f          g
-## A 0.2966618 -0.3469439  0.2053377 -0.4136383  0.2216070 -1.8058341 -0.1283942
-## B 1.2145167  0.3543423  1.3808078 -0.9195862  1.4195818 -0.3554692 -1.0885225
-## C 0.2365627  0.6153177 -0.6314657  1.7283521 -0.4980468  0.1257574  1.9587464
-##            h           i          j
-## A  0.1093526 -1.42316205 -1.2822449
-## B -0.5037833  0.08683374 -0.6550586
-## C  0.6724497  0.33436920 -1.0454195</code></pre>
+<pre><code>##            a          b         c            d          e          f          g
+## A -0.5681369  2.0644770 0.6305335 -0.308662018 -0.1694246  0.4124471 -0.0418422
+## B  0.9010643 -0.8846951 1.7374179 -0.417215899 -0.5122305 -0.1311447  0.1129839
+## C  1.1898213 -0.8029933 0.3316012 -0.009864956  0.8197921 -0.6930502 -0.6090007
+##            h          i          j
+## A  2.1762465  0.2046196 -1.3016024
+## B -0.4041658  0.5426153 -0.6738626
+## C  0.6942730 -1.3976870 -1.3821106</code></pre>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
 <pre><code>##           a           b           c           d           e           f 
-##  0.58258040  0.20757203  0.53850360  0.08691965  0.56602443 -0.67851533 
+##  0.76259198 -0.39675787  0.87346676 -0.24524762 -0.08540234 -0.13724929 
 ##           g           h           i           j 
-##  0.37215530  0.09267301 -0.33398637 -0.99424098</code></pre>
+## -0.17928634  0.91316277 -0.10090139 -1.11919188</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R Under development (unstable) (2020-03-13 r77948)
+<pre><code>## R Under development (unstable) (2020-05-08 r78391)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 16.04.6 LTS
 ## 
@@ -188,19 +188,19 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] MsCoreUtils_0.99.3 BiocStyle_2.15.6  
+## [1] MsCoreUtils_1.1.0 BiocStyle_2.17.0 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_1.0.4          knitr_1.28          magrittr_1.5       
-##  [4] BiocGenerics_0.33.3 MASS_7.3-51.5       R6_2.4.1           
-##  [7] rlang_0.4.5         stringr_1.4.0       tools_4.0.0        
-## [10] parallel_4.0.0      xfun_0.12           htmltools_0.4.0    
+##  [1] Rcpp_1.0.4.6        knitr_1.28          magrittr_1.5       
+##  [4] BiocGenerics_0.35.2 MASS_7.3-51.6       R6_2.4.1           
+##  [7] rlang_0.4.6         stringr_1.4.0       tools_4.1.0        
+## [10] parallel_4.1.0      xfun_0.13           htmltools_0.4.0    
 ## [13] yaml_2.2.1          assertthat_0.2.1    digest_0.6.25      
-## [16] rprojroot_1.3-2     pkgdown_1.5.0       crayon_1.3.4       
-## [19] bookdown_0.18       BiocManager_1.30.10 S4Vectors_0.25.14  
-## [22] fs_1.3.2            memoise_1.1.0       evaluate_0.14      
-## [25] rmarkdown_2.1       stringi_1.4.6       compiler_4.0.0     
-## [28] desc_1.2.0          backports_1.1.6     stats4_4.0.0</code></pre>
+## [16] rprojroot_1.3-2     pkgdown_1.5.1       crayon_1.3.4       
+## [19] bookdown_0.18       BiocManager_1.30.10 S4Vectors_0.27.5   
+## [22] fs_1.4.1            memoise_1.1.0       evaluate_0.14      
+## [25] rmarkdown_2.1       stringi_1.4.6       compiler_4.1.0     
+## [28] desc_1.2.0          backports_1.1.6     stats4_4.1.0</code></pre>
 </div>
 <div class="footnotes">
 <hr>
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
