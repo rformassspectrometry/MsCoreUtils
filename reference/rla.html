@@ -155,7 +155,7 @@ matrix." />
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )
 
-<span class='fu'>rowRla</span>(<span class='no'>x</span>, <span class='no'>f</span>, <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"log2"</span>, <span class='st'>"log10"</span>, <span class='st'>"identity"</span>))</pre>
+<span class='fu'>rowRla</span>(<span class='no'>x</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep_len</a></span>(<span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>x</span>)), <span class='kw'>transform</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"log2"</span>, <span class='st'>"log10"</span>, <span class='st'>"identity"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

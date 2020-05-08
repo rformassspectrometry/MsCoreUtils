@@ -113,22 +113,24 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [5] "bin"                      "closest"                 
 ##  [7] "coefMA"                   "coefSG"                  
 ##  [9] "coefWMA"                  "common"                  
-## [11] "dotproduct"               "group"                   
-## [13] "i2index"                  "impute_bpca"             
-## [15] "impute_knn"               "impute_matrix"           
-## [17] "impute_min"               "impute_mixed"            
-## [19] "impute_mle"               "impute_neighbour_average"
-## [21] "impute_with"              "impute_zero"             
-## [23] "imputeMethods"            "isPeaksMatrix"           
-## [25] "join"                     "localMaxima"             
-## [27] "medianPolish"             "noise"                   
-## [29] "normalize_matrix"         "normalizeMethods"        
-## [31] "ppm"                      "rbindFill"               
-## [33] "refineCentroids"          "rla"                     
-## [35] "robustSummary"            "rowRla"                  
-## [37] "smooth"                   "validPeaksMatrix"        
-## [39] "valleys"                  "vapply1c"                
-## [41] "vapply1d"                 "vapply1l"</code></pre>
+## [11] "group"                    "i2index"                 
+## [13] "impute_bpca"              "impute_knn"              
+## [15] "impute_matrix"            "impute_min"              
+## [17] "impute_mixed"             "impute_mle"              
+## [19] "impute_neighbour_average" "impute_with"             
+## [21] "impute_zero"              "imputeMethods"           
+## [23] "isPeaksMatrix"            "join"                    
+## [25] "localMaxima"              "medianPolish"            
+## [27] "navdist"                  "ndotproduct"             
+## [29] "neuclidean"               "noise"                   
+## [31] "normalize_matrix"         "normalizeMethods"        
+## [33] "nspectraangle"            "ppm"                     
+## [35] "rbindFill"                "refineCentroids"         
+## [37] "rla"                      "robustSummary"           
+## [39] "rowRla"                   "smooth"                  
+## [41] "validPeaksMatrix"         "valleys"                 
+## [43] "vapply1c"                 "vapply1d"                
+## [45] "vapply1l"</code></pre>
 <p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html">reference page</a> on the package webpage.</p>
 </div>
 <div id="examples" class="section level1">
@@ -140,19 +142,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
 <span class="no">x</span></pre></body></html></div>
-<pre><code>##            a          b         c            d          e          f          g
-## A -0.5681369  2.0644770 0.6305335 -0.308662018 -0.1694246  0.4124471 -0.0418422
-## B  0.9010643 -0.8846951 1.7374179 -0.417215899 -0.5122305 -0.1311447  0.1129839
-## C  1.1898213 -0.8029933 0.3316012 -0.009864956  0.8197921 -0.6930502 -0.6090007
-##            h          i          j
-## A  2.1762465  0.2046196 -1.3016024
-## B -0.4041658  0.5426153 -0.6738626
-## C  0.6942730 -1.3976870 -1.3821106</code></pre>
+<pre><code>##            a          b          c           d          e           f         g
+## A  0.6101086 -1.7504415 -0.9251775 -0.01916712 -0.2388399  0.01586736 0.3822302
+## B -0.6011307  0.8538686  0.8123499  0.48435033 -1.1236071 -0.54605075 0.4245129
+## C  0.8895458 -1.0464301  0.4910785 -0.75131845 -1.5696802  0.24228603 2.2141604
+##            h         i          j
+## A -0.5493608 1.7242500 -1.2403753
+## B  0.4786994 0.4820077  0.6167757
+## C  1.2936470 0.8293979 -1.1236734</code></pre>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
 <pre><code>##           a           b           c           d           e           f 
-##  0.76259198 -0.39675787  0.87346676 -0.24524762 -0.08540234 -0.13724929 
+##  0.29950790 -0.72200315  0.12608362 -0.09537841 -0.97737573 -0.09596578 
 ##           g           h           i           j 
-## -0.17928634  0.91316277 -0.10090139 -1.11919188</code></pre>
+##  1.00696783  0.40766186  1.01188521 -0.58242433</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
