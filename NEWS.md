@@ -1,5 +1,11 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.1
+
+- Add some popular distance/similarity metrices:
+  `ndotproduct` `neuclidean` `navdist` `nspectraangle`; see also
+  [PR #33](https://github.com/rformassspectrometry/MsCoreUtils/pull/33).
+
 ## Changes in 1.1.0
 
 - Bioconductor devel version (Bioc 3.12)
