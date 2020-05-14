@@ -14,9 +14,12 @@ reference:
       - group
       - join
   - title: "Similarity"
-    desc: "Functions to calculate similarity."
+    desc: "Functions to calculate similarity/distance."
     contents:
-      - dotproduct
+      - navdist
+      - ndotproduct
+      - neuclidean
+      - nspectraangle
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
@@ -57,4 +60,3 @@ reference:
     desc: "Quantitative features processing."
     contents:
       - starts_with("normalize")
-
