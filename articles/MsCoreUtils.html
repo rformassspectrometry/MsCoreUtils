@@ -142,19 +142,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
 <span class="no">x</span></pre></body></html></div>
-<pre><code>##           a           b          c         d          e         f          g
-## A -0.145966 -0.86883120  0.4861056 0.1155076  1.3771254  1.805469 -2.2190773
-## B  0.574040  0.24144255 -1.3583550 1.1826731 -0.2075306 -2.070484 -0.2882248
-## C  1.544387  0.04171077  0.9185901 1.3172774 -0.4328080  1.121316 -0.5754847
-##            h          i         j
-## A  1.5000727 -0.7533025 1.2443306
-## B -0.2417226  0.3065400 1.0179062
-## C -0.1036592  0.7820739 0.6138069</code></pre>
+<pre><code>##            a          b         c          d          e          f          g
+## A 0.82278475  1.3160636 0.6981663 -0.6368490  0.1920759 -1.0880531 -0.9569938
+## B 0.03226278  1.9554649 0.5588134  0.8586636 -2.1475956  1.2550872  1.3564474
+## C 0.37016894 -0.9963185 0.7571056  0.8420487 -0.9239075 -0.9152143 -0.6805422
+##           h          i         j
+## A 0.4658993  0.4933049 0.1972306
+## B 1.0226359 -2.2980318 2.1263737
+## C 1.5951691  0.7209436 0.7574231</code></pre>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
-<pre><code>##          a          b          c          d          e          f          g 
-##  0.6574870 -0.1952260  0.0154469  0.8718193  0.2455956  0.7045348 -1.0275956 
-##          h          i          j 
-##  0.3848970  0.1117705  0.9586812</code></pre>
+<pre><code>##           a           b           c           d           e           f 
+##  0.40840549  0.94193022  0.67136179  0.35462110 -0.83372826 -0.24939337 
+##           g           h           i           j 
+## -0.09369621  1.02790141  0.13937431  1.02700913</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -170,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R Under development (unstable) (2020-05-08 r78391)
+<pre><code>## R Under development (unstable) (2020-05-25 r78567)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 16.04.6 LTS
 ## 
@@ -196,13 +196,13 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [1] Rcpp_1.0.4.6        knitr_1.28          magrittr_1.5       
 ##  [4] BiocGenerics_0.35.2 MASS_7.3-51.6       R6_2.4.1           
 ##  [7] rlang_0.4.6         stringr_1.4.0       tools_4.1.0        
-## [10] parallel_4.1.0      xfun_0.13           htmltools_0.4.0    
+## [10] parallel_4.1.0      xfun_0.14           htmltools_0.4.0    
 ## [13] yaml_2.2.1          assertthat_0.2.1    digest_0.6.25      
 ## [16] rprojroot_1.3-2     pkgdown_1.5.1       crayon_1.3.4       
-## [19] bookdown_0.18       BiocManager_1.30.10 S4Vectors_0.27.5   
+## [19] bookdown_0.19       BiocManager_1.30.10 S4Vectors_0.27.7   
 ## [22] fs_1.4.1            memoise_1.1.0       evaluate_0.14      
 ## [25] rmarkdown_2.1       stringi_1.4.6       compiler_4.1.0     
-## [28] desc_1.2.0          backports_1.1.6     stats4_4.1.0</code></pre>
+## [28] desc_1.2.0          backports_1.1.7     stats4_4.1.0</code></pre>
 </div>
 <div class="footnotes">
 <hr>
