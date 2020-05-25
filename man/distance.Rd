@@ -3,12 +3,15 @@
 \name{distance}
 \alias{distance}
 \alias{ndotproduct}
+\alias{dotproduct}
 \alias{neuclidean}
 \alias{navdist}
 \alias{nspectraangle}
 \title{Spectra Distance/Similarity Measurements}
 \usage{
 ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+
+dotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 
 neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE)
 
