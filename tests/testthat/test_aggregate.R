@@ -132,3 +132,15 @@ test_that("aggregation: aggregate_by_vector", {
                  aggregate_by_vector(x, k_fact2, colSums)[same_row_names, ])
 
 })
+
+
+test_that("aggregation: countFeatures", {
+    m <- matrix(c(1, NA, 2, 3, NA, NA, 4, 5, 6),
+                nrow = 3)
+    expect_identical(countFeatures(m), c(2, 1, 3))
+    m <- matrix(rnorm(30), nrow = 3)
+    expect_identical(countFeatures(m), rep(3, 10))
+    m <- matrix(rnorm(25), nrow = 5)
+    diag(m) <- NA
+    expect_identical(countFeatures(m), rep(4, 5))
+})

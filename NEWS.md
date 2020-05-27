@@ -1,5 +1,9 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.2
+
+- New `countFeatures()` aggregation function <2020-05-27 Wed.>
+
 ## Changes in 1.1.1
 
 - Add some popular distance/similarity metrices:
