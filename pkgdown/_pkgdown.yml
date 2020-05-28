@@ -51,6 +51,7 @@ reference:
     contents:
       - robustSummary
       - medianPolish
+      - colCounts
       - aggregate_by_vector
   - title: "Missing data imputation"
     desc: "Missing data imputation."
