@@ -134,13 +134,26 @@ test_that("aggregation: aggregate_by_vector", {
 })
 
 
-test_that("aggregation: countFeatures", {
+test_that("aggregation: colCounts", {
+    ## Simple case with NAs
     m <- matrix(c(1, NA, 2, 3, NA, NA, 4, 5, 6),
                 nrow = 3)
-    expect_identical(countFeatures(m), c(2, 1, 3))
+    expect_identical(colCounts(m), c(2, 1, 3))
+    ## No NAs
     m <- matrix(rnorm(30), nrow = 3)
-    expect_identical(countFeatures(m), rep(3, 10))
+    expect_identical(colCounts(m), rep(3, 10))
+    ## NAs along diagonal    
     m <- matrix(rnorm(25), nrow = 5)
     diag(m) <- NA
-    expect_identical(countFeatures(m), rep(4, 5))
+    expect_identical(colCounts(m), rep(4, 5))
+    ## Only NAs
+    m <- matrix(NA, ncol = 5, nrow = 3)
+    expect_identical(colCounts(m), rep(0, 5))
+    ## NaN instead of NA
+    m <- matrix(rnorm(25), nrow = 5)
+    m[1,1] <- NaN
+    expect_identical(colCounts(m), c(4, rep(5, 4)))
+    ## NA and Inf
+    m[2,2] <- Inf
+    expect_identical(colCounts(m), c(4, rep(5, 4)))
 })
