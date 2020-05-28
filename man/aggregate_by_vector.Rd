@@ -65,7 +65,7 @@ aggregate_by_vector(x, k, medianPolish)
 }
 \seealso{
 Other Quantitative feature aggregation: 
-\code{\link{countFeatures}()},
+\code{\link{colCounts}()},
 \code{\link{medianPolish}()},
 \code{\link{robustSummary}()}
 }

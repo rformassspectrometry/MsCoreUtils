@@ -30,7 +30,7 @@ robustSummary(x)
 \seealso{
 Other Quantitative feature aggregation: 
 \code{\link{aggregate_by_vector}()},
-\code{\link{countFeatures}()},
+\code{\link{colCounts}()},
 \code{\link{medianPolish}()}
 }
 \author{

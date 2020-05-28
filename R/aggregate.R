@@ -113,7 +113,7 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' @title Counts the number of features
 ##'
 ##' @description
-##' Returns the number of non-NA features if a features by sample
+##' Returns the number of non-NA features in a features by sample
 ##' matrix.
 ##' 
 ##' @param x A `matrix` of mode `numeric`.
@@ -131,10 +131,10 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' @examples
 ##' m <- matrix(c(1, NA, 2, 3, NA, NA, 4, 5, 6),
 ##'             nrow = 3)
-##' countFeatures(m)
+##' colCounts(m)
 ##' m <- matrix(rnorm(30), nrow = 3)
-##' countFeatures(m)
-countFeatures <- function(x, ...) 
+##' colCounts(m)
+colCounts <- function(x, ...) 
     colSums(!is.na(x))
 
 

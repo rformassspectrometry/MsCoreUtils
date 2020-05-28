@@ -2,7 +2,7 @@
 
 ## Changes in 1.1.2
 
-- New `countFeatures()` aggregation function <2020-05-27 Wed.>
+- New `colCounts()` aggregation function <2020-05-27 Wed.>
 
 ## Changes in 1.1.1
 
