@@ -17,6 +17,10 @@ test_that("closest basically works", {
     expect_equal(closest(c(0.5, 1.5, exp(1), pi), 1:10), c(1, 1, 3, 3))
 })
 
+test_that("closest, length(table) == 0", {
+    expect_equal(closest(1:3, integer()), rep(NA_integer_, 3))
+})
+
 test_that("closest, length(table) == 1, no tolerance", {
     expect_equal(closest(1:3, 0, nomatch = 0, tolerance = 0), c(0, 0, 0))
     expect_equal(closest(1:3, 1, nomatch = 0, tolerance = 0), c(1, 0, 0))
@@ -74,6 +78,8 @@ test_that("common", {
                         "closest"), c(FALSE, TRUE, FALSE))
     expect_equal(common(c(1.6, 1.75, 1.8), 1:2, tolerance = 0.5, duplicates =
                         "remove"), rep(FALSE, 3))
+    # issue 55
+    expect_equal(common(1:3, integer()), rep(FALSE, 3))
 })
 
 test_that("join", {
