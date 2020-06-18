@@ -87,7 +87,9 @@ robustSummary <- function(x, ...) {
 ##' polish procedure using [stats::medpolish()].
 ##'
 ##' @param x A `matrix` of mode `numeric`.
+##' 
 ##' @param verbose Default is `FALSE`.
+##' 
 ##' @param ... Additional arguments passed to [stats::medpolish()].
 ##' 
 ##' @return A `numeric` vector of length identical to `ncol(x)`.
@@ -107,6 +109,33 @@ medianPolish <- function(x, verbose = FALSE, ...) {
     medpol <- stats::medpolish(x, trace.iter = verbose, ...)
     medpol$overall + medpol$col
 }
+
+##' @title Counts the number of features
+##'
+##' @description
+##' Returns the number of non-NA features in a features by sample
+##' matrix.
+##' 
+##' @param x A `matrix` of mode `numeric`.
+##' 
+##' @param ... Currently ignored.
+##' 
+##' @return A `numeric` vector of length identical to `ncol(x)`.
+##'
+##' @family Quantitative feature aggregation
+##'
+##' @export
+##' 
+##' @author Laurent Gatto
+##'
+##' @examples
+##' m <- matrix(c(1, NA, 2, 3, NA, NA, 4, 5, 6),
+##'             nrow = 3)
+##' colCounts(m)
+##' m <- matrix(rnorm(30), nrow = 3)
+##' colCounts(m)
+colCounts <- function(x, ...) 
+    colSums(!is.na(x))
 
 
 ##' @title Aggreagate quantitative features.

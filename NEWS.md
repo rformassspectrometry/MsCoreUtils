@@ -1,22 +1,26 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.2
+
+- New `colCounts()` aggregation function <2020-05-27 Wed.>
+
 ## Changes in 1.1.1
 
 - Add some popular distance/similarity metrices:
   `ndotproduct` `neuclidean` `navdist` `nspectraangle`; see also
   [PR #33](https://github.com/rformassspectrometry/MsCoreUtils/pull/33).
+  
+- Add deprecation note to `dotproduct` <2020-05-22 Fri>.
 
 ## Changes in 1.1.0
 
 - Bioconductor devel version (Bioc 3.12)
-
 
 # MsCoreUtils 1.0
 
 ## Changes in 1.0.0.
 
 - Bioconductor release version (Bioc 3.11)
-
 
 # MsCoreUtils 0.99
 

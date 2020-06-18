@@ -102,6 +102,12 @@ ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 }
 
 #' @rdname distance
+dotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+    .Deprecated("ndotproduct")
+    ndotproduct(x, y, m, n, na.rm)
+}
+
+#' @rdname distance
 #'
 #' @details
 #' `neuclidean`: the normalized euclidean distance is described in Stein and
