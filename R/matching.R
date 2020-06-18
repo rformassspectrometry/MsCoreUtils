@@ -102,6 +102,9 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
         stop("'nomatch' has to be a 'numeric' of length one.")
 
     ntable <- length(table)
+    if (!ntable)
+        return(rep_len(nomatch, length(x)))
+
     tolerance <- rep_len(tolerance, ntable) + ppm(table, ppm) +
         sqrt(.Machine$double.eps)
     duplicates <- match.arg(duplicates)
