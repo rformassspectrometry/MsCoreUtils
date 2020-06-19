@@ -4,11 +4,12 @@
 
 - For an empty `table` `closest` and `common` return a vector of length `x`
   with `NA` or `FALSE`, respectively (instead of `1` and `TRUE`).
-  Fixes [#55] <2020-06-18 Thu>.
+  Fixes [#55](https://github.com/rformassspectrometry/MsCoreUtils/pull/55)
+  <2020-06-18 Thu>.
 
 ## Changes in 1.1.2
 
-- New `colCounts()` aggregation function <2020-05-27 Wed.>
+- New `colCounts()` aggregation function <2020-05-27 Wed>.
 
 ## Changes in 1.1.1
 
