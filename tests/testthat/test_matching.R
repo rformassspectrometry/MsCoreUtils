@@ -17,8 +17,12 @@ test_that("closest basically works", {
     expect_equal(closest(c(0.5, 1.5, exp(1), pi), 1:10), c(1, 1, 3, 3))
 })
 
-test_that("closest, length(table) == 0", {
+test_that("closest, invalid table", {
     expect_equal(closest(1:3, integer()), rep(NA_integer_, 3))
+    expect_equal(closest(1:3, NA), rep(NA_integer_, 3))
+    expect_equal(closest(1:3, c(1, NA)), rep(1, 3))
+    expect_equal(closest(1:3, c(1, NA), tolerance = 0),
+                 c(1, NA_integer_, NA_integer_))
 })
 
 test_that("closest, length(table) == 1, no tolerance", {
