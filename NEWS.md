@@ -6,6 +6,7 @@
   with `NA` or `FALSE`, respectively (instead of `1` and `TRUE`).
   Fixes [#55](https://github.com/rformassspectrometry/MsCoreUtils/pull/55)
   <2020-06-18 Thu>.
+- `closest` and `common` ignore `NA` in `table` <2020-06-19>.
 
 ## Changes in 1.1.2
 

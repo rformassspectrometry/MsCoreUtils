@@ -101,6 +101,7 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
         stop("'nomatch' has to be a 'numeric' of length one.")
 
+    table <- table[!is.na(table)]
     ntable <- length(table)
     if (!ntable)
         return(rep_len(nomatch, length(x)))
