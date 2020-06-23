@@ -71,7 +71,7 @@ test_that("rbindFill works", {
     expect_true(is.double(res$real))
     expect_true(is.double(res$real_rle@values))
 
-    ## works with a single data.frame
+    ## works with a single DataFrame or data.frame
     expect_equal(rbindFill(a), a)
     b <- data.frame(a = 1:3)
     expect_equal(rbindFill(b), b)
