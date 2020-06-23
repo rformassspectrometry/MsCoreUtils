@@ -7,6 +7,7 @@
   Fixes [#55](https://github.com/rformassspectrometry/MsCoreUtils/pull/55)
   <2020-06-18 Thu>.
 - `closest` and `common` ignore `NA` in `table` <2020-06-19>.
+- Fix `rbindFill` for single `data.frame` or `DataFrame` as input <2020-06-23>.
 
 ## Changes in 1.1.2
 
