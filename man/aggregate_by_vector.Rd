@@ -35,7 +35,8 @@ using Tukey's median polish_ procedure using
 \code{\link[MASS:rlm]{MASS::rlm()}};
 \item \link[base:colSums]{base::colMeans()} to use the mean of each column;
 \item \code{\link[base:colSums]{base::colSums()}} to use the sum of each column;
-\item \code{\link[matrixStats:colMedians]{matrixStats::colMedians()}} to use the median of each column.
+\item \link[matrixStats:rowMedians]{matrixStats::colMedians()} to use the median
+of each column.
 }
 }
 \examples{

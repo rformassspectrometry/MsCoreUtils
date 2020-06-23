@@ -160,7 +160,8 @@ colCounts <- function(x, ...)
 ##'
 ##' - [base::colSums()] to use the sum of each column;
 ##'
-##' - [matrixStats::colMedians()] to use the median of each column.
+##' - [matrixStats::colMedians()][matrixStats::rowMedians()] to use the median
+##'   of each column.
 ##'
 ##' @param x A `matrix` of mode `numeric`. 
 ##' @param INDEX A `factor` of length `nrow(x)`.
