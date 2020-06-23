@@ -156,7 +156,7 @@ colCounts <- function(x, ...)
 ##' - [robustSummary()] to calculate a robust aggregation using
 ##'   [MASS::rlm()];
 ##'
-##' - [base::colMeans()] to use the mean of each column;
+##' - [base::colMeans()][base::colSums()] to use the mean of each column;
 ##'
 ##' - [base::colSums()] to use the sum of each column;
 ##'
