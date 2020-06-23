@@ -1,15 +1,22 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.3
+
+- For an empty `table` `closest` and `common` return a vector of length `x`
+  with `NA` or `FALSE`, respectively (instead of `1` and `TRUE`).
+  Fixes [#55](https://github.com/rformassspectrometry/MsCoreUtils/pull/55)
+  <2020-06-18 Thu>.
+
 ## Changes in 1.1.2
 
-- New `colCounts()` aggregation function <2020-05-27 Wed.>
+- New `colCounts()` aggregation function <2020-05-27 Wed>.
 
 ## Changes in 1.1.1
 
 - Add some popular distance/similarity metrices:
   `ndotproduct` `neuclidean` `navdist` `nspectraangle`; see also
   [PR #33](https://github.com/rformassspectrometry/MsCoreUtils/pull/33).
-  
+
 - Add deprecation note to `dotproduct` <2020-05-22 Fri>.
 
 ## Changes in 1.1.0
