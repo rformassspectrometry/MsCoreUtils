@@ -35,6 +35,10 @@ rbindFill <- function(...) {
         l <- l[[1L]]
 
     cnms <- c("matrix", "data.frame", "DataFrame", "DFrame")
+
+    if (inherits(l, cnms))  # just one single object given as input, do nothing
+        return(l)
+
     cls <- vapply(l, inherits, integer(length(cnms)), what = cnms, which = TRUE)
     rownames(cls) <- cnms
 
