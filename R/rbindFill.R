@@ -31,7 +31,7 @@
 rbindFill <- function(...) {
     l <- list(...)
 
-    if (length(l) == 1L)
+    if (length(l) == 1L && is.list(l[[1L]]))
         l <- l[[1L]]
 
     cnms <- c("matrix", "data.frame", "DataFrame", "DFrame")
