@@ -14,11 +14,15 @@ Devel: [![build devel](http://bioconductor.org/shields/build/devel/bioc/MsCoreUt
 src="https://raw.githubusercontent.com/rformassspectrometry/stickers/master/MsCoreUtils/MsCoreUtils.png"
 height="150">
 
-This package aims to be a common place for useful mass spectrometry functions
-that are needed in multiple packages. We hope to keep the dependencies as small
-as possible.
-
-Currently we externalising core functions from `MSnbase`, `MALDIquant`, etc.
+`MsCoreUtils` defines low-level functions for mass spectrometry data and is
+independent of any high-level data structures.
+These functions include mass spectra processing functions
+(noise estimation, smoothing, binning),
+quantitative aggregation functions (median polish, robust summarisation, ...),
+missing data imputation, data normalisation (quantiles, vsn, ...)
+as well as misc helper functions, that are used across high-level
+data structure within the
+[R for Mass Spectrometry packages](https://www.rformassspectrometry.org/pkgs/).
 
 # Contributions
 
