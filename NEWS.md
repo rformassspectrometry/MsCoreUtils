@@ -1,5 +1,9 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.4
+
+- Nothing yet.
+
 ## Changes in 1.1.3
 
 - For an empty `table` `closest` and `common` return a vector of length `x`
