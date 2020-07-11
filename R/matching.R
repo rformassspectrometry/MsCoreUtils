@@ -189,7 +189,7 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
 #' That means for multiple matches just the closest one is reported.
 #'
-#' @return `join` returns a `matrix` with two columns, namely `x` and `y`,
+#' @return `join` returns a `list` with two columns, namely `x` and `y`,
 #' representing the index of the values in `x` matching the corresponding value
 #' in `y` (or `NA` if the value does not match).
 #'
@@ -253,19 +253,16 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     nx <- length(x)
     ny <- length(y)
     nlx <- length(ji[[1L]])
-    xy <- xys <- c(x, y)
-    ## equalise values that are identified as common
-    if (nlx) {
-        xy[nx + ji[[2L]]] <- xy[ji[[1L]]]
-        xys <- xy[-(nx + ji[[2L]])]
-    }
-    ## find position
-    i <- findInterval(xy, sort.int(xys))
-    ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, nx + ny - nlx)
     sx <- seq_len(nx)
     sy <- seq_len(ny)
-    ox[i[sx]] <- sx
-    oy[i[nx + sy]] <- sy
-    list(x = ox, y = oy)
+    ox <- oy <- rep.int(NA_integer_, nx + ny - nlx)
+    if (nlx) {
+        ox[sx] <- c(ji[[1L]], sx[-ji[[1L]]])
+        oy[c(seq_len(nlx), nx + seq_len(ny - nlx))] <-
+            c(ji[[2L]], sy[-ji[[2L]]])
+    } else {
+        ox[sx] <- sx
+        oy[nx + sy] <- sy
+    }
+    .orderEdges(x, y, list(x = ox, y = oy))
 }

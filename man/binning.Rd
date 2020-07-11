@@ -48,7 +48,7 @@ bin(ints, mz, size = 2, FUN = sum)
 }
 \seealso{
 Other grouping/matching functions: 
-\code{\link{closest}()}
+\code{\link{joinGraph}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb
