@@ -1,4 +1,4 @@
-## data(se_na2, package = "Features")
+## data(se_na2, package = "QFeatures")
 ## dput(assay(se_na2))
 x <- structure(c(0.32325, 0.332, 0.39725, 0.336733, 0.3288, NA, 0.3475, 
                  0.368452, 0.349182, 0.275, 0.2435, 0.268625, 0.262267, 0.3063, 

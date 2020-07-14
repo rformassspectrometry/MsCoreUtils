@@ -67,8 +67,8 @@ available in
   function for `MSnSet` objects and
 
 - the
-  [Features::aggregateFeatures()](https://rformassspectrometry.github.io/Features/reference/Features-aggregate.html)
-  function for `Features` objects.
+  [QFeatures::aggregateFeatures()](https://rformassspectrometry.github.io/QFeatures/reference/Features-aggregate.html)
+  function for `QFeatures` objects.
 
 
 [^robuststum]: See Sticker *et al.* Robust summarization and inference

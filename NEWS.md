@@ -2,7 +2,7 @@
 
 ## Changes in 1.1.4
 
-- Nothing yet.
+- Change references to `Feature` to `QFeatures` <2020-07-14 Tue>
 
 ## Changes in 1.1.3
 
