@@ -1,11 +1,17 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.4
+
+- Change references to `Feature` to `QFeatures` <2020-07-14 Tue>
+
 ## Changes in 1.1.3
 
 - For an empty `table` `closest` and `common` return a vector of length `x`
   with `NA` or `FALSE`, respectively (instead of `1` and `TRUE`).
   Fixes [#55](https://github.com/rformassspectrometry/MsCoreUtils/pull/55)
   <2020-06-18 Thu>.
+- `closest` and `common` ignore `NA` in `table` <2020-06-19 Fri>.
+- Fix `rbindFill` for single `data.frame` or `DataFrame` as input <2020-06-23 Tue>.
 
 ## Changes in 1.1.2
 
