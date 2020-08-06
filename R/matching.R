@@ -269,3 +269,7 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     oy[i[nx + sy]] <- sy
     list(x = ox, y = oy)
 }
+
+.cjoinOuter <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0) {
+    .Call("C_joinOuter", x, y, as.numeric(tolerance), as.numeric(ppm))
+}

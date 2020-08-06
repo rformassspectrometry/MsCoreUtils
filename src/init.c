@@ -3,6 +3,7 @@
 static const R_CallMethodDef CallEntries[] = {
     {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
     {"C_impNeighbourAvg", (DL_FUNC) &C_impNeighbourAvg, 2},
+    {"C_joinOuter", (DL_FUNC) &C_joinOuter, 4},
     {NULL, NULL, 0}
 };
 
