@@ -271,9 +271,6 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 }
 
 .cjoinOuter <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0) {
-    ltolerance = length(tolerance)
-    if (ltolerance != 1 && ltolerance != length(y))
-        stop("'tolerance' has to be of length 1 or length equal to 'length(y)'")
     tolerance <- tolerance + ppm(y, ppm = ppm) + sqrt(.Machine$double.eps)
     if (is.integer(x))
         x <- as.numeric(x)

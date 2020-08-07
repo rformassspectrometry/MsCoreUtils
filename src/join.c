@@ -18,6 +18,8 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
   px = REAL(x);
   py = REAL(y);
   tol = REAL(tolerance);
+  if (ly != LENGTH(tolerance))
+    error("'tolerance' has to be of length 1 or length equal to 'length(y)'");
   PROTECT(resx = allocVector(INTSXP, lx + ly));
   PROTECT(resy = allocVector(INTSXP, lx + ly));
   int *presx = INTEGER(resx);
@@ -28,7 +30,6 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
   i = 0;
   j = 0;
 
-  // This does not work because it depends whether x or y are used first!
   while (i < lx || j < ly) {
     idx++;
     // if one of the two is outside just add the other
