@@ -13,10 +13,6 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
   int lx, ly, idx, i, j, nj, *ptresx, *ptresy;
   double *px, *py, *tol, maxdiff, lastdiff, idiff;
   SEXP resx, resy, output, names, tresx, tresy;
-  if (!REAL_IS_SORTED(x))
-    error("'x' has to be sorted");
-  if (!REAL_IS_SORTED(y))
-    error("'y' has to be sorted");
   lx = LENGTH(x);
   ly = LENGTH(y);
   px = REAL(x);

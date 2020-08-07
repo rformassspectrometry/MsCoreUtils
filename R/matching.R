@@ -279,5 +279,7 @@ join <- function(x, y, tolerance = 0, ppm = 0,
         x <- as.numeric(x)
     if (is.integer(y))
         y <- as.numeric(y)
+    if (is.unsorted(x) || is.unsorted(y))
+        stop("'x' and 'y' are expected to be sorted")
     .Call("C_join_outer", x, y, tolerance)
 }
