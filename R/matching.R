@@ -92,10 +92,10 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_) {
 
-    if (!all(is.numeric(tolerance)) || any(tolerance < 0))
+    if (!is.numeric(tolerance) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
-    if(!all(is.numeric(ppm)) || any(ppm < 0))
+    if(!is.numeric(ppm) || any(ppm < 0))
         stop("'ppm' has to be a 'numeric' larger or equal zero.")
 
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
