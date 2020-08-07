@@ -4,25 +4,35 @@
 #include <Rinternals.h>
 #include <math.h>
 
-SEXP C_joinOuter(SEXP x, SEXP y, SEXP tolerance, SEXP ppm) {
-  int lx, ly, idx, i, j, nj, iprev, *presx, *presy, *ptresx, *ptresy;
-  double *px, *py, ppmv, tol, diff;
+/*
+@param x: sorted `numeric`.
+@param y: sorted `numeric`.
+@param tolerance: `numeric` of length equal `length(y)` with accepted difference
+*/
+SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
+  int lx, ly, idx, i, j, nj, *ptresx, *ptresy;
+  double *px, *py, *tol, maxdiff, lastdiff, idiff;
   SEXP resx, resy, output, names, tresx, tresy;
+  if (!REAL_IS_SORTED(x))
+    error("'x' has to be sorted");
+  if (!REAL_IS_SORTED(y))
+    error("'y' has to be sorted");
   lx = LENGTH(x);
   ly = LENGTH(y);
   px = REAL(x);
   py = REAL(y);
-  ppmv = REAL(ppm)[0] / 1000000;
-  tol = REAL(tolerance)[0];
+  tol = REAL(tolerance);
   PROTECT(resx = allocVector(INTSXP, lx + ly));
   PROTECT(resy = allocVector(INTSXP, lx + ly));
-  presx = INTEGER(resx);
-  presy = INTEGER(resy);
+  int *presx = INTEGER(resx);
+  int *presy = INTEGER(resy);
+  double xdiff;
+  double ydiff;
   idx = -1;
   i = 0;
   j = 0;
-  iprev = -1;
 
+  // This does not work because it depends whether x or y are used first!
   while (i < lx || j < ly) {
     idx++;
     // if one of the two is outside just add the other
@@ -38,26 +48,57 @@ SEXP C_joinOuter(SEXP x, SEXP y, SEXP tolerance, SEXP ppm) {
       presy[idx] = NA_INTEGER;
       continue;
     }
-
-    // only calculate diff if i changed.
-    if (iprev != i) {
-      diff = ppmv * px[i] + tol;
-      iprev = i;
-    }
-    if (fabs(px[i] - py[j]) <= diff) {
-      i++;
-      j++;
+    // compare elements
+    lastdiff = fabs(px[i] - py[j]);
+    if (lastdiff <= tol[j]) {
+      // If we just add the map here we would simply take the first match.
+      // Finding the closest elements is more tricky as we have to perform a
+      // *look ahead* search for potentially better matching values - in
+      // either x or y direction.
+      if (i + 1 < lx) xdiff = fabs(px[(i + 1)] - py[j]);
+      else xdiff = lastdiff + 1;
+      if (j + 1 < ly) ydiff = fabs(px[i] - py[(j + 1)]);
+      else ydiff = lastdiff + 1;
+      if (xdiff < lastdiff || ydiff < lastdiff) {
+	// Now go into the direction of the smallest difference.
+	if (xdiff < ydiff) {
+	  i++;
+	  // same for i.
+	  while (i < lx && (idiff = fabs(px[i] - py[j])) < lastdiff) {
+	    lastdiff = idiff;
+	    presx[idx] = i;
+	    presy[idx] = NA_INTEGER;
+	    i++;
+	    idx++;
+	  }
+	  j++;
+	} else {
+	  j++;
+	  // check if distance to next j might be smaller...
+	  while (j < ly && (idiff = fabs(px[i] - py[j])) < lastdiff) {
+	    lastdiff = idiff;
+	    presx[idx] = NA_INTEGER;
+	    presy[idx] = j;
+	    j++;
+	    idx++;
+	  }
+	  i++;
+	}
+      } else {
+	i++;
+	j++;
+      }
       presx[idx] = i;
       presy[idx] = j;
     } else {
       if (px[i] < py[j]) {
-  	i++;
-  	presx[idx] = i;
-  	presy[idx] = NA_INTEGER;
+	i++;
+	presx[idx] = i;
+	presy[idx] = NA_INTEGER;
       } else {
-  	j++;
-  	presx[idx] = NA_INTEGER;
-  	presy[idx] = j;
+	j++;
+	presx[idx] = NA_INTEGER;
+	presy[idx] = j;
       }
     }
   }
@@ -82,3 +123,12 @@ SEXP C_joinOuter(SEXP x, SEXP y, SEXP tolerance, SEXP ppm) {
   UNPROTECT(6);
   return output;
 }
+
+// Alternative:
+// all pairwise differences.
+// order them.
+// from smalles first:
+// check if smaller tolerance.
+// check if already used (second boolean).
+// add them to resx and resy at position idx. add also the sum of both to a
+// second array that we might use to bring them in the right order.

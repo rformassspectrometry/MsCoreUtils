@@ -77,10 +77,10 @@
 #' closest(x, y, tolerance = 0.01)
 #'
 #' ## Using a value-specific tolerance accepting differences of 20 ppm
-#' closest(x, y, tolerance = ppm(y, 20))
+#' closest(x, y, tolerance = 0, ppm = 20)
 #'
 #' ## Same using 50 ppm
-#' closest(x, y, tolerance = ppm(y, 50))
+#' closest(x, y, tolerance = 0, ppm = 50)
 #'
 #' ## Sometimes multiple elements in `x` match to `table`
 #' x <- c(1.6, 1.75, 1.8)
@@ -271,5 +271,13 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 }
 
 .cjoinOuter <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0) {
-    .Call("C_joinOuter", x, y, as.numeric(tolerance), as.numeric(ppm))
+    ltolerance = length(tolerance)
+    if (ltolerance != 1 && ltolerance != length(y))
+        stop("'tolerance' has to be of length 1 or length equal to 'length(y)'")
+    tolerance <- tolerance + ppm(y, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    .Call("C_join_outer", x, y, tolerance)
 }
