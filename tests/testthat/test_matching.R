@@ -3,6 +3,7 @@ test_that("closest throws errors", {
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
     expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
+    expect_error(closest(1:3, 1:3, tolerance = 1:2), "length 1")
     expect_error(closest(1:3, 1:3, ppm = -1), "larger or equal zero")
     expect_warning(closest(1:3, 1:3, ppm = 1:2), "not a multiple of")
     expect_error(closest(1:3, 1.3, tolerance = TRUE), "numeric")

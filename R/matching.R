@@ -106,8 +106,12 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
     if (!ntable)
         return(rep_len(nomatch, length(x)))
 
-    tolerance <- rep_len(tolerance, ntable) + ppm(table, ppm) +
-        sqrt(.Machine$double.eps)
+    ntolerance <- length(tolerance)
+
+    if (ntolerance != 1L && ntolerance != ntable)
+        stop("'tolerance' hat to be of length 1 or equal to 'length(table)'")
+
+    tolerance <- tolerance + ppm(table, ppm) + sqrt(.Machine$double.eps)
     duplicates <- match.arg(duplicates)
 
     lIdx <- findInterval(x, table, rightmost.closed = FALSE, all.inside = TRUE)
