@@ -24,7 +24,14 @@ common(
   duplicates = c("keep", "closest", "remove")
 )
 
-join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right", "inner"))
+join(
+  x,
+  y,
+  tolerance = 0,
+  ppm = 0,
+  type = c("outer", "left", "right", "inner"),
+  .check = TRUE
+)
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched.}
@@ -44,8 +51,9 @@ parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
 
-\item{.check}{\code{logical(1)} turn off checks for increasingly sorted \code{x}
-and \code{table}. This should just be done if you know what you are doing.}
+\item{.check}{\code{logical(1)} turn off checks for increasingly sorted \code{x} and
+\code{y}. This should just be done if it is ensured by other methods that \code{x} and
+\code{y} are sorted, see also \code{\link[=closest]{closest()}}.}
 
 \item{y}{\code{numeric}, the values to be joined. Should be sorted.}
 

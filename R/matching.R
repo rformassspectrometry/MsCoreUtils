@@ -183,6 +183,9 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' @param y `numeric`, the values to be joined. Should be sorted.
 #' @param type `character(1)`, defines how `x` and `y` should be joined. See
 #' details for `join`.
+#' @param .check `logical(1)` turn off checks for increasingly sorted `x` and
+#' `y`. This should just be done if it is ensured by other methods that `x` and
+#' `y` are sorted, see also [`closest()`].
 #'
 #' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
 #' That means for multiple matches just the closest one is reported.
@@ -218,36 +221,44 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' x[ji$x]
 #' y[ji$y]
 join <- function(x, y, tolerance = 0, ppm = 0,
-                 type = c("outer", "left", "right", "inner")) {
+                 type = c("outer", "left", "right", "inner"), .check = TRUE) {
     switch(match.arg(type),
-           "outer" = .joinOuter(x, y, tolerance = tolerance, ppm = ppm),
-           "left" = .joinLeft(x, y, tolerance = tolerance, ppm = ppm),
-           "right" = .joinRight(x, y, tolerance = tolerance, ppm = ppm),
-           "inner" = .joinInner(x, y, tolerance = tolerance, ppm = ppm)
+           "outer" = .joinOuter(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "left" = .joinLeft(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "right" = .joinRight(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "inner" = .joinInner(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           )
     )
 }
 
-.joinLeft <- function(x, y, tolerance, ppm) {
+.joinLeft <- function(x, y, tolerance, ppm, .check = TRUE) {
     list(x = seq_along(x),
          y = closest(x, y, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest"))
+                     duplicates = "closest", .check = .check))
 }
 
-.joinRight <- function(x, y, tolerance, ppm) {
+.joinRight <- function(x, y, tolerance, ppm, .check = TRUE) {
     list(x = closest(y, x, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest"),
+                     duplicates = "closest", .check = .check),
          y = seq_along(y))
 }
 
-.joinInner <- function(x, y, tolerance, ppm) {
+.joinInner <- function(x, y, tolerance, ppm, .check = TRUE) {
     yi <- closest(y, x, tolerance = tolerance, ppm = ppm,
-                  duplicates = "closest")
+                  duplicates = "closest", .check = .check)
     notNa <- which(!is.na(yi))
     list(x = yi[notNa], y = notNa)
 }
 
-.joinOuter <- function(x, y, tolerance, ppm) {
-    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm)
+.joinOuter <- function(x, y, tolerance, ppm, .check = TRUE) {
+    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm, .check = .check)
     nx <- length(x)
     ny <- length(y)
     nlx <- length(ji[[1L]])
