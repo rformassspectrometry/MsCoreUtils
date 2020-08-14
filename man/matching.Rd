@@ -21,7 +21,8 @@ common(
   table,
   tolerance = Inf,
   ppm = 0,
-  duplicates = c("keep", "closest", "remove")
+  duplicates = c("keep", "closest", "remove"),
+  .check = TRUE
 )
 
 join(
