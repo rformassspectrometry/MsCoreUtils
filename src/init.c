@@ -1,8 +1,11 @@
 #include "MsCoreUtils.h"
 
 static const R_CallMethodDef CallEntries[] = {
-    {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
+    {"C_closest_dup_keep", (DL_FUNC) &C_closest_dup_keep, 4},
+    {"C_closest_dup_closest", (DL_FUNC) &C_closest_dup_closest, 4},
+    {"C_closest_dup_remove", (DL_FUNC) &C_closest_dup_remove, 4},
     {"C_impNeighbourAvg", (DL_FUNC) &C_impNeighbourAvg, 2},
+    {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
     {NULL, NULL, 0}
 };
 
