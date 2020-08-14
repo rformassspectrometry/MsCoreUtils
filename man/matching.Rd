@@ -101,6 +101,17 @@ matches in \code{table} are identical the lower index (the smaller element
 in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
 are returned as \code{nomatch} as above.
 
+\code{.checks = TRUE} tests for increasingly sorted \code{x} and \code{table} arguments that
+are mandatory assumptions for the \code{closest} algorithm. These checks require
+to loop through both vectors and compare each element against its precursor.
+Depending on the length and distribution of \code{x} and \code{table} these checks take
+equal/more time than the whole \code{closest} algorithm. If it is ensured by other
+methods that both arguments \code{x} and \code{table} are sorted the tests could be
+skipped by \code{.check = FALSE}. In the case that \code{.check = FALSE} is used
+and one of \code{x} and \code{table} is not sorted (or decreasingly sorted)
+the output would be incorrect in the best case and result in infinity
+loop in the average and worst case.
+
 \code{join}: joins two \code{numeric} vectors by mapping values in \code{x} with
 values in \code{y} and \emph{vice versa} if they are similar enough (provided the
 \code{tolerance} and \code{ppm} specified). The function returns a \code{matrix} with the
