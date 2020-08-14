@@ -18,7 +18,8 @@
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x`
-#' and `table`. This should just be done if you know what you are doing.
+#' and `table`. This should just be done if it is ensured by other methods
+#' that `x` and `table` are sorted, see details.
 #'
 #' @details
 #' For `closest`/`common` the `tolerance` argument could be set to `0` to get
@@ -42,6 +43,17 @@
 #' matches in `table` are identical the lower index (the smaller element
 #' in `table`) is returned. For `duplicates="remove"` all multiple matches
 #' are returned as `nomatch` as above.
+#'
+#' `.checks = TRUE` tests for increasingly sorted `x` and `table` arguments that
+#' are mandatory assumptions for the `closest` algorithm. These checks require
+#' to loop through both vectors and compare each element against its precursor.
+#' Depending on the length and distribution of `x` and `table` these checks take
+#' equal/more time than the whole `closest` algorithm. If it is ensured by other
+#' methods that both arguments `x` and `table` are sorted the tests could be
+#' skipped by `.check = FALSE`. In the case that `.check = FALSE` is used
+#' and one of `x` and `table` is not sorted (or decreasingly sorted)
+#' the output would be incorrect in the best case and result in infinity
+#' loop in the average and worst case.
 #'
 #' @note
 #' `closest` will replace all `NA` values in `x` by `nomatch` (that is identical
