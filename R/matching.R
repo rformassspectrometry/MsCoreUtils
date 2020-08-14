@@ -174,9 +174,9 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 #' common(x, y, tolerance = 0.5, duplicates = "closest")
 #' common(x, y, tolerance = 0.5, duplicates = "remove")
 common <- function(x, table, tolerance = Inf, ppm = 0,
-                   duplicates = c("keep", "closest", "remove")) {
+                   duplicates = c("keep", "closest", "remove"), .check = TRUE) {
     !is.na(closest(x, table, tolerance = tolerance, ppm = ppm,
-                   duplicates = duplicates))
+                   duplicates = duplicates, .check = .check))
 }
 
 #' @rdname matching
