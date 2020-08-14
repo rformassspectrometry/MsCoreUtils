@@ -17,6 +17,8 @@
 #' @param nomatch `numeric(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
+#' @param .check `logical(1)` turn off checks for increasingly sorted `x`
+#' and `table`. This should just be done if you know what you are doing.
 #'
 #' @details
 #' For `closest`/`common` the `tolerance` argument could be set to `0` to get
@@ -90,7 +92,7 @@
 #' closest(x, y, tolerance = 0.5, duplicates = "remove")
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
-                    nomatch = NA_integer_) {
+                    nomatch = NA_real_, .check = TRUE) {
 
     if (!is.numeric(tolerance) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
@@ -101,7 +103,13 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
         stop("'nomatch' has to be a 'numeric' of length one.")
 
-    table <- table[!is.na(table)]
+    if (.check && (
+            !identical(FALSE, is.unsorted(x) ||
+            !identical(FALSE, is.unsorted(table))))) {
+        stop("'x' and 'table' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+
     ntable <- length(table)
     if (!ntable)
         return(rep_len(nomatch, length(x)))
@@ -112,44 +120,30 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
         stop("'tolerance' hat to be of length 1 or equal to 'length(table)'")
 
     tolerance <- tolerance + ppm(table, ppm) + sqrt(.Machine$double.eps)
+
     duplicates <- match.arg(duplicates)
 
-    lIdx <- findInterval(x, table, rightmost.closed = FALSE, all.inside = TRUE)
-    rIdx <- lIdx + 1L
-
-    lIdx[lIdx == 0L] <- 1L
-    rIdx[rIdx > ntable] <- ntable
-
-    lDiff <- abs(table[lIdx] - x)
-    rDiff <- abs(table[rIdx] - x)
-
-    lDiff[lDiff > tolerance[lIdx]] <- Inf
-    rDiff[rDiff > tolerance[rIdx]] <- Inf
-
-    d <- which(lDiff > rDiff)
-
-    lIdx[d] <- rIdx[d]
-
-    ## no match at all
-    lIdx[is.infinite(lDiff) & is.infinite(rDiff)] <- NA_integer_
-
-    ## duplicated matches
-    if (duplicates == "remove") {
-        lIdx[duplicated(lIdx) | duplicated(lIdx, fromLast = TRUE)] <-
-            NA_integer_
-        lIdx[is.finite(lDiff) & is.finite(rDiff)] <- NA_integer_
-    } else if (duplicates == "closest") {
-        ## lIdx could be updated
-        o <- order(abs(table[lIdx] - x))
-        m <- lIdx[o]
-        m[duplicated(m)] <- NA_integer_
-        lIdx[o] <- m
-    }
-
-    if (!identical(nomatch, NA_integer_))
-        lIdx[is.na(lIdx)] <- nomatch
-
-    as.integer(lIdx)
+    if (duplicates == "keep")
+        .Call(
+            "C_closest_dup_keep",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.double(nomatch)
+        )
+    else if (duplicates == "remove")
+        .Call(
+            "C_closest_dup_remove",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.double(nomatch)
+        )
+    else if (duplicates == "closest")
+        .Call(
+            "C_closest_dup_closest",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.double(nomatch)
+        )
 }
 
 #' @rdname matching

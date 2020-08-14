@@ -12,7 +12,8 @@ closest(
   tolerance = Inf,
   ppm = 0,
   duplicates = c("keep", "closest", "remove"),
-  nomatch = NA_integer_
+  nomatch = NA_real_,
+  .check = TRUE
 )
 
 common(
@@ -42,6 +43,9 @@ parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 \item{nomatch}{\code{numeric(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
+
+\item{.check}{\code{logical(1)} turn off checks for increasingly sorted \code{x}
+and \code{table}. This should just be done if you know what you are doing.}
 
 \item{y}{\code{numeric}, the values to be joined. Should be sorted.}
 
