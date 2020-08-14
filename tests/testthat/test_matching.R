@@ -1,5 +1,6 @@
 test_that("closest throws errors", {
     expect_error(closest(1, c(0, -1, 3)), "sorted non-decreasingly")
+    expect_error(closest(3:1, 1), "sorted non-decreasingly")
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
     expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
@@ -10,6 +11,7 @@ test_that("closest throws errors", {
     expect_error(closest(1:3, 1:3, nomatch = TRUE), "be a 'numeric'")
     expect_error(closest(1, 1, nomatch = 1:2),
                  "'nomatch' has to be a 'numeric' of length one")
+    expect_error(closest(1:3, c(1, NA)), "not  contain NA")
 })
 
 test_that("closest basically works", {
@@ -19,11 +21,11 @@ test_that("closest basically works", {
 })
 
 test_that("closest, invalid table", {
-    expect_equal(closest(1:3, integer()), rep(NA_integer_, 3))
-    expect_equal(closest(1:3, NA), rep(NA_integer_, 3))
-    expect_equal(closest(1:3, c(1, NA)), rep(1, 3))
-    expect_equal(closest(1:3, c(1, NA), tolerance = 0),
-                 c(1, NA_integer_, NA_integer_))
+    expect_equal(closest(1:3, integer()), rep(NA_real_, 3))
+})
+
+test_that("closest, disabling .check works", {
+    expect_equal(closest(2:1, 1, .check = FALSE), c(1, 1))
 })
 
 test_that("closest, length(table) == 1, no tolerance", {
@@ -35,8 +37,8 @@ test_that("closest, length(table) == 1, no tolerance", {
 })
 
 test_that("closest, tolerance/ppm", {
-    expect_equal(closest(1.001, 1:10, tolerance = 0), NA_integer_)
-    expect_equal(closest(1.001, 1:10, tolerance = 0, ppm = 1), NA_integer_)
+    expect_equal(closest(1.001, 1:10, tolerance = 0), NA_real_)
+    expect_equal(closest(1.001, 1:10, tolerance = 0, ppm = 1), NA_real_)
     expect_equal(closest(1.4, 1:10, tolerance = 0.4), 1)
     expect_equal(closest(1 + 1 / 1e6, 1:10, tolerance = 0, ppm = 1), 1)
     expect_equal(closest(1e6 + 1:2, 1e6, tolerance = 0, ppm = 1), c(1, NA))
@@ -59,20 +61,17 @@ test_that("closest, duplicates", {
     expect_equal(closest(c(0.8, 1.2), 1, tolerance = 0.3, duplicates = "keep"),
                  c(1, 1))
     expect_equal(closest(c(0.8, 1.2), 1, tolerance = 0.3, duplicates = "closest"),
-                 c(1, NA_integer_))
+                 c(1, NA_real_))
     expect_equal(closest(c(0.8, 1.1), 1, tolerance = 0.3, duplicates = "closest"),
-                 c(NA_integer_, 1))
+                 c(NA_real_, 1))
     expect_equal(closest(c(0.8, 1.2), 1, tolerance = 0.3, duplicates = "remove"),
-                 c(NA_integer_, NA_integer_))
+                 c(NA_real_, NA_real_))
 
     expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "keep"), 1)
     expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "closest"), 1)
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "keep"), 2)
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "closest"), 2)
-    expect_equal(closest(c(NA, 1.6), 1:2, tolerance = 0.5,
-                         duplicates = "closest"), c(NA, 2))
-    expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "remove"),
-                 NA_integer_)
+    expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "remove"), 1)
 })
 
 test_that("common", {
@@ -105,9 +104,9 @@ test_that("join", {
                  list(x = c(1:3, rep(NA, 4), 4, NA),
                       y = c(rep(NA, 3), 1:4, NA, 5)))
     expect_equal(join(x, y, type = "left"),
-                 list(x = 1:4, y = rep(NA_integer_, 4)))
+                 list(x = 1:4, y = rep(NA_real_, 4)))
     expect_equal(join(x, y, type = "right"),
-                 list(x = rep(NA_integer_, 5), y = 1:5))
+                 list(x = rep(NA_real_, 5), y = 1:5))
     expect_equal(join(x, y, type = "inner"),
                  list(x = integer(), y = integer()))
     expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
@@ -124,9 +123,9 @@ test_that("join", {
                  list(x = c(1:3, rep(NA, 4), 4, NA),
                       y = c(rep(NA, 3), 1:4, NA, 5)))
     expect_equal(join(x, y, tolerance = 0.1, type = "left"),
-                 list(x = 1:4, y = rep(NA_integer_, 4)))
+                 list(x = 1:4, y = rep(NA_real_, 4)))
     expect_equal(join(x, y, tolerance = 0.1, type = "right"),
-                 list(x = rep(NA_integer_, 5), y = 1:5))
+                 list(x = rep(NA_real_, 5), y = 1:5))
     expect_equal(join(x, y, tolerance = 0.1, type = "inner"),
                  list(x = integer(), y = integer()))
     expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "outer"),
