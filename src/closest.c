@@ -26,35 +26,35 @@
  * \sa r-source/src/appl/interv.c
  */
 R_xlen_t leftmost(double x, double* ptable, R_xlen_t low, R_xlen_t n) {
-  R_xlen_t high = low + 1, mid = high;
+    R_xlen_t high = low + 1, mid = high;
 
-  /* same interval as the last one */
-  if (x < ptable[high] && ptable[low] <= x)
-    return low ;
+    /* same interval as the last one */
+    if (x < ptable[high] && ptable[low] <= x)
+        return low ;
 
-  /* exponentional search */
-  for (R_xlen_t step = 1;; step *= 2) {
-    /* x is still > ptable[high] so we can update low as well to keep search
-     * space small
-     */
-    low = high;
-    high = low + step;
-    if (high >= n || x < ptable[high])
-      break;
-  }
-  high = (high >= n) ? n - 1 : high;
+    /* exponentional search */
+    for (R_xlen_t step = 1;; step *= 2) {
+        /* x is still > ptable[high] so we can update low as well to keep search
+         * space small
+         */
+        low = high;
+        high = low + step;
+        if (high >= n || x < ptable[high])
+            break;
+    }
+    high = (high >= n) ? n - 1 : high;
 
-  /* binary search */
-  while(1) {
-    mid = (low + high) / 2;
-    if (mid == low)
-        break;
-    if (x > ptable[mid])
-      low = mid;
-    else
-      high = mid;
-  }
-  return low;
+    /* binary search */
+    while(1) {
+        mid = (low + high) / 2;
+        if (mid == low)
+            break;
+        if (x > ptable[mid])
+            low = mid;
+        else
+            high = mid;
+    }
+    return low;
 }
 
 /**
