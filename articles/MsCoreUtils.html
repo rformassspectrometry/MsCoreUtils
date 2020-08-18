@@ -142,19 +142,19 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
 <span class="no">x</span></pre></body></html></div>
-<pre><code>##            a          b          c          d         e          f           g
-## A  1.5937572  0.6683377  0.6768359 -1.0522630 1.1256372  0.6318273 -0.84218274
-## B -0.6485834 -0.7022736 -1.2494844  1.3349247 0.3527647  1.4334512 -1.27606448
-## C  0.4655942 -1.0767755 -0.2139595 -0.9836297 1.0567951 -0.4459576 -0.06691483
-##           h          i          j
-## A 0.1421156  0.2235646 -0.1362040
-## B 2.9856900 -0.5149892 -0.6665238
-## C 0.2215604 -0.8019622 -0.4034479</code></pre>
+<pre><code>##            a          b          c          d           e          f
+## A -0.5924742 -1.5680614 -0.8758418 -0.8094749  0.35132968 -1.0547619
+## B -1.6098131  0.5787916  2.2656275  0.5781567 -1.81384309 -0.9224908
+## C -1.7347462 -0.9440143 -0.6459546  1.9267678 -0.03107089  0.2498779
+##              g            h           i          j
+## A -0.985686310 -0.585536237  0.09310666 -0.1795768
+## B -2.960414487  0.002463931  0.39295467  0.3753983
+## C -0.006635438  1.807265448 -0.43070873 -0.8571299</code></pre>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
-<pre><code>##          a          b          c          d          e          f          g 
-##  0.5921765 -0.3702371 -0.2060594 -0.7875769  0.8450657  0.3233217 -0.8116352 
-##          h          i          j 
-##  0.4122044 -0.3644622 -0.4020586</code></pre>
+<pre><code>##           a           b           c           d           e           f 
+## -1.31234449 -0.64442804 -0.08991176  0.56514989 -0.49786143 -0.57579158 
+##           g           h           i           j 
+## -1.18688275  0.40806438  0.01845087 -0.22043616</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -196,10 +196,10 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [1] knitr_1.29          magrittr_1.5        BiocGenerics_0.35.4
 ##  [4] MASS_7.3-51.5       R6_2.4.1            rlang_0.4.7        
 ##  [7] stringr_1.4.0       tools_4.0.0         parallel_4.0.0     
-## [10] xfun_0.15           htmltools_0.5.0     yaml_2.2.1         
+## [10] xfun_0.16           htmltools_0.5.0     yaml_2.2.1         
 ## [13] assertthat_0.2.1    digest_0.6.25       rprojroot_1.3-2    
 ## [16] pkgdown_1.5.1       crayon_1.3.4        bookdown_0.20      
-## [19] BiocManager_1.30.10 S4Vectors_0.27.12   fs_1.4.2           
+## [19] BiocManager_1.30.10 S4Vectors_0.27.12   fs_1.5.0           
 ## [22] memoise_1.1.0       evaluate_0.14       rmarkdown_2.3      
 ## [25] stringi_1.4.6       compiler_4.0.0      desc_1.2.0         
 ## [28] backports_1.1.8     stats4_4.0.0</code></pre>
