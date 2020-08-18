@@ -45,9 +45,11 @@ R_xlen_t leftmost(double x, double* ptable, R_xlen_t low, R_xlen_t n) {
   high = (high >= n) ? n - 1 : high;
 
   /* binary search */
-  while(low != mid) {
+  while(1) {
     mid = (low + high) / 2;
-    if (x >= ptable[mid])
+    if (mid == low)
+        break;
+    if (x > ptable[mid])
       low = mid;
     else
       high = mid;
