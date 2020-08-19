@@ -55,10 +55,6 @@
 #' the output would be incorrect in the best case and result in infinity
 #' loop in the average and worst case.
 #'
-#' @note
-#' `closest` will replace all `NA` values in `x` by `nomatch` (that is identical
-#' to the behaviour of `match`).
-#'
 #' @return `closest` returns an `integer` vector of the same length as `x`
 #' giving the closest position in `table` of the first match or `nomatch` if
 #' there is no match.
