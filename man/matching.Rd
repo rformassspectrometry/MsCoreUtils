@@ -124,9 +124,6 @@ be discarded. \code{type = "right"}: same as \code{type = "left"} but for \code{
 \code{type = "inner"}: report only indices of values that could be mapped.
 }
 \note{
-\code{closest} will replace all \code{NA} values in \code{x} by \code{nomatch} (that is identical
-to the behaviour of \code{match}).
-
 \code{join} is based on \code{closest(x, y, tolerance, duplicates = "closest")}.
 That means for multiple matches just the closest one is reported.
 }
