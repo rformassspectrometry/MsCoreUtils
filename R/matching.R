@@ -14,7 +14,7 @@
 #' @param ppm `numeric(1)` representing a relative, value-specific
 #'  parts-per-million (PPM) tolerance that is added to `tolerance`.
 #' @param duplicates `character(1)`, how to handle duplicated matches.
-#' @param nomatch `numeric(1)`, if the difference
+#' @param nomatch `integer(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x`
@@ -105,7 +105,7 @@
 #' closest(x, y, tolerance = 0.5, duplicates = "remove")
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
-                    nomatch = NA_real_, .check = TRUE) {
+                    nomatch = NA_integer_, .check = TRUE) {
 
     if (!is.numeric(tolerance) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
@@ -141,21 +141,21 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
             "C_closest_dup_keep",
             as.double(x), as.double(table),
             as.double(tolerance),
-            as.double(nomatch)
+            as.integer(nomatch)
         )
     else if (duplicates == "remove")
         .Call(
             "C_closest_dup_remove",
             as.double(x), as.double(table),
             as.double(tolerance),
-            as.double(nomatch)
+            as.integer(nomatch)
         )
     else if (duplicates == "closest")
         .Call(
             "C_closest_dup_closest",
             as.double(x), as.double(table),
             as.double(tolerance),
-            as.double(nomatch)
+            as.integer(nomatch)
         )
 }
 
