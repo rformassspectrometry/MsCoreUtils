@@ -12,7 +12,7 @@ closest(
   tolerance = Inf,
   ppm = 0,
   duplicates = c("keep", "closest", "remove"),
-  nomatch = NA_real_,
+  nomatch = NA_integer_,
   .check = TRUE
 )
 
@@ -48,7 +48,7 @@ parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 
 \item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
 
-\item{nomatch}{\code{numeric(1)}, if the difference
+\item{nomatch}{\code{integer(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
 

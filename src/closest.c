@@ -25,15 +25,15 @@
  *
  * \sa r-source/src/appl/interv.c
  */
-R_xlen_t leftmost(double x, double* ptable, R_xlen_t low, R_xlen_t n) {
-    R_xlen_t high = low + 1, mid = high;
+int leftmost(double x, double* ptable, int low, int n) {
+    int high = low + 1, mid = high;
 
     /* same interval as the last one */
     if (x < ptable[high] && ptable[low] <= x)
         return low ;
 
     /* exponentional search */
-    for (R_xlen_t step = 1;; step *= 2) {
+    for (int step = 1;; step *= 2) {
         /* x is still > ptable[high] so we can update low as well to keep search
          * space small
          */
@@ -70,20 +70,20 @@ R_xlen_t leftmost(double x, double* ptable, R_xlen_t low, R_xlen_t n) {
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
 SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    R_xlen_t nx = XLENGTH(x);
+    int nx = LENGTH(x);
     double* px = REAL(x);
 
-    R_xlen_t ntable = XLENGTH(table);
+    int ntable = LENGTH(table);
     double* ptable = REAL(table);
 
     double* ptolerance = REAL(tolerance);
 
-    SEXP out = PROTECT(allocVector(REALSXP, nx));
-    double* pout = REAL(out);
+    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    int* pout = INTEGER(out);
 
-    R_xlen_t low = 0, cur = 0;
+    int low = 0, cur = 0;
 
-    for (R_xlen_t i = 0; i < nx; ++i) {
+    for (int i = 0; i < nx; ++i) {
         if (px[i] < ptable[0])
             cur = 0;
         else if (px[i] >= ptable[ntable - 1])
@@ -96,7 +96,7 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
 
         /* cur + 1 is needed here to translate between R's and C's indices */
         pout[i] = fabs(px[i] - ptable[cur]) <= ptolerance[cur] ?
-            cur + 1 : asReal(nomatch);
+            cur + 1 : asInteger(nomatch);
   }
 
   UNPROTECT(1);
@@ -119,12 +119,12 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
  *
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
-void closest_dup_closest(double *pout, double *px, R_xlen_t nx,
-                         double *ptable, R_xlen_t ntable,
-                         double *ptolerance, double nomatch) {
+void closest_dup_closest(int *pout, double *px, int nx,
+                         double *ptable, int ntable,
+                         double *ptolerance, int nomatch) {
 
-    R_xlen_t low = 0, cur = 0;
-    R_xlen_t last = R_NegInf;
+    int low = 0, cur = 0;
+    int last = R_NegInf;
     double absdiff, lastdiff = R_PosInf;
 
     for (int i = 0; i < nx; ++i) {
@@ -170,14 +170,14 @@ void closest_dup_closest(double *pout, double *px, R_xlen_t nx,
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
 SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    R_xlen_t nx = XLENGTH(x);
-    SEXP out = PROTECT(allocVector(REALSXP, nx));
+    int nx = LENGTH(x);
+    SEXP out = PROTECT(allocVector(INTSXP, nx));
 
     closest_dup_closest(
-        REAL(out),
+        INTEGER(out),
         REAL(x), nx,
-        REAL(table), XLENGTH(table),
-        REAL(tolerance), asReal(nomatch)
+        REAL(table), LENGTH(table),
+        REAL(tolerance), asInteger(nomatch)
     );
 
     UNPROTECT(1);
@@ -197,19 +197,19 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
 SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    R_xlen_t nx = XLENGTH(x);
+    int nx = LENGTH(x);
     double* px = REAL(x);
 
-    R_xlen_t ntable = XLENGTH(table);
+    int ntable = LENGTH(table);
     double* ptable = REAL(table);
 
     double* ptolerance = REAL(tolerance);
 
-    SEXP out = PROTECT(allocVector(REALSXP, nx));
-    double* pout = REAL(out);
+    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    int* pout = INTEGER(out);
 
-    R_xlen_t low = 0, cur = 0;
-    R_xlen_t last = R_NegInf;
+    int low = 0, cur = 0;
+    int last = R_NegInf;
 
     for (int i = 0; i < nx; ++i) {
         if (px[i] < ptable[0])
@@ -218,14 +218,15 @@ SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             cur = ntable - 1;
         else {
             low = leftmost(px[i], ptable, low, ntable);
-            cur = (px[i] - ptable[low] <= ptable[low + 1] - px[i]) ? low : low + 1;
+            cur = (px[i] - ptable[low] <= ptable[low + 1] - px[i]) ?
+                low : low + 1;
         }
 
         if (fabs(px[i] - ptable[cur] <= ptolerance[cur])) {
             if (last != cur)
                 pout[i] = cur + 1;
             else
-                pout[i - 1] = pout[i] = asReal(nomatch);
+                pout[i - 1] = pout[i] = asInteger(nomatch);
             last = cur;
         }
   }
