@@ -117,8 +117,8 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
         stop("'nomatch' has to be a 'numeric' of length one.")
 
     if (.check && (
-            !identical(FALSE, is.unsorted(x) ||
-            !identical(FALSE, is.unsorted(table))))) {
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(table)))) {
         stop("'x' and 'table' have to be sorted non-decreasingly and must not ",
              " contain NA.")
     }
