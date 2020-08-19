@@ -68,6 +68,7 @@
 #' @seealso [`match()`]
 #' @aliases closest
 #' @family grouping/matching functions
+#' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
 #' @examples
 #' ## Define two vectors to match
