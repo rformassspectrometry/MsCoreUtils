@@ -63,7 +63,7 @@ int leftmost(double x, double* ptable, int low, int n) {
  * \param x key value to look for.
  * \param table table/haystack where to look for.
  * \param tolerance allowed tolerance to be accepted as match, has to be of
- * length == length(tolerance).
+ * length == length(x).
  * \param nomatch value that should be returned if a key couldn't be matched.
  * \return index the closest element
  *
@@ -95,7 +95,7 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
         }
 
         /* cur + 1 is needed here to translate between R's and C's indices */
-        pout[i] = fabs(px[i] - ptable[cur]) <= ptolerance[cur] ?
+        pout[i] = fabs(px[i] - ptable[cur]) <= ptolerance[i] ?
             cur + 1 : asInteger(nomatch);
   }
 
@@ -113,7 +113,7 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
  * \param ptable table/haystack where to look for.
  * \param ntable number of elements in `ptable`.
  * \param ptolerance pointer to tolerance array that stores the tolerance
- * to be accepted as match, has to be of length == length(tolerance).
+ * to be accepted as match, has to be of length == length(x).
  * \param nomatch value that should be returned if a key couldn't be matched.
  * \return index the closest element
  *
@@ -139,7 +139,7 @@ void closest_dup_closest(int *pout, double *px, int nx,
         }
 
         absdiff = fabs(px[i] - ptable[cur]);
-        if (absdiff <= ptolerance[cur]) {
+        if (absdiff <= ptolerance[i]) {
             if (last == cur) {
                 if (absdiff < lastdiff && last == cur) {
                     pout[i] = cur + 1;
@@ -163,7 +163,7 @@ void closest_dup_closest(int *pout, double *px, int nx,
  * \param x key value to look for.
  * \param table table/haystack where to look for.
  * \param tolerance allowed tolerance to be accepted as match, has to be of
- * length == length(tolerance).
+ * length == length(x).
  * \param nomatch value that should be returned if a key couldn't be matched.
  * \return index the closest element
  *
@@ -190,7 +190,7 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
  * \param x key value to look for.
  * \param table table/haystack where to look for.
  * \param tolerance allowed tolerance to be accepted as match, has to be of
- * length == length(tolerance).
+ * length == length(x).
  * \param nomatch value that should be returned if a key couldn't be matched.
  * \return index the closest element
  *
@@ -222,7 +222,7 @@ SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
                 low : low + 1;
         }
 
-        if (fabs(px[i] - ptable[cur] <= ptolerance[cur])) {
+        if (fabs(px[i] - ptable[cur] <= ptolerance[i])) {
             if (last != cur)
                 pout[i] = cur + 1;
             else

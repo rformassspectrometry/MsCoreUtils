@@ -41,7 +41,7 @@ join(
 \code{\link[=match]{match()}} \code{table} has to be sorted in increasing order.}
 
 \item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
-the same length as \code{table}.}
+the same length as \code{x}.}
 
 \item{ppm}{\code{numeric(1)} representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
@@ -149,10 +149,10 @@ y <- c(3.01, 34.12, 45.021, 46.1, 556.449)
 closest(x, y, tolerance = 0.01)
 
 ## Using a value-specific tolerance accepting differences of 20 ppm
-closest(x, y, tolerance = ppm(y, 20))
+closest(x, y, ppm = 20)
 
 ## Same using 50 ppm
-closest(x, y, tolerance = ppm(y, 50))
+closest(x, y, ppm = 50)
 
 ## Sometimes multiple elements in `x` match to `table`
 x <- c(1.6, 1.75, 1.8)

@@ -10,7 +10,7 @@
 #' @param table `numeric`, the values to be matched against. In contrast to
 #' [`match()`] `table` has to be sorted in increasing order.
 #' @param tolerance `numeric`, accepted tolerance. Could be of length one or
-#' the same length as `table`.
+#' the same length as `x`.
 #' @param ppm `numeric(1)` representing a relative, value-specific
 #'  parts-per-million (PPM) tolerance that is added to `tolerance`.
 #' @param duplicates `character(1)`, how to handle duplicated matches.
@@ -88,10 +88,10 @@
 #' closest(x, y, tolerance = 0.01)
 #'
 #' ## Using a value-specific tolerance accepting differences of 20 ppm
-#' closest(x, y, tolerance = ppm(y, 20))
+#' closest(x, y, ppm = 20)
 #'
 #' ## Same using 50 ppm
-#' closest(x, y, tolerance = ppm(y, 50))
+#' closest(x, y, ppm = 50)
 #'
 #' ## Sometimes multiple elements in `x` match to `table`
 #' x <- c(1.6, 1.75, 1.8)
@@ -102,6 +102,10 @@
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_, .check = TRUE) {
+
+    ntolerance <- length(tolerance)
+    if (ntolerance != 1L && ntolerance != length(x))
+        stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
 
     if (!is.numeric(tolerance) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
@@ -119,16 +123,10 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
              " contain NA.")
     }
 
-    ntable <- length(table)
-    if (!ntable)
+    if (!length(table))
         return(rep_len(nomatch, length(x)))
 
-    ntolerance <- length(tolerance)
-
-    if (ntolerance != 1L && ntolerance != ntable)
-        stop("'tolerance' hat to be of length 1 or equal to 'length(table)'")
-
-    tolerance <- tolerance + ppm(table, ppm) + sqrt(.Machine$double.eps)
+    tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
     duplicates <- match.arg(duplicates)
 
