@@ -6,9 +6,12 @@
 #' just accept `numeric` arguments but have an additional `tolerance`
 #' argument that allows relaxed matching.
 #'
-#' @param x `numeric`, the values to be matched.
+#' @param x `numeric`, the values to be matched. In contrast to
+#' [`match()`] `x` has to be sorted in increasing order and must not contain any
+#' `NA`.
 #' @param table `numeric`, the values to be matched against. In contrast to
-#' [`match()`] `table` has to be sorted in increasing order.
+#' [`match()`] `table` has to be sorted in increasing order and must not contain
+#' any `NA`.
 #' @param tolerance `numeric`, accepted tolerance. Could be of length one or
 #' the same length as `x`.
 #' @param ppm `numeric(1)` representing a relative, value-specific
@@ -38,11 +41,11 @@
 #'
 #' If a single element in `x` matches multiple elements in `table` the *closest*
 #' is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
-#' multiple matches isn't possible in this case because the implementation relies
-#' on [`findInterval`]). If the differences between `x` and the corresponding
-#' matches in `table` are identical the lower index (the smaller element
-#' in `table`) is returned. For `duplicates="remove"` all multiple matches
-#' are returned as `nomatch` as above.
+#' multiple matches isn't possible in this case because the return value should
+#' be of the same length as `x`). If the differences between `x` and the
+#' corresponding matches in `table` are identical the lower index (the smaller
+#' element in `table`) is returned. For `duplicates="remove"` all multiple
+#' matches are returned as `nomatch` as above.
 #'
 #' `.checks = TRUE` tests for increasingly sorted `x` and `table` arguments that
 #' are mandatory assumptions for the `closest` algorithm. These checks require

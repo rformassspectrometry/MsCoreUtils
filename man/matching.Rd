@@ -35,10 +35,13 @@ join(
 )
 }
 \arguments{
-\item{x}{\code{numeric}, the values to be matched.}
+\item{x}{\code{numeric}, the values to be matched. In contrast to
+\code{\link[=match]{match()}} \code{x} has to be sorted in increasing order and must not contain any
+\code{NA}.}
 
 \item{table}{\code{numeric}, the values to be matched against. In contrast to
-\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order.}
+\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order and must not contain
+any \code{NA}.}
 
 \item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
 the same length as \code{x}.}
@@ -96,11 +99,11 @@ in \code{table} are set to \code{nomatch}.
 
 If a single element in \code{x} matches multiple elements in \code{table} the \emph{closest}
 is returned for \code{duplicates="keep"} or \code{duplicates="duplicates"} (\emph{keeping}
-multiple matches isn't possible in this case because the implementation relies
-on \code{\link{findInterval}}). If the differences between \code{x} and the corresponding
-matches in \code{table} are identical the lower index (the smaller element
-in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
-are returned as \code{nomatch} as above.
+multiple matches isn't possible in this case because the return value should
+be of the same length as \code{x}). If the differences between \code{x} and the
+corresponding matches in \code{table} are identical the lower index (the smaller
+element in \code{table}) is returned. For \code{duplicates="remove"} all multiple
+matches are returned as \code{nomatch} as above.
 
 \code{.checks = TRUE} tests for increasingly sorted \code{x} and \code{table} arguments that
 are mandatory assumptions for the \code{closest} algorithm. These checks require
