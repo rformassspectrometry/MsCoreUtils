@@ -30,7 +30,7 @@ int leftmost(double x, double* ptable, int low, int n) {
 
     /* same interval as the last one */
     if (x < ptable[high] && ptable[low] <= x)
-        return low ;
+        return low;
 
     /* exponentional search */
     for (int step = 1;; step *= 2) {
