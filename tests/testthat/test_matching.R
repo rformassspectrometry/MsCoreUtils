@@ -3,7 +3,7 @@ test_that("closest throws errors", {
     expect_error(closest(3:1, 1), "sorted non-decreasingly")
     expect_error(closest(), "missing, with no default")
     expect_error(closest(1:3, 1:3, tolerance = -1), "larger or equal zero")
-    expect_error(closest(1:3, 1:3, tolerance = c(1, -1)), "larger or equal zero")
+    expect_error(closest(1:3, 1:3, tolerance = 1:(-1)), "larger or equal zero")
     expect_error(closest(1:3, 1:3, tolerance = 1:2), "length 1")
     expect_error(closest(1:3, 1:3, ppm = -1), "larger or equal zero")
     expect_warning(closest(1:3, 1:3, ppm = 1:2), "not a multiple of")
@@ -51,10 +51,10 @@ test_that("closest, tolerance/ppm", {
     expect_equal(closest(x, y, tolerance = 0.01), c(NA, 3L, 5L, 6L))
 
     # upper boundary
-    expect_equal(closest(x, y, tolerance = y * 5 / 1e6), c(NA, NA, 5, 6))
+    expect_equal(closest(x, y, tolerance = x * 5 / 1e6), c(NA, NA, 5, 6))
     # lower boundary
     y <- c(3.01, 34.12, 45.021, 46.1, x[3] - (x[3] * 5 / 1e6), 556.449)
-    expect_equal(closest(x, y, tolerance = y * 5 / 1e6), c(NA, NA, 5, 6))
+    expect_equal(closest(x, y, tolerance = x * 5 / 1e6), c(NA, NA, 5, 6))
 })
 
 test_that("closest, duplicates", {
