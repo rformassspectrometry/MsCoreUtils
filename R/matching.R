@@ -300,6 +300,17 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     .Call("C_join_outer", x, y, tolerance)
 }
 
+.cjoinOuter2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0) {
+    tolerance <- tolerance + ppm(y, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (is.unsorted(x) || is.unsorted(y))
+        stop("'x' and 'y' are expected to be sorted")
+    .Call("C_join_outer2", x, y, tolerance)
+}
+
 .cjoinLeft <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0) {
     tolerance <- tolerance + ppm(y, ppm = ppm) + sqrt(.Machine$double.eps)
     if (is.integer(x))

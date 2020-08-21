@@ -176,6 +176,54 @@ test_that("join", {
     expect_equal(.cjoinOuter(y, x, 0.01, 0), .joinOuter(y, x, 0.01, 0))
 })
 
+test_that(".cjoinOuter works", {
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(3, 4, 5, 6, 7))
+
+    expect_equal(MsCoreUtils:::.cjoinOuter2(x, y, 0, 0),
+                 list(x = c(1, 2, 3, NA, NA, 4, NA),
+                      y = c(NA, NA, 1, 2, 3, 4, 5)))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(x, y, 10, 0),
+                 list(x = c(1, 2, 3, NA, NA, 4, NA),
+                      y = c(NA, NA, 1, 2, 3, 4, 5)))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(y, x, 10, 0),
+                 list(x = c(NA, NA, 1, 2, 3, 4, 5),
+                      y = c(1, 2, 3, NA, NA, 4, NA)))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(x, y, 0, 0),
+                 MsCoreUtils:::.joinOuter(x, y, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(x, y, 10, 0),
+                 MsCoreUtils:::.joinOuter(x, y, 10, 0))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(y, x, 10, 0),
+                 MsCoreUtils:::.joinOuter(y, x, 10, 0))
+
+    x <- c(1, 1.5, 2, 2.1, 5, 6, 7)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    expect_equal(MsCoreUtils:::.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1:4, NA, NA, NA, NA, 5:7, NA),
+                      y = c(NA, NA, NA, NA, 1:8)))
+    expect_equal(MsCoreUtils:::.cjoinOuter(y, x, 0, 0),
+                 list(x = c(NA, NA, NA, NA, 1:8),
+                      y = c(1:4, NA, NA, NA, NA, 5:7, NA)))
+    ## Join outer with tolerance 3: would expect to have more matches!
+    tol_3 <- list(x = c(1, 2, 3, 4, NA, NA, NA, 5, 6, 7, NA),
+                  y = c(NA, NA, NA, 1, 2, 3, 4, 5, 6, 7, 8))
+    expect_equal(MsCoreUtils:::.cjoinOuter2(x, y, 3, 0), tol_3)
+
+    expect_equal(MsCoreUtils:::.cjoinOuter(x, y, 0, 0),
+                 MsCoreUtils:::.joinOuter(x, y, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinOuter(y, x, 0, 0),
+                 MsCoreUtils:::.joinOuter(y, x, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinOuter(x, y, 3, 0),
+                 MsCoreUtils:::.joinOuter(x, y, 3, 0))
+
+    library(microbenchmark)
+    microbenchmark(
+    MsCoreUtils:::.cjoinOuter(x, y, 3, 0)
+    MsCoreUtils:::.joinOuter(x, y, 3, 0)
+    MsCoreUtils:::.cjoinOuter2(x, y, 3, 0)
+    )
+})
+
 test_that(".cjoinLeft works", {
     x <- as.numeric(c(1, 2, 3, 6))
     y <- as.numeric(c(3, 4, 5, 6, 7))

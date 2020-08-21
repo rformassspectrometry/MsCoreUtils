@@ -14,6 +14,8 @@ extern SEXP C_impNeighbourAvg(SEXP, SEXP);
 
 extern SEXP C_join_outer(SEXP, SEXP, SEXP);
 
+extern SEXP C_join_outer2(SEXP, SEXP, SEXP);
+
 extern SEXP C_join_left(SEXP, SEXP, SEXP);
 
 extern SEXP C_localMaxima(SEXP, SEXP);
