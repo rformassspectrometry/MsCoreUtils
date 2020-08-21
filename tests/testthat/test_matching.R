@@ -175,3 +175,79 @@ test_that("join", {
                       y = c(1, 2, NA, NA, 3, 4, 5, 6)))
     expect_equal(.cjoinOuter(y, x, 0.01, 0), .joinOuter(y, x, 0.01, 0))
 })
+
+test_that(".cjoinLeft works", {
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(3, 4, 5, 6, 7))
+
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, tolerance = 0, ppm = 0),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, tolerance = 5, ppm = 0),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(MsCoreUtils:::.joinLeft(x, y, tolerance = 0, ppm = 0),
+                 MsCoreUtils:::.cjoinLeft(x, y, tolerance = 0, ppm = 0))
+    expect_equal(MsCoreUtils:::.joinLeft(x, y, tolerance = 5, ppm = 0),
+                 MsCoreUtils:::.cjoinLeft(x, y, tolerance = 5, ppm = 0))
+
+    x <- as.numeric(c(1, 3, 5, 6, 8))
+    y <- as.numeric(c(3, 4, 5, 7))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:5, y = c(NA, 1, 3, NA, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 0, 0),
+                 list(x = 1:4, y = c(2, NA, 3, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:5, y = c(NA, 1, 3, 4, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 1, 0),
+                 list(x = 1:4, y = c(2, NA, 3, 4)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0, 0),
+                 MsCoreUtils:::.joinLeft(x, y, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 0, 0),
+                 MsCoreUtils:::.joinLeft(y, x, 0, 0))
+    ## issue #65
+    ## expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 1, 0),
+    ##              MsCoreUtils:::.joinLeft(x, y, 1, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 1, 0),
+                 MsCoreUtils:::.joinLeft(y, x, 1, 0))
+
+    x <- c(133.0759, 133.0775, 133.9788, 133.9804, 133.9820, 133.9837)
+    y <- c(133.9755, 133.9771, 133.9788, 133.9804, 133.9820, 133.9836)
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:6, y = c(NA, NA, 3, 4, 5, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0.01, 0),
+                 list(x = 1:6, y = c(NA, NA, 3, 4, 5, 6)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:6, y = c(NA, 1, 3, 4, 5, 6)))
+    expect_equal(MsCoreUtils:::.joinLeft(x, y, 0, 0),
+                 MsCoreUtils:::.cjoinLeft(x, y, 0, 0))
+    expect_equal(MsCoreUtils:::.joinLeft(x, y, 0.01, 0),
+                 MsCoreUtils:::.cjoinLeft(x, y, 0.01, 0))
+    expect_equal(MsCoreUtils:::.joinLeft(x, y, 1, 0),
+                 MsCoreUtils:::.cjoinLeft(x, y, 1, 0))
+
+    x <- c(1, 1.5, 2, 2.1, 5, 6, 7)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, NA, 5, 6, 7)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, NA, 5, 6, 7)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 3, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, 1, 5, 6, 7)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 10, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, 1, 5, 6, 7)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 0, 0),
+                 list(x = 1:8, y = c(NA, NA, NA, NA, 5, 6, 7, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 10, 0),
+                 list(x = 1:8, y = c(NA, NA, NA, NA, 5, 6, 7, NA)))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 0, 0),
+                 MsCoreUtils:::.joinLeft(x, y, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 1, 0),
+                 MsCoreUtils:::.joinLeft(x, y, 1, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 3, 0),
+                 MsCoreUtils:::.joinLeft(x, y, 3, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(x, y, 10, 0),
+                 MsCoreUtils:::.joinLeft(x, y, 10, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 0, 0),
+                 MsCoreUtils:::.joinLeft(y, x, 0, 0))
+    expect_equal(MsCoreUtils:::.cjoinLeft(y, x, 10, 0),
+                 MsCoreUtils:::.joinLeft(y, x, 10, 0))
+})

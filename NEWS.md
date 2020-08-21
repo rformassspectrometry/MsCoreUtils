@@ -1,5 +1,9 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.5
+
+- Add C implementations for left join and outer join.
+
 ## Changes in 1.1.4
 
 - Change references to `Feature` to `QFeatures` <2020-07-14 Tue>
