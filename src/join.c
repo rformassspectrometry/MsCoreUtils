@@ -1,3 +1,6 @@
+/* Johannes Rainer
+ */
+
 #include "MsCoreUtils.h"
 
 #include <R.h>
@@ -5,11 +8,14 @@
 #include <math.h>
 #include <Rmath.h>
 
-/*
-  @param x: sorted `numeric`.
-  @param y: sorted `numeric`.
-  @param tolerance: `numeric` of length equal `length(y)` with accepted difference
-*/
+/**
+ * Outer join function. This function is optimized for increasingly ordered
+ * input arrays.
+ * @param x: sorted `numeric`.
+ * @param y: sorted `numeric`.
+ * @param tolerance: `numeric` of length equal `length(x)` with accepted
+ *        difference
+**/
 SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
     int lx, ly, idx, *ptresx, *ptresy, xi, yi, xi_next, yi_next;
     double *px, *py, *tol, idiff, xdiff, ydiff;
@@ -19,8 +25,8 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
     px = REAL(x);
     py = REAL(y);
     tol = REAL(tolerance);
-    if (ly != LENGTH(tolerance))
-        error("'tolerance' has to be of length 1 or length equal to 'length(y)'");
+    if (lx != LENGTH(tolerance))
+        error("'tolerance' has to be of length 1 or length equal to 'length(x)'");
     PROTECT(resx = allocVector(INTSXP, lx + ly));
     PROTECT(resy = allocVector(INTSXP, lx + ly));
     int *presx = INTEGER(resx);
@@ -30,13 +36,12 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
     yi = 0;
     xi_next = 0;
     yi_next = 0;
-    int i_path = 0;             // 1 did increment y, -1 did increment x, 0 no.
+    int i_path = 0;             // 1 incremented y, -1 incremented x, 0 no.
     int xi_last = -1;
     int yi_last = -1;
 
     while (xi < lx || yi < ly) {
         idx++;
-        // if one of the two is outside just add the other
         if (xi >= lx) {
             yi++;
             presx[idx] = NA_INTEGER;
@@ -49,9 +54,16 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
             presy[idx] = NA_INTEGER;
             continue;
         }
-        // compare elements
+        // Compare elements
         idiff = fabs(px[xi] - py[yi]);
-        if (idiff <= tol[yi]) {
+        if (idiff <= tol[xi]) {
+            // Possible matching pair. Need to look ahead if any of the
+            // next elements have a smaller distance to ensure we're matching
+            // always the best, not the first, match.
+            // issue #66: if we're incrementing x to find better matches and
+            // then change to increment y (because of a better match) we habe
+            // to add also that match - otherwise we would miss a match. See
+            // issue #66 for details and examples.
             xi_next = xi + 1;
             yi_next = yi + 1;
             presx[idx] = xi_next;
@@ -64,8 +76,8 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
                 if (xdiff < ydiff) {
                     xi = xi_next;
                     if (i_path > 0) {
+                        // issue #66
                         idx--;
-                        // restore previous matching pair.
                         presx[idx] = xi_next;
                     }
                     else presy[idx] = NA_INTEGER;
@@ -74,13 +86,12 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
                 else {
                     yi = yi_next;
                     if (i_path < 0) {
+                        // issue #66
                         idx--;
-                        // restore previous matching pair.
                         presy[idx] = yi_next;
                     }
                     else presx[idx] = NA_INTEGER;
                     i_path = 1;
-                    //presx[idx] = NA_INTEGER;
                 }
             } else {
                 i_path = 0;
@@ -90,8 +101,8 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
         } else {
             i_path = 0;
             // Decide whether to increment i or j: in the outer join matches are
-            // expected to be ordered by value, thus, if x[i] < y[j] we add i to the
-            // result and increment it.
+            // expected to be ordered by value, thus, if x[i] < y[j] we add i
+            // to the result and increment it.
             if (px[xi] < py[yi]) {
                 xi++;
                 presx[idx] = xi;
@@ -104,7 +115,7 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
         }
     }
 
-    // Truncate the output vector - might be a better way to do that though
+    // Truncate the output vector - there might be a better implementation...
     idx++;
     PROTECT(tresx = allocVector(INTSXP, idx));
     PROTECT(tresy = allocVector(INTSXP, idx));
@@ -129,6 +140,9 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
     return output;
 }
 
+/**
+ * Left join optimized for increasingly ordered arrays.
+ */
 SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance) {
     int lx, ly;
     double *px, *py, *tol;
@@ -138,8 +152,8 @@ SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance) {
     px = REAL(x);
     py = REAL(y);
     tol = REAL(tolerance);
-    if (ly != LENGTH(tolerance))
-        error("'tolerance' has to be of length 1 or length equal to 'length(y)'");
+    if (lx != LENGTH(tolerance))
+        error("'tolerance' has to be of length 1 or length equal to 'length(x)'");
     PROTECT(resx = allocVector(INTSXP, lx));
     PROTECT(resy = allocVector(INTSXP, lx));
     int *presx = INTEGER(resx);
@@ -160,21 +174,21 @@ SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance) {
         xi_next = xi + 1;
         if (yi < ly) {
             yi_next = yi + 1;
-            // difference for current pair.
+            // Difference for current pair.
             idiff = fabs(px[xi] - py[yi]);
-            // difference for next pairs.
+            // Difference for next pairs.
             if (xi_next < lx) xdiff = fabs(px[xi_next] - py[yi]);
             else xdiff = R_PosInf;
             if (yi_next < ly) ydiff = fabs(px[xi] - py[yi_next]);
             else ydiff = R_PosInf;
-            // do we have an acceptable match?
-            if (idiff <= tol[yi]) {
+            // Do we have an acceptable match?
+            if (idiff <= tol[xi]) {
                 presx[xi] = xi_next;
                 presy[xi] = yi_next;
                 // Remove last hit with same yi if we incremented xi and will NOT
                 // increment yi next.
                 if (yi == yi_last_used && xi > xi_last_used) {
-                    // we're not incrementing yi next round.
+                    // We're not incrementing yi next round.
                     if (ydiff > idiff || ydiff > xdiff)
                         presy[xi_last_used] = NA_INTEGER;
                 }
@@ -186,16 +200,16 @@ SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance) {
             }
             // Decide which index to increment.
             if (xdiff < idiff || ydiff < idiff) {
-                // increment the index with the smaller distance
+                // Increment the index with the smaller distance
                 if (xdiff < ydiff) xi = xi_next;
                 else yi = yi_next;
             } else {
-                // neither xdiff nor ydiff better than idiff, increment both
+                // Neither xdiff nor ydiff better than idiff, increment both
                 yi = yi_next;
                 xi = xi_next;
             }
         } else {
-            // just fill-up the result.
+            // Just fill-up the result.
             presy[xi] = NA_INTEGER;
             presx[xi] = xi_next;
             xi = xi_next;

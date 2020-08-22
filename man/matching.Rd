@@ -200,10 +200,10 @@ y[ji$y]
 
 \code{\link{\%in\%}}
 
-Other grouping/matching functions:
+Other grouping/matching functions: 
 \code{\link{bin}()}
 }
 \author{
-Sebastian Gibb
+Sebastian Gibb, Johannes Rainer
 }
 \concept{grouping/matching functions}
