@@ -123,7 +123,7 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance) {
     ptresy = INTEGER(tresy);
     /* memcpy(presx, ptresx, idx * sizeof(int)); */
     /* memcpy(presy, ptresy, idx * sizeof(int)); */
-    for (xi = 0; xi <= idx; xi++) {
+    for (xi = 0; xi < idx; xi++) {
         ptresx[xi] = presx[xi];
         ptresy[xi] = presy[xi];
     }

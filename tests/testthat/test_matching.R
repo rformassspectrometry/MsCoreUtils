@@ -160,20 +160,6 @@ test_that("join", {
     y <- as.numeric(c(4, 5, 7))
     expect_equal(join(x, y, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, NA, 1:2, NA, 3)))
-    expect_equal(.joinOuter(x, y, 0, 0),
-                 .cjoinOuter(x, y, 0, 0))
-
-    ## multiple matches but require to match the closest only (not the first)
-    x <- c(133.0759, 133.0775, 133.9788, 133.9804, 133.9820, 133.9837)
-    y <- c(133.9755, 133.9771, 133.9788, 133.9804, 133.9820, 133.9836)
-    expect_equal(.joinOuter(x, y, 0.01, 0),
-                 list(x = c(1, 2, NA, NA, 3, 4, 5, 6),
-                      y = c(NA, NA, 1, 2, 3, 4, 5, 6)))
-    expect_equal(.cjoinOuter(x, y, 0.01, 0), .joinOuter(x, y, 0.01, 0))
-    expect_equal(.joinOuter(y, x, 0.01, 0),
-                 list(x = c(NA, NA, 1, 2, 3, 4, 5, 6),
-                      y = c(1, 2, NA, NA, 3, 4, 5, 6)))
-    expect_equal(.cjoinOuter(y, x, 0.01, 0), .joinOuter(y, x, 0.01, 0))
 })
 
 test_that(".cjoinOuter works", {
@@ -224,7 +210,6 @@ test_that(".cjoinOuter works", {
     expect_error(expect_equal(.cjoinOuter(x, y, 3, 0),
                               .joinOuter(x, y, 3, 0)))
 
-    ## Need some more test cases still!
     x <- c(1, 1.5, 2, 2.1, 3, 3.4, 4.1, 4.5, 5, 5.1, 5.2, 6, 14)
     y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
     tol_3 <- list(
@@ -243,6 +228,35 @@ test_that(".cjoinOuter works", {
                  list(x = c(1:4, NA, NA), y = c(NA, NA, NA, 1:3)))
     expect_equal(.cjoinOuter(x, y, 0, 0),
                  .joinOuter(x, y, 0, 0))
+
+    ## no match at all
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(4, 5, 7))
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, NA, 1:2, NA, 3)))
+    expect_equal(.joinOuter(x, y, 0, 0), .cjoinOuter(x, y, 0, 0))
+
+    ## multiple matches but require to match the closest only (not the first)
+    x <- c(133.0759, 133.0775, 133.9788, 133.9804, 133.9820, 133.9837)
+    y <- c(133.9755, 133.9771, 133.9788, 133.9804, 133.9820, 133.9836)
+    expect_equal(.joinOuter(x, y, 0.01, 0),
+                 list(x = c(1, 2, NA, NA, 3, 4, 5, 6),
+                      y = c(NA, NA, 1, 2, 3, 4, 5, 6)))
+    expect_equal(.cjoinOuter(x, y, 0.01, 0), .joinOuter(x, y, 0.01, 0))
+    expect_equal(.joinOuter(y, x, 0.01, 0),
+                 list(x = c(NA, NA, 1, 2, 3, 4, 5, 6),
+                      y = c(1, 2, NA, NA, 3, 4, 5, 6)))
+    expect_equal(.cjoinOuter(y, x, 0.01, 0), .joinOuter(y, x, 0.01, 0))
+
+    ## identical values
+    x <- c(3, 5, 5, 5, 6, 9)
+    y <- c(2, 4, 5, 5.5, 7)
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(NA, 1, NA, 2, 3, 4, NA, 5, NA, 6),
+                      y = c(1, NA, 2, 3, NA, NA, 4, NA, 5, NA)))
+    expect_equal(.cjoinOuter(y, x, 0, 0),
+                 list(x = c(1, NA, 2, 3, NA, NA, 4, NA, 5, NA),
+                      y = c(NA, 1, NA, 2, 3, 4, NA, 5, NA, 6)))
 })
 
 test_that(".cjoinLeft works", {
