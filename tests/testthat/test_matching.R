@@ -72,6 +72,13 @@ test_that("closest, duplicates", {
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "keep"), 2)
     expect_equal(closest(1.6, 1:2, tolerance = 0.5, duplicates = "closest"), 2)
     expect_equal(closest(1.5, 1:2, tolerance = 0.5, duplicates = "remove"), 1)
+
+    # equal distances, see
+    # https://github.com/rformassspectrometry/MsCoreUtils/issues/65
+    x <- as.numeric(c(1, 3, 5, 6, 8))
+    y <- as.numeric(c(3, 4, 5, 7))
+    expect_equal(closest(x, y, tolerance = 1, duplicates = "closest"),
+                 c(NA, 1, 3, 4, NA))
 })
 
 test_that("common", {
