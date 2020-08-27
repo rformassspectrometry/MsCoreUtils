@@ -11,7 +11,8 @@ test_that("closest throws errors", {
     expect_error(closest(1:3, 1:3, nomatch = TRUE), "be a 'numeric'")
     expect_error(closest(1, 1, nomatch = 1:2),
                  "'nomatch' has to be a 'numeric' of length one")
-    expect_error(closest(1:3, c(1, NA)), "not  contain NA")
+    expect_error(closest(1:3, c(1, NA)), "not contain NA")
+    expect_error(closest(1:3, 1:3, duplicates = "foo"), "has to be .*keep.*,")
 })
 
 test_that("closest basically works", {

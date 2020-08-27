@@ -49,7 +49,8 @@ the same length as \code{x}.}
 \item{ppm}{\code{numeric(1)} representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 
-\item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
+\item{duplicates}{\code{character(1)}, how to handle duplicated matches. Has to be
+one of \code{c("keep", "closest", "remove")}. No abbreviations allowed.}
 
 \item{nomatch}{\code{integer(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than

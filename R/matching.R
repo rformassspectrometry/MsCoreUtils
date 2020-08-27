@@ -16,7 +16,8 @@
 #' the same length as `x`.
 #' @param ppm `numeric(1)` representing a relative, value-specific
 #'  parts-per-million (PPM) tolerance that is added to `tolerance`.
-#' @param duplicates `character(1)`, how to handle duplicated matches.
+#' @param duplicates `character(1)`, how to handle duplicated matches. Has to be
+#' one of `c("keep", "closest", "remove")`. No abbreviations allowed.
 #' @param nomatch `integer(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
@@ -131,29 +132,31 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 
     tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
-    duplicates <- match.arg(duplicates)
-
-    if (duplicates == "keep")
+    if (duplicates[1L] == "keep")
         .Call(
             "C_closest_dup_keep",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         )
-    else if (duplicates == "remove")
-        .Call(
-            "C_closest_dup_remove",
-            as.double(x), as.double(table),
-            as.double(tolerance),
-            as.integer(nomatch)
-        )
-    else if (duplicates == "closest")
+    else if (duplicates[1L] == "closest")
         .Call(
             "C_closest_dup_closest",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         )
+    else if (duplicates[1L] == "remove")
+        .Call(
+            "C_closest_dup_remove",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.integer(nomatch)
+        )
+    else {
+        stop("'duplicates' has to be one of \"keep\", \"closest\" ",
+             "or \"remove\".")
+    }
 }
 
 #' @rdname matching
