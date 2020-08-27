@@ -31,6 +31,7 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
     SEXP out = PROTECT(allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
+    const unsigned int inomatch = asInteger(nomatch);
     unsigned int j = 1;
 
     double prevdiff = R_PosInf, nextdiff = R_PosInf;
@@ -49,7 +50,7 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             else
                 pout[i] = ++j;
         } else
-            pout[i] = asInteger(nomatch);
+            pout[i] = inomatch;
     }
 
     UNPROTECT(1);
@@ -80,6 +81,7 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
     SEXP out = PROTECT(allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
+    const unsigned int inomatch = asInteger(nomatch);
     unsigned int j = 1, lastj = 0;
     double prevdiff = R_PosInf, nextdiff = R_PosInf, lastdiff = R_PosInf;
 
@@ -98,10 +100,10 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
                     if (prevdiff < lastdiff) {
                         /* same match as before but with smaller difference */
                         pout[i] = j;
-                        pout[i - 1] = asInteger(nomatch);
+                        pout[i - 1] = inomatch;
                         lastdiff = prevdiff;
                     } else
-                        pout[i] = asInteger(nomatch);
+                        pout[i] = inomatch;
                 } else {
                     pout[i] = j;
                     lastdiff = prevdiff;
@@ -112,10 +114,10 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
                     if (nextdiff < lastdiff) {
                         /* same match as before but with smaller difference */
                         pout[i] = ++j;
-                        pout[i - 1] = asInteger(nomatch);
+                        pout[i - 1] = inomatch;
                         lastdiff = nextdiff;
                     } else
-                        pout[i] = asInteger(nomatch);
+                        pout[i] = inomatch;
                 } else {
                     pout[i] = ++j;
                     lastdiff = nextdiff;
@@ -132,7 +134,7 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             }
             lastj = j;
         } else {
-            pout[i] = asInteger(nomatch);
+            pout[i] = inomatch;
             lastdiff = R_PosInf;
         }
     }
@@ -165,6 +167,7 @@ SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
     SEXP out = PROTECT(allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
+    const unsigned int inomatch = asInteger(nomatch);
     unsigned int j = 1, lastj = 0;
     double prevdiff = R_PosInf, nextdiff = R_PosInf;
 
@@ -180,22 +183,22 @@ SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             if (prevdiff <= nextdiff) {
                 /* match on the left */
                 if (lastj == j) {
-                    pout[i] = asInteger(nomatch);
-                    pout[i - 1] = asInteger(nomatch);
+                    pout[i] = inomatch;
+                    pout[i - 1] = inomatch;
                 } else {
                     pout[i] = j;
                 }
             } else {
                 /* match on the right */
                 if (lastj == j + 1) {
-                    pout[i] = asInteger(nomatch);
-                    pout[i - 1] = asInteger(nomatch);
+                    pout[i] = inomatch;
+                    pout[i - 1] = inomatch;
                 } else {
                     pout[i] = ++j;
                 }
             }
         } else
-            pout[i] = asInteger(nomatch);
+            pout[i] = inomatch;
         lastj = j;
     }
 
