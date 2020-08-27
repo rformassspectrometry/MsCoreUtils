@@ -22,7 +22,8 @@
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x`
-#' and `table`. This should just be done if it is ensured by other methods
+#' and `table`. It also disables most other input validation checks.
+#' This should just be done if it is ensured by other methods
 #' that `x` and `table` are sorted, see details.
 #'
 #' @details
@@ -41,16 +42,21 @@
 #' in `table` are set to `nomatch`.
 #'
 #' If a single element in `x` matches multiple elements in `table` the *closest*
-#' is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
+#' is returned for `duplicates="keep"` or `duplicates="closest"` (*keeping*
 #' multiple matches isn't possible in this case because the return value should
 #' be of the same length as `x`). If the differences between `x` and the
 #' corresponding matches in `table` are identical the lower index (the smaller
-#' element in `table`) is returned. For `duplicates="remove"` all multiple
-#' matches are returned as `nomatch` as above.
+#' element in `table`) is returned. There is one exception: if the lower index
+#' is already returned for another `x` with a smaller difference to this
+#' `index` the higher one is returned for `duplicates = "closer"`
+#' (but only if there is no other `x` that is closer to the higher one).
+#' For `duplicates="remove"` all multiple matches are returned as `nomatch` as
+#' above.
 #'
-#' `.checks = TRUE` tests for increasingly sorted `x` and `table` arguments that
-#' are mandatory assumptions for the `closest` algorithm. These checks require
-#' to loop through both vectors and compare each element against its precursor.
+#' `.checks = TRUE` tests among other input validation checks for increasingly
+#' sorted `x` and `table` arguments that are mandatory assumptions for the
+#' `closest` algorithm. These checks require to loop through both vectors and
+#' compare each element against its precursor.
 #' Depending on the length and distribution of `x` and `table` these checks take
 #' equal/more time than the whole `closest` algorithm. If it is ensured by other
 #' methods that both arguments `x` and `table` are sorted the tests could be
@@ -106,25 +112,25 @@
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_, .check = TRUE) {
+    if (.check) {
+        ntolerance <- length(tolerance)
+        if (ntolerance != 1L && ntolerance != length(x))
+            stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
 
-    ntolerance <- length(tolerance)
-    if (ntolerance != 1L && ntolerance != length(x))
-        stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
+        if (!is.numeric(tolerance) || any(tolerance < 0))
+            stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
-    if (!is.numeric(tolerance) || any(tolerance < 0))
-        stop("'tolerance' has to be a 'numeric' larger or equal zero.")
+        if(!is.numeric(ppm) || any(ppm < 0))
+            stop("'ppm' has to be a 'numeric' larger or equal zero.")
 
-    if(!is.numeric(ppm) || any(ppm < 0))
-        stop("'ppm' has to be a 'numeric' larger or equal zero.")
+        if (!is.numeric(nomatch) || length(nomatch) != 1L)
+            stop("'nomatch' has to be a 'numeric' of length one.")
 
-    if (!is.numeric(nomatch) || length(nomatch) != 1L)
-        stop("'nomatch' has to be a 'numeric' of length one.")
-
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(table)))) {
-        stop("'x' and 'table' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
+        if (!identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(table))) {
+            stop("'x' and 'table' have to be sorted non-decreasingly and ",
+                 "must not contain NA.")
+        }
     }
 
     if (!length(table))
