@@ -31,7 +31,8 @@ join(
   tolerance = 0,
   ppm = 0,
   type = c("outer", "left", "right", "inner"),
-  .check = TRUE
+  .check = TRUE,
+  ...
 )
 }
 \arguments{
@@ -63,6 +64,8 @@ between the value in \code{x} and \code{table} is larger than
 
 \item{type}{\code{character(1)}, defines how \code{x} and \code{y} should be joined. See
 details for \code{join}.}
+
+\item{...}{ignored.}
 }
 \value{
 \code{closest} returns an \code{integer} vector of the same length as \code{x}

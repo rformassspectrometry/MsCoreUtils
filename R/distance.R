@@ -6,6 +6,7 @@
 #'
 #' @param x `matrix`, two-columns e.g. m/z, intensity
 #' @param y `matrix`, two-columns e.g. m/z, intensity
+#' @param ... ignored.
 #'
 #' @details
 #' All functions that calculate normalized similarity/distance measurements are
@@ -94,7 +95,7 @@ NULL
 #' ndotproduct(x, y)
 #' ndotproduct(x, y, m = 2, n = 0.5)
 #' ndotproduct(x, y, m = 3, n = 0.6)
-ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
     sum(wx * wy, na.rm = na.rm)^2L /
@@ -102,7 +103,7 @@ ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 }
 
 #' @rdname distance
-dotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+dotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
     .Deprecated("ndotproduct")
     ndotproduct(x, y, m, n, na.rm)
 }
@@ -122,7 +123,7 @@ dotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' @examples
 #'
 #' neuclidean(x, y)
-neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
     1 / (1 + sum((wy - wx)^2L, na.rm = na.rm) / sum(wy^2L, na.rm = na.rm))
@@ -143,7 +144,7 @@ neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' @examples
 #'
 #' navdist(x, y)
-navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
     1 / (1 + sum(abs(wy - wx), na.rm = na.rm) / sum(wy, na.rm = na.rm))
@@ -165,7 +166,7 @@ navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
 #' @examples
 #'
 #' nspectraangle(x, y)
-nspectraangle <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE) {
+nspectraangle <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
     1 - 2 * acos(ndotproduct(x, y, m, n, na.rm = na.rm)) / pi
 }
 

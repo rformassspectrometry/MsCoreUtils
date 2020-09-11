@@ -1,5 +1,10 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.5
+
+- Add `...` to functions to join and compare peaks; see also
+  [#131](https://github.com/rformassspectrometry/Spectra/issues/131).
+
 ## Changes in 1.1.4
 
 - Change references to `Feature` to `QFeatures` <2020-07-14 Tue>
