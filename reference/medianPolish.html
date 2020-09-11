@@ -80,7 +80,7 @@ polish procedure using stats::medpolish()." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@ polish procedure using stats::medpolish()." />
 polish procedure using <code><a href='https://rdrr.io/r/stats/medpolish.html'>stats::medpolish()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>medianPolish</span>(<span class='no'>x</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>medianPolish</span>(<span class='kw'>x</span>, verbose = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,13 +157,17 @@ polish procedure using <code><a href='https://rdrr.io/r/stats/medpolish.html'>st
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Quantitative feature aggregation: 
-<code>aggregate_by_vector()</code>,
-<code>colCounts()</code>,
-<code>robustSummary()</code></p></div>
+<code><a href='aggregate_by_vector.html'>aggregate_by_vector</a>()</code>,
+<code><a href='colCounts.html'>colCounts</a>()</code>,
+<code><a href='robustSummary.html'>robustSummary</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Laurent Gatto</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>medianPolish</span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;  [1]  0.3210563  0.3028427  0.9048608 -0.1481417 -0.3403086 -0.8524057
+    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>30</span>), nrow = <span class='fl'>3</span>)
+<span class='fu'>medianPolish</span>(<span class='kw'>x</span>)
+</div><div class='output co'>#&gt;  [1]  0.3210563  0.3028427  0.9048608 -0.1481417 -0.3403086 -0.8524057
 #&gt;  [7] -0.5165936  0.2684457  0.1989903  0.3189289</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -180,7 +184,7 @@ polish procedure using <code><a href='https://rdrr.io/r/stats/medpolish.html'>st
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

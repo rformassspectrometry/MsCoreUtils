@@ -84,7 +84,7 @@ values with 0." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -140,21 +140,21 @@ in particular with naive imputations such as replacing missing
 values with 0.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>impute_matrix</span>(<span class='no'>x</span>, <span class='no'>method</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>impute_matrix</span>(<span class='kw'>x</span>, <span class='kw'>method</span>, <span class='kw'>...</span>)
 
 <span class='fu'>imputeMethods</span>()
 
-<span class='fu'>impute_neighbour_average</span>(<span class='no'>x</span>, <span class='kw'>k</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='fu'>impute_neighbour_average</span>(<span class='kw'>x</span>, k = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>x</span>, na.rm = <span class='fl'>TRUE</span>))
 
-<span class='fu'>impute_knn</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>impute_knn</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
-<span class='fu'>impute_mle</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>impute_mle</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
-<span class='fu'>impute_bpca</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>impute_bpca</span>(<span class='kw'>x</span>, <span class='kw'>...</span>)
 
-<span class='fu'>impute_mixed</span>(<span class='no'>x</span>, <span class='no'>randna</span>, <span class='no'>mar</span>, <span class='no'>mnar</span>, <span class='no'>...</span>)
+<span class='fu'>impute_mixed</span>(<span class='kw'>x</span>, <span class='kw'>randna</span>, <span class='kw'>mar</span>, <span class='kw'>mnar</span>, <span class='kw'>...</span>)
 
-<span class='fu'>impute_min</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>impute_min</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -305,19 +305,24 @@ Multiple Natures of Missing Values in Label-Free Quantitative
 Proteomics Data Sets to Compare Imputation Strategies. J Proteome
 Res. 2016 Apr 1;15(4):1116-25. doi:
 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Laurent Gatto</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## test data</span>
 <span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>42</span>)
-<span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>60</span>), <span class='fl'>10</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>m</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>10</span>], <span class='no'>LETTERS</span>[<span class='fl'>1</span>:<span class='fl'>6</span>])
-<span class='no'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>60</span>, <span class='fl'>10</span>)] <span class='kw'>&lt;-</span> <span class='fl'>NA</span>
+<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Lognormal.html'>rlnorm</a></span>(<span class='fl'>60</span>), <span class='fl'>10</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='kw'>m</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>letters</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>], <span class='kw'>LETTERS</span>[<span class='fl'>1</span><span class='op'>:</span><span class='fl'>6</span>])
+<span class='kw'>m</span>[<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>60</span>, <span class='fl'>10</span>)] <span class='op'>&lt;-</span> <span class='fl'>NA</span>
 
 <span class='co'>## available methods</span>
-<span class='fu'>imputeMethods</span>()</div><div class='output co'>#&gt;  [1] "bpca"    "knn"     "QRILC"   "MLE"     "MinDet"  "MinProb" "min"    
+<span class='fu'>imputeMethods</span>()
+</div><div class='output co'>#&gt;  [1] "bpca"    "knn"     "QRILC"   "MLE"     "MinDet"  "MinProb" "min"    
 #&gt;  [8] "zero"    "mixed"   "nbavg"   "with"    "none"   </div><div class='input'>
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"zero"</span>)</div><div class='output co'>#&gt;           A         B         C          D         E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"zero"</span>)
+</div><div class='output co'>#&gt;           A         B         C          D         E          F
 #&gt; a 3.9391243 3.6872085 0.0000000 1.57688302 1.2287515 1.37978165
 #&gt; b 0.5685317 9.8418666 0.1684176 0.00000000 0.6969391 0.45664959
 #&gt; c 1.4378205 0.2493592 0.8420488 2.81539768 0.0000000 4.83425736
@@ -328,7 +333,8 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; h 0.9096830 0.0701966 0.1715015 0.42702719 4.2380415 1.09399145
 #&gt; i 0.0000000 0.0000000 0.0000000 0.08943818 0.6495690 0.05013228
 #&gt; j 0.9392120 3.7438457 0.5272951 1.03678296 1.9263902 1.32960639</div><div class='input'>
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"min"</span>)</div><div class='output co'>#&gt;            A          B          C          D          E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"min"</span>)
+</div><div class='output co'>#&gt;            A          B          C          D          E          F
 #&gt; a 3.93912433 3.68720845 0.05013228 1.57688302 1.22875148 1.37978165
 #&gt; b 0.56853172 9.84186664 0.16841764 0.05013228 0.69693906 0.45664959
 #&gt; c 1.43782048 0.24935924 0.84204876 2.81539768 0.05013228 4.83425736
@@ -339,7 +345,8 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; h 0.90968305 0.07019660 0.17150153 0.42702719 4.23804154 1.09399145
 #&gt; i 0.05013228 0.05013228 0.05013228 0.08943818 0.64956901 0.05013228
 #&gt; j 0.93921196 3.74384570 0.52729513 1.03678296 1.92639019 1.32960639</div><div class='input'>
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"knn"</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: impute</span></div><div class='output co'>#&gt;           A         B         C          D         E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"knn"</span>)
+</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: impute</span></div><div class='output co'>#&gt;           A         B         C          D         E          F
 #&gt; a 3.9391243 3.6872085 1.8777229 1.57688302 1.2287515 1.37978165
 #&gt; b 0.5685317 9.8418666 0.1684176 0.93096390 0.6969391 0.45664959
 #&gt; c 1.4378205 0.2493592 0.8420488 2.81539768 1.3352059 4.83425736
@@ -351,7 +358,8 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; i 1.6608509 2.5204465 1.8777229 0.08943818 0.6495690 0.05013228
 #&gt; j 0.9392120 3.7438457 0.5272951 1.03678296 1.9263902 1.32960639</div><div class='input'>
 <span class='co'>## same as impute_zero</span>
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"with"</span>, <span class='kw'>val</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt;           A         B         C          D         E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"with"</span>, val = <span class='fl'>0</span>)
+</div><div class='output co'>#&gt;           A         B         C          D         E          F
 #&gt; a 3.9391243 3.6872085 0.0000000 1.57688302 1.2287515 1.37978165
 #&gt; b 0.5685317 9.8418666 0.1684176 0.00000000 0.6969391 0.45664959
 #&gt; c 1.4378205 0.2493592 0.8420488 2.81539768 0.0000000 4.83425736
@@ -363,8 +371,9 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; i 0.0000000 0.0000000 0.0000000 0.08943818 0.6495690 0.05013228
 #&gt; j 0.9392120 3.7438457 0.5272951 1.03678296 1.9263902 1.32960639</div><div class='input'>
 <span class='co'>## impute with half of the smalles value</span>
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"with"</span>,
-              <span class='kw'>val</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>m</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) * <span class='fl'>0.5</span>)</div><div class='output co'>#&gt;            A          B          C          D          E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"with"</span>,
+              val = <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>m</span>, na.rm = <span class='fl'>TRUE</span>) <span class='op'>*</span> <span class='fl'>0.5</span>)
+</div><div class='output co'>#&gt;            A          B          C          D          E          F
 #&gt; a 3.93912433 3.68720845 0.02506614 1.57688302 1.22875148 1.37978165
 #&gt; b 0.56853172 9.84186664 0.16841764 0.02506614 0.69693906 0.45664959
 #&gt; c 1.43782048 0.24935924 0.84204876 2.81539768 0.02506614 4.83425736
@@ -377,13 +386,14 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; j 0.93921196 3.74384570 0.52729513 1.03678296 1.92639019 1.32960639</div><div class='input'>
 <span class='co'>## all but third and fourth features' missing values</span>
 <span class='co'>## are the result of random missing values</span>
-<span class='no'>randna</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>10</span>)
-<span class='no'>randna</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>9</span>)] <span class='kw'>&lt;-</span> <span class='fl'>FALSE</span>
+<span class='kw'>randna</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>10</span>)
+<span class='kw'>randna</span>[<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>9</span>)] <span class='op'>&lt;-</span> <span class='fl'>FALSE</span>
 
-<span class='fu'>impute_matrix</span>(<span class='no'>m</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"mixed"</span>,
-              <span class='kw'>randna</span> <span class='kw'>=</span> <span class='no'>randna</span>,
-              <span class='kw'>mar</span> <span class='kw'>=</span> <span class='st'>"knn"</span>,
-              <span class='kw'>mnar</span> <span class='kw'>=</span> <span class='st'>"min"</span>)</div><div class='output co'>#&gt;            A          B          C          D          E          F
+<span class='fu'>impute_matrix</span>(<span class='kw'>m</span>, method = <span class='st'>"mixed"</span>,
+              randna = <span class='kw'>randna</span>,
+              mar = <span class='st'>"knn"</span>,
+              mnar = <span class='st'>"min"</span>)
+</div><div class='output co'>#&gt;            A          B          C          D          E          F
 #&gt; a 3.93912433 3.68720845 2.35451487 1.57688302 1.22875148 1.37978165
 #&gt; b 0.56853172 9.84186664 0.16841764 0.74593934 0.69693906 0.45664959
 #&gt; c 1.43782048 0.24935924 0.84204876 2.81539768 0.05013228 4.83425736
@@ -410,7 +420,7 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

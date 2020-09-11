@@ -81,7 +81,7 @@ them with NAs)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -134,7 +134,7 @@ objects into a single instance adding eventually missing columns (filling
 them with <code>NA</code>s).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rbindFill</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>rbindFill</span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,24 +155,29 @@ them with <code>NA</code>s).</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other helper functions for developers: 
-<code>between()</code>,
-<code>isPeaksMatrix()</code>,
-<code>validPeaksMatrix()</code>,
-<code>vapply1c()</code></p></div>
+<code><a href='between.html'>between</a>()</code>,
+<code><a href='isPeaksMatrix.html'>isPeaksMatrix</a>()</code>,
+<code><a href='validPeaksMatrix.html'>validPeaksMatrix</a>()</code>,
+<code><a href='vapply1c.html'>vapply1c</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Johannes Rainer, Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Combine matrices</span>
-<span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>9</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>a</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>)
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span>:<span class='fl'>12</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>4</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>b</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"d"</span>, <span class='st'>"e"</span>)
-<span class='fu'>rbindFill</span>(<span class='no'>a</span>, <span class='no'>b</span>)</div><div class='output co'>#&gt;      a b  c  d  e
+<span class='kw'>a</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>9</span>, nrow = <span class='fl'>3</span>, ncol = <span class='fl'>3</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>a</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>)
+<span class='kw'>b</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>, nrow = <span class='fl'>3</span>, ncol = <span class='fl'>4</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='kw'>b</span>) <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"d"</span>, <span class='st'>"e"</span>)
+<span class='fu'>rbindFill</span>(<span class='kw'>a</span>, <span class='kw'>b</span>)
+</div><div class='output co'>#&gt;      a b  c  d  e
 #&gt; [1,] 1 4  7 NA NA
 #&gt; [2,] 2 5  8 NA NA
 #&gt; [3,] 3 6  9 NA NA
 #&gt; [4,] 4 1 NA  7 10
 #&gt; [5,] 5 2 NA  8 11
-#&gt; [6,] 6 3 NA  9 12</div><div class='input'><span class='fu'>rbindFill</span>(<span class='no'>b</span>, <span class='no'>a</span>, <span class='no'>b</span>)</div><div class='output co'>#&gt;       b a  d  e  c
+#&gt; [6,] 6 3 NA  9 12</div><div class='input'><span class='fu'>rbindFill</span>(<span class='kw'>b</span>, <span class='kw'>a</span>, <span class='kw'>b</span>)
+</div><div class='output co'>#&gt;       b a  d  e  c
 #&gt;  [1,] 1 4  7 10 NA
 #&gt;  [2,] 2 5  8 11 NA
 #&gt;  [3,] 3 6  9 12 NA
@@ -197,7 +202,7 @@ them with <code>NA</code>s).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

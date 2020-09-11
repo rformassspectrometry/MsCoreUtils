@@ -82,7 +82,7 @@ subsetting." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -136,7 +136,7 @@ checks and converts the parameter <code>i</code>, which can be of type <code>int
 subsetting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>i2index</span>(<span class='no'>i</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>i</span>), <span class='kw'>names</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>i2index</span>(<span class='kw'>i</span>, length = <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>i</span>), names = <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,15 +160,21 @@ This is only required if <code>i</code> is of type <code>character</code>.</p></
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>integer</code> with the indices</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Johannes Rainer</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## With `i` being an `integer`</span>
-<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>3</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 4 1 3</div><div class='input'>
+<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>3</span>), length = <span class='fl'>10</span>)
+</div><div class='output co'>#&gt; [1] 4 1 3</div><div class='input'>
 <span class='co'>## With `i` being a `logical`</span>
-<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>, <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='output co'>#&gt; [1] 1 4</div><div class='input'>
+<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>, <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), length = <span class='fl'>5</span>)
+</div><div class='output co'>#&gt; [1] 1 4</div><div class='input'>
 <span class='co'>## With `i` being a `character`</span>
-<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"d"</span>), <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>names</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>, <span class='st'>"e"</span>))</div><div class='output co'>#&gt; [1] 2 1 4</div></pre>
+<span class='fu'>i2index</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"b"</span>, <span class='st'>"a"</span>, <span class='st'>"d"</span>), length = <span class='fl'>5</span>, names = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>, <span class='st'>"d"</span>, <span class='st'>"e"</span>))
+</div><div class='output co'>#&gt; [1] 2 1 4</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -184,7 +190,7 @@ This is only required if <code>i</code> is of type <code>character</code>.</p></
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

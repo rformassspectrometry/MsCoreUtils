@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -130,15 +130,15 @@
     <p>These functions provide different normalized similariy/distance measurements.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ndotproduct</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>ndotproduct</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>0L</span>, n = <span class='fl'>0.5</span>, na.rm = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>dotproduct</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>dotproduct</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>0L</span>, n = <span class='fl'>0.5</span>, na.rm = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>neuclidean</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>neuclidean</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>0L</span>, n = <span class='fl'>0.5</span>, na.rm = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>navdist</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>navdist</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>0L</span>, n = <span class='fl'>0.5</span>, na.rm = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
-<span class='fu'>nspectraangle</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>0L</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>nspectraangle</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>0L</span>, n = <span class='fl'>0.5</span>, na.rm = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,6 +167,10 @@ see the <code>ndotproduct</code> details section.</p></td>
       <th>na.rm</th>
       <td><p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>, should <code>NA</code> be removed prior to calculation
 (default <code>TRUE</code>).</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>ignored.</p></td>
     </tr>
     </table>
 
@@ -242,16 +246,27 @@ doi: <a href='https://doi.org/10.1074/mcp.O113.036475'>10.1074/mcp.O113.036475</
 .</p>
 <p>Pull Request for these distance/similarity measurements:
 <a href='https://github.com/rformassspectrometry/MsCoreUtils/pull/33'>https://github.com/rformassspectrometry/MsCoreUtils/pull/33</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p><code>navdist</code>, <code>neuclidean</code>, <code>nspectraangle</code>: Sebastian Gibb</p>
+<p><code>ndotproduct</code>: Sebastian Gibb and
+Thomas Naake, <a href='mailto:thomasnaake@googlemail.com'>thomasnaake@googlemail.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>1</span>:<span class='fl'>5</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mz"</span>, <span class='st'>"intensity"</span>)))
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>:<span class='fl'>5</span>, <span class='fl'>5</span>:<span class='fl'>1</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mz"</span>, <span class='st'>"intensity"</span>)))
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>), ncol = <span class='fl'>2</span>, dimnames = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mz"</span>, <span class='st'>"intensity"</span>)))
+<span class='kw'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>1</span>), ncol = <span class='fl'>2</span>, dimnames = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"mz"</span>, <span class='st'>"intensity"</span>)))
 
-<span class='fu'>ndotproduct</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 0.7660906</div><div class='input'><span class='fu'>ndotproduct</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] 0.9074293</div><div class='input'><span class='fu'>ndotproduct</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; [1] 0.9127553</div><div class='input'>
-<span class='fu'>neuclidean</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 0.8003406</div><div class='input'>
-<span class='fu'>navdist</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 0.6970151</div><div class='input'>
-<span class='fu'>nspectraangle</span>(<span class='no'>x</span>, <span class='no'>y</span>)</div><div class='output co'>#&gt; [1] 0.5556013</div></pre>
+<span class='fu'>ndotproduct</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)
+</div><div class='output co'>#&gt; [1] 0.7660906</div><div class='input'><span class='fu'>ndotproduct</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>2</span>, n = <span class='fl'>0.5</span>)
+</div><div class='output co'>#&gt; [1] 0.9074293</div><div class='input'><span class='fu'>ndotproduct</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, m = <span class='fl'>3</span>, n = <span class='fl'>0.6</span>)
+</div><div class='output co'>#&gt; [1] 0.9127553</div><div class='input'>
+<span class='fu'>neuclidean</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)
+</div><div class='output co'>#&gt; [1] 0.8003406</div><div class='input'>
+<span class='fu'>navdist</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)
+</div><div class='output co'>#&gt; [1] 0.6970151</div><div class='input'>
+<span class='fu'>nspectraangle</span>(<span class='kw'>x</span>, <span class='kw'>y</span>)
+</div><div class='output co'>#&gt; [1] 0.5556013</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,7 +282,7 @@ doi: <a href='https://doi.org/10.1074/mcp.O113.036475'>10.1074/mcp.O113.036475</
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

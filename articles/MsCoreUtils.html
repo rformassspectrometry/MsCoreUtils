@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -106,8 +106,10 @@ document.addEventListener("DOMContentLoaded", function() {
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The <code>MsCoreUtils</code> package low-level functions for mass spectrometry data and is independent of any high-level data structures. These functions include mass spectra processing functions (noise estimation, smoothing, binning), quantitative aggregation functions (median polish, robust summarisation, …), missing data imputation, data normalisation (quantiles, vsn, …) as well as misc helper functions, that are used across high level data structure within the R for Mass Spectrometry packages.</p>
 <p>For a full list of function, see</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"MsCoreUtils"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>(<span class="kw">pos</span> <span class="kw">=</span> <span class="st">"package:MsCoreUtils"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st"><a href="https://github.com/RforMassSpectrometry/MsCoreUtils">"MsCoreUtils"</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span>(pos = <span class="st">"package:MsCoreUtils"</span>)
+</pre></div>
 <pre><code>##  [1] "%between%"                "aggregate_by_vector"     
 ##  [3] "asInteger"                "between"                 
 ##  [5] "bin"                      "closest"                 
@@ -137,24 +139,28 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
 <p>The functions defined in this package utilise basic classes with the aim of being reused in packages that provide a more formal, high-level interface.</p>
-<p>As an examples, let’s take the <code><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary()</a></code> function, that calculates the robust summary of the columns of a matrix:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">30</span>), <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">10</span>]
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="no">x</span>) <span class="kw">&lt;-</span> <span class="no">LETTERS</span>[<span class="fl">1</span>:<span class="fl">3</span>]
-<span class="no">x</span></pre></body></html></div>
-<pre><code>##            a         b          c          d          e         f          g
-## A  1.8903915 0.5975448  0.3214094 -0.5385156  0.4715825 -1.127173  0.7724213
-## B -1.0219528 0.9109935 -0.8446524 -0.6730831  0.6185325  0.360740 -0.5066071
-## C -0.0650655 0.8481530 -0.2036786 -0.1235091 -1.7940747 -1.081184 -1.5033866
-##           h         i         j
-## A  0.802992 -1.251007 0.8329962
-## B -1.718238 -1.665246 0.6690701
-## C -2.369330  1.153579 2.0704168</code></pre>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/pkg/MsCoreUtils/man/robustSummary.html">robustSummary</a></span>(<span class="no">x</span>)</pre></body></html></div>
-<pre><code>##           a           b           c           d           e           f 
-##  0.20101086  0.78556378 -0.24230723 -0.44503595 -0.09899447 -0.65738850 
-##           g           h           i           j 
-## -0.41252415 -1.29928210 -1.00769769  1.19082770</code></pre>
+<p>As an examples, let’s take the <code><a href="../reference/robustSummary.html">robustSummary()</a></code> function, that calculates the robust summary of the columns of a matrix:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="kw">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">30</span>), nrow = <span class="fl">3</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span>(<span class="kw">x</span>) <span class="op">&lt;-</span> <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">10</span>]
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">x</span>) <span class="op">&lt;-</span> <span class="kw">LETTERS</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>]
+<span class="kw">x</span>
+</pre></div>
+<pre><code>##             a          b           c         d         e          f          g
+## A  0.65830553  0.4715853 -0.43343707 0.4365657 0.9630183  1.2865421  0.1931002
+## B -0.20185653 -0.4606424  0.03267773 0.6023469 1.1595863  0.9276814 -1.3446051
+## C -0.09163706 -0.8079235 -0.54823244 0.3158135 0.9969923 -0.4744554 -1.3635425
+##            h          i         j
+## A -0.3751048  0.9483288 -2.015398
+## B -2.2167883  0.8158262 -1.068644
+## C -1.5285223 -0.2008623  0.225628</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span>(<span class="kw">x</span>)
+</pre></div>
+<pre><code>##          a          b          c          d          e          f          g 
+##  0.1216040 -0.2656602 -0.3163306  0.4515754  1.0398656  0.6249886 -0.8446844 
+##          h          i          j 
+## -1.2962574  0.5210976 -1.0140721</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -170,13 +176,13 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R version 4.0.0 (2020-04-24)
+<pre><code>## R version 4.0.2 (2020-06-22)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 16.04.6 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /home/travis/R-bin/lib/R/lib/libRblas.so
-## LAPACK: /home/travis/R-bin/lib/R/lib/libRlapack.so
+## BLAS:   /usr/lib/openblas-base/libblas.so.3
+## LAPACK: /usr/lib/libopenblasp-r0.2.18.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -190,19 +196,20 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] MsCoreUtils_1.1.4 BiocStyle_2.17.0 
+## [1] MsCoreUtils_1.1.5 BiocStyle_2.17.0 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.29          magrittr_1.5        BiocGenerics_0.35.4
-##  [4] MASS_7.3-51.5       R6_2.4.1            rlang_0.4.7        
-##  [7] stringr_1.4.0       tools_4.0.0         parallel_4.0.0     
-## [10] xfun_0.16           htmltools_0.5.0     yaml_2.2.1         
-## [13] assertthat_0.2.1    digest_0.6.25       rprojroot_1.3-2    
-## [16] pkgdown_1.5.1       crayon_1.3.4        bookdown_0.20      
-## [19] BiocManager_1.30.10 S4Vectors_0.27.12   fs_1.5.0           
-## [22] memoise_1.1.0       evaluate_0.14       rmarkdown_2.3      
-## [25] stringi_1.4.6       compiler_4.0.0      desc_1.2.0         
-## [28] backports_1.1.8     stats4_4.0.0</code></pre>
+##  [1] cpp11_0.2.1         knitr_1.29          magrittr_1.5       
+##  [4] BiocGenerics_0.35.4 MASS_7.3-51.6       R6_2.4.1           
+##  [7] ragg_0.3.1          rlang_0.4.7         stringr_1.4.0      
+## [10] tools_4.0.2         parallel_4.0.2      xfun_0.17          
+## [13] htmltools_0.5.0     systemfonts_0.3.1   yaml_2.2.1         
+## [16] assertthat_0.2.1    rprojroot_1.3-2     digest_0.6.25      
+## [19] pkgdown_1.6.0       crayon_1.3.4        bookdown_0.20      
+## [22] BiocManager_1.30.10 S4Vectors_0.27.12   fs_1.5.0           
+## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.3      
+## [28] stringi_1.5.3       compiler_4.0.2      desc_1.2.0         
+## [31] backports_1.1.9     stats4_4.0.2</code></pre>
 </div>
 <div class="footnotes">
 <hr>
@@ -227,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

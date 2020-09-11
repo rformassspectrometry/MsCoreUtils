@@ -95,7 +95,7 @@ of each column.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.5</span>
       </span>
     </div>
 
@@ -149,10 +149,10 @@ applies a user-defined function to aggregate each subset into a
 vector of quantitative values.</p>
 <p>User-defined functions must thus return a vector of length equal
 to <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(x)</a></code>. Examples thereof are</p><ul>
-<li><p><code>medianPolish()</code> to fits an additive model (two way decomposition)
+<li><p><code><a href='medianPolish.html'>medianPolish()</a></code> to fits an additive model (two way decomposition)
 using Tukey's median polish_ procedure using
 <code><a href='https://rdrr.io/r/stats/medpolish.html'>stats::medpolish()</a></code>;</p></li>
-<li><p><code>robustSummary()</code> to calculate a robust aggregation using
+<li><p><code><a href='robustSummary.html'>robustSummary()</a></code> to calculate a robust aggregation using
 <code><a href='https://rdrr.io/pkg/MASS/man/rlm.html'>MASS::rlm()</a></code>;</p></li>
 <li><p><a href='https://rdrr.io/r/base/colSums.html'>base::colMeans()</a> to use the mean of each column;</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/colSums.html'>base::colSums()</a></code> to use the sum of each column;</p></li>
@@ -162,7 +162,7 @@ of each column.</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>aggregate_by_vector</span>(<span class='no'>x</span>, <span class='no'>INDEX</span>, <span class='no'>FUN</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>aggregate_by_vector</span>(<span class='kw'>x</span>, <span class='kw'>INDEX</span>, <span class='kw'>FUN</span>, <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -192,13 +192,16 @@ with <code>dimnames</code> equal to <code><a href='https://rdrr.io/r/base/colnam
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other Quantitative feature aggregation: 
-<code>colCounts()</code>,
-<code>medianPolish()</code>,
-<code>robustSummary()</code></p></div>
+<code><a href='colCounts.html'>colCounts</a>()</code>,
+<code><a href='medianPolish.html'>medianPolish</a>()</code>,
+<code><a href='robustSummary.html'>robustSummary</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Laurent Gatto</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10.3961935744407</span>, <span class='fl'>17.1663715212693</span>, <span class='fl'>14.1027587989326</span>,
+<span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/structure.html'>structure</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>10.3961935744407</span>, <span class='fl'>17.1663715212693</span>, <span class='fl'>14.1027587989326</span>,
                 <span class='fl'>12.850349037785</span>, <span class='fl'>10.6379251053134</span>, <span class='fl'>7.52885076885599</span>,
                 <span class='fl'>3.91816118984218</span>, <span class='fl'>11.1339832690524</span>, <span class='fl'>16.5321471730746</span>,
                 <span class='fl'>14.1787908569268</span>, <span class='fl'>11.9422579479634</span>, <span class='fl'>11.5154097311056</span>,
@@ -208,12 +211,13 @@ with <code>dimnames</code> equal to <code><a href='https://rdrr.io/r/base/colnam
                 <span class='fl'>12.9033445520186</span>, <span class='fl'>14.375814954807</span>, <span class='fl'>14.1617803596661</span>,
                 <span class='fl'>10.1237981632645</span>, <span class='fl'>13.3390344671153</span>, <span class='fl'>9.75719265786117</span>,
                 <span class='fl'>3.81046169359919</span>),
-              <span class='kw'>.Dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7L</span>, <span class='fl'>4L</span>),
-              <span class='kw'>.Dimnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"X1"</span>, <span class='st'>"X27"</span>, <span class='st'>"X41"</span>, <span class='st'>"X47"</span>, <span class='st'>"X52"</span>,
+              .Dim = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>7L</span>, <span class='fl'>4L</span>),
+              .Dimnames = <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"X1"</span>, <span class='st'>"X27"</span>, <span class='st'>"X41"</span>, <span class='st'>"X47"</span>, <span class='st'>"X52"</span>,
                                  <span class='st'>"X53"</span>, <span class='st'>"X55"</span>),
                                <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"iTRAQ4.114"</span>, <span class='st'>"iTRAQ4.115"</span>,
                                  <span class='st'>"iTRAQ4.116"</span>, <span class='st'>"iTRAQ4.117"</span>)))
-<span class='no'>x</span></div><div class='output co'>#&gt;     iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
+<span class='kw'>x</span>
+</div><div class='output co'>#&gt;     iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
 #&gt; X1   10.396194  11.133983  11.939466  12.903345
 #&gt; X27  17.166372  16.532147  15.379110  14.375815
 #&gt; X41  14.102759  14.178791  14.240928  14.161780
@@ -221,15 +225,18 @@ with <code>dimnames</code> equal to <code><a href='https://rdrr.io/r/base/colnam
 #&gt; X52  10.637925  11.515410  12.295853  13.339034
 #&gt; X53   7.528851   7.699068   9.008585   9.757193
 #&gt; X55   3.918161   3.970922   3.831201   3.810462</div><div class='input'>
-<span class='no'>k</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>, <span class='st'>"E"</span>, <span class='st'>"X"</span>, <span class='st'>"E"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"E"</span>))
+<span class='kw'>k</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>factor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"B"</span>, <span class='st'>"E"</span>, <span class='st'>"X"</span>, <span class='st'>"E"</span>, <span class='st'>"B"</span>, <span class='st'>"B"</span>, <span class='st'>"E"</span>))
 
-<span class='fu'>aggregate_by_vector</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>colMeans</span>)</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
+<span class='fu'>aggregate_by_vector</span>(<span class='kw'>x</span>, <span class='kw'>k</span>, <span class='kw'>colMeans</span>)
+</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
 #&gt; B    9.52099   10.11615   11.08130  11.999857
 #&gt; E   11.31163   10.81511   10.14033   9.436692
-#&gt; X   14.10276   14.17879   14.24093  14.161780</div><div class='input'><span class='fu'>aggregate_by_vector</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>robustSummary</span>)</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
+#&gt; X   14.10276   14.17879   14.24093  14.161780</div><div class='input'><span class='fu'>aggregate_by_vector</span>(<span class='kw'>x</span>, <span class='kw'>k</span>, <span class='kw'>robustSummary</span>)
+</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
 #&gt; B    9.52099   10.16203   11.08130  11.999857
 #&gt; E   11.45567   10.81511   10.14033   9.225928
-#&gt; X   14.10276   14.17879   14.24093  14.161780</div><div class='input'><span class='fu'>aggregate_by_vector</span>(<span class='no'>x</span>, <span class='no'>k</span>, <span class='no'>medianPolish</span>)</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
+#&gt; X   14.10276   14.17879   14.24093  14.161780</div><div class='input'><span class='fu'>aggregate_by_vector</span>(<span class='kw'>x</span>, <span class='kw'>k</span>, <span class='kw'>medianPolish</span>)
+</div><div class='output co'>#&gt;   iTRAQ4.114 iTRAQ4.115 iTRAQ4.116 iTRAQ4.117
 #&gt; B   10.39619   11.13398   11.93947   12.90334
 #&gt; E   12.85035   11.94226   11.21069   10.12380
 #&gt; X   14.10276   14.17879   14.24093   14.16178</div></pre>
@@ -248,7 +255,7 @@ with <code>dimnames</code> equal to <code><a href='https://rdrr.io/r/base/colnam
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
