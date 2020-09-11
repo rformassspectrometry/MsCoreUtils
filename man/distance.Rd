@@ -9,15 +9,15 @@
 \alias{nspectraangle}
 \title{Spectra Distance/Similarity Measurements}
 \usage{
-ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-dotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+dotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE)
+nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 }
 \arguments{
 \item{x}{\code{matrix}, two-columns e.g. m/z, intensity}
@@ -34,6 +34,8 @@ see the \code{ndotproduct} details section.}
 
 \item{na.rm}{\code{logical(1)}, should \code{NA} be removed prior to calculation
 (default \code{TRUE}).}
+
+\item{...}{ignored.}
 }
 \value{
 \code{double(1)} value between \code{0:1}, where \code{0} is completely different

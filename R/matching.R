@@ -196,6 +196,7 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x` and
 #' `y`. This should just be done if it is ensured by other methods that `x` and
 #' `y` are sorted, see also [`closest()`].
+#' @param ... ignored.
 #'
 #' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
 #' That means for multiple matches just the closest one is reported.
@@ -231,7 +232,8 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' x[ji$x]
 #' y[ji$y]
 join <- function(x, y, tolerance = 0, ppm = 0,
-                 type = c("outer", "left", "right", "inner"), .check = TRUE) {
+                 type = c("outer", "left", "right", "inner"), .check = TRUE,
+                 ...) {
     switch(match.arg(type),
            "outer" = .joinOuter(
                 x, y, tolerance = tolerance, ppm = ppm, .check = .check
