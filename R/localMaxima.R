@@ -12,7 +12,7 @@
 #' maxima.
 #' @author Sebastian Gibb
 #' @family extreme value functions
-#' @useDynLib MsCoreUtils
+#' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
 #' @examples
 #' x <- c(1:5, 4:1, 1:10, 9:1, 1:5, 4:1)

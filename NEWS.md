@@ -3,6 +3,12 @@
 ## Changes in 1.1.4
 
 - Change references to `Feature` to `QFeatures` <2020-07-14 Tue>
+- Ensure `closest` accept just argument `tolerance` of length 1 or `length(x)`;
+  see also [#61](https://github.com/rformassspectrometry/MsCoreUtils/issue/61),
+  [PR #62](https://github.com/rformassspectrometry/MsCoreUtils/pull/62)
+  <2020-08-07 Thu>.
+- The `tolerance` argument in `closest` should now be of length 1 or of
+  `length(x)` (was `length(table)` before) <2020-08-20 Thu>.
 
 ## Changes in 1.1.3
 

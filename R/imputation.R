@@ -141,7 +141,7 @@
 ##'
 ##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix
 ##'
-##' @useDynLib MsCoreUtils
+##' @useDynLib MsCoreUtils, .registration = TRUE
 ##'
 ##' @author Laurent Gatto
 ##'

@@ -6,17 +6,23 @@
 #' just accept `numeric` arguments but have an additional `tolerance`
 #' argument that allows relaxed matching.
 #'
-#' @param x `numeric`, the values to be matched.
+#' @param x `numeric`, the values to be matched. In contrast to
+#' [`match()`] `x` has to be sorted in increasing order and must not contain any
+#' `NA`.
 #' @param table `numeric`, the values to be matched against. In contrast to
-#' [`match()`] `table` has to be sorted in increasing order.
+#' [`match()`] `table` has to be sorted in increasing order and must not contain
+#' any `NA`.
 #' @param tolerance `numeric`, accepted tolerance. Could be of length one or
-#' the same length as `table`.
+#' the same length as `x`.
 #' @param ppm `numeric(1)` representing a relative, value-specific
 #'  parts-per-million (PPM) tolerance that is added to `tolerance`.
 #' @param duplicates `character(1)`, how to handle duplicated matches.
-#' @param nomatch `numeric(1)`, if the difference
+#' @param nomatch `integer(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
+#' @param .check `logical(1)` turn off checks for increasingly sorted `x`
+#' and `table`. This should just be done if it is ensured by other methods
+#' that `x` and `table` are sorted, see details.
 #'
 #' @details
 #' For `closest`/`common` the `tolerance` argument could be set to `0` to get
@@ -35,15 +41,22 @@
 #'
 #' If a single element in `x` matches multiple elements in `table` the *closest*
 #' is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
-#' multiple matches isn't possible in this case because the implementation relies
-#' on [`findInterval`]). If the differences between `x` and the corresponding
-#' matches in `table` are identical the lower index (the smaller element
-#' in `table`) is returned. For `duplicates="remove"` all multiple matches
-#' are returned as `nomatch` as above.
+#' multiple matches isn't possible in this case because the return value should
+#' be of the same length as `x`). If the differences between `x` and the
+#' corresponding matches in `table` are identical the lower index (the smaller
+#' element in `table`) is returned. For `duplicates="remove"` all multiple
+#' matches are returned as `nomatch` as above.
 #'
-#' @note
-#' `closest` will replace all `NA` values in `x` by `nomatch` (that is identical
-#' to the behaviour of `match`).
+#' `.checks = TRUE` tests for increasingly sorted `x` and `table` arguments that
+#' are mandatory assumptions for the `closest` algorithm. These checks require
+#' to loop through both vectors and compare each element against its precursor.
+#' Depending on the length and distribution of `x` and `table` these checks take
+#' equal/more time than the whole `closest` algorithm. If it is ensured by other
+#' methods that both arguments `x` and `table` are sorted the tests could be
+#' skipped by `.check = FALSE`. In the case that `.check = FALSE` is used
+#' and one of `x` and `table` is not sorted (or decreasingly sorted)
+#' the output would be incorrect in the best case and result in infinity
+#' loop in the average and worst case.
 #'
 #' @return `closest` returns an `integer` vector of the same length as `x`
 #' giving the closest position in `table` of the first match or `nomatch` if
@@ -54,6 +67,7 @@
 #' @seealso [`match()`]
 #' @aliases closest
 #' @family grouping/matching functions
+#' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
 #' @examples
 #' ## Define two vectors to match
@@ -77,10 +91,10 @@
 #' closest(x, y, tolerance = 0.01)
 #'
 #' ## Using a value-specific tolerance accepting differences of 20 ppm
-#' closest(x, y, tolerance = ppm(y, 20))
+#' closest(x, y, ppm = 20)
 #'
 #' ## Same using 50 ppm
-#' closest(x, y, tolerance = ppm(y, 50))
+#' closest(x, y, ppm = 50)
 #'
 #' ## Sometimes multiple elements in `x` match to `table`
 #' x <- c(1.6, 1.75, 1.8)
@@ -90,62 +104,56 @@
 #' closest(x, y, tolerance = 0.5, duplicates = "remove")
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
-                    nomatch = NA_integer_) {
+                    nomatch = NA_integer_, .check = TRUE) {
 
-    if (!all(is.numeric(tolerance)) || any(tolerance < 0))
+    ntolerance <- length(tolerance)
+    if (ntolerance != 1L && ntolerance != length(x))
+        stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
+
+    if (!is.numeric(tolerance) || any(tolerance < 0))
         stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
-    if(!all(is.numeric(ppm)) || any(ppm < 0))
+    if(!is.numeric(ppm) || any(ppm < 0))
         stop("'ppm' has to be a 'numeric' larger or equal zero.")
 
     if (!is.numeric(nomatch) || length(nomatch) != 1L)
         stop("'nomatch' has to be a 'numeric' of length one.")
 
-    table <- table[!is.na(table)]
-    ntable <- length(table)
-    if (!ntable)
-        return(rep_len(nomatch, length(x)))
-
-    tolerance <- rep_len(tolerance, ntable) + ppm(table, ppm) +
-        sqrt(.Machine$double.eps)
-    duplicates <- match.arg(duplicates)
-
-    lIdx <- findInterval(x, table, rightmost.closed = FALSE, all.inside = TRUE)
-    rIdx <- lIdx + 1L
-
-    lIdx[lIdx == 0L] <- 1L
-    rIdx[rIdx > ntable] <- ntable
-
-    lDiff <- abs(table[lIdx] - x)
-    rDiff <- abs(table[rIdx] - x)
-
-    lDiff[lDiff > tolerance[lIdx]] <- Inf
-    rDiff[rDiff > tolerance[rIdx]] <- Inf
-
-    d <- which(lDiff > rDiff)
-
-    lIdx[d] <- rIdx[d]
-
-    ## no match at all
-    lIdx[is.infinite(lDiff) & is.infinite(rDiff)] <- NA_integer_
-
-    ## duplicated matches
-    if (duplicates == "remove") {
-        lIdx[duplicated(lIdx) | duplicated(lIdx, fromLast = TRUE)] <-
-            NA_integer_
-        lIdx[is.finite(lDiff) & is.finite(rDiff)] <- NA_integer_
-    } else if (duplicates == "closest") {
-        ## lIdx could be updated
-        o <- order(abs(table[lIdx] - x))
-        m <- lIdx[o]
-        m[duplicated(m)] <- NA_integer_
-        lIdx[o] <- m
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(table)))) {
+        stop("'x' and 'table' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
     }
 
-    if (!identical(nomatch, NA_integer_))
-        lIdx[is.na(lIdx)] <- nomatch
+    if (!length(table))
+        return(rep_len(nomatch, length(x)))
 
-    as.integer(lIdx)
+    tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
+
+    duplicates <- match.arg(duplicates)
+
+    if (duplicates == "keep")
+        .Call(
+            "C_closest_dup_keep",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.integer(nomatch)
+        )
+    else if (duplicates == "remove")
+        .Call(
+            "C_closest_dup_remove",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.integer(nomatch)
+        )
+    else if (duplicates == "closest")
+        .Call(
+            "C_closest_dup_closest",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.integer(nomatch)
+        )
 }
 
 #' @rdname matching
@@ -164,9 +172,9 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 #' common(x, y, tolerance = 0.5, duplicates = "closest")
 #' common(x, y, tolerance = 0.5, duplicates = "remove")
 common <- function(x, table, tolerance = Inf, ppm = 0,
-                   duplicates = c("keep", "closest", "remove")) {
+                   duplicates = c("keep", "closest", "remove"), .check = TRUE) {
     !is.na(closest(x, table, tolerance = tolerance, ppm = ppm,
-                   duplicates = duplicates))
+                   duplicates = duplicates, .check = .check))
 }
 
 #' @rdname matching
@@ -185,6 +193,9 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' @param y `numeric`, the values to be joined. Should be sorted.
 #' @param type `character(1)`, defines how `x` and `y` should be joined. See
 #' details for `join`.
+#' @param .check `logical(1)` turn off checks for increasingly sorted `x` and
+#' `y`. This should just be done if it is ensured by other methods that `x` and
+#' `y` are sorted, see also [`closest()`].
 #'
 #' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
 #' That means for multiple matches just the closest one is reported.
@@ -220,36 +231,44 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' x[ji$x]
 #' y[ji$y]
 join <- function(x, y, tolerance = 0, ppm = 0,
-                 type = c("outer", "left", "right", "inner")) {
+                 type = c("outer", "left", "right", "inner"), .check = TRUE) {
     switch(match.arg(type),
-           "outer" = .joinOuter(x, y, tolerance = tolerance, ppm = ppm),
-           "left" = .joinLeft(x, y, tolerance = tolerance, ppm = ppm),
-           "right" = .joinRight(x, y, tolerance = tolerance, ppm = ppm),
-           "inner" = .joinInner(x, y, tolerance = tolerance, ppm = ppm)
+           "outer" = .joinOuter(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "left" = .joinLeft(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "right" = .joinRight(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           ),
+           "inner" = .joinInner(
+                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           )
     )
 }
 
-.joinLeft <- function(x, y, tolerance, ppm) {
+.joinLeft <- function(x, y, tolerance, ppm, .check = TRUE) {
     list(x = seq_along(x),
          y = closest(x, y, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest"))
+                     duplicates = "closest", .check = .check))
 }
 
-.joinRight <- function(x, y, tolerance, ppm) {
+.joinRight <- function(x, y, tolerance, ppm, .check = TRUE) {
     list(x = closest(y, x, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest"),
+                     duplicates = "closest", .check = .check),
          y = seq_along(y))
 }
 
-.joinInner <- function(x, y, tolerance, ppm) {
+.joinInner <- function(x, y, tolerance, ppm, .check = TRUE) {
     yi <- closest(y, x, tolerance = tolerance, ppm = ppm,
-                  duplicates = "closest")
+                  duplicates = "closest", .check = .check)
     notNa <- which(!is.na(yi))
     list(x = yi[notNa], y = notNa)
 }
 
-.joinOuter <- function(x, y, tolerance, ppm) {
-    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm)
+.joinOuter <- function(x, y, tolerance, ppm, .check = TRUE) {
+    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm, .check = .check)
     nx <- length(x)
     ny <- length(y)
     nlx <- length(ji[[1L]])

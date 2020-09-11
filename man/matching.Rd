@@ -12,7 +12,8 @@ closest(
   tolerance = Inf,
   ppm = 0,
   duplicates = c("keep", "closest", "remove"),
-  nomatch = NA_integer_
+  nomatch = NA_integer_,
+  .check = TRUE
 )
 
 common(
@@ -20,28 +21,43 @@ common(
   table,
   tolerance = Inf,
   ppm = 0,
-  duplicates = c("keep", "closest", "remove")
+  duplicates = c("keep", "closest", "remove"),
+  .check = TRUE
 )
 
-join(x, y, tolerance = 0, ppm = 0, type = c("outer", "left", "right", "inner"))
+join(
+  x,
+  y,
+  tolerance = 0,
+  ppm = 0,
+  type = c("outer", "left", "right", "inner"),
+  .check = TRUE
+)
 }
 \arguments{
-\item{x}{\code{numeric}, the values to be matched.}
+\item{x}{\code{numeric}, the values to be matched. In contrast to
+\code{\link[=match]{match()}} \code{x} has to be sorted in increasing order and must not contain any
+\code{NA}.}
 
 \item{table}{\code{numeric}, the values to be matched against. In contrast to
-\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order.}
+\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order and must not contain
+any \code{NA}.}
 
 \item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
-the same length as \code{table}.}
+the same length as \code{x}.}
 
 \item{ppm}{\code{numeric(1)} representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 
 \item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
 
-\item{nomatch}{\code{numeric(1)}, if the difference
+\item{nomatch}{\code{integer(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
 \code{tolerance} \code{nomatch} is returned.}
+
+\item{.check}{\code{logical(1)} turn off checks for increasingly sorted \code{x} and
+\code{y}. This should just be done if it is ensured by other methods that \code{x} and
+\code{y} are sorted, see also \code{\link[=closest]{closest()}}.}
 
 \item{y}{\code{numeric}, the values to be joined. Should be sorted.}
 
@@ -83,11 +99,22 @@ in \code{table} are set to \code{nomatch}.
 
 If a single element in \code{x} matches multiple elements in \code{table} the \emph{closest}
 is returned for \code{duplicates="keep"} or \code{duplicates="duplicates"} (\emph{keeping}
-multiple matches isn't possible in this case because the implementation relies
-on \code{\link{findInterval}}). If the differences between \code{x} and the corresponding
-matches in \code{table} are identical the lower index (the smaller element
-in \code{table}) is returned. For \code{duplicates="remove"} all multiple matches
-are returned as \code{nomatch} as above.
+multiple matches isn't possible in this case because the return value should
+be of the same length as \code{x}). If the differences between \code{x} and the
+corresponding matches in \code{table} are identical the lower index (the smaller
+element in \code{table}) is returned. For \code{duplicates="remove"} all multiple
+matches are returned as \code{nomatch} as above.
+
+\code{.checks = TRUE} tests for increasingly sorted \code{x} and \code{table} arguments that
+are mandatory assumptions for the \code{closest} algorithm. These checks require
+to loop through both vectors and compare each element against its precursor.
+Depending on the length and distribution of \code{x} and \code{table} these checks take
+equal/more time than the whole \code{closest} algorithm. If it is ensured by other
+methods that both arguments \code{x} and \code{table} are sorted the tests could be
+skipped by \code{.check = FALSE}. In the case that \code{.check = FALSE} is used
+and one of \code{x} and \code{table} is not sorted (or decreasingly sorted)
+the output would be incorrect in the best case and result in infinity
+loop in the average and worst case.
 
 \code{join}: joins two \code{numeric} vectors by mapping values in \code{x} with
 values in \code{y} and \emph{vice versa} if they are similar enough (provided the
@@ -100,9 +127,6 @@ be discarded. \code{type = "right"}: same as \code{type = "left"} but for \code{
 \code{type = "inner"}: report only indices of values that could be mapped.
 }
 \note{
-\code{closest} will replace all \code{NA} values in \code{x} by \code{nomatch} (that is identical
-to the behaviour of \code{match}).
-
 \code{join} is based on \code{closest(x, y, tolerance, duplicates = "closest")}.
 That means for multiple matches just the closest one is reported.
 }
@@ -128,10 +152,10 @@ y <- c(3.01, 34.12, 45.021, 46.1, 556.449)
 closest(x, y, tolerance = 0.01)
 
 ## Using a value-specific tolerance accepting differences of 20 ppm
-closest(x, y, tolerance = ppm(y, 20))
+closest(x, y, ppm = 20)
 
 ## Same using 50 ppm
-closest(x, y, tolerance = ppm(y, 50))
+closest(x, y, ppm = 50)
 
 ## Sometimes multiple elements in `x` match to `table`
 x <- c(1.6, 1.75, 1.8)

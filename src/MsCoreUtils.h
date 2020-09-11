@@ -6,9 +6,13 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-extern SEXP C_localMaxima(SEXP, SEXP);
+extern SEXP C_closest_dup_keep(SEXP, SEXP, SEXP, SEXP);
+extern SEXP C_closest_dup_closest(SEXP, SEXP, SEXP, SEXP);
+extern SEXP C_closest_dup_remove(SEXP, SEXP, SEXP, SEXP);
 
 extern SEXP C_impNeighbourAvg(SEXP, SEXP);
+
+extern SEXP C_localMaxima(SEXP, SEXP);
 
 extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
 
