@@ -1,5 +1,9 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.6
+
+- Nothing yet
+
 ## Changes in 1.1.5
 
 - Add `...` to functions to join and compare peaks; see also
