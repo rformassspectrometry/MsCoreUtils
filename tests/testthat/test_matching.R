@@ -80,6 +80,12 @@ test_that("closest, duplicates", {
     y <- as.numeric(c(3, 4, 5, 7))
     expect_equal(closest(x, y, tolerance = 1, duplicates = "closest"),
                  c(NA, 1, 3, 4, NA))
+    # multiple match, with better match following, see
+    # https://github.com/rformassspectrometry/MsCoreUtils/issues/66
+    x <- c(1, 1.5, 2, 2.1, 5, 6, 7)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    expect_equal(closest(x, y, tolerance = 3, duplicates = "closest"),
+                 c(NA, NA, NA, 1, 5, 6, 7))
 })
 
 test_that("common", {
