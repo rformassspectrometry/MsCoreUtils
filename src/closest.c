@@ -8,56 +8,6 @@
 #include <math.h>
 
 /**
- * Find leftmost interval.
- *
- * This function is a simplified version of R's findInterval.
- *
- * \param x key value to look for.
- * \param ptable table/haystack where to look for.
- * \param low lowest/leftmost index to start the search.
- * \param n highest/rightmost index.
- * \return index of the leftmost element
- *
- * \note For easier implementation we ignore some corner cases here. Index `0`
- * and `n - 1` have to be handled outside this function. Also if it is called
- * multiple times (e.g. if x is an array in the calling function) x has to
- * sorted increasingly (we never lower `low`).
- *
- * \sa r-source/src/appl/interv.c
- */
-int leftmost(double x, double* ptable, int low, int n) {
-    int high = low + 1, mid = high;
-
-    /* same interval as the last one */
-    if (x < ptable[high] && ptable[low] <= x)
-        return low;
-
-    /* exponentional search */
-    for (int step = 1;; step *= 2) {
-        /* x is still > ptable[high] so we can update low as well to keep search
-         * space small
-         */
-        low = high;
-        high = low + step;
-        if (high >= n || x < ptable[high])
-            break;
-    }
-    high = (high >= n) ? n - 1 : high;
-
-    /* binary search */
-    while(1) {
-        mid = (low + high) / 2;
-        if (mid == low)
-            break;
-        if (x > ptable[mid])
-            low = mid;
-        else
-            high = mid;
-    }
-    return low;
-}
-
-/**
  * Find closest value to table, keep duplicates.
  *
  * \param x key value to look for.
@@ -70,91 +20,41 @@ int leftmost(double x, double* ptable, int low, int n) {
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
 SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    int nx = LENGTH(x);
-    double* px = REAL(x);
+    double *px = REAL(x);
+    const unsigned int nx = LENGTH(x);
 
-    int ntable = LENGTH(table);
-    double* ptable = REAL(table);
+    double *ptable = REAL(table);
+    const unsigned int ntable1 = LENGTH(table) - 1;
 
-    double* ptolerance = REAL(tolerance);
+    double *ptolerance = REAL(tolerance);
 
     SEXP out = PROTECT(allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
-    int low = 0, cur = 0;
+    const unsigned int inomatch = asInteger(nomatch);
+    unsigned int j = 1;
 
-    for (int i = 0; i < nx; ++i) {
-        if (px[i] < ptable[0])
-            cur = 0;
-        else if (px[i] >= ptable[ntable - 1])
-            cur = ntable - 1;
-        else {
-            low = leftmost(px[i], ptable, low, ntable);
-            cur = (px[i] - ptable[low] <= ptable[low + 1] - px[i]) ?
-                low : low + 1;
-        }
+    double prevdiff = R_PosInf, nextdiff = R_PosInf;
 
-        /* cur + 1 is needed here to translate between R's and C's indices */
-        pout[i] = fabs(px[i] - ptable[cur]) <= ptolerance[i] ?
-            cur + 1 : asInteger(nomatch);
-  }
+    for (unsigned int i = 0; i < nx; ++i) {
+        while(j < ntable1 && ptable[j] < px[i])
+            ++j;
 
-  UNPROTECT(1);
-  return(out);
-}
+        /* fabs should be just needed for the first element */
+        prevdiff = fabs(px[i] - ptable[j - 1]);
+        nextdiff = fabs(ptable[j] - px[i]);
 
-/**
- * Find closest value to table, keep just closest duplicate.
- * This function should be reused in the outer join C implementation.
- *
- * \param pout pointer to output array.
- * \param px pointer to arrays with key values to look for.
- * \param nx number of elements in `px`.
- * \param ptable table/haystack where to look for.
- * \param ntable number of elements in `ptable`.
- * \param ptolerance pointer to tolerance array that stores the tolerance
- * to be accepted as match, has to be of length == length(x).
- * \param nomatch value that should be returned if a key couldn't be matched.
- * \return index the closest element
- *
- * \note x and table have to be sorted increasingly and not containing any NA.
- */
-void closest_dup_closest(int *pout, double *px, int nx,
-                         double *ptable, int ntable,
-                         double *ptolerance, int nomatch) {
-
-    int low = 0, cur = 0;
-    int last = R_NegInf;
-    double absdiff, lastdiff = R_PosInf;
-
-    for (int i = 0; i < nx; ++i) {
-        if (px[i] < ptable[0])
-            cur = 0;
-        else if (px[i] >= ptable[ntable - 1])
-            cur = ntable - 1;
-        else {
-            low = leftmost(px[i], ptable, low, ntable);
-            cur = (px[i] - ptable[low] <= ptable[low + 1] - px[i]) ?
-                low : low + 1;
-        }
-
-        absdiff = fabs(px[i] - ptable[cur]);
-        if (absdiff <= ptolerance[i]) {
-            if (last == cur) {
-                if (absdiff < lastdiff && last == cur) {
-                    pout[i] = cur + 1;
-                    pout[i - 1] = nomatch;
-                    lastdiff = absdiff;
-                } else
-                    pout[i] = nomatch;
-            } else {
-                pout[i] = cur + 1;
-                last = cur;
-                lastdiff = absdiff;
-            }
+        if (prevdiff <= ptolerance[i] || nextdiff <= ptolerance[i]) {
+            if (prevdiff <= nextdiff)
+                pout[i] = j;
+            else
+                pout[i] = ++j;
         } else
-            pout[i] = nomatch;
+            pout[i] = inomatch;
     }
+
+    UNPROTECT(1);
+    return out;
 }
 
 /**
@@ -168,20 +68,64 @@ void closest_dup_closest(int *pout, double *px, int nx,
  * \return index the closest element
  *
  * \note x and table have to be sorted increasingly and not containing any NA.
+ * \author Sebastian Gibb and Johannes Rainer
  */
 SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    int nx = LENGTH(x);
-    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    double *px = REAL(x);
+    const unsigned int nx = LENGTH(x);
 
-    closest_dup_closest(
-        INTEGER(out),
-        REAL(x), nx,
-        REAL(table), LENGTH(table),
-        REAL(tolerance), asInteger(nomatch)
-    );
+    double *ptable = REAL(table);
+    const unsigned int ntable = LENGTH(table);
+
+    double *ptolerance = REAL(tolerance);
+
+    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    int* pout = INTEGER(out);
+
+    const unsigned int inomatch = asInteger(nomatch);
+
+    unsigned int ix = 0, ixlastused = 1;
+    unsigned int itbl = 0, itbllastused = 1;
+    double diff = R_PosInf, diffnxtx = R_PosInf, diffnxttbl = R_PosInf;
+
+    while (ix < nx) {
+        if (itbl < ntable) {
+            /* difference for current pair */
+            diff = fabs(px[ix] - ptable[itbl]);
+            /* difference for next pairs */
+            diffnxtx =
+                ix + 1 < nx ? fabs(px[ix + 1] - ptable[itbl]) : R_PosInf;
+            diffnxttbl =
+                itbl + 1 < ntable ? fabs(px[ix] - ptable[itbl + 1]) : R_PosInf;
+
+            if (diff <= ptolerance[ix]) {
+                /* valid match, add + 1 to convert between R/C index */
+                pout[ix] = itbl + 1;
+                if (itbl == itbllastused &&
+                        (diffnxtx < diffnxttbl || diff < diffnxttbl))
+                    pout[ixlastused] = inomatch;
+                ixlastused = ix;
+                itbllastused = itbl;
+            } else
+                pout[ix] = inomatch;
+
+            if (diffnxtx < diff || diffnxttbl < diff) {
+                /* increment the index with the smaller distance */
+                if (diffnxtx < diffnxttbl)
+                    ++ix;
+                else
+                    ++itbl;
+            } else {
+                /* neither next x nor next table item offer a better match */
+                ++ix;
+                ++itbl;
+            }
+        } else
+            pout[ix++] = inomatch;
+    }
 
     UNPROTECT(1);
-    return(out);
+    return out;
 }
 
 /**
@@ -197,40 +141,52 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
  * \note x and table have to be sorted increasingly and not containing any NA.
  */
 SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
-    int nx = LENGTH(x);
-    double* px = REAL(x);
+    double *px = REAL(x);
+    const unsigned int nx = LENGTH(x);
 
-    int ntable = LENGTH(table);
-    double* ptable = REAL(table);
+    double *ptable = REAL(table);
+    const unsigned int ntable1 = LENGTH(table) - 1;
 
-    double* ptolerance = REAL(tolerance);
+    double *ptolerance = REAL(tolerance);
 
     SEXP out = PROTECT(allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
-    int low = 0, cur = 0;
-    int last = R_NegInf;
+    const unsigned int inomatch = asInteger(nomatch);
+    unsigned int j = 1, lastj = 0;
+    double prevdiff = R_PosInf, nextdiff = R_PosInf;
 
-    for (int i = 0; i < nx; ++i) {
-        if (px[i] < ptable[0])
-            cur = 0;
-        else if (px[i] >= ptable[ntable - 1])
-            cur = ntable - 1;
-        else {
-            low = leftmost(px[i], ptable, low, ntable);
-            cur = (px[i] - ptable[low] <= ptable[low + 1] - px[i]) ?
-                low : low + 1;
-        }
+    for (unsigned int i = 0; i < nx; ++i) {
+        while(j < ntable1 && ptable[j] < px[i])
+            ++j;
 
-        if (fabs(px[i] - ptable[cur] <= ptolerance[i])) {
-            if (last != cur)
-                pout[i] = cur + 1;
-            else
-                pout[i - 1] = pout[i] = asInteger(nomatch);
-            last = cur;
-        }
-  }
+        /* fabs should be just needed for the first element */
+        prevdiff = fabs(px[i] - ptable[j - 1]);
+        nextdiff = fabs(ptable[j] - px[i]);
 
-  UNPROTECT(1);
-  return(out);
+        if (prevdiff <= ptolerance[i] || nextdiff <= ptolerance[i]) {
+            if (prevdiff <= nextdiff) {
+                /* match on the left */
+                if (lastj == j) {
+                    pout[i] = inomatch;
+                    pout[i - 1] = inomatch;
+                } else {
+                    pout[i] = j;
+                }
+            } else {
+                /* match on the right */
+                if (lastj == j + 1) {
+                    pout[i] = inomatch;
+                    pout[i - 1] = inomatch;
+                } else {
+                    pout[i] = ++j;
+                }
+            }
+        } else
+            pout[i] = inomatch;
+        lastj = j;
+    }
+
+    UNPROTECT(1);
+    return out;
 }

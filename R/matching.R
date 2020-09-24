@@ -16,12 +16,14 @@
 #' the same length as `x`.
 #' @param ppm `numeric(1)` representing a relative, value-specific
 #'  parts-per-million (PPM) tolerance that is added to `tolerance`.
-#' @param duplicates `character(1)`, how to handle duplicated matches.
+#' @param duplicates `character(1)`, how to handle duplicated matches. Has to be
+#' one of `c("keep", "closest", "remove")`. No abbreviations allowed.
 #' @param nomatch `integer(1)`, if the difference
 #' between the value in `x` and `table` is larger than
 #' `tolerance` `nomatch` is returned.
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x`
-#' and `table`. This should just be done if it is ensured by other methods
+#' and `table`. It also disables most other input validation checks.
+#' This should just be done if it is ensured by other methods
 #' that `x` and `table` are sorted, see details.
 #'
 #' @details
@@ -40,16 +42,21 @@
 #' in `table` are set to `nomatch`.
 #'
 #' If a single element in `x` matches multiple elements in `table` the *closest*
-#' is returned for `duplicates="keep"` or `duplicates="duplicates"` (*keeping*
+#' is returned for `duplicates="keep"` or `duplicates="closest"` (*keeping*
 #' multiple matches isn't possible in this case because the return value should
 #' be of the same length as `x`). If the differences between `x` and the
 #' corresponding matches in `table` are identical the lower index (the smaller
-#' element in `table`) is returned. For `duplicates="remove"` all multiple
-#' matches are returned as `nomatch` as above.
+#' element in `table`) is returned. There is one exception: if the lower index
+#' is already returned for another `x` with a smaller difference to this
+#' `index` the higher one is returned for `duplicates = "closer"`
+#' (but only if there is no other `x` that is closer to the higher one).
+#' For `duplicates="remove"` all multiple matches are returned as `nomatch` as
+#' above.
 #'
-#' `.checks = TRUE` tests for increasingly sorted `x` and `table` arguments that
-#' are mandatory assumptions for the `closest` algorithm. These checks require
-#' to loop through both vectors and compare each element against its precursor.
+#' `.checks = TRUE` tests among other input validation checks for increasingly
+#' sorted `x` and `table` arguments that are mandatory assumptions for the
+#' `closest` algorithm. These checks require to loop through both vectors and
+#' compare each element against its precursor.
 #' Depending on the length and distribution of `x` and `table` these checks take
 #' equal/more time than the whole `closest` algorithm. If it is ensured by other
 #' methods that both arguments `x` and `table` are sorted the tests could be
@@ -105,25 +112,25 @@
 closest <- function(x, table, tolerance = Inf, ppm = 0,
                     duplicates = c("keep", "closest", "remove"),
                     nomatch = NA_integer_, .check = TRUE) {
+    if (.check) {
+        ntolerance <- length(tolerance)
+        if (ntolerance != 1L && ntolerance != length(x))
+            stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
 
-    ntolerance <- length(tolerance)
-    if (ntolerance != 1L && ntolerance != length(x))
-        stop("'tolerance' has to be of length 1 or equal to 'length(x)'")
+        if (!is.numeric(tolerance) || any(tolerance < 0))
+            stop("'tolerance' has to be a 'numeric' larger or equal zero.")
 
-    if (!is.numeric(tolerance) || any(tolerance < 0))
-        stop("'tolerance' has to be a 'numeric' larger or equal zero.")
+        if(!is.numeric(ppm) || any(ppm < 0))
+            stop("'ppm' has to be a 'numeric' larger or equal zero.")
 
-    if(!is.numeric(ppm) || any(ppm < 0))
-        stop("'ppm' has to be a 'numeric' larger or equal zero.")
+        if (!is.numeric(nomatch) || length(nomatch) != 1L)
+            stop("'nomatch' has to be a 'numeric' of length one.")
 
-    if (!is.numeric(nomatch) || length(nomatch) != 1L)
-        stop("'nomatch' has to be a 'numeric' of length one.")
-
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(table)))) {
-        stop("'x' and 'table' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
+        if (!identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(table))) {
+            stop("'x' and 'table' have to be sorted non-decreasingly and ",
+                 "must not contain NA.")
+        }
     }
 
     if (!length(table))
@@ -131,29 +138,31 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 
     tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
-    duplicates <- match.arg(duplicates)
-
-    if (duplicates == "keep")
+    if (duplicates[1L] == "keep")
         .Call(
             "C_closest_dup_keep",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         )
-    else if (duplicates == "remove")
-        .Call(
-            "C_closest_dup_remove",
-            as.double(x), as.double(table),
-            as.double(tolerance),
-            as.integer(nomatch)
-        )
-    else if (duplicates == "closest")
+    else if (duplicates[1L] == "closest")
         .Call(
             "C_closest_dup_closest",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         )
+    else if (duplicates[1L] == "remove")
+        .Call(
+            "C_closest_dup_remove",
+            as.double(x), as.double(table),
+            as.double(tolerance),
+            as.integer(nomatch)
+        )
+    else {
+        stop("'duplicates' has to be one of \"keep\", \"closest\" ",
+             "or \"remove\".")
+    }
 }
 
 #' @rdname matching
@@ -196,6 +205,7 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' @param .check `logical(1)` turn off checks for increasingly sorted `x` and
 #' `y`. This should just be done if it is ensured by other methods that `x` and
 #' `y` are sorted, see also [`closest()`].
+#' @param ... ignored.
 #'
 #' @note `join` is based on `closest(x, y, tolerance, duplicates = "closest")`.
 #' That means for multiple matches just the closest one is reported.
@@ -231,7 +241,8 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 #' x[ji$x]
 #' y[ji$y]
 join <- function(x, y, tolerance = 0, ppm = 0,
-                 type = c("outer", "left", "right", "inner"), .check = TRUE) {
+                 type = c("outer", "left", "right", "inner"), .check = TRUE,
+                 ...) {
     switch(match.arg(type),
            "outer" = .cjoinOuter(
                x, y, tolerance = tolerance, ppm = ppm, .check = .check

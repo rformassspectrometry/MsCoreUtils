@@ -31,7 +31,8 @@ join(
   tolerance = 0,
   ppm = 0,
   type = c("outer", "left", "right", "inner"),
-  .check = TRUE
+  .check = TRUE,
+  ...
 )
 }
 \arguments{
@@ -49,7 +50,8 @@ the same length as \code{x}.}
 \item{ppm}{\code{numeric(1)} representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 
-\item{duplicates}{\code{character(1)}, how to handle duplicated matches.}
+\item{duplicates}{\code{character(1)}, how to handle duplicated matches. Has to be
+one of \code{c("keep", "closest", "remove")}. No abbreviations allowed.}
 
 \item{nomatch}{\code{integer(1)}, if the difference
 between the value in \code{x} and \code{table} is larger than
@@ -63,6 +65,8 @@ between the value in \code{x} and \code{table} is larger than
 
 \item{type}{\code{character(1)}, defines how \code{x} and \code{y} should be joined. See
 details for \code{join}.}
+
+\item{...}{ignored.}
 }
 \value{
 \code{closest} returns an \code{integer} vector of the same length as \code{x}
@@ -98,16 +102,21 @@ for \code{duplicates="remove"} all elements in \code{x} that match to the same e
 in \code{table} are set to \code{nomatch}.
 
 If a single element in \code{x} matches multiple elements in \code{table} the \emph{closest}
-is returned for \code{duplicates="keep"} or \code{duplicates="duplicates"} (\emph{keeping}
+is returned for \code{duplicates="keep"} or \code{duplicates="closest"} (\emph{keeping}
 multiple matches isn't possible in this case because the return value should
 be of the same length as \code{x}). If the differences between \code{x} and the
 corresponding matches in \code{table} are identical the lower index (the smaller
-element in \code{table}) is returned. For \code{duplicates="remove"} all multiple
-matches are returned as \code{nomatch} as above.
+element in \code{table}) is returned. There is one exception: if the lower index
+is already returned for another \code{x} with a smaller difference to this
+\code{index} the higher one is returned for \code{duplicates = "closer"}
+(but only if there is no other \code{x} that is closer to the higher one).
+For \code{duplicates="remove"} all multiple matches are returned as \code{nomatch} as
+above.
 
-\code{.checks = TRUE} tests for increasingly sorted \code{x} and \code{table} arguments that
-are mandatory assumptions for the \code{closest} algorithm. These checks require
-to loop through both vectors and compare each element against its precursor.
+\code{.checks = TRUE} tests among other input validation checks for increasingly
+sorted \code{x} and \code{table} arguments that are mandatory assumptions for the
+\code{closest} algorithm. These checks require to loop through both vectors and
+compare each element against its precursor.
 Depending on the length and distribution of \code{x} and \code{table} these checks take
 equal/more time than the whole \code{closest} algorithm. If it is ensured by other
 methods that both arguments \code{x} and \code{table} are sorted the tests could be
