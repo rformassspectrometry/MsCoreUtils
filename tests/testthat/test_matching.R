@@ -101,11 +101,13 @@ test_that("common", {
 })
 
 test_that("join", {
-    x <- c(1, 2, 3, 6)
-    y <- c(3, 4, 5, 6, 7)
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(3, 4, 5, 6, 7))
 
     expect_equal(join(x, y, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(.joinOuter(x, y, 0, 0),
+                 .cjoinOuter(x, y, 0, 0))
     expect_equal(join(x, y, type = "left"),
                  list(x = 1:4, y = c(NA, NA, 1, 4)))
     expect_equal(join(x, y, type = "right"),
@@ -117,6 +119,8 @@ test_that("join", {
     expect_equal(join(x, y, type = "outer"),
                  list(x = c(1:3, rep(NA, 4), 4, NA),
                       y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(.joinOuter(x, y, 0, 0),
+                 .cjoinOuter(x, y, 0, 0))
     expect_equal(join(x, y, type = "left"),
                  list(x = 1:4, y = rep(NA_integer_, 4)))
     expect_equal(join(x, y, type = "right"),
@@ -125,6 +129,8 @@ test_that("join", {
                  list(x = integer(), y = integer()))
     expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(.joinOuter(x, y, 0.1, 0),
+                 .cjoinOuter(x, y, 0.1, 0))
     expect_equal(join(x, y, tolerance = 0.1, type = "left"),
                  list(x = 1:4, y = c(NA, NA, 1, 4)))
     expect_equal(join(x, y, tolerance = 0.1, type = "right"),
@@ -136,6 +142,8 @@ test_that("join", {
     expect_equal(join(x, y, tolerance = 0.1, type = "outer"),
                  list(x = c(1:3, rep(NA, 4), 4, NA),
                       y = c(rep(NA, 3), 1:4, NA, 5)))
+    expect_equal(.joinOuter(x, y, 0.1, 0),
+                 .cjoinOuter(x, y, 0.1, 0))
     expect_equal(join(x, y, tolerance = 0.1, type = "left"),
                  list(x = 1:4, y = rep(NA_integer_, 4)))
     expect_equal(join(x, y, tolerance = 0.1, type = "right"),
@@ -144,6 +152,8 @@ test_that("join", {
                  list(x = integer(), y = integer()))
     expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, 1:5)))
+    expect_equal(.joinOuter(x, y, 0.1, 2),
+                 .cjoinOuter(x, y, 0.1, 2))
     expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "left"),
                  list(x = 1:4, y = c(NA, NA, 1, 4)))
     expect_equal(join(x, y, tolerance = 0.1, ppm = 2, type = "right"),
@@ -160,8 +170,185 @@ test_that("join", {
                  list(x = integer(), y = integer()))
 
     ## no match at all
-    x <- c(1, 2, 3, 6)
-    y <- c(4, 5, 7)
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(4, 5, 7))
     expect_equal(join(x, y, type = "outer"),
                  list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, NA, 1:2, NA, 3)))
+})
+
+test_that(".cjoinOuter works", {
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(3, 4, 5, 6, 7))
+
+    expect_error(.cjoinOuter(1:3, 4:1, 0, 0), "sorted")
+    expect_error(.cjoinOuter(4:1, 1:4, 0, 0), "sorted")
+    expect_error(.cjoinOuter(c(1, 2, NA, 3), 1:4, 0, 0), "sorted")
+
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1, 2, 3, NA, NA, 4, NA),
+                      y = c(NA, NA, 1, 2, 3, 4, 5)))
+    expect_equal(.cjoinOuter(x, y, 10, 0),
+                 list(x = c(1, 2, 3, NA, NA, 4, NA),
+                      y = c(NA, NA, 1, 2, 3, 4, 5)))
+    expect_equal(.cjoinOuter(y, x, 10, 0),
+                 list(x = c(NA, NA, 1, 2, 3, 4, 5),
+                      y = c(1, 2, 3, NA, NA, 4, NA)))
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 .joinOuter(x, y, 0, 0))
+    expect_equal(.cjoinOuter(x, y, 10, 0),
+                 .joinOuter(x, y, 10, 0))
+    expect_equal(.cjoinOuter(y, x, 10, 0),
+                 .joinOuter(y, x, 10, 0))
+
+    x <- c(1, 1.5, 2, 2.1, 5, 6, 7)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1:4, NA, NA, NA, NA, 5:7, NA),
+                      y = c(NA, NA, NA, NA, 1:8)))
+    expect_equal(.cjoinOuter(y, x, 0, 0),
+                 list(x = c(NA, NA, NA, NA, 1:8),
+                      y = c(1:4, NA, NA, NA, NA, 5:7, NA)))
+    ## Issue #66: outer join with tolerance 3: expect to have more matches!
+    tol_3 <- list(x = c(1, 2, 3, 4, NA, NA, NA, 5, 6, 7, NA),
+                  y = c(NA, NA, NA, 1, 2, 3, 4, 5, 6, 7, 8))
+    expect_equal(.cjoinOuter(x, y, 3, 0), tol_3)
+    tol_3 <- tol_3[2:1]
+    names(tol_3) <- c("x", "y")
+    expect_equal(.cjoinOuter(y, x, 3, 0), tol_3)
+
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 .joinOuter(x, y, 0, 0))
+    expect_equal(.cjoinOuter(y, x, 0, 0),
+                 .joinOuter(y, x, 0, 0))
+    ## Issue #66: joinOuter fails.
+    expect_error(expect_equal(.cjoinOuter(x, y, 3, 0),
+                              .joinOuter(x, y, 3, 0)))
+
+    x <- c(1, 1.5, 2, 2.1, 3, 3.4, 4.1, 4.5, 5, 5.1, 5.2, 6, 14)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    tol_3 <- list(
+        x = c(1, 2, 3, 4, 5, 6, 7, 8, NA, NA, NA, 9, 10, 11, 12, NA, NA, 13),
+        y = c(NA, NA, NA, NA, NA, NA, NA, 1, 2, 3, 4, 5, NA, NA, 6, 7, 8, NA))
+    expect_equal(.cjoinOuter(x, y, 3, 0), tol_3)
+    expect_equal(.cjoinOuter(x, y, 1, 0),
+                 .joinOuter(x, y, 1, 0))
+
+    x <- c(1, 2, 3, 4)
+    y <- c(6, 7, 8)
+    .cjoinOuter(x, y, 20, 0)
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1:4, NA, NA, NA), y = c(NA, NA, NA, NA, 1:3)))
+    expect_equal(.cjoinOuter(x, y, 20, 0),
+                 list(x = c(1:4, NA, NA), y = c(NA, NA, NA, 1:3)))
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 .joinOuter(x, y, 0, 0))
+
+    ## no match at all
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(4, 5, 7))
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(1:3, NA, NA, 4, NA), y = c(NA, NA, NA, 1:2, NA, 3)))
+    expect_equal(.joinOuter(x, y, 0, 0), .cjoinOuter(x, y, 0, 0))
+
+    ## multiple matches but require to match the closest only (not the first)
+    x <- c(133.0759, 133.0775, 133.9788, 133.9804, 133.9820, 133.9837)
+    y <- c(133.9755, 133.9771, 133.9788, 133.9804, 133.9820, 133.9836)
+    expect_equal(.joinOuter(x, y, 0.01, 0),
+                 list(x = c(1, 2, NA, NA, 3, 4, 5, 6),
+                      y = c(NA, NA, 1, 2, 3, 4, 5, 6)))
+    expect_equal(.cjoinOuter(x, y, 0.01, 0), .joinOuter(x, y, 0.01, 0))
+    expect_equal(.joinOuter(y, x, 0.01, 0),
+                 list(x = c(NA, NA, 1, 2, 3, 4, 5, 6),
+                      y = c(1, 2, NA, NA, 3, 4, 5, 6)))
+    expect_equal(.cjoinOuter(y, x, 0.01, 0), .joinOuter(y, x, 0.01, 0))
+
+    ## identical values
+    x <- c(3, 5, 5, 5, 6, 9)
+    y <- c(2, 4, 5, 5.5, 7)
+    expect_equal(.cjoinOuter(x, y, 0, 0),
+                 list(x = c(NA, 1, NA, 2, 3, 4, NA, 5, NA, 6),
+                      y = c(1, NA, 2, 3, NA, NA, 4, NA, 5, NA)))
+    expect_equal(.cjoinOuter(y, x, 0, 0),
+                 list(x = c(1, NA, 2, 3, NA, NA, 4, NA, 5, NA),
+                      y = c(NA, 1, NA, 2, 3, 4, NA, 5, NA, 6)))
+})
+
+test_that(".cjoinLeft works", {
+    x <- as.numeric(c(1, 2, 3, 6))
+    y <- as.numeric(c(3, 4, 5, 6, 7))
+
+    expect_error(.cjoinLeft(1:3, 4:1, 0, 0), "sorted")
+    expect_error(.cjoinLeft(4:1, 1:4, 0, 0), "sorted")
+    expect_error(.cjoinLeft(c(1, 2, NA, 3), 1:4, 0, 0), "sorted")
+
+    expect_equal(.cjoinLeft(x, y, tolerance = 0, ppm = 0),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(.cjoinLeft(x, y, tolerance = 5, ppm = 0),
+                 list(x = 1:4, y = c(NA, NA, 1, 4)))
+    expect_equal(.joinLeft(x, y, tolerance = 0, ppm = 0),
+                 .cjoinLeft(x, y, tolerance = 0, ppm = 0))
+    expect_equal(.joinLeft(x, y, tolerance = 5, ppm = 0),
+                 .cjoinLeft(x, y, tolerance = 5, ppm = 0))
+
+    x <- as.numeric(c(1, 3, 5, 6, 8))
+    y <- as.numeric(c(3, 4, 5, 7))
+    expect_equal(.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:5, y = c(NA, 1, 3, NA, NA)))
+    expect_equal(.cjoinLeft(y, x, 0, 0),
+                 list(x = 1:4, y = c(2, NA, 3, NA)))
+    expect_equal(.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:5, y = c(NA, 1, 3, 4, NA)))
+    expect_equal(.cjoinLeft(y, x, 1, 0),
+                 list(x = 1:4, y = c(2, NA, 3, 4)))
+    expect_equal(.cjoinLeft(x, y, 0, 0),
+                 .joinLeft(x, y, 0, 0))
+    expect_equal(.cjoinLeft(y, x, 0, 0),
+                 .joinLeft(y, x, 0, 0))
+    ## issue #65
+    ## expect_equal(.cjoinLeft(x, y, 1, 0),
+    ##              .joinLeft(x, y, 1, 0))
+    expect_equal(.cjoinLeft(y, x, 1, 0),
+                 .joinLeft(y, x, 1, 0))
+
+    x <- c(133.0759, 133.0775, 133.9788, 133.9804, 133.9820, 133.9837)
+    y <- c(133.9755, 133.9771, 133.9788, 133.9804, 133.9820, 133.9836)
+    expect_equal(.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:6, y = c(NA, NA, 3, 4, 5, NA)))
+    expect_equal(.cjoinLeft(x, y, 0.01, 0),
+                 list(x = 1:6, y = c(NA, NA, 3, 4, 5, 6)))
+    expect_equal(.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:6, y = c(NA, 1, 3, 4, 5, 6)))
+    expect_equal(.joinLeft(x, y, 0, 0),
+                 .cjoinLeft(x, y, 0, 0))
+    expect_equal(.joinLeft(x, y, 0.01, 0),
+                 .cjoinLeft(x, y, 0.01, 0))
+    expect_equal(.joinLeft(x, y, 1, 0),
+                 .cjoinLeft(x, y, 1, 0))
+
+    x <- c(1, 1.5, 2, 2.1, 5, 6, 7)
+    y <- c(4.6, 4.7, 4.8, 4.9, 5, 6, 7, 8)
+    expect_equal(.cjoinLeft(x, y, 0, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, NA, 5, 6, 7)))
+    expect_equal(.cjoinLeft(x, y, 1, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, NA, 5, 6, 7)))
+    expect_equal(.cjoinLeft(x, y, 3, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, 1, 5, 6, 7)))
+    expect_equal(.cjoinLeft(x, y, 10, 0),
+                 list(x = 1:7, y = c(NA, NA, NA, 1, 5, 6, 7)))
+    expect_equal(.cjoinLeft(y, x, 0, 0),
+                 list(x = 1:8, y = c(NA, NA, NA, NA, 5, 6, 7, NA)))
+    expect_equal(.cjoinLeft(y, x, 10, 0),
+                 list(x = 1:8, y = c(NA, NA, NA, NA, 5, 6, 7, NA)))
+    expect_equal(.cjoinLeft(x, y, 0, 0),
+                 .joinLeft(x, y, 0, 0))
+    expect_equal(.cjoinLeft(x, y, 1, 0),
+                 .joinLeft(x, y, 1, 0))
+    expect_equal(.cjoinLeft(x, y, 3, 0),
+                 .joinLeft(x, y, 3, 0))
+    expect_equal(.cjoinLeft(x, y, 10, 0),
+                 .joinLeft(x, y, 10, 0))
+    expect_equal(.cjoinLeft(y, x, 0, 0),
+                 .joinLeft(y, x, 0, 0))
+    expect_equal(.cjoinLeft(y, x, 10, 0),
+                 .joinLeft(y, x, 10, 0))
 })

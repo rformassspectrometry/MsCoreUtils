@@ -70,7 +70,7 @@
 #' there is no match.
 #'
 #' @rdname matching
-#' @author Sebastian Gibb
+#' @author Sebastian Gibb, Johannes Rainer
 #' @seealso [`match()`]
 #' @aliases closest
 #' @family grouping/matching functions
@@ -244,17 +244,17 @@ join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner"), .check = TRUE,
                  ...) {
     switch(match.arg(type),
-           "outer" = .joinOuter(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           "outer" = .cjoinOuter(
+               x, y, tolerance = tolerance, ppm = ppm, .check = .check
            ),
-           "left" = .joinLeft(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+           "left" = .cjoinLeft(
+               x, y, tolerance = tolerance, ppm = ppm, .check = .check
            ),
            "right" = .joinRight(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+               x, y, tolerance = tolerance, ppm = ppm, .check = .check
            ),
            "inner" = .joinInner(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
+               x, y, tolerance = tolerance, ppm = ppm, .check = .check
            )
     )
 }
@@ -298,4 +298,36 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     ox[i[sx]] <- sx
     oy[i[nx + sy]] <- sy
     list(x = ox, y = oy)
+}
+
+.cjoinOuter <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
+                        .check = TRUE) {
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+    .Call("C_join_outer", x, y, tolerance)
+}
+
+.cjoinLeft <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
+                       .check = TRUE) {
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+    .Call("C_join_left", x, y, tolerance)
 }
