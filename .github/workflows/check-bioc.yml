@@ -202,6 +202,9 @@ jobs:
           deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
           BiocManager::install(deps$package[deps$diff != 0])
 
+          ## Temporary fix for failing BiocStyle due to knitr updates
+          BiocManager::install("LTLA/BiocStyle")
+
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
@@ -401,6 +404,9 @@ jobs:
           message(paste('****', Sys.time(), 'pass number 2 at installing dependencies: any remaining dependencies ****'))
           deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
           BiocManager::install(deps$package[deps$diff != 0])
+
+          ## Temporary fix for failing BiocStyle due to knitr updates
+          BiocManager::install("LTLA/BiocStyle")
 
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
