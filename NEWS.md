@@ -1,8 +1,19 @@
 # MsCoreUtils 1.1
 
-## Changes in 1.1.5
+## Changes in 1.1.7
 
 - Add C implementations for left join and outer join.
+
+## Changes in 1.1.6
+
+- Rewrite `closest` in C <2020-09-24 Thu>.
+- Fix [#65](https://github.com/rformassspectrometry/MsCoreUtils/issues/65) and
+  [#66](https://github.com/rformassspectrometry/MsCoreUtils/issues/66).
+
+## Changes in 1.1.5
+
+- Add `...` to functions to join and compare peaks; see also
+  [#131](https://github.com/rformassspectrometry/Spectra/issues/131).
 
 ## Changes in 1.1.4
 

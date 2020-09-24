@@ -12,7 +12,6 @@ extern SEXP C_closest_dup_remove(SEXP, SEXP, SEXP, SEXP);
 
 extern SEXP C_impNeighbourAvg(SEXP, SEXP);
 
-extern SEXP C_join_left(SEXP, SEXP, SEXP);
 extern SEXP C_join_outer(SEXP, SEXP, SEXP);
 
 extern SEXP C_localMaxima(SEXP, SEXP);
