@@ -186,7 +186,8 @@ parts-per-million (PPM) tolerance that is added to <code>tolerance</code>.</p></
     </tr>
     <tr>
       <th>duplicates</th>
-      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>, how to handle duplicated matches.</p></td>
+      <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code>, how to handle duplicated matches. Has to be
+one of <code><a href='https://rdrr.io/r/base/c.html'>c("keep", "closest", "remove")</a></code>. No abbreviations allowed.</p></td>
     </tr>
     <tr>
       <th>nomatch</th>
@@ -239,15 +240,20 @@ the closest element in <code>x</code> gets the corresponding index in <code>tabl
 for <code>duplicates="remove"</code> all elements in <code>x</code> that match to the same element
 in <code>table</code> are set to <code>nomatch</code>.</p>
 <p>If a single element in <code>x</code> matches multiple elements in <code>table</code> the <em>closest</em>
-is returned for <code>duplicates="keep"</code> or <code>duplicates="duplicates"</code> (<em>keeping</em>
+is returned for <code>duplicates="keep"</code> or <code>duplicates="closest"</code> (<em>keeping</em>
 multiple matches isn't possible in this case because the return value should
 be of the same length as <code>x</code>). If the differences between <code>x</code> and the
 corresponding matches in <code>table</code> are identical the lower index (the smaller
-element in <code>table</code>) is returned. For <code>duplicates="remove"</code> all multiple
-matches are returned as <code>nomatch</code> as above.</p>
-<p><code>.checks = TRUE</code> tests for increasingly sorted <code>x</code> and <code>table</code> arguments that
-are mandatory assumptions for the <code>closest</code> algorithm. These checks require
-to loop through both vectors and compare each element against its precursor.
+element in <code>table</code>) is returned. There is one exception: if the lower index
+is already returned for another <code>x</code> with a smaller difference to this
+<code>index</code> the higher one is returned for <code>duplicates = "closer"</code>
+(but only if there is no other <code>x</code> that is closer to the higher one).
+For <code>duplicates="remove"</code> all multiple matches are returned as <code>nomatch</code> as
+above.</p>
+<p><code>.checks = TRUE</code> tests among other input validation checks for increasingly
+sorted <code>x</code> and <code>table</code> arguments that are mandatory assumptions for the
+<code>closest</code> algorithm. These checks require to loop through both vectors and
+compare each element against its precursor.
 Depending on the length and distribution of <code>x</code> and <code>table</code> these checks take
 equal/more time than the whole <code>closest</code> algorithm. If it is ensured by other
 methods that both arguments <code>x</code> and <code>table</code> are sorted the tests could be

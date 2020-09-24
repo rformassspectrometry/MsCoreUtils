@@ -140,21 +140,22 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span>(<span class="kw">x</span>) <span class="op">&lt;-</span> <span class="kw">LETTERS</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>]
 <span class="kw">x</span>
 </pre></div>
-<pre><code>##            a           b          c          d          e            f
-## A  0.5422812 -0.51176534  1.1846719  1.4530705  0.3140952 -0.678419010
-## B  0.2235659 -0.83077047 -0.3906614  0.1665433  1.0001818  1.218120050
-## C -0.6587444 -0.02495349 -0.2857434 -0.3037575 -2.7310930 -0.008020725
-##             g          h          i         j
-## A  0.09987372 -0.4204329 -0.2251000 1.8428868
-## B -0.64128989 -0.6951264 -0.6488660 1.3556185
-## C  0.58048184 -0.1919982  0.4512099 0.7078726</code></pre>
+<pre><code>##           a           b          c         d          e          f          g
+## A 0.5665493 -0.86697095 -0.3600296 0.1460398 -0.7904133  0.5705397 -0.5176704
+## B 0.7742287 -1.13253327 -0.1649454 0.8917562 -2.8934358 -1.2326358 -1.7574978
+## C 0.1303429  0.05055989  0.5828251 0.8751095 -0.2430147 -0.7416324  0.2183706
+##            h          i         j
+## A -0.9923664  0.4189135 -1.196281
+## B  1.4059801  0.9664471  0.144261
+## C -0.7561632 -1.8622849  2.235981</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span>(<span class="kw">x</span>)
 </pre></div>
+<pre><code>## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20 steps</code></pre>
 <pre><code>##           a           b           c           d           e           f 
-##  0.03570087 -0.45582977  0.16942236  0.43861878  0.03678375  0.17642282 
+##  0.49037363 -0.64964811  0.01928337  0.63763516 -1.02109408 -0.63722352 
 ##           g           h           i           j 
-##  0.01302189 -0.43585250 -0.14091871  1.30212596</code></pre>
+## -0.65430913 -0.54116801  0.42855137  0.31591393</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
