@@ -333,3 +333,51 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     }
     .Call("C_join_left", x, y, tolerance)
 }
+
+.cjoinLeft2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
+                       .check = TRUE) {
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+    .Call("C_join_left2", x, y, tolerance, NA_integer_)
+}
+
+.cjoinInner2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
+                       .check = TRUE) {
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+    .Call("C_join_inner2", x, y, tolerance, NA_integer_)
+}
+
+.cjoinOuter2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
+                       .check = TRUE) {
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+    .Call("C_join_outer2", x, y, tolerance, NA_integer_)
+}
