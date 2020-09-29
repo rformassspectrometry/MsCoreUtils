@@ -243,7 +243,7 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner"), .check = TRUE,
                  ...) {
-    switch(match.arg(type),
+    switch(type,
            "outer" = .cjoinOuter(
                x, y, tolerance = tolerance, ppm = ppm, .check = .check
            ),
@@ -255,7 +255,9 @@ join <- function(x, y, tolerance = 0, ppm = 0,
            ),
            "inner" = .joinInner(
                x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           )
+           ),
+           stop("'type' has to be one of \"outer\", \"left\", \"right\", or ",
+                "\"inner\"")
     )
 }
 
