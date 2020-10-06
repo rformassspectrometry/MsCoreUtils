@@ -1,6 +1,6 @@
 Package: MsCoreUtils
 Title: Core Utils for Mass Spectrometry Data
-Version: 1.1.7
+Version: 1.1.8
 Description: MsCoreUtils defines low-level functions for mass
     spectrometry data and is independent of any high-level data
     structures. These functions include mass spectra processing

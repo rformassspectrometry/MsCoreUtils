@@ -1,5 +1,9 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.8
+
+- Nothing yet.
+
 ## Changes in 1.1.7
 
 - Rewrite `c("left", "right", "inner", "outer")` `join` in C <2020-10-06 Tue>.
