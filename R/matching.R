@@ -243,141 +243,26 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner"), .check = TRUE,
                  ...) {
+
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
+    }
+
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+
     switch(type,
-           "outer" = .cjoinOuter(
-               x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "left" = .cjoinLeft(
-               x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "right" = .joinRight(
-               x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "inner" = .joinInner(
-               x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
+           "outer" = .Call("C_join_outer", x, y, tolerance, NA_integer_),
+           "left" = .Call("C_join_left", x, y, tolerance, NA_integer_),
+           "right" = .Call("C_join_right", x, y, tolerance, NA_integer_),
+           "inner" = .Call("C_join_inner", x, y, tolerance, NA_integer_),
            stop("'type' has to be one of \"outer\", \"left\", \"right\", or ",
                 "\"inner\"")
     )
-}
-
-.joinLeft <- function(x, y, tolerance, ppm, .check = TRUE) {
-    list(x = seq_along(x),
-         y = closest(x, y, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest", .check = .check))
-}
-
-.joinRight <- function(x, y, tolerance, ppm, .check = TRUE) {
-    list(x = closest(y, x, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest", .check = .check),
-         y = seq_along(y))
-}
-
-.joinInner <- function(x, y, tolerance, ppm, .check = TRUE) {
-    yi <- closest(y, x, tolerance = tolerance, ppm = ppm,
-                  duplicates = "closest", .check = .check)
-    notNa <- which(!is.na(yi))
-    list(x = yi[notNa], y = notNa)
-}
-
-.joinOuter <- function(x, y, tolerance, ppm, .check = TRUE) {
-    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm, .check = .check)
-    nx <- length(x)
-    ny <- length(y)
-    nlx <- length(ji[[1L]])
-    xy <- xys <- c(x, y)
-    ## equalise values that are identified as common
-    if (nlx) {
-        xy[nx + ji[[2L]]] <- xy[ji[[1L]]]
-        xys <- xy[-(nx + ji[[2L]])]
-    }
-    ## find position
-    i <- findInterval(xy, sort.int(xys))
-    ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, nx + ny - nlx)
-    sx <- seq_len(nx)
-    sy <- seq_len(ny)
-    ox[i[sx]] <- sx
-    oy[i[nx + sy]] <- sy
-    list(x = ox, y = oy)
-}
-
-.cjoinOuter <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
-                        .check = TRUE) {
-    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
-    if (is.integer(x))
-        x <- as.numeric(x)
-    if (is.integer(y))
-        y <- as.numeric(y)
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(y)))) {
-        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
-    }
-    .Call("C_join_outer", x, y, tolerance)
-}
-
-.cjoinLeft <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
-                       .check = TRUE) {
-    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
-    if (is.integer(x))
-        x <- as.numeric(x)
-    if (is.integer(y))
-        y <- as.numeric(y)
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(y)))) {
-        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
-    }
-    .Call("C_join_left", x, y, tolerance)
-}
-
-.cjoinLeft2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
-                       .check = TRUE) {
-    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
-    if (is.integer(x))
-        x <- as.numeric(x)
-    if (is.integer(y))
-        y <- as.numeric(y)
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(y)))) {
-        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
-    }
-    .Call("C_join_left2", x, y, tolerance, NA_integer_)
-}
-
-.cjoinInner2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
-                       .check = TRUE) {
-    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
-    if (is.integer(x))
-        x <- as.numeric(x)
-    if (is.integer(y))
-        y <- as.numeric(y)
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(y)))) {
-        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
-    }
-    .Call("C_join_inner2", x, y, tolerance, NA_integer_)
-}
-
-.cjoinOuter2 <- function(x = numeric(), y = numeric(), tolerance = 0, ppm = 0,
-                       .check = TRUE) {
-    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
-    if (is.integer(x))
-        x <- as.numeric(x)
-    if (is.integer(y))
-        y <- as.numeric(y)
-    if (.check && (
-            !identical(FALSE, is.unsorted(x)) ||
-            !identical(FALSE, is.unsorted(y)))) {
-        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
-             " contain NA.")
-    }
-    .Call("C_join_outer2", x, y, tolerance, NA_integer_)
 }
