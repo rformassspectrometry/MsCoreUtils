@@ -70,7 +70,7 @@
 #' there is no match.
 #'
 #' @rdname matching
-#' @author Sebastian Gibb
+#' @author Sebastian Gibb, Johannes Rainer
 #' @seealso [`match()`]
 #' @aliases closest
 #' @family grouping/matching functions
@@ -138,31 +138,28 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 
     tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
-    if (duplicates[1L] == "keep")
-        .Call(
+    switch(duplicates[1L],
+        "keep" = .Call(
             "C_closest_dup_keep",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else if (duplicates[1L] == "closest")
-        .Call(
+        ),
+        "closest" = .Call(
             "C_closest_dup_closest",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else if (duplicates[1L] == "remove")
-        .Call(
+        ),
+        "remove" = .Call(
             "C_closest_dup_remove",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else {
+        ),
         stop("'duplicates' has to be one of \"keep\", \"closest\" ",
              "or \"remove\".")
-    }
+    )
 }
 
 #' @rdname matching
@@ -243,59 +240,26 @@ common <- function(x, table, tolerance = Inf, ppm = 0,
 join <- function(x, y, tolerance = 0, ppm = 0,
                  type = c("outer", "left", "right", "inner"), .check = TRUE,
                  ...) {
-    switch(match.arg(type),
-           "outer" = .joinOuter(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "left" = .joinLeft(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "right" = .joinRight(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           ),
-           "inner" = .joinInner(
-                x, y, tolerance = tolerance, ppm = ppm, .check = .check
-           )
-    )
-}
 
-.joinLeft <- function(x, y, tolerance, ppm, .check = TRUE) {
-    list(x = seq_along(x),
-         y = closest(x, y, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest", .check = .check))
-}
-
-.joinRight <- function(x, y, tolerance, ppm, .check = TRUE) {
-    list(x = closest(y, x, tolerance = tolerance, ppm = ppm,
-                     duplicates = "closest", .check = .check),
-         y = seq_along(y))
-}
-
-.joinInner <- function(x, y, tolerance, ppm, .check = TRUE) {
-    yi <- closest(y, x, tolerance = tolerance, ppm = ppm,
-                  duplicates = "closest", .check = .check)
-    notNa <- which(!is.na(yi))
-    list(x = yi[notNa], y = notNa)
-}
-
-.joinOuter <- function(x, y, tolerance, ppm, .check = TRUE) {
-    ji <- .joinInner(x, y, tolerance = tolerance, ppm = ppm, .check = .check)
-    nx <- length(x)
-    ny <- length(y)
-    nlx <- length(ji[[1L]])
-    xy <- xys <- c(x, y)
-    ## equalise values that are identified as common
-    if (nlx) {
-        xy[nx + ji[[2L]]] <- xy[ji[[1L]]]
-        xys <- xy[-(nx + ji[[2L]])]
+    if (is.integer(x))
+        x <- as.numeric(x)
+    if (is.integer(y))
+        y <- as.numeric(y)
+    if (.check && (
+            !identical(FALSE, is.unsorted(x)) ||
+            !identical(FALSE, is.unsorted(y)))) {
+        stop("'x' and 'y' have to be sorted non-decreasingly and must not ",
+             " contain NA.")
     }
-    ## find position
-    i <- findInterval(xy, sort.int(xys))
-    ## fill gaps with NA
-    ox <- oy <- rep.int(NA_integer_, nx + ny - nlx)
-    sx <- seq_len(nx)
-    sy <- seq_len(ny)
-    ox[i[sx]] <- sx
-    oy[i[nx + sy]] <- sy
-    list(x = ox, y = oy)
+
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
+
+    switch(type[1L],
+           "outer" = .Call("C_join_outer", x, y, tolerance, NA_integer_),
+           "left" = .Call("C_join_left", x, y, tolerance, NA_integer_),
+           "right" = .Call("C_join_right", x, y, tolerance, NA_integer_),
+           "inner" = .Call("C_join_inner", x, y, tolerance, NA_integer_),
+           stop("'type' has to be one of \"outer\", \"left\", \"right\", or ",
+                "\"inner\"")
+    )
 }

@@ -12,6 +12,11 @@ extern SEXP C_closest_dup_remove(SEXP, SEXP, SEXP, SEXP);
 
 extern SEXP C_impNeighbourAvg(SEXP, SEXP);
 
+extern SEXP C_join_left(SEXP, SEXP, SEXP, SEXP);
+extern SEXP C_join_right(SEXP, SEXP, SEXP, SEXP);
+extern SEXP C_join_inner(SEXP, SEXP, SEXP, SEXP);
+extern SEXP C_join_outer(SEXP, SEXP, SEXP, SEXP);
+
 extern SEXP C_localMaxima(SEXP, SEXP);
 
 extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
