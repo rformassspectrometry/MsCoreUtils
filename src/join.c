@@ -39,6 +39,51 @@ SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
 }
 
 /**
+ * Right join of two increasingly sorted arrays.
+ *
+ * \param x array, has to be sorted increasingly and not contain any NA.
+ * \param y array, has to be sorted increasingly and not contain any NA.
+ * \param tolerance allowed tolerance to be accepted as match, has to be of
+ * length == length(x).
+ * \param nomatch value that should be returned if a key couldn't be matched.
+ * \author Sebastian Gibb
+ */
+SEXP C_join_right(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
+    SEXP c = PROTECT(C_closest_dup_closest(x, y, tolerance, nomatch));
+    int* pc = INTEGER(c);
+    const unsigned int nc = LENGTH(c);
+
+    const int inomatch = asInteger(nomatch);
+
+    const unsigned int ny = LENGTH(y);
+    SEXP rx = PROTECT(allocVector(INTSXP, ny));
+    int* px = INTEGER(rx);
+    SEXP ry = PROTECT(allocVector(INTSXP, ny));
+    int* py = INTEGER(ry);
+
+    for (unsigned int i = 0; i < ny; ++i) {
+        px[i] = inomatch;
+        py[i] = i + 1;
+    }
+    for (unsigned int i = 0; i < nc; ++i) {
+        if (pc[i] != inomatch)
+            px[pc[i] - 1] = i + 1;
+    }
+
+    SEXP out = PROTECT(allocVector(VECSXP, 2));
+    SEXP nms = PROTECT(allocVector(STRSXP, 2));
+    SET_VECTOR_ELT(out, 0, rx);
+    SET_VECTOR_ELT(out, 1, ry);
+    SET_STRING_ELT(nms, 0, mkChar("x"));
+    SET_STRING_ELT(nms, 1, mkChar("y"));
+    setAttrib(out, R_NamesSymbol, nms);
+
+    UNPROTECT(5);
+
+    return out;
+}
+
+/**
  * Inner join of two increasingly sorted arrays.
  *
  * \param x array, has to be sorted increasingly and not contain any NA.
