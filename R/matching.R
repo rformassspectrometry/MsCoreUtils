@@ -138,31 +138,28 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 
     tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
-    if (duplicates[1L] == "keep")
-        .Call(
+    switch(duplicates[1L],
+        "keep" = .Call(
             "C_closest_dup_keep",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else if (duplicates[1L] == "closest")
-        .Call(
+        ),
+        "closest" = .Call(
             "C_closest_dup_closest",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else if (duplicates[1L] == "remove")
-        .Call(
+        ),
+        "remove" = .Call(
             "C_closest_dup_remove",
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
-        )
-    else {
+        ),
         stop("'duplicates' has to be one of \"keep\", \"closest\" ",
              "or \"remove\".")
-    }
+    )
 }
 
 #' @rdname matching
@@ -257,7 +254,7 @@ join <- function(x, y, tolerance = 0, ppm = 0,
 
     tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
 
-    switch(type,
+    switch(type[1L],
            "outer" = .Call("C_join_outer", x, y, tolerance, NA_integer_),
            "left" = .Call("C_join_left", x, y, tolerance, NA_integer_),
            "right" = .Call("C_join_right", x, y, tolerance, NA_integer_),
