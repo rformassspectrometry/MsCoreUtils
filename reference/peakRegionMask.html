@@ -80,7 +80,7 @@ matrix used for multiplications in other functions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ matrix used for multiplications in other functions." />
 matrix used for multiplications in other functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>.peakRegionMask</span>(<span class='kw'>x</span>, <span class='kw'>p</span>, k = <span class='fl'>30L</span>)</pre>
+    <pre class="usage"><span class='fu'>.peakRegionMask</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>p</span>, k <span class='op'>=</span> <span class='fl'>30L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -162,11 +162,11 @@ the index belongs to the peak region.</p>
     <p>Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>9</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>11</span>, <span class='fl'>8</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>9</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>13</span>, <span class='fl'>8</span>, <span class='fl'>3</span>)
-<span class='kw'>mzs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>ints</span>)
-<span class='kw'>peaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span>(<span class='fu'><a href='localMaxima.html'>localMaxima</a></span>(<span class='kw'>ints</span>, hws = <span class='fl'>3L</span>))
+    <pre class="examples"><div class='input'><span class='va'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>9</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>11</span>, <span class='fl'>8</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>9</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>13</span>, <span class='fl'>8</span>, <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>mzs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>ints</span><span class='op'>)</span>
+<span class='va'>peaks</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='fu'><a href='localMaxima.html'>localMaxima</a></span><span class='op'>(</span><span class='va'>ints</span>, hws <span class='op'>=</span> <span class='fl'>3L</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='kw'>m</span> <span class='op'>&lt;-</span> <span class='kw'>MsCoreUtils</span>:::<span class='fu'>.peakRegionMask</span>(<span class='kw'>ints</span>, <span class='kw'>peaks</span>, k = <span class='fl'>5L</span>)
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'>MsCoreUtils</span><span class='fu'>:::</span><span class='fu'>.peakRegionMask</span><span class='op'>(</span><span class='va'>ints</span>, <span class='va'>peaks</span>, k <span class='op'>=</span> <span class='fl'>5L</span><span class='op'>)</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

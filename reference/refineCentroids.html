@@ -80,7 +80,7 @@ values in the neighbourhood that belong most likely to the same peak." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ values in the neighbourhood that belong most likely to the same peak." />
 values in the neighbourhood that belong most likely to the same peak.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>refineCentroids</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, <span class='kw'>p</span>, k = <span class='fl'>2L</span>, threshold = <span class='fl'>0.33</span>, descending = <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>refineCentroids</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>p</span>, k <span class='op'>=</span> <span class='fl'>2L</span>, threshold <span class='op'>=</span> <span class='fl'>0.33</span>, descending <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -180,30 +180,30 @@ problem with skewed centroids is rare.</p>
     <p>Sebastian Gibb, Johannes Rainer</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>9</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>11</span>, <span class='fl'>8</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>9</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>13</span>, <span class='fl'>8</span>, <span class='fl'>3</span>)
-<span class='kw'>mzs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>ints</span>)
+    <pre class="examples"><div class='input'><span class='va'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>8</span>, <span class='fl'>12</span>, <span class='fl'>7</span>, <span class='fl'>4</span>, <span class='fl'>9</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>11</span>, <span class='fl'>8</span>, <span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>3</span>, <span class='fl'>9</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>13</span>, <span class='fl'>8</span>, <span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>mzs</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>ints</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>mzs</span>, <span class='kw'>ints</span>, type = <span class='st'>"h"</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>mzs</span>, <span class='va'>ints</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
 </div><div class='input'>
-<span class='kw'>pidx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>8</span>, <span class='fl'>16</span>))
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>mzs</span>[<span class='kw'>pidx</span>], <span class='kw'>ints</span>[<span class='kw'>pidx</span>], pch = <span class='fl'>16</span>)
+<span class='va'>pidx</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/integer.html'>as.integer</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>8</span>, <span class='fl'>16</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>mzs</span><span class='op'>[</span><span class='va'>pidx</span><span class='op'>]</span>, <span class='va'>ints</span><span class='op'>[</span><span class='va'>pidx</span><span class='op'>]</span>, pch <span class='op'>=</span> <span class='fl'>16</span><span class='op'>)</span>
 </div><div class='input'>
 <span class='co'>## Use the weighted average considering the adjacent mz</span>
-<span class='kw'>mzs1</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span>(<span class='kw'>mzs</span>, <span class='kw'>ints</span>, <span class='kw'>pidx</span>,
-                        k = <span class='fl'>2L</span>, descending = <span class='fl'>FALSE</span>, threshold = <span class='fl'>0</span>)
-<span class='kw'>mzs2</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span>(<span class='kw'>mzs</span>, <span class='kw'>ints</span>, <span class='kw'>pidx</span>,
-                        k = <span class='fl'>5L</span>, descending = <span class='fl'>FALSE</span>, threshold = <span class='fl'>0</span>)
-<span class='kw'>mzs3</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span>(<span class='kw'>mzs</span>, <span class='kw'>ints</span>, <span class='kw'>pidx</span>,
-                        k = <span class='fl'>5L</span>, descending = <span class='fl'>TRUE</span>, threshold = <span class='fl'>0</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>mzs1</span>, <span class='kw'>ints</span>[<span class='kw'>pidx</span>], col = <span class='st'>"red"</span>, type = <span class='st'>"h"</span>)
+<span class='va'>mzs1</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span><span class='op'>(</span><span class='va'>mzs</span>, <span class='va'>ints</span>, <span class='va'>pidx</span>,
+                        k <span class='op'>=</span> <span class='fl'>2L</span>, descending <span class='op'>=</span> <span class='cn'>FALSE</span>, threshold <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>mzs2</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span><span class='op'>(</span><span class='va'>mzs</span>, <span class='va'>ints</span>, <span class='va'>pidx</span>,
+                        k <span class='op'>=</span> <span class='fl'>5L</span>, descending <span class='op'>=</span> <span class='cn'>FALSE</span>, threshold <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>mzs3</span> <span class='op'>&lt;-</span> <span class='fu'>refineCentroids</span><span class='op'>(</span><span class='va'>mzs</span>, <span class='va'>ints</span>, <span class='va'>pidx</span>,
+                        k <span class='op'>=</span> <span class='fl'>5L</span>, descending <span class='op'>=</span> <span class='cn'>TRUE</span>, threshold <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>mzs1</span>, <span class='va'>ints</span><span class='op'>[</span><span class='va'>pidx</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"red"</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
 </div><div class='input'><span class='co'>## please recognize the artificial moved centroids of the first peak caused</span>
 <span class='co'>## by a too large k, here</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>mzs2</span>, <span class='kw'>ints</span>[<span class='kw'>pidx</span>], col = <span class='st'>"blue"</span>, type = <span class='st'>"h"</span>)
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(<span class='kw'>mzs3</span>, <span class='kw'>ints</span>[<span class='kw'>pidx</span>], col = <span class='st'>"green"</span>, type = <span class='st'>"h"</span>)
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='st'>"topright"</span>,
-       legend = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"k = "</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>),
-                       <span class='st'>", descending ="</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"FALSE"</span>, <span class='st'>"FALSE"</span>, <span class='st'>"TRUE"</span>)),
-       col = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span>), lwd = <span class='fl'>1</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>mzs2</span>, <span class='va'>ints</span><span class='op'>[</span><span class='va'>pidx</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"blue"</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span><span class='va'>mzs3</span>, <span class='va'>ints</span><span class='op'>[</span><span class='va'>pidx</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"green"</span>, type <span class='op'>=</span> <span class='st'>"h"</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"topright"</span>,
+       legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='st'>"k = "</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span><span class='op'>)</span>,
+                       <span class='st'>", descending ="</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"FALSE"</span>, <span class='st'>"FALSE"</span>, <span class='st'>"TRUE"</span><span class='op'>)</span><span class='op'>)</span>,
+       col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"red"</span>, <span class='st'>"blue"</span>, <span class='st'>"green"</span><span class='op'>)</span>, lwd <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 </div><div class='img'><img src='refineCentroids-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

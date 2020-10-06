@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -124,9 +124,9 @@
     <p>These functions help to work with <code>numeric</code> ranges.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>between</span>(<span class='kw'>x</span>, <span class='kw'>range</span>)
+    <pre class="usage"><span class='fu'>between</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>range</span><span class='op'>)</span>
 
-<span class='kw'>x</span> <span class='op'>%between%</span> <span class='kw'>range</span></pre>
+<span class='va'>x</span> <span class='op'>%between%</span> <span class='va'>range</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,7 +156,7 @@
     <p>Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>between</span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>)
+    <pre class="examples"><div class='input'><span class='fu'>between</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE</div><div class='input'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span> <span class='op'>%between%</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>
 </div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE</div></pre>
   </div>

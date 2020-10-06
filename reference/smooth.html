@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -124,13 +124,13 @@
     <p>This function smoothes a numeric vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>smooth</span>(<span class='kw'>x</span>, <span class='kw'>cf</span>)
+    <pre class="usage"><span class='fu'>smooth</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>cf</span><span class='op'>)</span>
 
-<span class='fu'>coefMA</span>(<span class='kw'>hws</span>)
+<span class='fu'>coefMA</span><span class='op'>(</span><span class='va'>hws</span><span class='op'>)</span>
 
-<span class='fu'>coefWMA</span>(<span class='kw'>hws</span>)
+<span class='fu'>coefWMA</span><span class='op'>(</span><span class='va'>hws</span><span class='op'>)</span>
 
-<span class='fu'>coefSG</span>(<span class='kw'>hws</span>, k = <span class='fl'>3L</span>)</pre>
+<span class='fu'>coefSG</span><span class='op'>(</span><span class='va'>hws</span>, k <span class='op'>=</span> <span class='fl'>3L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -210,16 +210,16 @@ Analytical Chemistry, 44(11), 1906-1909.</p>
     <p>Sebastian Gibb, Sigurdur Smarason (weighted moving average)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>9</span><span class='op'>:</span><span class='fl'>1</span>)
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span>(<span class='kw'>x</span>, type = <span class='st'>"b"</span>, pch = <span class='fl'>20</span>)
-</div><div class='input'><span class='kw'>cf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(MovingAverage = <span class='fu'>coefMA</span>(<span class='fl'>2</span>),
-           WeightedMovingAverage = <span class='fu'>coefWMA</span>(<span class='fl'>2</span>),
-           SavitzkyGolay = <span class='fu'>coefSG</span>(<span class='fl'>2</span>))
-<span class='co'>for</span> (<span class='kw'>i</span> <span class='co'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span>(<span class='kw'>cf</span>)) {
-    <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span>(<span class='fu'>smooth</span>(<span class='kw'>x</span>, <span class='kw'>cf</span>[[<span class='kw'>i</span>]]), col = <span class='kw'>i</span> <span class='op'>+</span> <span class='fl'>1</span>, pch = <span class='fl'>20</span>, type = <span class='st'>"b"</span>)
-}
-</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span>(<span class='st'>"bottom"</span>, legend = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='kw'>cf</span>)), pch = <span class='fl'>20</span>,
-       col = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>cf</span>) <span class='op'>+</span> <span class='fl'>1</span>))
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>9</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, type <span class='op'>=</span> <span class='st'>"b"</span>, pch <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+</div><div class='input'><span class='va'>cf</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>MovingAverage <span class='op'>=</span> <span class='fu'>coefMA</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+           WeightedMovingAverage <span class='op'>=</span> <span class='fu'>coefWMA</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span>,
+           SavitzkyGolay <span class='op'>=</span> <span class='fu'>coefSG</span><span class='op'>(</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_along</a></span><span class='op'>(</span><span class='va'>cf</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/lines.html'>lines</a></span><span class='op'>(</span><span class='fu'>smooth</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>cf</span><span class='op'>[[</span><span class='va'>i</span><span class='op'>]</span><span class='op'>]</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='va'>i</span> <span class='op'>+</span> <span class='fl'>1</span>, pch <span class='op'>=</span> <span class='fl'>20</span>, type <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/legend.html'>legend</a></span><span class='op'>(</span><span class='st'>"bottom"</span>, legend <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>cf</span><span class='op'>)</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='fl'>20</span>,
+       col <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>cf</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='img'><img src='smooth-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

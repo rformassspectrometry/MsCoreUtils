@@ -81,7 +81,7 @@ aggregated with the provided function FUN." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -128,13 +128,13 @@ in <code>x</code> for values in <code>y</code> falling into a bin (defined on <c
 aggregated with the provided function <code>FUN</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bin</span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>y</span>,
-  size = <span class='fl'>1</span>,
-  breaks = <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='kw'>y</span>)), <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='kw'>y</span>)), by = <span class='kw'>size</span>),
-  FUN = <span class='kw'>max</span>
-)</pre>
+    <pre class="usage"><span class='fu'>bin</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  size <span class='op'>=</span> <span class='fl'>1</span>,
+  breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>floor</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>ceiling</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span><span class='op'>)</span>, by <span class='op'>=</span> <span class='va'>size</span><span class='op'>)</span>,
+  FUN <span class='op'>=</span> <span class='va'>max</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,11 +178,11 @@ bin mid points).</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='co'>## Define example intensities and m/z values</span>
-<span class='kw'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>20</span>, mean = <span class='fl'>40</span>))
-<span class='kw'>mz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>ints</span>)) <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='kw'>ints</span>), sd = <span class='fl'>0.001</span>)
+<span class='va'>ints</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>abs</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>20</span>, mean <span class='op'>=</span> <span class='fl'>40</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>mz</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>ints</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>ints</span><span class='op'>)</span>, sd <span class='op'>=</span> <span class='fl'>0.001</span><span class='op'>)</span>
 
 <span class='co'>## Bin intensities by m/z bins with a bin size of 2</span>
-<span class='fu'>bin</span>(<span class='kw'>ints</span>, <span class='kw'>mz</span>, size = <span class='fl'>2</span>)
+<span class='fu'>bin</span><span class='op'>(</span><span class='va'>ints</span>, <span class='va'>mz</span>, size <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $x
 #&gt;  [1] 40.25532 39.99443 41.14841 39.75580 39.71729 40.62898 42.06502 40.51243
 #&gt;  [9] 40.54300 39.08593
@@ -191,7 +191,7 @@ bin mid points).</p>
 #&gt;  [1]  2  4  6  8 10 12 14 16 18 20
 #&gt; </div><div class='input'>
 <span class='co'>## Repeat but summing up intensities instead of taking the max</span>
-<span class='fu'>bin</span>(<span class='kw'>ints</span>, <span class='kw'>mz</span>, size = <span class='fl'>2</span>, FUN = <span class='kw'>sum</span>)
+<span class='fu'>bin</span><span class='op'>(</span><span class='va'>ints</span>, <span class='va'>mz</span>, size <span class='op'>=</span> <span class='fl'>2</span>, FUN <span class='op'>=</span> <span class='va'>sum</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; $x
 #&gt;  [1] 116.41801  39.99443 119.94815  79.50848  39.71729  80.07528  80.43404
 #&gt;  [8] 118.12740  80.49039  39.08593

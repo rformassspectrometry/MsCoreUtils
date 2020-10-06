@@ -80,7 +80,7 @@ defined as maximum in a window of the current index +/- hws." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.7</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ defined as maximum in a window of the current index +/- hws." />
 defined as maximum in a window of the current index +/- <code>hws</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>localMaxima</span>(<span class='kw'>x</span>, hws = <span class='fl'>1L</span>)</pre>
+    <pre class="usage"><span class='fu'>localMaxima</span><span class='op'>(</span><span class='va'>x</span>, hws <span class='op'>=</span> <span class='fl'>1L</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,12 +157,12 @@ maxima.</p>
     <p>Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>9</span><span class='op'>:</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>)
-<span class='fu'>localMaxima</span>(<span class='kw'>x</span>)
+    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fl'>9</span><span class='op'>:</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>localMaxima</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
 #&gt; [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
-#&gt; [37] FALSE</div><div class='input'><span class='fu'>localMaxima</span>(<span class='kw'>x</span>, hws = <span class='fl'>10</span>)
+#&gt; [37] FALSE</div><div class='input'><span class='fu'>localMaxima</span><span class='op'>(</span><span class='va'>x</span>, hws <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 #&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
 #&gt; [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
