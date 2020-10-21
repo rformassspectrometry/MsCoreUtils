@@ -98,6 +98,8 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             diffnxttbl =
                 itbl + 1 < ntable ? fabs(px[ix] - ptable[itbl + 1]) : R_PosInf;
 
+            printf("ix %i, ixlastused %i, itbl %i, itbllastused %i\n> diff %.2f, diffnxtx %.2f, diffnxttbl %.2f\n", ix, ixlastused, itbl, itbllastused, diff, diffnxtx, diffnxttbl);
+
             if (diff <= ptolerance[ix]) {
                 /* valid match, add + 1 to convert between R/C index */
                 pout[ix] = itbl + 1;
@@ -109,7 +111,7 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
             } else
                 pout[ix] = inomatch;
 
-            if (diffnxtx < diff || diffnxttbl < diff) {
+            if (diffnxtx <= diff || diffnxttbl <= diff) {
                 /* increment the index with the smaller distance */
                 if (diffnxtx < diffnxttbl)
                     ++ix;

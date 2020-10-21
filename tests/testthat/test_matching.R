@@ -95,6 +95,13 @@ test_that("closest, duplicates", {
     expect_equal(closest(1:2, rep(1:2, each = 3),
                          tolerance = 0, duplicates = "closest"),
                  c(1, 4))
+    # multiple duplicates in x, similar to #72 above
+    expect_equal(closest(rep(1:2, each = 2), 1:2,
+                         tolerance = 0, duplicates = "closest"),
+                 c(1, NA, 2, NA))
+    expect_equal(closest(rep(1:2, each = 3), 1:2,
+                         tolerance = 0, duplicates = "closest"),
+                 c(1, NA, NA, 2, NA, NA))
 })
 
 test_that("common", {
