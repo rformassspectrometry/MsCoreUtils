@@ -17,6 +17,10 @@
 #' (`navdist`, `ndotproduct`, `neuclidean`) and Toprak et al. 2014
 #' (`nspectraangle`) but because there is no reference implementation available
 #' we are unable to guarantee that the results are identical.
+#' Note that the Stein and Scott 1994 normalized dot product method (and by
+#' extension `ndotproduct`) corresponds to the square of the orthodox 
+#' normalized dot product (or cosine distance) used also commonly as spectrum
+#' similarity measure (Yilmaz et al. 2017). 
 #' Please see also the corresponding discussion at the github pull request
 #' linked below. If you find any problems or reference implementation please
 #' open an issue at
@@ -34,6 +38,12 @@
 #' compound identification.
 #' Journal of the American Society for Mass Spectrometry, 5(9), 859--866.
 #' \doi{10.1016/1044-0305(94)87009-8}.
+#'
+#' Yilmaz, S., Vandermarliere, E.,  and Lennart Martens (2017).
+#' Methods to Calculate Spectrum Similarity. 
+#' In S. Keerthikumar and S. Mathivanan (eds.), Proteome
+#' Bioinformatics: Methods in Molecular Biology, vol. 1549 (pp. 81). 
+#' \doi{10.1007/978-1-4939-6740-7_7}.
 #'
 #' Horai et al. (2010).
 #' MassBank: a public repository for sharing mass spectral data for life
@@ -72,9 +82,12 @@ NULL
 #' `ndotproduct`: the normalized dot product is described in Stein and Scott
 #' 1994 as: \eqn{NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}}; where
 #' \eqn{W_i = x^m * y^n}, where \eqn{x} and \eqn{y} are the m/z and intensity
-#' values, respectively. Stein and Scott 1994 empirically determined the optimal
-#' exponents as `m = 3` and `n = 0.6` by analyzing ca. 12000 EI-MS data of
-#' 8000 organic compounds in the NIST Mass Spectral Library.
+#' values, respectively. Please note also that \eqn{NDP = NCos^2}; where NCos
+#' is the cosine value (i.e. the orthodox normalized dot product) of the
+#' intensity vectors as described in Yilmaz et al. 2017. Stein and Scott 1994
+#' empirically determined the optimal exponents as `m = 3` and `n = 0.6` by
+#' analyzing ca. 12000 EI-MS data of 8000 organic compounds in the NIST Mass
+#' Spectral Library.
 #' MassBank (Horai et al. 2010) uses `m = 2` and `n = 0.5`
 #' for small compounds. In general with increasing values for `m`,
 #' high m/z values will be taken more into account for similarity calculation.
