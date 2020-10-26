@@ -138,20 +138,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></pre></div>
-<pre><code>##            a           b          c          d          e          f
-## A -1.0927592  0.18337116 -0.7851456 1.93140071 -0.2436940  1.0211524
-## B  0.4930551 -0.09016307 -1.1101494 0.60330384  0.2075762 -0.4070829
-## C  1.6339715 -2.81474041  0.3030139 0.06653955 -0.7641623 -0.2164670
-##             g          h          i          j
-## A -0.53802610 -0.3891130 -1.1494036 -1.2451345
-## B -0.06264687  0.5817666 -0.3438054  0.1420136
-## C -1.97021365 -1.2645007 -0.6340743 -2.3095734</code></pre>
+<pre><code>##            a          b          c           d          e         f           g
+## A -1.0264013  0.4116327  1.7069489 -0.34203262  0.6681864 -2.075325 -0.20625635
+## B -0.6697326  0.2674041 -0.5537542 -0.03060446 -0.1810384  1.467672  1.72346973
+## C  0.4300204 -1.7289693 -0.7300449 -0.65459175  0.2707795 -2.132559  0.06802579
+##            h          i          j
+## A  1.8989971  0.1292421 -0.1201837
+## B -0.1398105 -0.5307343  0.6192232
+## C  0.5964390  1.7564013 -0.8951679</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
-<pre><code>##          a          b          c          d          e          f          g 
-##  0.1306405 -0.7918935 -0.6236660  0.8670814 -0.2667600  0.1325342 -0.8569622 
-##          h          i          j 
-## -0.3572824 -0.7090944 -1.1375648</code></pre>
+<pre><code>##           a           b           c           d           e           f 
+## -0.42203786 -0.34997752  0.01449424 -0.34240961  0.25264247 -1.46498303 
+##           g           h           i           j 
+##  0.52841306  0.78520855  0.23960510 -0.13204277</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R version 4.0.2 (2020-06-22)
+<pre><code>## R version 4.0.3 Patched (2020-10-21 r79360)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
 ## 
@@ -190,16 +190,16 @@ document.addEventListener("DOMContentLoaded", function() {
 ## 
 ## loaded via a namespace (and not attached):
 ##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.35.4
-##  [4] MASS_7.3-51.6       R6_2.4.1            ragg_0.4.0         
-##  [7] rlang_0.4.7         stringr_1.4.0       tools_4.0.2        
-## [10] parallel_4.0.2      xfun_0.18           htmltools_0.5.0    
+##  [4] MASS_7.3-53         R6_2.4.1            ragg_0.4.0         
+##  [7] rlang_0.4.8         stringr_1.4.0       tools_4.0.3        
+## [10] parallel_4.0.3      xfun_0.18           htmltools_0.5.0    
 ## [13] systemfonts_0.3.2   yaml_2.2.1          assertthat_0.2.1   
 ## [16] rprojroot_1.3-2     digest_0.6.25       pkgdown_1.6.1.9000 
-## [19] crayon_1.3.4        bookdown_0.20       textshaping_0.1.1  
-## [22] BiocManager_1.30.10 S4Vectors_0.27.13   fs_1.5.0           
+## [19] crayon_1.3.4        bookdown_0.20       textshaping_0.1.2  
+## [22] BiocManager_1.30.10 S4Vectors_0.27.14   fs_1.5.0           
 ## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.4      
-## [28] stringi_1.5.3       compiler_4.0.2      desc_1.2.0         
-## [31] backports_1.1.10    stats4_4.0.2</code></pre>
+## [28] stringi_1.5.3       compiler_4.0.3      desc_1.2.0         
+## [31] backports_1.1.10    stats4_4.0.3</code></pre>
 </div>
 <div class="footnotes">
 <hr>
