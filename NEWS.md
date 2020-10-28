@@ -1,5 +1,9 @@
 # MsCoreUtils 1.3
 
+## Changes in 1.3.2
+
+- Nothing yet
+
 ## Changes in 1.3.1
 
 - Add Josep Badia Aparicio as a contributor 
