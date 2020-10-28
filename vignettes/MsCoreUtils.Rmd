@@ -29,7 +29,7 @@ normalisation (quantiles, vsn, ...)  as well as misc helper functions,
 that are used across high level data structure within the R for Mass
 Spectrometry packages.
 
-For a full list of function, see 
+For a full list of function, see
 
 ```{r, message = FALSE}
 library("MsCoreUtils")
@@ -60,7 +60,7 @@ robustSummary(x)
 
 This function is typicall to be used to summarise peptide quantitation
 values into protein intensities[^robuststum]. This functionality is
-available in 
+available in
 
 - the
   [MSnbase::combineFeatures()](http://lgatto.github.io/MSnbase/reference/combineFeatures.html)
@@ -98,4 +98,3 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
 ```{r sessioninfo, echo=FALSE}
 sessionInfo()
 ```
-

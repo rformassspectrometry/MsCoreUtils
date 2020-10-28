@@ -1,8 +1,18 @@
 # MsCoreUtils 1.1
 
+## Changes in 1.1.8
+
+- Nothing yet.
+
+## Changes in 1.1.7
+
+- Rewrite `c("left", "right", "inner", "outer")` `join` in C <2020-10-06 Tue>.
+
 ## Changes in 1.1.6
 
-- Nothing yet
+- Rewrite `closest` in C <2020-09-24 Thu>.
+- Fix [#65](https://github.com/rformassspectrometry/MsCoreUtils/issues/65) and
+  [#66](https://github.com/rformassspectrometry/MsCoreUtils/issues/66).
 
 ## Changes in 1.1.5
 
