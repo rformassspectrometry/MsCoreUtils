@@ -7,19 +7,22 @@
 formatRt(rt)
 }
 \arguments{
-\item{rt}{The retention time, either a \code{numeric()} in seconds or a
-\code{character()} as \code{"mm:ss"}.}
+\item{rt}{A vector of retention times of length > 1. Either a
+\code{numeric()} in seconds or a \code{character()} as \code{"mm:ss"}.}
 }
 \value{
 A reformatted retention time.
 }
 \description{
-Converts seconds to/from "min:sec" format.
+This vectorised function converts retention times from a numeric
+in seconds to/from a character as "mm:ss".
 }
 \examples{
 formatRt(1524)
 formatRt(1)
+formatRt(1:10)
 formatRt("25:24")
+formatRt(c("25:24", "25:25", "25:26"))
 }
 \author{
 Laurent Gatto

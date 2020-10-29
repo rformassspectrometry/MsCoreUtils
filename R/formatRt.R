@@ -1,9 +1,10 @@
-##' Converts seconds to/from "min:sec" format.
+##' This vectorised function converts retention times from a numeric
+##' in seconds to/from a character as "mm:ss".
 ##'
 ##' @title Format Retention Time
 ##'
-##' @param rt The retention time, either a `numeric()` in seconds or a
-##'     `character()` as `"mm:ss"`.
+##' @param rt A vector of retention times of length > 1. Either a
+##'     `numeric()` in seconds or a `character()` as `"mm:ss"`.
 ##' 
 ##' @return A reformatted retention time.
 ##' 
@@ -14,8 +15,11 @@
 ##' @examples
 ##' formatRt(1524)
 ##' formatRt(1)
+##' formatRt(1:10)
 ##' formatRt("25:24")
+##' formatRt(c("25:24", "25:25", "25:26"))
 formatRt <- function(rt) {
+    stopifnot(length(rt) > 0)
     ans <- NA
     if (is.numeric(rt)) {
         min <- floor(rt / 60)
@@ -33,4 +37,3 @@ formatRt <- function(rt) {
     }
     return(ans)
 }
-
