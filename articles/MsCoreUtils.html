@@ -108,24 +108,25 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [5] "bin"                      "closest"                 
 ##  [7] "coefMA"                   "coefSG"                  
 ##  [9] "coefWMA"                  "colCounts"               
-## [11] "common"                   "group"                   
-## [13] "i2index"                  "impute_bpca"             
-## [15] "impute_knn"               "impute_matrix"           
-## [17] "impute_min"               "impute_mixed"            
-## [19] "impute_mle"               "impute_neighbour_average"
-## [21] "impute_with"              "impute_zero"             
-## [23] "imputeMethods"            "isPeaksMatrix"           
-## [25] "join"                     "localMaxima"             
-## [27] "medianPolish"             "navdist"                 
-## [29] "ndotproduct"              "neuclidean"              
-## [31] "noise"                    "normalize_matrix"        
-## [33] "normalizeMethods"         "nspectraangle"           
-## [35] "ppm"                      "rbindFill"               
-## [37] "refineCentroids"          "rla"                     
-## [39] "robustSummary"            "rowRla"                  
-## [41] "smooth"                   "validPeaksMatrix"        
-## [43] "valleys"                  "vapply1c"                
-## [45] "vapply1d"                 "vapply1l"</code></pre>
+## [11] "common"                   "formatRt"                
+## [13] "group"                    "i2index"                 
+## [15] "impute_bpca"              "impute_knn"              
+## [17] "impute_matrix"            "impute_min"              
+## [19] "impute_mixed"             "impute_mle"              
+## [21] "impute_neighbour_average" "impute_with"             
+## [23] "impute_zero"              "imputeMethods"           
+## [25] "isPeaksMatrix"            "join"                    
+## [27] "localMaxima"              "medianPolish"            
+## [29] "navdist"                  "ndotproduct"             
+## [31] "neuclidean"               "noise"                   
+## [33] "normalize_matrix"         "normalizeMethods"        
+## [35] "nspectraangle"            "ppm"                     
+## [37] "rbindFill"                "refineCentroids"         
+## [39] "rla"                      "robustSummary"           
+## [41] "rowRla"                   "smooth"                  
+## [43] "validPeaksMatrix"         "valleys"                 
+## [45] "vapply1c"                 "vapply1d"                
+## [47] "vapply1l"</code></pre>
 <p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html">reference page</a> on the package webpage.</p>
 </div>
 <div id="examples" class="section level1">
@@ -138,20 +139,21 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></pre></div>
-<pre><code>##             a          b          c          d          e           f        g
-## A -0.02068442 -0.2946294 -0.6576178 -0.8957007 -0.1000126 -0.04500397 0.106768
-## B  0.89744641  0.1461997  0.9163610 -1.1681089  0.1052405 -1.17586372 1.133377
-## C  0.30538529 -0.5887436 -0.7172535 -0.4298333 -0.4043680 -2.14131839 1.022348
+<pre><code>##             a          b          c          d          e         f          g
+## A  0.09898528  0.2117459 0.81827222 -0.1586821  1.0174789 -0.396776  0.3701398
+## B -2.17625635 -0.5432340 0.04602036  1.7050961  1.6587582  1.149639 -2.2380541
+## C  0.61196791 -1.9298294 0.13303979  1.1688695 -0.7178331  0.813878 -1.0120244
 ##            h          i          j
-## A  0.2275859  0.4995239 -1.6263817
-## B  1.7061913 -1.1597843  0.8944867
-## C -1.1337291  0.4619749  0.4535453</code></pre>
+## A -0.4307395 -1.9639765 -0.2657435
+## B -1.2417474 -0.9894457  0.4668412
+## C -1.6384768  0.2901753 -1.1965176</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
+<pre><code>## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20 steps</code></pre>
 <pre><code>##          a          b          c          d          e          f          g 
-##  0.3940491 -0.2457244 -0.2563637 -0.6853143 -0.1330467 -1.5494950  0.7541643 
+## -0.2469657 -0.7537725  0.3324441  0.9050945  0.6528013  0.5222471 -0.9234172 
 ##          h          i          j 
-##  0.4629243  0.4582020  0.3294741</code></pre>
+## -1.1036546 -0.9333012 -0.3318066</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -189,14 +191,14 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] MsCoreUtils_1.3.2 BiocStyle_2.17.1 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.35.4
+##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.36.0
 ##  [4] MASS_7.3-53         R6_2.4.1            ragg_0.4.0         
 ##  [7] rlang_0.4.8         stringr_1.4.0       tools_4.0.3        
 ## [10] parallel_4.0.3      xfun_0.18           htmltools_0.5.0    
 ## [13] systemfonts_0.3.2   yaml_2.2.1          assertthat_0.2.1   
 ## [16] rprojroot_1.3-2     digest_0.6.25       pkgdown_1.6.1.9000 
 ## [19] crayon_1.3.4        bookdown_0.20       textshaping_0.1.2  
-## [22] BiocManager_1.30.10 S4Vectors_0.27.14   fs_1.5.0           
+## [22] BiocManager_1.30.10 S4Vectors_0.28.0    fs_1.5.0           
 ## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.4      
 ## [28] stringi_1.5.3       compiler_4.0.3      desc_1.2.0         
 ## [31] backports_1.1.10    stats4_4.0.3</code></pre>
