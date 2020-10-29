@@ -1,0 +1,12 @@
+test_that("formatRt", {
+    tc <- c("1:01", "25:24")
+    tn <- c(61, 25 * 60 + 24)
+    expect_equal(tc, formatRt(tn))    
+    expect_equal(tn, formatRt(tc))
+    expect_true(is.na(formatRt("")))
+    expect_warning(is.na(formatRt("aaa")))
+    expect_warning(is.na(formatRt(TRUE)))
+    expect_equal(formatRt(1), "0:01")
+    expect_equal(formatRt(60), "1:00")
+    expect_equal(formatRt(61), "1:01")
+})

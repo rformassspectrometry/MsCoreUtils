@@ -2,7 +2,7 @@
 
 ## Changes in 1.3.2
 
-- Nothing yet
+- Add `formatRt()` 
 
 ## Changes in 1.3.1
 

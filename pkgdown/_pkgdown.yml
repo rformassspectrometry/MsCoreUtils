@@ -35,6 +35,7 @@ reference:
     contents:
       - ppm
       - rla
+      - formatRt
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
