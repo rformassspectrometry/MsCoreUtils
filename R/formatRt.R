@@ -9,6 +9,8 @@
 ##' 
 ##' @author Laurent Gatto
 ##'
+##' @export
+##'
 ##' @examples
 ##' formatRt(1524)
 ##' formatRt(1)
