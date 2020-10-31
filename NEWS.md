@@ -1,8 +1,18 @@
+# MsCoreUtils 1.3
+
+## Changes in 1.3.2
+
+- Add `formatRt()` 
+
+## Changes in 1.3.1
+
+- Add Josep Badia Aparicio as a contributor 
+
+## Changes in 1.3.0
+
+- New Bioc devel versin
+
 # MsCoreUtils 1.1
-
-## Changes in 1.1.8
-
-- Nothing yet.
 
 ## Changes in 1.1.7
 
