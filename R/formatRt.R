@@ -24,8 +24,7 @@ formatRt <- function(rt) {
     if (is.numeric(rt)) {
         min <- floor(rt / 60)
         sec <- round(rt - (min * 60))
-        sec <- sprintf("%02d", sec)
-        ans <- paste(min, ":", sec, sep = "")        
+        ans <- sprintf("%d:%02d", min, sec)
     } else if (is.character(rt)) {
         ans <- strsplit(rt, ":")
         ans <- sapply(ans, function(x) {
