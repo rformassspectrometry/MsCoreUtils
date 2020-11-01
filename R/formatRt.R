@@ -1,38 +1,69 @@
-##' This vectorised function converts retention times from a numeric
-##' in seconds to/from a character as "mm:ss".
+##' @export
+##'
+##' @examples
+##'
+##' ## rt2numeric
+##' 
+##' rt2numeric("25:24")
+##' rt2numeric(c("25:24", "25:25", "25:26"))
+rt2numeric <- function(rt) {
+    stopifnot(is.character(rt))
+    stopifnot(length(rt) > 0)
+    sapply(strsplit(rt, ":"),
+           function(x) {
+               x <- as.numeric(x)
+               60 * x[1] + x[2]
+           })
+}
+
+##' @export
+##'
+##' @examples
+##'
+##' ## rt2character
+##' 
+##' rt2character(1524)
+##' rt2character(1)
+##' rt2character(1:10)
+rt2character <- function(rt) {
+    stopifnot(is.numeric(rt))
+    stopifnot(length(rt) > 0)
+    min <- floor(rt / 60)
+    sec <- round(rt - (min * 60))
+    sprintf("%d:%02d", min, sec)    
+}
+
+##' These vectorised functions convert retention times from a numeric
+##' in seconds to/from a character as "mm:ss". `rt2character()`
+##' performs the numeric to character conversion while `rt2numeric()`
+##' performs the character to numeric conversion. `formatRt()` does
+##' one of the other depending on the input type.
 ##'
 ##' @title Format Retention Time
 ##'
 ##' @param rt A vector of retention times of length > 1. Either a
-##'     `numeric()` in seconds or a `character()` as `"mm:ss"`.
+##'     `numeric()` in seconds or a `character()` as `"mm:ss"`
+##'     depending on the function.
 ##' 
 ##' @return A reformatted retention time.
 ##' 
 ##' @author Laurent Gatto
 ##'
+##' @aliases rt2character rt2numeric
+##'
 ##' @export
 ##'
 ##' @examples
+##'
+##' ## formatRt
+##' 
 ##' formatRt(1524)
 ##' formatRt(1)
 ##' formatRt(1:10)
 ##' formatRt("25:24")
 ##' formatRt(c("25:24", "25:25", "25:26"))
 formatRt <- function(rt) {
-    stopifnot(length(rt) > 0)
-    ans <- NA
-    if (is.numeric(rt)) {
-        min <- floor(rt / 60)
-        sec <- round(rt - (min * 60))
-        ans <- sprintf("%d:%02d", min, sec)
-    } else if (is.character(rt)) {
-        ans <- strsplit(rt, ":")
-        ans <- sapply(ans, function(x) {
-            x <- as.numeric(x)
-            60 * x[1] + x[2]
-        })
-    } else {
-        warning("Input must be numeric of character.")
-    }
-    return(ans)
+    if (is.numeric(rt)) return(rt2character(rt))
+    if (is.character(rt)) return(rt2numeric(rt))
+    stop("Input must be a character or a numeric.")
 }
