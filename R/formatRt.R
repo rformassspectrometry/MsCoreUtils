@@ -7,8 +7,8 @@
 ##' rt2numeric("25:24")
 ##' rt2numeric(c("25:24", "25:25", "25:26"))
 rt2numeric <- function(rt) {
-    stopifnot(is.character(rt))
-    stopifnot(length(rt) > 0)
+if (!is.character(rt) || !length(rt))
+    stop("'rt' has to be a character of length > 0.")
     sapply(strsplit(rt, ":"),
            function(x) {
                x <- as.numeric(x)
