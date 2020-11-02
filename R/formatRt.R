@@ -7,8 +7,8 @@
 ##' rt2numeric("25:24")
 ##' rt2numeric(c("25:24", "25:25", "25:26"))
 rt2numeric <- function(rt) {
-if (!is.character(rt) || !length(rt))
-    stop("'rt' has to be a character of length > 0.")
+    if (!is.character(rt) || !length(rt))
+        stop("'rt' has to be a character of length > 0.")
     vapply1d(strsplit(rt, ":"),
            function(x) {
                x <- as.numeric(x)
@@ -26,8 +26,8 @@ if (!is.character(rt) || !length(rt))
 ##' rt2character(1)
 ##' rt2character(1:10)
 rt2character <- function(rt) {
-if (!is.numeric(rt) || !length(rt))
-    stop("'rt' has to be a numeric of length > 0.")
+    if (!is.numeric(rt) || !length(rt))
+        stop("'rt' has to be a numeric of length > 0.")
     min <- floor(rt / 60)
     sec <- round(rt - (min * 60))
     sprintf("%d:%02d", min, sec)    
