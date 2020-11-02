@@ -9,7 +9,7 @@
 rt2numeric <- function(rt) {
 if (!is.character(rt) || !length(rt))
     stop("'rt' has to be a character of length > 0.")
-    sapply(strsplit(rt, ":"),
+    vapply1d(strsplit(rt, ":"),
            function(x) {
                x <- as.numeric(x)
                60 * x[1] + x[2]
