@@ -100,9 +100,9 @@ document.addEventListener("DOMContentLoaded", function() {
 <a href="#introduction" class="anchor"></a>Introduction</h1>
 <p>The <code>MsCoreUtils</code> package low-level functions for mass spectrometry data and is independent of any high-level data structures. These functions include mass spectra processing functions (noise estimation, smoothing, binning), quantitative aggregation functions (median polish, robust summarisation, …), missing data imputation, data normalisation (quantiles, vsn, …) as well as misc helper functions, that are used across high level data structure within the R for Mass Spectrometry packages.</p>
 <p>For a full list of function, see</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/RforMassSpectrometry/MsCoreUtils">"MsCoreUtils"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="st">"package:MsCoreUtils"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/RforMassSpectrometry/MsCoreUtils">"MsCoreUtils"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="st">"package:MsCoreUtils"</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "%between%"                "aggregate_by_vector"     
 ##  [3] "asInteger"                "between"                 
 ##  [5] "bin"                      "closest"                 
@@ -134,25 +134,25 @@ document.addEventListener("DOMContentLoaded", function() {
 <a href="#examples" class="anchor"></a>Examples</h1>
 <p>The functions defined in this package utilise basic classes with the aim of being reused in packages that provide a more formal, high-level interface.</p>
 <p>As an examples, let’s take the <code><a href="../reference/robustSummary.html">robustSummary()</a></code> function, that calculates the robust summary of the columns of a matrix:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
-<span class="va">x</span></pre></div>
-<pre><code>##            a          b          c          d             e          f
-## A 0.08497821  1.2608761 -2.2537957 -0.8523457  1.8404152680 -0.4216625
-## B 0.91194619 -1.6506925  0.8079592  0.5803638 -0.0007316938 -0.7800552
-## C 0.15445729  0.3616938 -0.1391235 -0.3646769 -0.0998323839 -1.8544813
-##            g          h          i          j
-## A -0.7162701  1.4962354  1.8328317 -0.1949705
-## B -0.5749132 -0.1526688 -0.6179935  0.8018852
-## C  0.6457538 -0.3917444 -0.4931158 -0.1239629</code></pre>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></pre></div>
-<pre><code>##          a          b          c          d          e          f          g 
-##  0.3837939  0.2187367 -0.1019900 -0.2122196  0.5799504 -1.0187330 -0.2151432 
-##          h          i          j 
-##  0.3172741  0.1661298  0.1609839</code></pre>
+<span class="va">x</span></code></pre></div>
+<pre><code>##            a           b          c          d          e          f          g
+## A  0.3912581  0.06340872  0.5661096 -0.9348471  0.5823702 -0.6282786 0.09012688
+## B  1.1235938 -0.06844696  0.2578110  0.7072694 -0.5805698 -0.6234405 1.48240427
+## C -0.5235393 -1.20954598 -0.8052668  0.2683309 -1.3496580  1.7093988 0.79657108
+##            h          i          j
+## A -0.2305793 -0.8648823 -0.7864348
+## B  0.5277912 -0.3954211  0.5689386
+## C -1.8979696 -1.0441248 -1.4645630</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code>##            a            b            c            d            e            f 
+##  0.330437514 -0.404861406  0.006217921  0.209161742 -0.638259690 -0.595135230 
+##            g            h            i            j 
+##  0.860871805 -0.426151753 -0.768142746 -0.574863020</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R version 4.0.3 Patched (2020-10-29 r79387)
+<pre><code>## R Under development (unstable) (2020-11-05 r79401)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
 ## 
@@ -190,17 +190,17 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] MsCoreUtils_1.3.2 BiocStyle_2.17.1 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.36.0
-##  [4] MASS_7.3-53         R6_2.4.1            ragg_0.4.0         
-##  [7] rlang_0.4.8         stringr_1.4.0       tools_4.0.3        
-## [10] parallel_4.0.3      xfun_0.18           htmltools_0.5.0    
+##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.37.0
+##  [4] MASS_7.3-53         R6_2.5.0            ragg_0.4.0         
+##  [7] rlang_0.4.8         stringr_1.4.0       tools_4.1.0        
+## [10] parallel_4.1.0      xfun_0.19           htmltools_0.5.0    
 ## [13] systemfonts_0.3.2   yaml_2.2.1          assertthat_0.2.1   
-## [16] rprojroot_1.3-2     digest_0.6.25       pkgdown_1.6.1.9000 
-## [19] crayon_1.3.4        bookdown_0.20       textshaping_0.1.2  
-## [22] BiocManager_1.30.10 S4Vectors_0.28.0    fs_1.5.0           
-## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.4      
-## [28] stringi_1.5.3       compiler_4.0.3      desc_1.2.0         
-## [31] backports_1.1.10    stats4_4.0.3</code></pre>
+## [16] rprojroot_1.3-2     digest_0.6.27       pkgdown_1.6.1.9000 
+## [19] crayon_1.3.4        bookdown_0.21       textshaping_0.1.2  
+## [22] BiocManager_1.30.10 S4Vectors_0.29.3    fs_1.5.0           
+## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.5      
+## [28] stringi_1.5.3       compiler_4.1.0      desc_1.2.0         
+## [31] backports_1.2.0     stats4_4.1.0</code></pre>
 </div>
 <div class="footnotes">
 <hr>
