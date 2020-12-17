@@ -2,22 +2,31 @@
 % Please edit documentation in R/formatRt.R
 \name{formatRt}
 \alias{formatRt}
+\alias{rt2character}
+\alias{rt2numeric}
 \title{Format Retention Time}
 \usage{
 formatRt(rt)
 }
 \arguments{
 \item{rt}{A vector of retention times of length > 1. Either a
-\code{numeric()} in seconds or a \code{character()} as \code{"mm:ss"}.}
+\code{numeric()} in seconds or a \code{character()} as \code{"mm:ss"}
+depending on the function.}
 }
 \value{
 A reformatted retention time.
 }
 \description{
-This vectorised function converts retention times from a numeric
-in seconds to/from a character as "mm:ss".
+These vectorised functions convert retention times from a numeric
+in seconds to/from a character as "mm:ss". \code{rt2character()}
+performs the numeric to character conversion while \code{rt2numeric()}
+performs the character to numeric conversion. \code{formatRt()} does
+one of the other depending on the input type.
 }
 \examples{
+
+## formatRt
+
 formatRt(1524)
 formatRt(1)
 formatRt(1:10)

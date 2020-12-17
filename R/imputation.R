@@ -190,8 +190,14 @@
 ##' @export
 impute_matrix <- function(x,
                           method,
+                          FUN,
                           ...) {
+    stopifnot(is(m, "matrix"))
     if (!anyNA(x)) return(x)
+    ## User-provided imputation function
+    if (!missing(FUN) && is.function(FUN))
+        return(impute_fun(x, FUN, ...))
+    ## Function name provided as a character
     if (missing(method))
         stop("Please specify an imputation method. ",
              "See '?impute_matrix' for details.")
@@ -343,4 +349,12 @@ impute_with <- function(x, val) {
     x
 }
 
-
+##' @export
+##' @rdname impute_matrix
+##'
+##' @param FUN A user-provided function.
+impute_fun <- function(x, FUN, ...) {
+    res <- do.call(FUN, list(x, ...))
+    stopifnot(identical(dim(x), dim(res)))
+    res
+}

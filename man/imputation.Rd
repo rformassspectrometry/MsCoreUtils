@@ -13,7 +13,7 @@
 \alias{impute_with}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
-impute_matrix(x, method, ...)
+impute_matrix(x, method, FUN, ...)
 
 imputeMethods()
 
