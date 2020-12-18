@@ -203,6 +203,17 @@ impute_matrix(m, method = "mixed",
               mar = "knn",
               mnar = "min")
 
+
+## user provided (random) imputation function
+random_imp <- function(x) {
+   m <- mean(x, na.rm = TRUE)
+   sdev <- sd(x, na.rm = TRUE)
+   n <- sum(is.na(x))
+   x[is.na(x)] <- rnorm(n, mean = m, sd = sdev)
+   x
+}
+
+impute_matrix(m, FUN = random_imp)
 }
 \references{
 Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,

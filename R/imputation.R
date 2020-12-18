@@ -358,6 +358,19 @@ impute_with <- function(x, val) {
 ##'
 ##' @param FUN A user-provided function that takes a `matrix` as input and
 ##'     returns an imputed `matrix` of identical dimensions.
+##'
+##' @examples
+##'
+##' ## user provided (random) imputation function
+##' random_imp <- function(x) {
+##'    m <- mean(x, na.rm = TRUE)
+##'    sdev <- sd(x, na.rm = TRUE)
+##'    n <- sum(is.na(x))
+##'    x[is.na(x)] <- rnorm(n, mean = m, sd = sdev)
+##'    x
+##' }
+##'
+##' impute_matrix(m, FUN = random_imp)
 impute_fun <- function(x, FUN, ...) {
     res <- do.call(FUN, list(x, ...))
     stopifnot(identical(dim(x), dim(res)))
