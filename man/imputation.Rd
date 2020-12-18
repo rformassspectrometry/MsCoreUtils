@@ -11,6 +11,7 @@
 \alias{impute_min}
 \alias{impute_zero}
 \alias{impute_with}
+\alias{impute_fun}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
 impute_matrix(x, method, FUN, ...)
@@ -28,12 +29,21 @@ impute_bpca(x, ...)
 impute_mixed(x, randna, mar, mnar, ...)
 
 impute_min(x)
+
+impute_zero(x)
+
+impute_with(x, val)
+
+impute_fun(x, FUN, ...)
 }
 \arguments{
 \item{x}{A matrix with missing values to be imputed.}
 
 \item{method}{\code{character(1)} defining the imputation method. See
 \code{imputeMethods()} for available ones.}
+
+\item{FUN}{A user-provided function that takes a \code{matrix} as input and
+returns an imputed \code{matrix} of identical dimensions.}
 
 \item{...}{Additional parameters passed to the inner imputation
 function.}
@@ -52,6 +62,8 @@ is \code{mixed}.}
 
 \item{mnar}{Imputation method for values missing not at
 random. See \code{method} above.}
+
+\item{val}{\code{numeric(1)} used to replace all missing values.}
 }
 \description{
 The \code{impute_matrix} function performs data imputation on \code{matrix}
