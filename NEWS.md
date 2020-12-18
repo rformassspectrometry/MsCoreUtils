@@ -3,10 +3,11 @@
 ## Changes in 1.3.2
 
 - Add `rt2numeric()`, `rt2character()` and `formatRt()`.
+- New `impute_fun()` function for user-provide imputation function.
 
 ## Changes in 1.3.1
 
-- Add Josep Badia Aparicio as a contributor 
+- Add Josep Badia Aparicio as a contributor
 
 ## Changes in 1.3.0
 

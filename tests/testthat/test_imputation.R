@@ -97,3 +97,23 @@ test_that("impute: absence of missing values", {
     x_imp_2 <- impute_matrix(x_imp, method = "knn")
     expect_identical(x_imp, x_imp_2)
 })
+
+test_that("impute: user-provided function", {
+    user_fun <- function(x, val = 1) {
+        x[is.na(x)] <- val
+        x
+    }
+    x3 <- x2 <- matrix(1:50, nrow = 10)
+    x3[1, 1] <- NA
+    ## default argument
+    x_imp <- impute_matrix(x3, FUN = user_fun)
+    x_imp2 <- user_fun(x3)
+    expect_equal(x2, x_imp)
+    expect_equal(x2, x_imp2)
+    ## extra argument
+    x_imp <- impute_matrix(x3, FUN = user_fun, val = 1000)
+    x_imp2 <- user_fun(x3, val = 1000)
+    x2[1, 1] <- 1000
+    expect_equal(x2, x_imp)
+    expect_equal(x2, x_imp2)
+})
