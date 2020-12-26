@@ -103,7 +103,7 @@ values with 0." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +134,7 @@ in particular with naive imputations such as replacing missing
 values with 0.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>impute_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>method</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>impute_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>method</span>, <span class='va'>FUN</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>imputeMethods</span><span class='op'>(</span><span class='op'>)</span>
 
@@ -148,7 +148,13 @@ values with 0.</p>
 
 <span class='fu'>impute_mixed</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>randna</span>, <span class='va'>mar</span>, <span class='va'>mnar</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>impute_min</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>impute_min</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>impute_zero</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>impute_with</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>val</span><span class='op'>)</span>
+
+<span class='fu'>impute_fun</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>FUN</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,6 +167,11 @@ values with 0.</p>
       <th>method</th>
       <td><p><code><a href='https://rdrr.io/r/base/character.html'>character(1)</a></code> defining the imputation method. See
 <code>imputeMethods()</code> for available ones.</p></td>
+    </tr>
+    <tr>
+      <th>FUN</th>
+      <td><p>A user-provided function that takes a <code>matrix</code> as input and
+returns an imputed <code>matrix</code> of identical dimensions.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -189,6 +200,10 @@ is <code>mixed</code>.</p></td>
       <th>mnar</th>
       <td><p>Imputation method for values missing not at
 random. See <code>method</code> above.</p></td>
+    </tr>
+    <tr>
+      <th>val</th>
+      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric(1)</a></code> used to replace all missing values.</p></td>
     </tr>
     </table>
 
@@ -398,7 +413,28 @@ Res. 2016 Apr 1;15(4):1116-25. doi:
 #&gt; h 0.90968305 0.07019660 0.17150153 0.42702719 4.23804154 1.09399145
 #&gt; i 0.05013228 0.05013228 0.05013228 0.08943818 0.64956901 0.05013228
 #&gt; j 0.93921196 3.74384570 0.52729513 1.03678296 1.92639019 1.32960639</div><div class='input'>
-</div></pre>
+
+<span class='co'>## user provided (random) imputation function</span>
+<span class='va'>random_imp</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>{</span>
+   <span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+   <span class='va'>sdev</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>x</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+   <span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span>
+   <span class='va'>x</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/NA.html'>is.na</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n</span>, mean <span class='op'>=</span> <span class='va'>m</span>, sd <span class='op'>=</span> <span class='va'>sdev</span><span class='op'>)</span>
+   <span class='va'>x</span>
+<span class='op'>}</span>
+
+<span class='fu'>impute_matrix</span><span class='op'>(</span><span class='va'>m</span>, FUN <span class='op'>=</span> <span class='va'>random_imp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;           A          B          C          D          E          F
+#&gt; a 3.9391243  3.6872085 -0.9827978 1.57688302  1.2287515 1.37978165
+#&gt; b 0.5685317  9.8418666  0.1684176 3.34043209  0.6969391 0.45664959
+#&gt; c 1.4378205  0.2493592  0.8420488 2.81539768  4.6343602 4.83425736
+#&gt; d 1.8829931  0.7566997  3.3691979 0.54393454 -0.3031275 0.79093969
+#&gt; e 1.4982059  0.8751838  6.6538355 1.65691116  0.2545441 1.09391242
+#&gt; f 0.8993127  2.0228995  0.6502040 0.17960259  1.5415957 1.31857387
+#&gt; g 4.5336257 -0.6151082  0.7731599 0.45636653  0.4442387 1.97247444
+#&gt; h 0.9096830  0.0701966  0.1715015 0.42702719  4.2380415 1.09399145
+#&gt; i 4.5173132  2.2355807  3.0879489 0.08943818  0.6495690 0.05013228
+#&gt; j 0.9392120  3.7438457  0.5272951 1.03678296  1.9263902 1.32960639</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

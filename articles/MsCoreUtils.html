@@ -56,7 +56,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -110,23 +110,24 @@ document.addEventListener("DOMContentLoaded", function() {
 ##  [9] "coefWMA"                  "colCounts"               
 ## [11] "common"                   "formatRt"                
 ## [13] "group"                    "i2index"                 
-## [15] "impute_bpca"              "impute_knn"              
-## [17] "impute_matrix"            "impute_min"              
-## [19] "impute_mixed"             "impute_mle"              
-## [21] "impute_neighbour_average" "impute_with"             
-## [23] "impute_zero"              "imputeMethods"           
-## [25] "isPeaksMatrix"            "join"                    
-## [27] "localMaxima"              "medianPolish"            
-## [29] "navdist"                  "ndotproduct"             
-## [31] "neuclidean"               "noise"                   
-## [33] "normalize_matrix"         "normalizeMethods"        
-## [35] "nspectraangle"            "ppm"                     
-## [37] "rbindFill"                "refineCentroids"         
-## [39] "rla"                      "robustSummary"           
-## [41] "rowRla"                   "smooth"                  
-## [43] "validPeaksMatrix"         "valleys"                 
-## [45] "vapply1c"                 "vapply1d"                
-## [47] "vapply1l"</code></pre>
+## [15] "impute_bpca"              "impute_fun"              
+## [17] "impute_knn"               "impute_matrix"           
+## [19] "impute_min"               "impute_mixed"            
+## [21] "impute_mle"               "impute_neighbour_average"
+## [23] "impute_with"              "impute_zero"             
+## [25] "imputeMethods"            "isPeaksMatrix"           
+## [27] "join"                     "localMaxima"             
+## [29] "medianPolish"             "navdist"                 
+## [31] "ndotproduct"              "neuclidean"              
+## [33] "noise"                    "normalize_matrix"        
+## [35] "normalizeMethods"         "nspectraangle"           
+## [37] "ppm"                      "rbindFill"               
+## [39] "refineCentroids"          "rla"                     
+## [41] "robustSummary"            "rowRla"                  
+## [43] "rt2character"             "rt2numeric"              
+## [45] "smooth"                   "validPeaksMatrix"        
+## [47] "valleys"                  "vapply1c"                
+## [49] "vapply1d"                 "vapply1l"</code></pre>
 <p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html">reference page</a> on the package webpage.</p>
 </div>
 <div id="examples" class="section level1">
@@ -139,20 +140,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></code></pre></div>
-<pre><code>##            a           b          c          d          e          f          g
-## A  0.3912581  0.06340872  0.5661096 -0.9348471  0.5823702 -0.6282786 0.09012688
-## B  1.1235938 -0.06844696  0.2578110  0.7072694 -0.5805698 -0.6234405 1.48240427
-## C -0.5235393 -1.20954598 -0.8052668  0.2683309 -1.3496580  1.7093988 0.79657108
+<pre><code>##            a           b          c           d          e         f         g
+## A -1.3544665 -0.68772925 -0.5696872 -0.03741562  0.4303904 -1.347991 0.3954173
+## B -0.3392703 -0.01870038  0.6478457  1.22660764 -1.1016698  1.754309 1.3151721
+## C -0.6201931  0.65136734 -1.3296103 -0.89909327  0.3359680  2.238309 0.4078682
 ##            h          i          j
-## A -0.2305793 -0.8648823 -0.7864348
-## B  0.5277912 -0.3954211  0.5689386
-## C -1.8979696 -1.0441248 -1.4645630</code></pre>
+## A -0.7560122 -1.8930257 -0.9105289
+## B -1.5145112 -1.9185934 -0.9425600
+## C -0.1138549  0.6101546  0.5139516</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre><code>##            a            b            c            d            e            f 
-##  0.330437514 -0.404861406  0.006217921  0.209161742 -0.638259690 -0.595135230 
-##            g            h            i            j 
-##  0.860871805 -0.426151753 -0.768142746 -0.574863020</code></pre>
+<pre><code>##           a           b           c           d           e           f 
+## -0.77130999 -0.01835410 -0.27966048  0.27586764 -0.09061707  1.28843105 
+##           g           h           i           j 
+##  0.70615253 -0.79479280 -1.22426789 -0.44637910</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -168,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
 <a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R Under development (unstable) (2020-11-05 r79401)
+<pre><code>## R Under development (unstable) (2020-12-24 r79679)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
 ## Running under: Ubuntu 20.04.1 LTS
 ## 
@@ -190,17 +191,17 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] MsCoreUtils_1.3.2 BiocStyle_2.17.1 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.30          magrittr_1.5        BiocGenerics_0.37.0
+##  [1] knitr_1.30          magrittr_2.0.1      BiocGenerics_0.37.0
 ##  [4] MASS_7.3-53         R6_2.5.0            ragg_0.4.0         
-##  [7] rlang_0.4.8         stringr_1.4.0       tools_4.1.0        
+##  [7] rlang_0.4.9         stringr_1.4.0       tools_4.1.0        
 ## [10] parallel_4.1.0      xfun_0.19           htmltools_0.5.0    
 ## [13] systemfonts_0.3.2   yaml_2.2.1          assertthat_0.2.1   
-## [16] rprojroot_1.3-2     digest_0.6.27       pkgdown_1.6.1.9000 
-## [19] crayon_1.3.4        bookdown_0.21       textshaping_0.1.2  
-## [22] BiocManager_1.30.10 S4Vectors_0.29.3    fs_1.5.0           
-## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.5      
+## [16] rprojroot_2.0.2     digest_0.6.27       pkgdown_1.6.1.9000 
+## [19] crayon_1.3.4        bookdown_0.21       textshaping_0.2.1  
+## [22] BiocManager_1.30.10 S4Vectors_0.29.6    fs_1.5.0           
+## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.6      
 ## [28] stringi_1.5.3       compiler_4.1.0      desc_1.2.0         
-## [31] backports_1.2.0     stats4_4.1.0</code></pre>
+## [31] stats4_4.1.0</code></pre>
 </div>
 <div class="footnotes">
 <hr>

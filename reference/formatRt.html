@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format Retention Time — formatRt • MsCoreUtils</title>
+<title>Format Retention Time — rt2numeric • MsCoreUtils</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,12 @@
 
 
 
-<meta property="og:title" content="Format Retention Time — formatRt" />
-<meta property="og:description" content="This vectorised function converts retention times from a numeric
-in seconds to/from a character as &quot;mm:ss&quot;." />
+<meta property="og:title" content="Format Retention Time — rt2numeric" />
+<meta property="og:description" content="These vectorised functions convert retention times from a numeric
+in seconds to/from a character as &quot;mm:ss&quot;. rt2character()
+performs the numeric to character conversion while rt2numeric()
+performs the character to numeric conversion. formatRt() does
+one of the other depending on the input type." />
 
 
 
@@ -99,7 +102,7 @@ in seconds to/from a character as &quot;mm:ss&quot;." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -122,11 +125,18 @@ in seconds to/from a character as &quot;mm:ss&quot;." />
     </div>
 
     <div class="ref-description">
-    <p>This vectorised function converts retention times from a numeric
-in seconds to/from a character as "mm:ss".</p>
+    <p>These vectorised functions convert retention times from a numeric
+in seconds to/from a character as "mm:ss". <code>rt2character()</code>
+performs the numeric to character conversion while <code>rt2numeric()</code>
+performs the character to numeric conversion. <code>formatRt()</code> does
+one of the other depending on the input type.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>formatRt</span><span class='op'>(</span><span class='va'>rt</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rt2numeric</span><span class='op'>(</span><span class='va'>rt</span><span class='op'>)</span>
+
+<span class='fu'>rt2character</span><span class='op'>(</span><span class='va'>rt</span><span class='op'>)</span>
+
+<span class='fu'>formatRt</span><span class='op'>(</span><span class='va'>rt</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +144,8 @@ in seconds to/from a character as "mm:ss".</p>
     <tr>
       <th>rt</th>
       <td><p>A vector of retention times of length &gt; 1. Either a
-<code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> in seconds or a <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> as <code>"mm:ss"</code>.</p></td>
+<code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> in seconds or a <code><a href='https://rdrr.io/r/base/character.html'>character()</a></code> as <code>"mm:ss"</code>
+depending on the function.</p></td>
     </tr>
     </table>
 
@@ -146,7 +157,21 @@ in seconds to/from a character as "mm:ss".</p>
     <p>Laurent Gatto</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>formatRt</span><span class='op'>(</span><span class='fl'>1524</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'>
+<span class='co'>## rt2numeric</span>
+
+<span class='fu'>rt2numeric</span><span class='op'>(</span><span class='st'>"25:24"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1524</div><div class='input'><span class='fu'>rt2numeric</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"25:24"</span>, <span class='st'>"25:25"</span>, <span class='st'>"25:26"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1524 1525 1526</div><div class='input'>
+<span class='co'>## rt2character</span>
+
+<span class='fu'>rt2character</span><span class='op'>(</span><span class='fl'>1524</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "25:24"</div><div class='input'><span class='fu'>rt2character</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "0:01"</div><div class='input'><span class='fu'>rt2character</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "0:01" "0:02" "0:03" "0:04" "0:05" "0:06" "0:07" "0:08" "0:09" "0:10"</div><div class='input'>
+<span class='co'>## formatRt</span>
+
+<span class='fu'>formatRt</span><span class='op'>(</span><span class='fl'>1524</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "25:24"</div><div class='input'><span class='fu'>formatRt</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] "0:01"</div><div class='input'><span class='fu'>formatRt</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;  [1] "0:01" "0:02" "0:03" "0:04" "0:05" "0:06" "0:07" "0:08" "0:09" "0:10"</div><div class='input'><span class='fu'>formatRt</span><span class='op'>(</span><span class='st'>"25:24"</span><span class='op'>)</span>
