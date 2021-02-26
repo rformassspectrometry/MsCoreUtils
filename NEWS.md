@@ -1,5 +1,10 @@
 # MsCoreUtils 1.3
 
+## Changes in 1.3.3
+
+- Add `join_gnps` and `gnps` to allow calculation of GNPS spectra similarity
+  scores.
+
 ## Changes in 1.3.2
 
 - Add `rt2numeric()`, `rt2character()` and `formatRt()`.
