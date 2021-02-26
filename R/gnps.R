@@ -2,19 +2,18 @@
 #'
 #' @description
 #'
-#' The similarity score used in [GNPS](https://gnps.ucsd.edu/) considers, in
-#' addition to directly matching peaks between two spectra, also matches of
-#' peaks with differences in their m/z values that correspond to the difference
-#' of the spectras' precursor m/z. For peaks that match multiple peaks in the
+#' The `join_gnps` and `gnps` functions allow to calculate spectra similarity
+#' scores as used in [GNPS](https://gnps.ucsd.edu/). The approach matches first
+#' peaks between the two spectra directly using a user-defined ppm and/or
+#' tolerance as well as using a fixed delta m/z (considering the same ppm and
+#' tolerance) that is defined by the difference of the two spectras' precursor
+#' m/z values. For peaks that match multiple peaks in the
 #' other spectrum only the matching peak pair with the higher value/similarity
-#' is considered in the final similarity score. Peak matching that considers
-#' also differences in precursor m/z can be performed with `join_gnps` and the
-#' similarity score on such *aligned* peak matrices can be performed with
-#' `gnps`. Note that only if the two functions are used together, GNPS
-#' similarity scores are calculated.
+#' is considered in the final similarity score calculation. Note that GNPS
+#' similarity scores are calculated only if the two functions are used together.
 #'
 #' - `join_gnps`: matches/maps peaks between spectra with the same approach
-#'   used in GNPS: peaks are considered matching if a) the
+#'   as in GNPS: peaks are considered matching if a) the
 #'   difference in their m/z values is smaller than defined by `tolerance`
 #'   and `ppm` (this is the same as `joinPeaks`) **and** b) the difference of
 #'   their m/z *adjusted* for the difference of the spectras' precursor is
@@ -26,7 +25,7 @@
 #'   indices of the peaks matching peaks in the other spectrum or `NA`
 #'   otherwise.
 #'
-#' - `gnps`: calculate the GNPS similarity score on peak matrices previously
+#' - `gnps`: calculates the GNPS similarity score on peak matrices' previously
 #'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
 #'   the higher similarity are considered in the final score calculation.
 #'
@@ -65,7 +64,7 @@
 #'     function. For `gnps`: ignored.
 #'
 #' @author Johannes Rainer, Michael Witting, based on the code from
-#'     Xing et al. (2020).
+#'     Xing *et al.* (2020).
 #'
 #' @importFrom clue solve_LSAP
 #'
@@ -114,8 +113,7 @@
 #' gnps(x[map[[1]], ], y[map[[2]], ])
 gnps <- function(x, y, ...) {
     if (nrow(x) != nrow(y))
-        stop("'x' and 'y' are expected to be aligned peak matrices (i.e. ",
-             "having the same number of rows).")
+        stop("'x' and 'y' are expected to have the same number of rows).")
     ## Scale intensities; !duplicated because we can have duplicated matches.
     x_sum <- sum(x[!duplicated(x[, 1]), 2], na.rm = TRUE)
     y_sum <- sum(y[!duplicated(y[, 1]), 2], na.rm = TRUE)

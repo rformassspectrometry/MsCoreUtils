@@ -60,7 +60,7 @@ test_that("gnps works", {
                intensity = 1:6)
     ypmz <- 8
 
-    expect_error(gnps(x, y), "aligned")
+    expect_error(gnps(x, y), "number of rows")
     a <- cbind(c(1, 2), c(0, 0))
     expect_equal(gnps(a, a), 0)
     a <- rbind(c(NA, NA), a)

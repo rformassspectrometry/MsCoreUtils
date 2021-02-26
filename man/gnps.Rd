@@ -52,19 +52,18 @@ should be performed. See \code{\link[=join]{join()}} for details and options. De
 See function definition in the description section.
 }
 \description{
-The similarity score used in \href{https://gnps.ucsd.edu/}{GNPS} considers, in
-addition to directly matching peaks between two spectra, also matches of
-peaks with differences in their m/z values that correspond to the difference
-of the spectras' precursor m/z. For peaks that match multiple peaks in the
+The \code{join_gnps} and \code{gnps} functions allow to calculate spectra similarity
+scores as used in \href{https://gnps.ucsd.edu/}{GNPS}. The approach matches first
+peaks between the two spectra directly using a user-defined ppm and/or
+tolerance as well as using a fixed delta m/z (considering the same ppm and
+tolerance) that is defined by the difference of the two spectras' precursor
+m/z values. For peaks that match multiple peaks in the
 other spectrum only the matching peak pair with the higher value/similarity
-is considered in the final similarity score. Peak matching that considers
-also differences in precursor m/z can be performed with \code{join_gnps} and the
-similarity score on such \emph{aligned} peak matrices can be performed with
-\code{gnps}. Note that only if the two functions are used together, GNPS
-similarity scores are calculated.
+is considered in the final similarity score calculation. Note that GNPS
+similarity scores are calculated only if the two functions are used together.
 \itemize{
 \item \code{join_gnps}: matches/maps peaks between spectra with the same approach
-used in GNPS: peaks are considered matching if a) the
+as in GNPS: peaks are considered matching if a) the
 difference in their m/z values is smaller than defined by \code{tolerance}
 and \code{ppm} (this is the same as \code{joinPeaks}) \strong{and} b) the difference of
 their m/z \emph{adjusted} for the difference of the spectras' precursor is
@@ -75,7 +74,7 @@ are \code{NA} or if both are the same, the results are the same as with
 \code{\link[=join]{join()}}. The function returns a \code{list} of two \code{integer} vectors with the
 indices of the peaks matching peaks in the other spectrum or \code{NA}
 otherwise.
-\item \code{gnps}: calculate the GNPS similarity score on peak matrices previously
+\item \code{gnps}: calculates the GNPS similarity score on peak matrices' previously
 \emph{aligned} (matched) with \code{join_gnps}. For multi-mapping peaks the pair with
 the higher similarity are considered in the final score calculation.
 }
@@ -123,7 +122,7 @@ Other distance/similarity functions:
 }
 \author{
 Johannes Rainer, Michael Witting, based on the code from
-Xing et al. (2020).
+Xing \emph{et al.} (2020).
 }
 \concept{distance/similarity functions}
 \concept{grouping/matching functions}
