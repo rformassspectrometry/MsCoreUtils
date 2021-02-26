@@ -48,7 +48,8 @@ bin(ints, mz, size = 2, FUN = sum)
 }
 \seealso{
 Other grouping/matching functions: 
-\code{\link{closest}()}
+\code{\link{closest}()},
+\code{\link{gnps}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

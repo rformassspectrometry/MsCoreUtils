@@ -210,7 +210,8 @@ y[ji$y]
 \code{\link{\%in\%}}
 
 Other grouping/matching functions: 
-\code{\link{bin}()}
+\code{\link{bin}()},
+\code{\link{gnps}()}
 }
 \author{
 Sebastian Gibb, Johannes Rainer
