@@ -36,6 +36,8 @@ reference:
       - ppm
       - rla
       - formatRt
+      - rt2numeric
+      - rt2character
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
