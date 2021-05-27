@@ -49,6 +49,9 @@
 <meta property="og:title" content="Validation functions — validPeaksMatrix" />
 <meta property="og:description" content="These functions are used to validate input arguments. In general they are
 just wrapper around their corresponding is* function with an error message." />
+<meta property="og:image" content="/logo.png" />
+
+
 
 
 
@@ -64,9 +67,16 @@ just wrapper around their corresponding is* function with an error message." />
 
 
 
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,7 +90,7 @@ just wrapper around their corresponding is* function with an error message." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -126,7 +136,7 @@ just wrapper around their corresponding is* function with an error message." />
 just wrapper around their corresponding <code>is*</code> function with an error message.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,27 +149,29 @@ just wrapper around their corresponding <code>is*</code> function with an error 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://rdrr.io/r/base/logical.html'>logical(1)</a></code>, <code>TRUE</code> if validation are successful otherwise an error
+    <p><code>logical(1)</code>, <code>TRUE</code> if validation are successful otherwise an error
 is thrown.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>validPeaksMatrix</code>: see <code><a href='isPeaksMatrix.html'>isPeaksMatrix</a></code>.</p>
+    <p><code>validPeaksMatrix</code>: see <code><a href='check.html'>isPeaksMatrix</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other helper functions for developers: 
-<code><a href='between.html'>between</a>()</code>,
-<code><a href='isPeaksMatrix.html'>isPeaksMatrix</a>()</code>,
+<code><a href='range.html'>between</a>()</code>,
+<code><a href='check.html'>isPeaksMatrix</a>()</code>,
 <code><a href='rbindFill.html'>rbindFill</a>()</code>,
-<code><a href='vapply1c.html'>vapply1c</a>()</code></p></div>
+<code><a href='vapply.html'>vapply1c</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Error in validPeaksMatrix(1:2) : 
-#&gt;   'x' has to be a 'numeric' matrix with two columns named 'mz' and 'intensity'. The 'mz' column has to be sorted increasingly.</div><div class='input'><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>mz <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, intensity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='kw'><a href='https://rdrr.io/r/base/try.html'>try</a></span><span class='op'>(</span><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Error in validPeaksMatrix(1:2) : </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   'x' has to be a 'numeric' matrix with two columns named 'mz' and 'intensity'. The 'mz' column has to be sorted increasingly.</span>
+<span class='r-in'><span class='fu'>validPeaksMatrix</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span>mz <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span>, intensity <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -171,11 +183,11 @@ is thrown.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p><p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -183,6 +195,8 @@ is thrown.</p>
 
   
 
+
+  
 
   </body>
 </html>

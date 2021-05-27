@@ -19,12 +19,15 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Core Utils for Mass Spectrometry Data">
 <meta property="og:description" content="MsCoreUtils">
+<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -37,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -55,7 +58,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/">
+  <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -70,14 +73,14 @@
 
       
 
-      </header><script src="MsCoreUtils_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="MsCoreUtils_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Core Utils for Mass Spectrometry Data</h1>
-                        <h4 class="author">MsCoreUtils Package Maintainers</h4>
+                        <h4 data-toc-skip class="author">MsCoreUtils Package Maintainers</h4>
                         
       
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/vignettes/MsCoreUtils.Rmd"><code>vignettes/MsCoreUtils.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/master/vignettes/MsCoreUtils.Rmd" class="external-link"><code>vignettes/MsCoreUtils.Rmd</code></a></small>
       <div class="hidden name"><code>MsCoreUtils.Rmd</code></div>
 
     </div>
@@ -97,81 +100,83 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script><div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h1>
 <p>The <code>MsCoreUtils</code> package low-level functions for mass spectrometry data and is independent of any high-level data structures. These functions include mass spectra processing functions (noise estimation, smoothing, binning), quantitative aggregation functions (median polish, robust summarisation, …), missing data imputation, data normalisation (quantiles, vsn, …) as well as misc helper functions, that are used across high level data structure within the R for Mass Spectrometry packages.</p>
 <p>For a full list of function, see</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/RforMassSpectrometry/MsCoreUtils">"MsCoreUtils"</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="st">"package:MsCoreUtils"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/RforMassSpectrometry/MsCoreUtils" class="external-link">"MsCoreUtils"</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/ls.html" class="external-link">ls</a></span><span class="op">(</span>pos <span class="op">=</span> <span class="st">"package:MsCoreUtils"</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] "%between%"                "aggregate_by_vector"     
 ##  [3] "asInteger"                "between"                 
 ##  [5] "bin"                      "closest"                 
 ##  [7] "coefMA"                   "coefSG"                  
 ##  [9] "coefWMA"                  "colCounts"               
 ## [11] "common"                   "formatRt"                
-## [13] "group"                    "i2index"                 
-## [15] "impute_bpca"              "impute_fun"              
-## [17] "impute_knn"               "impute_matrix"           
-## [19] "impute_min"               "impute_mixed"            
-## [21] "impute_mle"               "impute_neighbour_average"
-## [23] "impute_with"              "impute_zero"             
-## [25] "imputeMethods"            "isPeaksMatrix"           
-## [27] "join"                     "localMaxima"             
-## [29] "medianPolish"             "navdist"                 
-## [31] "ndotproduct"              "neuclidean"              
-## [33] "noise"                    "normalize_matrix"        
-## [35] "normalizeMethods"         "nspectraangle"           
-## [37] "ppm"                      "rbindFill"               
-## [39] "refineCentroids"          "rla"                     
-## [41] "robustSummary"            "rowRla"                  
-## [43] "rt2character"             "rt2numeric"              
-## [45] "smooth"                   "validPeaksMatrix"        
-## [47] "valleys"                  "vapply1c"                
-## [49] "vapply1d"                 "vapply1l"</code></pre>
-<p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html">reference page</a> on the package webpage.</p>
+## [13] "gnps"                     "group"                   
+## [15] "i2index"                  "impute_bpca"             
+## [17] "impute_fun"               "impute_knn"              
+## [19] "impute_matrix"            "impute_min"              
+## [21] "impute_mixed"             "impute_mle"              
+## [23] "impute_neighbour_average" "impute_with"             
+## [25] "impute_zero"              "imputeMethods"           
+## [27] "isPeaksMatrix"            "join"                    
+## [29] "join_gnps"                "localMaxima"             
+## [31] "medianPolish"             "navdist"                 
+## [33] "ndotproduct"              "neuclidean"              
+## [35] "noise"                    "normalize_matrix"        
+## [37] "normalizeMethods"         "nspectraangle"           
+## [39] "ppm"                      "rbindFill"               
+## [41] "refineCentroids"          "rla"                     
+## [43] "robustSummary"            "rowRla"                  
+## [45] "rt2character"             "rt2numeric"              
+## [47] "smooth"                   "validPeaksMatrix"        
+## [49] "valleys"                  "vapply1c"                
+## [51] "vapply1d"                 "vapply1l"</code></pre>
+<p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html" class="external-link">reference page</a> on the package webpage.</p>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
+<a href="#examples" class="anchor" aria-hidden="true"></a>Examples</h1>
 <p>The functions defined in this package utilise basic classes with the aim of being reused in packages that provide a more formal, high-level interface.</p>
 <p>As an examples, let’s take the <code><a href="../reference/robustSummary.html">robustSummary()</a></code> function, that calculates the robust summary of the columns of a matrix:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></code></pre></div>
-<pre><code>##           a          b          c          d          e          f         g
-## A 1.3082823  1.4751044  0.9916388 -0.4140451 -1.4470557 -0.8318113 -1.184944
-## B 1.2562870  0.0913951  0.4033078 -1.0376105  0.6958488  0.3947147 -2.050375
-## C 0.8399609 -1.5132078 -2.0101102 -1.0544608 -0.3519367 -0.3678239  3.030930
-##            h         i         j
-## A  0.2056502 1.5631502 0.9343475
-## B -0.4521974 0.9714674 0.3359591
-## C  1.0609008 0.6100124 1.0606045</code></pre>
+<pre><code>##            a          b          c            d          e           f
+## A -0.4343692 -1.9240007 -0.9489798 -0.008035299  1.3004269  0.04583059
+## B -0.7442341 -0.1569708 -0.3382226 -0.322056728  0.3682182  0.31978818
+## C -0.2305153 -1.0427498  1.1194931 -0.319741758 -0.8104641 -0.16990767
+##            g           h          i          j
+## A  0.2601112  0.35469920 -0.6105231  0.3183062
+## B -0.5802907  1.15721204  0.1945289 -0.7326552
+## C -1.3503939 -0.06432265 -2.6758972 -0.2003210</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20 steps</code></pre>
 <pre><code>##           a           b           c           d           e           f 
-##  1.13484336  0.17813085  0.34854708 -0.83537216 -0.18501774 -0.20106357 
+## -0.46970618 -0.87996099 -0.46014627 -0.21661126  0.19255585  0.06523703 
 ##           g           h           i           j 
-## -1.43574504  0.05867375  1.04820999  0.77697035</code></pre>
+## -0.55685779  0.48252953 -0.74412791 -0.19146059</code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
-<li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
-<li><p>the <a href="https://rformassspectrometry.github.io/QFeatures/reference/Features-aggregate.html">QFeatures::aggregateFeatures()</a> function for <code>QFeatures</code> objects.</p></li>
+<li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html" class="external-link">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
+<li><p>the <a href="https://rformassspectrometry.github.io/QFeatures/reference/Features-aggregate.html" class="external-link">QFeatures::aggregateFeatures()</a> function for <code>QFeatures</code> objects.</p></li>
 </ul>
 </div>
 <div id="contributions" class="section level1">
 <h1 class="hasAnchor">
-<a href="#contributions" class="anchor"></a>Contributions</h1>
-<p>If you would like to contribute any low-level functionality, please <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues">open a GitHub issue</a> to discuss it. Please note that any <a href="https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions">contributions</a> should follow the <a href="https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#coding-style">style guide</a> and will require an appropriate unit test.</p>
-<p>If you wish to reuse any functions in this package, please just go ahead. If you would like any advice or seek help, please either <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues">open a GitHub issue</a>.</p>
+<a href="#contributions" class="anchor" aria-hidden="true"></a>Contributions</h1>
+<p>If you would like to contribute any low-level functionality, please <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues" class="external-link">open a GitHub issue</a> to discuss it. Please note that any <a href="https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions" class="external-link">contributions</a> should follow the <a href="https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#coding-style" class="external-link">style guide</a> and will require an appropriate unit test.</p>
+<p>If you wish to reuse any functions in this package, please just go ahead. If you would like any advice or seek help, please either <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues" class="external-link">open a GitHub issue</a>.</p>
 </div>
 <div id="session-information" class="section level1 unnumbered">
 <h1 class="hasAnchor">
-<a href="#session-information" class="anchor"></a>Session information</h1>
-<pre><code>## R Under development (unstable) (2020-12-24 r79679)
+<a href="#session-information" class="anchor" aria-hidden="true"></a>Session information</h1>
+<pre><code>## R version 4.1.0 (2021-05-18)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.1 LTS
+## Running under: Ubuntu 20.04.2 LTS
 ## 
 ## Matrix products: default
 ## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
@@ -188,25 +193,27 @@ document.addEventListener("DOMContentLoaded", function() {
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-## [1] MsCoreUtils_1.3.2 BiocStyle_2.17.1 
+## [1] MsCoreUtils_1.4.0 BiocStyle_2.17.1 
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.30          magrittr_2.0.1      BiocGenerics_0.37.0
-##  [4] MASS_7.3-53         R6_2.5.0            ragg_0.4.0         
-##  [7] rlang_0.4.9         stringr_1.4.0       tools_4.1.0        
-## [10] parallel_4.1.0      xfun_0.19           htmltools_0.5.0    
-## [13] systemfonts_0.3.2   yaml_2.2.1          assertthat_0.2.1   
-## [16] rprojroot_2.0.2     digest_0.6.27       pkgdown_1.6.1.9000 
-## [19] crayon_1.3.4        bookdown_0.21       textshaping_0.2.1  
-## [22] BiocManager_1.30.10 S4Vectors_0.29.6    fs_1.5.0           
-## [25] memoise_1.1.0       evaluate_0.14       rmarkdown_2.6      
-## [28] stringi_1.5.3       compiler_4.1.0      desc_1.2.0         
-## [31] stats4_4.1.0</code></pre>
+##  [1] cluster_2.1.2       knitr_1.33          magrittr_2.0.1     
+##  [4] BiocGenerics_0.39.0 MASS_7.3-54         clue_0.3-59        
+##  [7] R6_2.5.0            ragg_1.1.2          rlang_0.4.11       
+## [10] fastmap_1.1.0       stringr_1.4.0       tools_4.1.0        
+## [13] parallel_4.1.0      xfun_0.23           jquerylib_0.1.4    
+## [16] htmltools_0.5.1.1   systemfonts_1.0.2   yaml_2.2.1         
+## [19] digest_0.6.27       rprojroot_2.0.2     pkgdown_1.6.1.9001 
+## [22] crayon_1.4.1        bookdown_0.22       textshaping_0.3.4  
+## [25] BiocManager_1.30.15 S4Vectors_0.31.0    sass_0.4.0         
+## [28] fs_1.5.0            memoise_2.0.0       cachem_1.0.5       
+## [31] evaluate_0.14       rmarkdown_2.8       stringi_1.6.2      
+## [34] compiler_4.1.0      bslib_0.2.5.1       desc_1.3.0         
+## [37] stats4_4.1.0        jsonlite_1.7.2</code></pre>
 </div>
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>See Sticker <em>et al.</em> Robust summarization and inference in proteome-wide label-free quantification. <a href="https://doi.org/10.1101/668863" class="uri">https://doi.org/10.1101/668863</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>See Sticker <em>et al.</em> Robust summarization and inference in proteome-wide label-free quantification. <a href="https://doi.org/10.1101/668863" class="external-link uri">https://doi.org/10.1101/668863</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
   </div>
@@ -222,11 +229,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
       <footer><div class="copyright">
-  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p></p>
+<p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
@@ -234,6 +243,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   
 
+
+  
 
   </body>
 </html>

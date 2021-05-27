@@ -48,6 +48,9 @@
 
 <meta property="og:title" content="Range helper functions — between" />
 <meta property="og:description" content="These functions help to work with numeric ranges." />
+<meta property="og:image" content="/logo.png" />
+
+
 
 
 
@@ -63,9 +66,16 @@
 
 
 
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,7 +89,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -124,9 +134,9 @@
     <p>These functions help to work with <code>numeric</code> ranges.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>between</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>range</span><span class='op'>)</span>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>between</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>range</span><span class='op'>)</span>
 
-<span class='va'>x</span> <span class='op'>%between%</span> <span class='va'>range</span></pre>
+<span class='va'>x</span> <span class='op'>%between%</span> <span class='va'>range</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,28 +147,30 @@
     </tr>
     <tr>
       <th>range</th>
-      <td><p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric(2)</a></code>, range to compare against.</p></td>
+      <td><p><code>numeric(2)</code>, range to compare against.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>logical</code> vector of length <code><a href='https://rdrr.io/r/base/length.html'>length(x)</a></code>.</p>
+    <p><code>logical</code> vector of length <code>length(x)</code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other helper functions for developers: 
-<code><a href='isPeaksMatrix.html'>isPeaksMatrix</a>()</code>,
+<code><a href='check.html'>isPeaksMatrix</a>()</code>,
 <code><a href='rbindFill.html'>rbindFill</a>()</code>,
-<code><a href='validPeaksMatrix.html'>validPeaksMatrix</a>()</code>,
-<code><a href='vapply1c.html'>vapply1c</a>()</code></p></div>
+<code><a href='validation.html'>validPeaksMatrix</a>()</code>,
+<code><a href='vapply.html'>vapply1c</a>()</code></p></div>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
     <p>Sebastian Gibb</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>between</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE</div><div class='input'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span> <span class='op'>%between%</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE  TRUE FALSE</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='fu'>between</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE  TRUE FALSE</span>
+<span class='r-in'><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span> <span class='op'>%between%</span> <span class='fl'>2</span><span class='op'>:</span><span class='fl'>3</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE  TRUE  TRUE FALSE</span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -170,11 +182,11 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p><p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -182,6 +194,8 @@
 
   
 
+
+  
 
   </body>
 </html>

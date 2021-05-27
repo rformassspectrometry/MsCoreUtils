@@ -50,6 +50,9 @@
 <meta property="og:description" content="This function calculates the robust summarisation for each feature
 (protein). Note that the function assumes that the intensities in
 input e are already log-transformed." />
+<meta property="og:image" content="/logo.png" />
+
+
 
 
 
@@ -65,9 +68,16 @@ input e are already log-transformed." />
 
 
 
+
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,7 +91,7 @@ input e are already log-transformed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.4.0</span>
       </span>
     </div>
 
@@ -128,7 +138,7 @@ input e are already log-transformed." />
 input <code>e</code> are already log-transformed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>robustSummary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>robustSummary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,7 +156,7 @@ data with mandatory <code>colnames</code> and <code>rownames</code>.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> vector of length <code><a href='https://rdrr.io/r/base/nrow.html'>ncol(x)</a></code> with robust
+    <p><code><a href='https://rdrr.io/r/base/numeric.html'>numeric()</a></code> vector of length <code>ncol(x)</code> with robust
 summarised values.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -159,14 +169,15 @@ summarised values.</p>
     <p>Adriaan Sticker, Sebastian Gibb and Laurent Gatto</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>
-<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>
-<span class='fu'>robustSummary</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           a           b           c           d           e           f 
-#&gt;  0.13327322  0.91145468  0.76502760 -0.23239400 -0.41392131  0.60431427 
-#&gt;           g           h           i           j 
-#&gt; -0.51182415  0.07515504 -0.39439300  0.52412091 </div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>, nrow <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>letters</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>rownames</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>LETTERS</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span></span>
+<span class='r-in'><span class='fu'>robustSummary</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           a           b           c           d           e           f </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  0.13327322  0.91145468  0.76502760 -0.23239400 -0.41392131  0.60431427 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>           g           h           i           j </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> -0.51182415  0.07515504 -0.39439300  0.52412091 </span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -178,11 +189,11 @@ summarised values.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p>
+  <p><p>Developed by RforMassSpectrometry Package Maintainer, Laurent Gatto, Johannes Rainer, Sebastian Gibb.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -190,6 +201,8 @@ summarised values.</p>
 
   
 
+
+  
 
   </body>
 </html>
