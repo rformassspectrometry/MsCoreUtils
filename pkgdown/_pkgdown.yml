@@ -20,6 +20,7 @@ reference:
       - ndotproduct
       - neuclidean
       - nspectraangle
+      - gnps
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
