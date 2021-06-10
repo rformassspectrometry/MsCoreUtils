@@ -35,7 +35,7 @@ SEXP C_which_first(SEXP x) {
 	        SEXP name;
 	        PROTECT(
                 name = ScalarString(
-                    STRING_ELT(getAttrib(x, R_NamesSymbol), i)));
+                    STRING_ELT(getAttrib(x, R_NamesSymbol), j)));
 	        setAttrib(r, R_NamesSymbol, name);
 	        UNPROTECT(1);
         }
@@ -75,7 +75,7 @@ SEXP C_which_last(SEXP x) {
 	        SEXP name;
 	        PROTECT(
                 name = ScalarString(
-                    STRING_ELT(getAttrib(x, R_NamesSymbol), i)));
+                    STRING_ELT(getAttrib(x, R_NamesSymbol), j)));
 	        setAttrib(r, R_NamesSymbol, name);
 	        UNPROTECT(1);
         }
