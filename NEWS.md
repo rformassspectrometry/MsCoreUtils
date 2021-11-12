@@ -1,3 +1,9 @@
+# MsCoreUtils 1.7
+
+## MsCoreUtils 1.7.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.3
 
 ## Changes in 1.3.3
@@ -16,7 +22,7 @@
 
 ## Changes in 1.3.0
 
-- New Bioc devel versin
+- New Bioc devel version
 
 # MsCoreUtils 1.1
 
