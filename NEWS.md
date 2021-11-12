@@ -2,6 +2,8 @@
 
 ## MsCoreUtils 1.7.0
 
+- New Bioc devel version
+
 # MsCoreUtils 1.5
 
 ## Changes in 1.5.1
