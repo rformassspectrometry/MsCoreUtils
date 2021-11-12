@@ -2,6 +2,14 @@
 
 ## MsCoreUtils 1.7.0
 
+# MsCoreUtils 1.5
+
+## Changes in 1.5.1
+
+- Add `which.first` and `which.last`.
+
+## Changes in 1.5.0
+
 - New Bioc devel version
 
 # MsCoreUtils 1.3
