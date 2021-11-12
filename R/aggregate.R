@@ -78,4 +78,15 @@
 ##' ## -------------------------
 ##' ## Aggregation by matrix
 ##' ## -------------------------
+##'
+##' library(Matrix)
+##' adj <- sparseMatrix(i = c(1, 2, 3, 4, 4, 5, 6, 7, 7),
+##'                     j = c(1, 2, 3, 1, 2, 1, 1, 2, 3),
+##'                     x = 1)
+##' colnames(adj) <- c("B", "E", "X")
+##' rownames(adj) <- 1:7
+##' adj
+##'
+##' aggregate_by_matrix(x, adj, colSumsMat)
+##' aggregate_by_matrix(x, adj, colMeansMat)
 NULL
