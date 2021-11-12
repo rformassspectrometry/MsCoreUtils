@@ -4,9 +4,15 @@
 \name{aggregate}
 \alias{aggregate}
 \alias{aggregate_by_vector}
+\alias{colMeansMat}
+\alias{colSumsMat}
 \alias{aggregate_by_matrix}
 \title{Aggreagate quantitative features}
 \usage{
+colMeansMat(x, MAT)
+
+colSumsMat(x, MAT)
+
 aggregate_by_matrix(x, MAT, FUN, ...)
 
 aggregate_by_vector(x, INDEX, FUN, ...)
@@ -32,29 +38,34 @@ dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{equal to}
 }
 \description{
 These functions takes a matrix of quantitative features \code{x} and
-aggregates features (rows) according to either a factor \code{INDEX} or
-an adjacency matrix \code{MAT}. The aggregation function is defined by
-a user-defined function \code{FUN}.
+aggregates the features (rows) according to either a factor
+\code{INDEX} or an adjacency matrix \code{MAT}. The aggregation function is
+defined by a user-defined function \code{FUN}.
 
 When aggregating by a vector/factor, the user-defined functions
 must return a vector of length equal to \code{ncol(x)} for each level
 in \code{INDEX}. Examples thereof are:
 \itemize{
-\item \code{\link[=medianPolish]{medianPolish()}} to fits an additive model (two way decomposition)
-using Tukey's median polish_ procedure using
+\item \code{\link[=medianPolish]{medianPolish()}} to fits an additive model (two way
+decomposition) using Tukey's median polish_ procedure using
 \code{\link[stats:medpolish]{stats::medpolish()}};
 \item \code{\link[=robustSummary]{robustSummary()}} to calculate a robust aggregation using
 \code{\link[MASS:rlm]{MASS::rlm()}};
-\item \link[base:colSums]{base::colMeans()} to use the mean of each column;
+\item \link[base:colSums]{base::colMeans()} to use the mean of each
+column;
 \item \code{\link[base:colSums]{base::colSums()}} to use the sum of each column;
-\item \link[matrixStats:rowMedians]{matrixStats::colMedians()} to use the median
-of each column.
+\item \link[matrixStats:rowMedians]{matrixStats::colMedians()} to use
+the median of each column.
 }
 
 When aggregating by an adjacency matrix, the user-defined
 functions must return a new matrix. Examples thereof are:
 \itemize{
-\item ...
+\item \code{\link[=colSumsMat]{colSumsMat()}} aggregates by the summing the peptide intensities
+for each protein. Shared peptides are re-used multiple times.
+\item \code{\link[=colMeansMat]{colMeansMat()}} aggregation by the calculating the mean of
+peptide intensities. Shared peptides are re-used multiple
+times.
 }
 }
 \examples{

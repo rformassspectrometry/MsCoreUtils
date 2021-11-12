@@ -29,7 +29,13 @@
 ##' When aggregating by an adjacency matrix, the user-defined
 ##' functions must return a new matrix. Examples thereof are:
 ##'
-##' - ...
+##'
+##' - [colSumsMat()] aggregates by the summing the peptide intensities
+##'    for each protein. Shared peptides are re-used multiple times.
+##'
+##' - [colMeansMat()] aggregation by the calculating the mean of
+##'    peptide intensities. Shared peptides are re-used multiple
+##'    times.
 ##'
 ##' @family Quantitative feature aggregation
 ##'
