@@ -1,5 +1,10 @@
 # MsCoreUtils 1.7
 
+## MsCoreUtils 1.7.1
+
+- feat: new `aggregate_by_matrix()` that uses an adjacency matric to
+  aggregate features.
+
 ## MsCoreUtils 1.7.0
 
 - New Bioc devel version

@@ -10,16 +10,16 @@
 ##' @param ... Additional arguments passed to [MASS::rlm()].
 ##' @return `numeric()` vector of length `ncol(x)` with robust
 ##'     summarised values.
-##' 
+##'
 ##' @author Adriaan Sticker, Sebastian Gibb and Laurent Gatto
 ##'
 ##' @family Quantitative feature aggregation
-##' 
+##'
 ##' @export
 ##'
 ##' @importFrom MASS rlm
 ##' @importFrom stats model.matrix .lm.fit
-##' 
+##'
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
 ##' colnames(x) <- letters[1:10]
@@ -87,21 +87,21 @@ robustSummary <- function(x, ...) {
 ##' polish procedure using [stats::medpolish()].
 ##'
 ##' @param x A `matrix` of mode `numeric`.
-##' 
+##'
 ##' @param verbose Default is `FALSE`.
-##' 
+##'
 ##' @param ... Additional arguments passed to [stats::medpolish()].
-##' 
+##'
 ##' @return A `numeric` vector of length identical to `ncol(x)`.
-##' 
+##'
 ##' @author Laurent Gatto
 ##'
 ##' @family Quantitative feature aggregation
-##' 
+##'
 ##' @export
 ##'
 ##' @importFrom stats medpolish
-##' 
+##'
 ##' @examples
 ##' x <- matrix(rnorm(30), nrow = 3)
 ##' medianPolish(x)
@@ -115,17 +115,17 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' @description
 ##' Returns the number of non-NA features in a features by sample
 ##' matrix.
-##' 
+##'
 ##' @param x A `matrix` of mode `numeric`.
-##' 
+##'
 ##' @param ... Currently ignored.
-##' 
+##'
 ##' @return A `numeric` vector of length identical to `ncol(x)`.
 ##'
 ##' @family Quantitative feature aggregation
 ##'
 ##' @export
-##' 
+##'
 ##' @author Laurent Gatto
 ##'
 ##' @examples
@@ -134,12 +134,12 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' colCounts(m)
 ##' m <- matrix(rnorm(30), nrow = 3)
 ##' colCounts(m)
-colCounts <- function(x, ...) 
+colCounts <- function(x, ...)
     colSums(!is.na(x))
 
 
 ##' @title Aggreagate quantitative features.
-##' 
+##'
 ##' @description
 ##' This function takes a matrix of quantitative features `x` and a
 ##' factor (of length equal to `nrow(x)`) defining subsets, and
@@ -163,19 +163,19 @@ colCounts <- function(x, ...)
 ##' - [matrixStats::colMedians()][matrixStats::rowMedians()] to use the median
 ##'   of each column.
 ##'
-##' @param x A `matrix` of mode `numeric`. 
+##' @param x A `matrix` of mode `numeric`.
 ##' @param INDEX A `factor` of length `nrow(x)`.
 ##' @param FUN A `function` to be applied to the subsets of `x`.
 ##' @param ... Additional arguments passed to `FUN`.
 ##' @return A new `matrix` of dimensions `ncol(x)` and `length(INDEX)`
 ##'     with `dimnames` equal to `colnames(x)` and `INDEX`.
-##' 
+##'
 ##' @author Laurent Gatto
 ##'
 ##' @family Quantitative feature aggregation
-##' 
+##'
 ##' @export
-##' 
+##'
 ##' @examples
 ##'
 ##' x <- structure(c(10.3961935744407, 17.1663715212693, 14.1027587989326,
@@ -194,7 +194,7 @@ colCounts <- function(x, ...)
 ##'                                c("iTRAQ4.114", "iTRAQ4.115",
 ##'                                  "iTRAQ4.116", "iTRAQ4.117")))
 ##' x
-##' 
+##'
 ##' k <- factor(c("B", "E", "X", "E", "B", "B", "E"))
 ##'
 ##' aggregate_by_vector(x, k, colMeans)
@@ -217,6 +217,3 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     colnames(res) <- colnames(x)
     res
 }
-
-## aggregate_by_list <- function(x, INDEX, FUN, ...) {    
-## }
