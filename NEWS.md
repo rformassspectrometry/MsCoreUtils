@@ -2,8 +2,8 @@
 
 ## MsCoreUtils 1.7.1
 
-- New `aggregate_by_matrix()` that uses an adjacency matric to
-  aggregate features.
+- New `aggregate_by_matrix()` that uses an adjacency matrix to
+  aggregate quantitative features.
 
 ## MsCoreUtils 1.7.0
 
