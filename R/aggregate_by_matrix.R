@@ -20,8 +20,6 @@ colSumsMat <- function(x, MAT)
 ##'
 ##' @rdname aggregate
 ##'
-##' @import Matrix
-##'
 ##' @export
 aggregate_by_matrix <- function(x, MAT, FUN, ...) {
     if (!inherits(x, "matrix"))
