@@ -38,10 +38,10 @@
 ##' When aggregating with an adjacency matrix, user-defined
 ##' functions must return a new matrix. Examples thereof are:
 ##'
-##' - [colSumsMat(x, MAT)] aggregates by the summing the peptide intensities
+##' - `colSumsMat(x, MAT)` aggregates by the summing the peptide intensities
 ##'    for each protein. Shared peptides are re-used multiple times.
 ##'
-##' - [colMeansMat(x, MAT)] aggregation by the calculating the mean of
+##' - `colMeansMat(x, MAT)` aggregation by the calculating the mean of
 ##'    peptide intensities. Shared peptides are re-used multiple
 ##'    times.
 ##'
@@ -67,7 +67,7 @@
 ##' ## Aggregation by vector
 ##' ## -------------------------
 ##'
-##' k <- paste0("Prot", c("B", "E", "X", "E", "B", "B", "E"))
+##' (k <- paste0("Prot", c("B", "E", "X", "E", "B", "B", "E")))
 ##'
 ##' aggregate_by_vector(x, k, colMeans)
 ##' aggregate_by_vector(x, k, robustSummary)
