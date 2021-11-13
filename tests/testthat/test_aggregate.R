@@ -30,7 +30,7 @@ test_that("aggregation: robustSummary", {
                    .Dimnames = list(c("X1", "X52", "X53"),
                                     c("iTRAQ4.114", "iTRAQ4.115",
                                       "iTRAQ4.116", "iTRAQ4.117")))
-    x2_expected <- c(iTRAQ4.114 = 9.52098981620336, iTRAQ4.115 = 10.1620299826269, 
+    x2_expected <- c(iTRAQ4.114 = 9.52098981620336, iTRAQ4.115 = 10.1620299826269,
                      iTRAQ4.116 = 11.0813013510629, iTRAQ4.117 = 11.999857225665)
     x2 <- robustSummary(x)
     expect_equal(x2, x2_expected)
@@ -50,18 +50,18 @@ test_that("aggregation: robustSummary", {
 test_that("aggregation: aggregate_by_vector", {
     ## Numeric example taken from `MSnbase::combineFeatures` on
     ## `log(filterNA(msnset), 2)`
-    x <- structure(c(3.37798349666944, 4.10151322208566, 3.81790550688852, 
-                     3.68373564094019, 3.41114487991947, 2.91242966348861, 1.97017675008189, 
-                     3.47689791527908, 4.04720220698125, 3.82566260214081, 3.57800373068237, 
-                     3.525493839628, 2.94468384643243, 1.98947385475541, 3.57766646528063, 
-                     3.94290011925067, 3.83197127627519, 3.48680275001825, 3.6200998807866, 
-                     3.17130049812522, 1.93779683012642, 3.68967315613391, 3.84557183862662, 
-                     3.82393074128306, 3.33967874492785, 3.73758233712817, 3.28646611488044, 
+    x <- structure(c(3.37798349666944, 4.10151322208566, 3.81790550688852,
+                     3.68373564094019, 3.41114487991947, 2.91242966348861, 1.97017675008189,
+                     3.47689791527908, 4.04720220698125, 3.82566260214081, 3.57800373068237,
+                     3.525493839628, 2.94468384643243, 1.98947385475541, 3.57766646528063,
+                     3.94290011925067, 3.83197127627519, 3.48680275001825, 3.6200998807866,
+                     3.17130049812522, 1.93779683012642, 3.68967315613391, 3.84557183862662,
+                     3.82393074128306, 3.33967874492785, 3.73758233712817, 3.28646611488044,
                      1.92996581207855),
-                   .Dim = c(7L, 4L), 
+                   .Dim = c(7L, 4L),
                    .Dimnames = list(c("X1", "X27", "X41", "X47", "X52",
                                       "X53", "X55"),
-                                    c("iTRAQ4.114", "iTRAQ4.115", 
+                                    c("iTRAQ4.114", "iTRAQ4.115",
                                       "iTRAQ4.116", "iTRAQ4.117")))
     ## Different ways to provide INDEX
     k_char <- c("B", "E", "X", "E", "B", "B", "E")
@@ -72,7 +72,7 @@ test_that("aggregation: aggregate_by_vector", {
     same_row_names <- c("B", "E", "X")
 
     ## aggregate: robustSummary
-    x2_robust_expected <- 
+    x2_robust_expected <-
         structure(c(3.23385268002584, 3.27016773304649,
                     3.81790550688852, 3.33557123434545,
                     3.20489326413968, 3.82566260214081,
@@ -92,7 +92,7 @@ test_that("aggregation: aggregate_by_vector", {
                  aggregate_by_vector(x, k_fact2, robustSummary)[same_row_names, ])
 
     ## aggregate: medianPolish
-    x2_medpolish_expected <- 
+    x2_medpolish_expected <-
         structure(c(3.36717083720277, 3.63886529932001,
                     3.81790550688852, 3.47689791527908,
                     3.57800373068237, 3.82566260214081,
@@ -142,7 +142,7 @@ test_that("aggregation: colCounts", {
     ## No NAs
     m <- matrix(rnorm(30), nrow = 3)
     expect_identical(colCounts(m), rep(3, 10))
-    ## NAs along diagonal    
+    ## NAs along diagonal
     m <- matrix(rnorm(25), nrow = 5)
     diag(m) <- NA
     expect_identical(colCounts(m), rep(4, 5))
@@ -156,4 +156,65 @@ test_that("aggregation: colCounts", {
     ## NA and Inf
     m[2,2] <- Inf
     expect_identical(colCounts(m), c(4, rep(5, 4)))
+})
+
+
+
+test_that("aggregate_by_matix works", {
+    ## numerical example taken from ?stats::medpolish
+    x <- rbind(c(14,15,14),
+               c( 7, 4, 7),
+               c( 8, 2,10),
+               c(15, 9,10),
+               c( 0, 2, 0))
+    colnames(x) <- paste0("S", 1:3)
+    rownames(x) <- paste0("pep", 1:5)
+    ## aggregation index
+    k <- paste0("Prot", rep(1:2, c(2, 3)))
+    ## adjacency matrix
+    adj <- matrix(c(1, 1, 0, 0, 0,
+                    0, 0, 1, 1, 1),
+                  ncol = 2)
+    rownames(adj) <- rownames(x)
+    colnames(adj) <- unique(k)
+    ## aggregation by sum
+    av <- aggregate_by_vector(x, k, colSums)
+    am <- aggregate_by_matrix(x, adj, colSumsMat)
+    expect_identical(av, am)
+    ## aggregation by mean
+    av <- aggregate_by_vector(x, k, colMeans)
+    am <- aggregate_by_matrix(x, adj, colMeansMat)
+    expect_identical(av, am)
+})
+
+
+test_that("aggregate_by_matix works with NAs", {
+    ## numerical example taken from ?stats::medpolish
+    x <- rbind(c(14,15,14),
+               c( 7, 4, 7),
+               c( 8, 2,10),
+               c(15, 9,10),
+               c( 0, 2, 0))
+    colnames(x) <- paste0("S", 1:3)
+    rownames(x) <- paste0("pep", 1:5)
+    x[1, 1] <- x[4, 2] <- NA
+    ## aggregation index
+    k <- paste0("Prot", rep(1:2, c(2, 3)))
+    ## adjacency matrix
+    adj <- matrix(c(1, 1, 0, 0, 0,
+                    0, 0, 1, 1, 1),
+                  ncol = 2)
+    rownames(adj) <- rownames(x)
+    colnames(adj) <- unique(k)
+    ## aggregation by sum
+    av <- aggregate_by_vector(x, k, colSums)
+    av[1:2, 1:2] <- NA
+    am <- aggregate_by_matrix(x, adj, colSumsMat)
+    expect_identical(av, am)
+    ## aggregation by mean
+    av <- aggregate_by_vector(x, k, colMeans)
+    av[1:2, 1:2] <- NA
+    am <- aggregate_by_matrix(x, adj, colMeansMat)
+    expect_identical(av, am)
+
 })
