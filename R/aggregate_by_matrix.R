@@ -30,7 +30,7 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
         stop("'MAT' must be a matrix.")
     if (!identical(nrow(MAT), nrow(x)))
         stop("nrow(MAT) must be identical to 'nrow(x).")
-    res <- do.call(FUN, list(x, MAT))
+    res <- do.call(FUN, list(x, MAT, ...))
     if (!is.null(colnames(MAT)))
         stopifnot(identical(colnames(MAT), rownames(res)))
     if (!is.null(colnames(x)))

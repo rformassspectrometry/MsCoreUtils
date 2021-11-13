@@ -27,7 +27,7 @@ aggregate_by_vector(x, INDEX, FUN, ...)
 
 \item{...}{Additional arguments passed to \code{FUN}.}
 
-\item{INDEX}{A \code{factor} of length \code{nrow(x)}.}
+\item{INDEX}{A \code{vector} or \code{factor} of length \code{nrow(x)}.}
 }
 \value{
 \code{\link[=aggregate_by_matrix]{aggregate_by_matrix()}} returns a \code{matrix} (or \code{Matrix})
@@ -37,12 +37,19 @@ of dimensions \code{ncol(MAT)} and \verb{ncol(x), with }dimnames\verb{equal to}c
 dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{equal to}colnames(x)\code{and}INDEX`.
 }
 \description{
-These functions takes a matrix of quantitative features \code{x} and
-aggregates the features (rows) according to either a factor
-\code{INDEX} or an adjacency matrix \code{MAT}. The aggregation function is
-defined by a user-defined function \code{FUN}.
+These functions take a matrix of quantitative features \code{x} and
+aggregate the features (rows) according to either a vector (or
+factor) \code{INDEX} or an adjacency matrix \code{MAT}. The aggregation
+method is defined by function \code{FUN}.
 
-When aggregating by a vector/factor, the user-defined functions
+Adjacency matrices are an elegant way to explicitly encode for
+shared peptides (see example below) during aggregation. Note
+however that missing values can't generally be ignore using \code{na.rm = TRUE}, as with vector-based aggregation (see examples below).
+}
+\section{Vector-based aggregation functions}{
+
+
+When aggregating with a vector/factor, user-defined functions
 must return a vector of length equal to \code{ncol(x)} for each level
 in \code{INDEX}. Examples thereof are:
 \itemize{
@@ -57,29 +64,34 @@ column;
 \item \link[matrixStats:rowMedians]{matrixStats::colMedians()} to use
 the median of each column.
 }
+}
 
-When aggregating by an adjacency matrix, the user-defined
+\section{Matrix-based aggregation functions}{
+
+
+When aggregating with an adjacency matrix, user-defined
 functions must return a new matrix. Examples thereof are:
 \itemize{
-\item \code{\link[=colSumsMat]{colSumsMat()}} aggregates by the summing the peptide intensities
+\item \link{colSumsMat(x, MAT)} aggregates by the summing the peptide intensities
 for each protein. Shared peptides are re-used multiple times.
-\item \code{\link[=colMeansMat]{colMeansMat()}} aggregation by the calculating the mean of
+\item \link{colMeansMat(x, MAT)} aggregation by the calculating the mean of
 peptide intensities. Shared peptides are re-used multiple
 times.
 }
 }
+
 \examples{
 
-x <- structure(c(10.3961935744407, 17.1663715212693, 14.1027587989326,
-                12.850349037785, 10.6379251053134, 7.52885076885599,
-                3.91816118984218, 11.1339832690524, 16.5321471730746,
-                14.1787908569268, 11.9422579479634, 11.5154097311056,
-                7.69906817878979, 3.97092153807337, 11.9394664781386,
-                15.3791100898935, 14.2409281956285, 11.2106867261254,
-                12.2958526883634, 9.00858488668671, 3.83120129974963,
-                12.9033445520186, 14.375814954807, 14.1617803596661,
-                10.1237981632645, 13.3390344671153, 9.75719265786117,
-                3.81046169359919),
+x <- structure(c(10.39, 17.16, 14.10,
+                 12.85, 10.63,  7.52,
+                  3.91, 11.13, 16.53,
+                 14.17, 11.94, 11.51,
+                  7.69,  3.97, 11.93,
+                 15.37, 14.24, 11.21,
+                 12.29,  9.00,  3.83,
+                 12.90, 14.37, 14.16,
+                 10.12, 13.33,  9.75,
+                  3.81),
               .Dim = c(7L, 4L),
               .Dimnames = list(c("X1", "X27", "X41", "X47", "X52",
                                  "X53", "X55"),
@@ -110,8 +122,35 @@ colnames(adj) <- c("B", "E", "X")
 rownames(adj) <- 1:7
 adj
 
+## Peptide 4 is shared by 2 proteins (has a rowSums of 2),
+## namely proteins B and E
+rowSums(adj)
+
 aggregate_by_matrix(x, adj, colSumsMat)
 aggregate_by_matrix(x, adj, colMeansMat)
+
+## ---------------
+## Missing values
+## ---------------
+
+x <- matrix(c(NA, 2:6), ncol = 2,
+            dimnames = list(1:3, c("S1", "S2")))
+
+## simply use na.rm = TRUE to ignore missng values
+## during the aggregation
+(k <- LETTERS[c(1, 1, 2)])
+aggregate_by_vector(x, k, colSums)
+aggregate_by_vector(x, k, colSums, na.rm = TRUE)
+
+
+## NAs are propagated during the matrix
+## multiplication in the aggregation functon
+(adj <- matrix(c(1, 1, 0, 0, 0, 1), ncol = 2,
+               dimnames = list(1:3, c("A", "B"))))
+aggregate_by_matrix(x, adj, colSumsMat)
+## not implemented here
+aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
+colSumsMat
 }
 \seealso{
 Other Quantitative feature aggregation: 

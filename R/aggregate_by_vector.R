@@ -141,7 +141,7 @@ colCounts <- function(x, ...)
 
 ##' @param x A `matrix` of mode `numeric`.
 ##'
-##' @param INDEX A `factor` of length `nrow(x)`.
+##' @param INDEX A `vector` or `factor` of length `nrow(x)`.
 ##'
 ##' @param FUN A `function` to be applied to the subsets of `x`.
 ##'
