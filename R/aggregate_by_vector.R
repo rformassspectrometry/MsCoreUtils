@@ -160,11 +160,10 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     if (!identical(length(INDEX), nrow(x)))
         stop("The length of 'INDEX' has to be identical to 'nrow(x).")
     INDEX <- factor(INDEX)
-    res <- tapply(
-        seq_len(nrow(x)),
-        INDEX,
-        FUN = function(i) FUN(x[i, , drop = FALSE], ...),
-        simplify = FALSE
+    FUN <- match.fun(FUN)
+    res <- lapply(
+        split(seq_len(nrow(x)), INDEX),
+        FUN = function(i) FUN(x[i, , drop = FALSE], ...)
     )
     res <- do.call(rbind, res)
     rownames(res) <- levels(INDEX)
