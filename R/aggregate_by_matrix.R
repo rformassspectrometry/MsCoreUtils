@@ -11,8 +11,11 @@ colSumsMat <- function(x, MAT)
   crossprod(MAT, x)
 
 
-##' @param MAT An adjacency matrix that defines what features with
-##'     `nrow(MAT) == nrow(x)`
+##' @param MAT An adjacency matrix that defines peptide-protein
+##'     relations with `nrow(MAT) == nrow(x)`: a non-missing/non-null
+##'     value at position (i,j) indicates that peptide i belong to
+##'     protein j. This matrix is tyically binary but can also contain
+##'     weighted relations.
 ##'
 ##' @return [aggregate_by_matrix()] returns a `matrix` (or `Matrix`)
 ##'     of dimensions `ncol(MAT)` and `ncol(x), with `dimnames` equal

@@ -20,8 +20,11 @@ aggregate_by_vector(x, INDEX, FUN, ...)
 \arguments{
 \item{x}{A \code{matrix} of mode \code{numeric}.}
 
-\item{MAT}{An adjacency matrix that defines what features with
-\code{nrow(MAT) == nrow(x)}}
+\item{MAT}{An adjacency matrix that defines peptide-protein
+relations with \code{nrow(MAT) == nrow(x)}: a non-missing/non-null
+value at position (i,j) indicates that peptide i belong to
+protein j. This matrix is tyically binary but can also contain
+weighted relations.}
 
 \item{FUN}{A \code{function} to be applied to the subsets of \code{x}.}
 
