@@ -2,13 +2,13 @@
 #'
 #' @export
 colMeansMat <- function(x, MAT)
-  colSumsMat(x, MAT)/colSums(MAT)
+  colSumsMat(x, MAT) / colSums(MAT)
 
 #' @rdname aggregate
 #'
 #' @export
 colSumsMat <- function(x, MAT)
-  t(MAT) %*% x
+  crossprod(MAT, x)
 
 
 ##' @param MAT An adjacency matrix that defines what features with
@@ -29,9 +29,9 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
     if (!identical(nrow(MAT), nrow(x)))
         stop("nrow(MAT) must be identical to 'nrow(x).")
     res <- do.call(FUN, list(x, MAT, ...))
-    if (!is.null(colnames(MAT)))
-        stopifnot(identical(colnames(MAT), rownames(res)))
-    if (!is.null(colnames(x)))
-        stopifnot(identical(colnames(x), colnames(res)))
+    if (!is.null(colnames(MAT)) && !identical(colnames(MAT), rownames(res)))
+        stop("The colum names of 'MAT' have to be identical to the row names of 'res'!")
+    if (!is.null(colnames(x)) && !identical(colnames(x), colnames(res)))
+        stop("The column names of 'x' have to be identical to the column names of 'res'!")
     res
 }
