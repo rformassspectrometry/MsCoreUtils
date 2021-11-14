@@ -157,6 +157,7 @@ Other Quantitative feature aggregation:
 \code{\link{robustSummary}()}
 }
 \author{
-Laurent Gatto
+Laurent Gatto and Samuel Wieczorek (aggregation from an
+adjacency matrix).
 }
 \concept{Quantitative feature aggregation}

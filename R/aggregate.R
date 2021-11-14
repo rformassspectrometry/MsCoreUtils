@@ -51,7 +51,8 @@
 ##'
 ##' @aliases aggregate_by_vector aggregate_by_vector
 ##'
-##' @author Laurent Gatto
+##' @author Laurent Gatto and Samuel Wieczorek (aggregation from an
+##'     adjacency matrix).
 ##'
 ##' @examples
 ##'
