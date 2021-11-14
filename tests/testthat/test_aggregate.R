@@ -216,5 +216,4 @@ test_that("aggregate_by_matix works with NAs", {
     av[1:2, 1:2] <- NA
     am <- aggregate_by_matrix(x, adj, colMeansMat)
     expect_identical(av, am)
-
 })

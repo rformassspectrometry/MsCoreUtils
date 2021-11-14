@@ -23,6 +23,8 @@ colSumsMat <- function(x, MAT)
 ##'
 ##' @rdname aggregate
 ##'
+##' @importFrom methods is
+##'
 ##' @export
 aggregate_by_matrix <- function(x, MAT, FUN, ...) {
     if (!is.matrix(x))
