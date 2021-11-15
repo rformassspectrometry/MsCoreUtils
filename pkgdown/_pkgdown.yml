@@ -21,11 +21,15 @@ reference:
       - neuclidean
       - nspectraangle
       - gnps
+      - join_gnps
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
       - noise
       - smooth
+      - coefMA
+      - coefSG
+      - coefWMA
   - title: "Coerce Functions"
     desc: "Functions for converting objects."
     contents:
@@ -36,6 +40,7 @@ reference:
     contents:
       - ppm
       - rla
+      - rowRla
       - formatRt
       - rt2numeric
       - rt2character
@@ -51,6 +56,8 @@ reference:
       - vapply1c
       - vapply1d
       - vapply1l
+      - which.first
+      - which.last
   - title: "Quantitative features aggregation"
     desc: "Quantitative features aggregation."
     contents:
@@ -58,6 +65,9 @@ reference:
       - medianPolish
       - colCounts
       - aggregate_by_vector
+      - aggregate_by_matrix
+      - colSumsMat
+      - colMeansMat
   - title: "Missing data imputation"
     desc: "Missing data imputation."
     contents:
