@@ -19,7 +19,7 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/aggregate_by_vector.html</loc>
+    <loc>/reference/aggregate.html</loc>
   </url>
   <url>
     <loc>/reference/binning.html</loc>
@@ -101,5 +101,8 @@
   </url>
   <url>
     <loc>/reference/vapply.html</loc>
+  </url>
+  <url>
+    <loc>/reference/which.html</loc>
   </url>
 </urlset>
