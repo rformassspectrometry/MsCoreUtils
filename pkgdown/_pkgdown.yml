@@ -10,26 +10,17 @@ reference:
     contents:
       - bin
       - closest
-      - common
       - group
-      - join
   - title: "Similarity"
     desc: "Functions to calculate similarity/distance."
     contents:
-      - navdist
       - ndotproduct
-      - neuclidean
-      - nspectraangle
       - gnps
-      - join_gnps
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
     contents:
       - noise
       - smooth
-      - coefMA
-      - coefSG
-      - coefWMA
   - title: "Coerce Functions"
     desc: "Functions for converting objects."
     contents:
@@ -40,10 +31,7 @@ reference:
     contents:
       - ppm
       - rla
-      - rowRla
       - formatRt
-      - rt2numeric
-      - rt2character
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
