@@ -8,7 +8,7 @@ colMeansMat <- function(x, MAT)
 #'
 #' @export
 colSumsMat <- function(x, MAT)
-  crossprod(MAT, x)
+  Matrix::crossprod(MAT, x)
 
 
 ##' @param MAT An adjacency matrix that defines peptide-protein
