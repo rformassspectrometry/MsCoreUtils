@@ -110,8 +110,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.02005 40.40076 41.79265 40.37916 41.48391 39.67486 40.94901 40.64417</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.15811 40.21883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.98562 39.74396 41.68774 42.28345 38.89582 40.00319 40.57628 40.87123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.27411 39.92683</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -120,8 +120,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Repeat but summing up intensities instead of taking the max</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  79.97633  79.87488 121.66390  80.64597  82.77400  75.60530  40.94901</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 120.62415  77.99281  40.21883</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 118.82861  39.74396 119.84401  84.18583  77.76285  40.00319 121.04876</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  79.43274  40.27411  78.46556</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>

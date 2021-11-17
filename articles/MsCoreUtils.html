@@ -147,20 +147,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></code></pre></div>
-<pre><code><span class="co">##            a          b          c          d          e          f          g</span>
-<span class="co">## A -1.7472451 -0.3469809 -0.9872565 -0.6438965 -1.7281880  0.4119261 -1.1572118</span>
-<span class="co">## B -0.3773013  0.3714017  0.1294228  1.2308569  0.1223977  0.6282445  0.1182529</span>
-<span class="co">## C -0.3260659 -0.6433008  0.2908216  0.1237192 -1.2914874 -2.3989954 -0.6128296</span>
-<span class="co">##            h         i          j</span>
-<span class="co">## A -2.6102168 1.2960965 -0.3189134</span>
-<span class="co">## B  1.0729685 1.3864671 -1.0937055</span>
-<span class="co">## C  0.5269996 0.8288847  0.3508204</span></code></pre>
+<pre><code><span class="co">##            a           b          c          d         e           f</span>
+<span class="co">## A  0.3269160 -1.63786422 -0.3412394  0.1088463 0.3676023  0.21604182</span>
+<span class="co">## B -0.1864203  0.01720526  0.9190838  2.0357253 1.6313795  1.77695711</span>
+<span class="co">## C -1.0792440  0.32786988 -1.6479486 -1.4966040 0.2845842 -0.05137661</span>
+<span class="co">##             g          h          i         j</span>
+<span class="co">## A -0.07252256 -0.5444885 -0.7655992 0.2008639</span>
+<span class="co">## B  0.87728749  0.4042470 -0.3588925 0.6469810</span>
+<span class="co">## C -0.50788369 -0.6902250  0.1475712 1.4205172</span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##           a           b           c           d           e           f </span>
-<span class="co">## -0.81687077 -0.20629334 -0.18900404  0.23689318 -0.96575926  0.06596571 </span>
+<span class="co">## -0.60805763 -0.74922529 -0.07601210  0.40414739  0.76118867  0.59491253 </span>
 <span class="co">##           g           h           i           j </span>
-<span class="co">## -0.55059617  0.18757468  1.17048279 -0.04893418</span></code></pre>
+<span class="co">##  0.09896041 -0.27682216 -0.47031471  0.49615310</span></code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html" class="external-link">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="co">## </span>
 <span class="co">## loaded via a namespace (and not attached):</span>
 <span class="co">##  [1] cluster_2.1.2            knitr_1.36               magrittr_2.0.1          </span>
-<span class="co">##  [4] BiocGenerics_0.41.1      MASS_7.3-54              clue_0.3-60             </span>
+<span class="co">##  [4] BiocGenerics_0.41.2      MASS_7.3-54              clue_0.3-60             </span>
 <span class="co">##  [7] R6_2.5.1                 ragg_1.2.0               rlang_0.4.12            </span>
 <span class="co">## [10] fastmap_1.1.0            stringr_1.4.0            tools_4.2.0             </span>
 <span class="co">## [13] xfun_0.28                jquerylib_0.1.4          systemfonts_1.0.3       </span>
