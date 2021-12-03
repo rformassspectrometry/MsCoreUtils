@@ -166,5 +166,6 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     nms <- names(res)
     res <- do.call(rbind, res)
     rownames(res) <- nms
+    colnames(res) <- colnames(x)
     res
 }
