@@ -59,15 +59,16 @@ in <code>x</code> for values in <code>y</code> falling into a bin (defined on <c
 aggregated with the provided function <code>FUN</code>.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">bin</span><span class="op">(</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">bin</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">y</span>,
   size <span class="op">=</span> <span class="fl">1</span>,
   breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">size</span><span class="op">)</span>,
   FUN <span class="op">=</span> <span class="va">max</span>
 <span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
@@ -98,11 +99,10 @@ bin mid points).</p>
     <h2>Author</h2>
     <p>Johannes Rainer, Sebastian Gibb</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="co">## Define example intensities and m/z values</span></span>
 <span class="r-in"><span class="va">ints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">20</span>, mean <span class="op">=</span> <span class="fl">40</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mz</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ints</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ints</span><span class="op">)</span>, sd <span class="op">=</span> <span class="fl">0.001</span><span class="op">)</span></span>
@@ -110,8 +110,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.98562 39.74396 41.68774 42.28345 38.89582 40.00319 40.57628 40.87123</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.27411 39.92683</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.42637 39.67814 41.00752 40.78013 40.73639 39.86314 40.00769 36.55304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.27435 42.12096</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -120,8 +120,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Repeat but summing up intensities instead of taking the max</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 118.82861  39.74396 119.84401  84.18583  77.76285  40.00319 121.04876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  79.43274  40.27411  78.46556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  77.92872  79.05237 118.98115  81.30642  40.73639  76.77446 117.72092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  36.55304  79.44297  82.21516</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -140,7 +140,7 @@ bin mid points).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

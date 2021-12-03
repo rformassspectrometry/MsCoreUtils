@@ -57,9 +57,10 @@ matrix used for multiplications in other functions."><meta property="og:image" c
 matrix used for multiplications in other functions.</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">.peakRegionMask</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, k <span class="op">=</span> <span class="fl">30L</span><span class="op">)</span></code></pre></div>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">.peakRegionMask</span><span class="op">(</span><span class="va">x</span>, <span class="va">p</span>, k <span class="op">=</span> <span class="fl">30L</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
@@ -85,11 +86,10 @@ peak that should be looked for valleys.</p></dd>
     <h2>Author</h2>
     <p>Sebastian Gibb</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">11</span>, <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">13</span>, <span class="fl">8</span>, <span class="fl">3</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">ints</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">8</span>, <span class="fl">12</span>, <span class="fl">7</span>, <span class="fl">4</span>, <span class="fl">9</span>, <span class="fl">15</span>, <span class="fl">16</span>, <span class="fl">11</span>, <span class="fl">8</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">2</span>, <span class="fl">9</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">13</span>, <span class="fl">8</span>, <span class="fl">3</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">mzs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">ints</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">peaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="fu"><a href="localMaxima.html">localMaxima</a></span><span class="op">(</span><span class="va">ints</span>, hws <span class="op">=</span> <span class="fl">3L</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"></span>
@@ -108,7 +108,7 @@ peak that should be looked for valleys.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>

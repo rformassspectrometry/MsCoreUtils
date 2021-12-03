@@ -67,15 +67,16 @@ shared peptides (see example below) during aggregation. Note
 however that missing values can't generally be ignore using <code>na.rm = TRUE</code>, as with vector-based aggregation (see examples below).</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class="sourceCode r"><code><span class="fu">colMeansMat</span><span class="op">(</span><span class="va">x</span>, <span class="va">MAT</span><span class="op">)</span>
+    <div id="ref-usage">
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">colMeansMat</span><span class="op">(</span><span class="va">x</span>, <span class="va">MAT</span><span class="op">)</span>
 
 <span class="fu">colSumsMat</span><span class="op">(</span><span class="va">x</span>, <span class="va">MAT</span><span class="op">)</span>
 
 <span class="fu">aggregate_by_matrix</span><span class="op">(</span><span class="va">x</span>, <span class="va">MAT</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="fu">aggregate_by_vector</span><span class="op">(</span><span class="va">x</span>, <span class="va">INDEX</span>, <span class="va">FUN</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    </div>
 
-    <div id="ref-sections">
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>x</dt>
@@ -142,11 +143,10 @@ times.</p></li>
     <p>Laurent Gatto and Samuel Wieczorek (aggregation from an
 adjacency matrix).</p>
     </div>
-    </div>
 
-    <div id="examples">
+    <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="ref-examples sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10.39</span>, <span class="fl">17.16</span>, <span class="fl">14.10</span>, <span class="fl">12.85</span>, <span class="fl">10.63</span>, <span class="fl">7.52</span>, <span class="fl">3.91</span>,</span>
 <span class="r-in">              <span class="fl">11.13</span>, <span class="fl">16.53</span>, <span class="fl">14.17</span>, <span class="fl">11.94</span>, <span class="fl">11.51</span>, <span class="fl">7.69</span>, <span class="fl">3.97</span>,</span>
 <span class="r-in">              <span class="fl">11.93</span>, <span class="fl">15.37</span>, <span class="fl">14.24</span>, <span class="fl">11.21</span>, <span class="fl">12.29</span>, <span class="fl">9.00</span>, <span class="fl">3.83</span>,</span>
@@ -271,7 +271,7 @@ adjacency matrix).</p>
 <span class="r-in"><span class="va">colSumsMat</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x, MAT) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix::crossprod(MAT, x)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x562e67ce3bf0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55f4171e98d8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:MsCoreUtils&gt;</span>
 </code></pre></div>
     </div>
@@ -287,7 +287,7 @@ adjacency matrix).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.9000.9000.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
 </div>
 
       </footer></div>
