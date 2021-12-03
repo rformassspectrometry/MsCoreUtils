@@ -29,7 +29,8 @@ Other helper functions for developers:
 \code{\link{between}()},
 \code{\link{isPeaksMatrix}()},
 \code{\link{rbindFill}()},
-\code{\link{vapply1c}()}
+\code{\link{vapply1c}()},
+\code{\link{which.first}()}
 }
 \author{
 Sebastian Gibb
