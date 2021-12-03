@@ -4,6 +4,9 @@
 
 - New `aggregate_by_matrix()` that uses an adjacency matrix to
   aggregate quantitative features.
+- Set colnames to the outputs of `aggregate_by_matrix()` and
+  `aggregate_by_vector()` to make sure that these are always set and
+  not reply on the underlying function.
 
 ## MsCoreUtils 1.7.0
 
