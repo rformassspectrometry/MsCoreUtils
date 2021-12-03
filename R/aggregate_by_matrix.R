@@ -38,5 +38,6 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
         stop("The colum names of 'MAT' have to be identical to the row names of 'res'!")
     if (!is.null(colnames(x)) && !identical(colnames(x), colnames(res)))
         stop("The column names of 'x' have to be identical to the column names of 'res'!")
+    colnames(res) <- colnames(x)
     res
 }
