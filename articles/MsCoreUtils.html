@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -147,21 +147,20 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></code></pre></div>
-<pre><code><span class="co">##            a          b          c          d          e          f          g</span>
-<span class="co">## A  0.3042029  1.8164388 -1.5896264  1.6081828  0.9665026  0.1566310  1.6757138</span>
-<span class="co">## B  1.0517498  1.5829598  0.2265486 -0.3484073  1.0063018 -1.9866236 -0.7937061</span>
-<span class="co">## C -1.0473548 -0.2952837 -1.3556059  2.0062430 -1.6832207  0.3898002  0.3794609</span>
+<pre><code><span class="co">##            a          b          c         d          e           f          g</span>
+<span class="co">## A -0.8109422  0.1658703 -0.9607910 0.5510617 -0.4691366 -0.31181674 -0.2957292</span>
+<span class="co">## B  1.2141668  1.2488596  0.5211297 0.6988632  0.8262416 -0.38560459 -0.5089455</span>
+<span class="co">## C -0.7312449 -1.7164915  0.4801385 1.5052757  1.0008775 -0.02373162 -0.6413852</span>
 <span class="co">##            h          i          j</span>
-<span class="co">## A -0.6221074 -0.5646690  1.0090528</span>
-<span class="co">## B -1.3711462 -0.5934956 -0.6669994</span>
-<span class="co">## C  1.4390878 -2.9218162  0.1733883</span></code></pre>
+<span class="co">## A -0.1885977 -0.2802976 -3.1066368</span>
+<span class="co">## B  0.8847134  0.7153393 -0.6420528</span>
+<span class="co">## C -0.2151162  0.6252634 -1.7157699</span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20 steps</span></code></pre>
 <pre><code><span class="co">##           a           b           c           d           e           f </span>
-<span class="co">##  0.10286596  1.03470493 -0.90622788  1.08867286  0.09652792 -0.48006413 </span>
+<span class="co">## -0.10934010  0.29863037  0.01349241  0.91840018  0.45266083 -0.24038432 </span>
 <span class="co">##           g           h           i           j </span>
-<span class="co">##  0.42048954 -0.26454503 -1.35999360  0.17181391</span></code></pre>
+<span class="co">## -0.48201997  0.16033316  0.35343506 -1.82148650</span></code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html" class="external-link">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
@@ -196,7 +195,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span>
 <span class="co">## </span>
 <span class="co">## other attached packages:</span>
-<span class="co">## [1] MsCoreUtils_1.7.1 BiocStyle_2.17.1 </span>
+<span class="co">## [1] MsCoreUtils_1.7.2 BiocStyle_2.17.1 </span>
 <span class="co">## </span>
 <span class="co">## loaded via a namespace (and not attached):</span>
 <span class="co">##  [1] cluster_2.1.2       knitr_1.36          magrittr_2.0.1     </span>
@@ -205,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="co">## [10] fastmap_1.1.0       stringr_1.4.0       tools_4.2.0        </span>
 <span class="co">## [13] xfun_0.28           jquerylib_0.1.4     systemfonts_1.0.3  </span>
 <span class="co">## [16] htmltools_0.5.2     yaml_2.2.1          digest_0.6.29      </span>
-<span class="co">## [19] rprojroot_2.0.2     pkgdown_2.0.0.9000  crayon_1.4.2       </span>
+<span class="co">## [19] rprojroot_2.0.2     pkgdown_2.0.1.9000  crayon_1.4.2       </span>
 <span class="co">## [22] bookdown_0.24       textshaping_0.3.6   BiocManager_1.30.16</span>
 <span class="co">## [25] purrr_0.3.4         S4Vectors_0.33.5    sass_0.4.0         </span>
 <span class="co">## [28] fs_1.5.1            memoise_2.0.1       cachem_1.0.6       </span>
@@ -238,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer>

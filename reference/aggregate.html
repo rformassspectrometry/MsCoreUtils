@@ -23,7 +23,7 @@ however that missing values can't generally be ignore using na.rm = TRUE, as wit
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -109,15 +109,13 @@ dimensions <code>length(INDEX)</code> and <code>ncol(x), with </code>dimnames<co
 <p>When aggregating with a vector/factor, user-defined functions
 must return a vector of length equal to <code>ncol(x)</code> for each level
 in <code>INDEX</code>. Examples thereof are:</p><ul><li><p><code><a href="medianPolish.html">medianPolish()</a></code> to fits an additive model (two way
-decomposition) using Tukey's median polish_ procedure using
+decomposition) using Tukey's median polish procedure using
 <code><a href="https://rdrr.io/r/stats/medpolish.html" class="external-link">stats::medpolish()</a></code>;</p></li>
 <li><p><code><a href="robustSummary.html">robustSummary()</a></code> to calculate a robust aggregation using
 <code><a href="https://rdrr.io/pkg/MASS/man/rlm.html" class="external-link">MASS::rlm()</a></code>;</p></li>
-<li><p><a href="https://rdrr.io/r/base/colSums.html" class="external-link">base::colMeans()</a> to use the mean of each
-column;</p></li>
+<li><p><code><a href="https://rdrr.io/r/base/colSums.html" class="external-link">base::colMeans()</a></code> to use the mean of each column;</p></li>
 <li><p><code><a href="https://rdrr.io/r/base/colSums.html" class="external-link">base::colSums()</a></code> to use the sum of each column;</p></li>
-<li><p>matrixStats::colMedians() to use
-the median of each column.</p></li>
+<li><p><code>matrixStats::colMedians()</code> to use the median of each column.</p></li>
 </ul></div>
     <div id="matrix-based-aggregation-functions">
     <h2>Matrix-based aggregation functions</h2>
@@ -271,7 +269,7 @@ adjacency matrix).</p>
 <span class="r-in"><span class="va">colSumsMat</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> function (x, MAT) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Matrix::crossprod(MAT, x)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55f4171e98d8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55bf9c64bb90&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:MsCoreUtils&gt;</span>
 </code></pre></div>
     </div>
@@ -287,7 +285,7 @@ adjacency matrix).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>

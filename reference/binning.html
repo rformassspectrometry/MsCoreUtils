@@ -19,7 +19,7 @@ aggregated with the provided function FUN."><meta property="og:image" content="/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MsCoreUtils</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.7.2</span>
       </span>
     </div>
 
@@ -110,8 +110,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.42637 39.67814 41.00752 40.78013 40.73639 39.86314 40.00769 36.55304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.27435 42.12096</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.04179 41.85094 40.11594 40.38040 40.73344 39.58003 40.87123 40.66183</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.05963 39.64860</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -120,8 +120,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Repeat but summing up intensities instead of taking the max</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  77.92872  79.05237 118.98115  81.30642  40.73639  76.77446 117.72092</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  36.55304  79.44297  82.21516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  79.43637  81.49864 117.81024  40.38040  80.70348  78.20505  79.68016</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 120.58004  79.03084  39.64860</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -140,7 +140,7 @@ bin mid points).</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.0.9000.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.9000.</p>
 </div>
 
       </footer></div>
