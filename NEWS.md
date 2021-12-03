@@ -1,5 +1,9 @@
 # MsCoreUtils 1.7
 
+## MsCoreUtils 1.7.2
+
+- Nothing yet
+
 ## MsCoreUtils 1.7.1
 
 - New `aggregate_by_matrix()` that uses an adjacency matrix to
