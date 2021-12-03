@@ -41,7 +41,8 @@ Other helper functions for developers:
 \code{\link{between}()},
 \code{\link{isPeaksMatrix}()},
 \code{\link{rbindFill}()},
-\code{\link{validPeaksMatrix}()}
+\code{\link{validPeaksMatrix}()},
+\code{\link{which.first}()}
 }
 \author{
 Sebastian Gibb

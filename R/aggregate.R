@@ -19,19 +19,17 @@
 ##' in `INDEX`. Examples thereof are:
 ##'
 ##' - [medianPolish()] to fits an additive model (two way
-##'   decomposition) using Tukey's median polish_ procedure using
+##'   decomposition) using Tukey's median polish procedure using
 ##'   [stats::medpolish()];
 ##'
 ##' - [robustSummary()] to calculate a robust aggregation using
 ##'   [MASS::rlm()];
 ##'
-##' - [base::colMeans()][base::colSums()] to use the mean of each
-##' column;
+##' - [base::colMeans()] to use the mean of each column;
 ##'
 ##' - [base::colSums()] to use the sum of each column;
 ##'
-##' - [matrixStats::colMedians()][matrixStats::rowMedians()] to use
-##'   the median of each column.
+##' - [matrixStats::colMedians()] to use the median of each column.
 ##'
 ##' @section Matrix-based aggregation functions:
 ##'

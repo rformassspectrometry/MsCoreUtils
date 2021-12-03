@@ -13,12 +13,13 @@ which.last(x)
 \item{x}{\code{logical}, vector.}
 }
 \value{
-\code{integer}, index of the first/last \code{TRUE} value. \code{integer(0)} if
-no \code{TRUE} (everything \code{FALSE} or \code{NA}) was found.
+\code{integer}, index of the first/last \code{TRUE}
+value. \code{integer(0)} if no \code{TRUE} (everything \code{FALSE} or \code{NA})
+was found.
 }
 \description{
-Determines the location, i.e., index of the first or last \code{TRUE} value in a
-logical vector.
+Determines the location, i.e., index of the first or last \code{TRUE}
+value in a logical vector.
 }
 \examples{
 l <- 2 <= 1:3
@@ -27,7 +28,15 @@ which.last(l)
 }
 \seealso{
 \code{\link[=which.min]{which.min()}}
+
+Other helper functions for developers: 
+\code{\link{between}()},
+\code{\link{isPeaksMatrix}()},
+\code{\link{rbindFill}()},
+\code{\link{validPeaksMatrix}()},
+\code{\link{vapply1c}()}
 }
 \author{
 Sebastian Gibb
 }
+\concept{helper functions for developers}

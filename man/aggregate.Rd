@@ -57,15 +57,13 @@ must return a vector of length equal to \code{ncol(x)} for each level
 in \code{INDEX}. Examples thereof are:
 \itemize{
 \item \code{\link[=medianPolish]{medianPolish()}} to fits an additive model (two way
-decomposition) using Tukey's median polish_ procedure using
+decomposition) using Tukey's median polish procedure using
 \code{\link[stats:medpolish]{stats::medpolish()}};
 \item \code{\link[=robustSummary]{robustSummary()}} to calculate a robust aggregation using
 \code{\link[MASS:rlm]{MASS::rlm()}};
-\item \link[base:colSums]{base::colMeans()} to use the mean of each
-column;
+\item \code{\link[base:colSums]{base::colMeans()}} to use the mean of each column;
 \item \code{\link[base:colSums]{base::colSums()}} to use the sum of each column;
-\item \link[matrixStats:rowMedians]{matrixStats::colMedians()} to use
-the median of each column.
+\item \code{\link[matrixStats:rowMedians]{matrixStats::colMedians()}} to use the median of each column.
 }
 }
 
