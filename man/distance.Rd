@@ -144,6 +144,10 @@ Molecular & Cellular Proteomics : MCP, 13(8), 2056--2071.
 Pull Request for these distance/similarity measurements:
 \url{https://github.com/rformassspectrometry/MsCoreUtils/pull/33}
 }
+\seealso{
+Other distance/similarity functions: 
+\code{\link{gnps}()}
+}
 \author{
 \code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb
 

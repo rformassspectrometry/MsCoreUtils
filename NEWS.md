@@ -1,16 +1,43 @@
+# MsCoreUtils 1.7
+
+## MsCoreUtils 1.7.1
+
+- New `aggregate_by_matrix()` that uses an adjacency matrix to
+  aggregate quantitative features.
+
+## MsCoreUtils 1.7.0
+
+- New Bioc devel version
+
+# MsCoreUtils 1.5
+
+## Changes in 1.5.1
+
+- Add `which.first` and `which.last`.
+
+## Changes in 1.5.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.3
+
+## Changes in 1.3.3
+
+- Add `join_gnps` and `gnps` to allow calculation of GNPS spectra similarity
+  scores.
 
 ## Changes in 1.3.2
 
 - Add `rt2numeric()`, `rt2character()` and `formatRt()`.
+- New `impute_fun()` function for user-provide imputation function.
 
 ## Changes in 1.3.1
 
-- Add Josep Badia Aparicio as a contributor 
+- Add Josep Badia Aparicio as a contributor
 
 ## Changes in 1.3.0
 
-- New Bioc devel versin
+- New Bioc devel version
 
 # MsCoreUtils 1.1
 
