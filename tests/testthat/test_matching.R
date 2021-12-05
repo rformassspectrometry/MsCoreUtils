@@ -102,6 +102,12 @@ test_that("closest, duplicates", {
     expect_equal(closest(rep(1:2, each = 3), 1:2,
                          tolerance = 0, duplicates = "closest"),
                  c(1, NA, NA, 2, NA, NA))
+    # three to three matches without duplicates, see #72
+    expect_equal(closest(1:3, c(0, 2, 3), tolerance = 0, duplicates = "closest"),
+                 c(NA, 2, 3))
+    # next x is closer than the previous one
+    expect_equal(closest(c(0.8, 1.19, 1.35), c(1, 1.3, 1.36),
+                         tolerance = 0.3, duplicates = "closest"), 1:3)
 })
 
 test_that("common", {
