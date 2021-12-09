@@ -2,7 +2,8 @@
 
 ## MsCoreUtils 1.7.2
 
-- Nothing yet
+- Use `Matrix::colSums()` by default to handle sparce 'Matix' and
+  'matrix' adjacency matrices.
 
 ## MsCoreUtils 1.7.1
 

@@ -2,7 +2,7 @@
 #'
 #' @export
 colMeansMat <- function(x, MAT)
-  colSumsMat(x, MAT) / colSums(MAT)
+  colSumsMat(x, MAT) / Matrix::colSums(MAT)
 
 #' @rdname aggregate
 #'
