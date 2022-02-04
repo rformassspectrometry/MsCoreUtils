@@ -1,3 +1,22 @@
+# MsCoreUtils 1.7
+
+## MsCoreUtils 1.7.2
+
+- Use `Matrix::colSums()` by default to handle sparce 'Matix' and
+  'matrix' adjacency matrices.
+
+## MsCoreUtils 1.7.1
+
+- New `aggregate_by_matrix()` that uses an adjacency matrix to
+  aggregate quantitative features.
+- Set colnames to the outputs of `aggregate_by_matrix()` and
+  `aggregate_by_vector()` to make sure that these are always set and
+  not reply on the underlying function.
+
+## MsCoreUtils 1.7.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.5
 
 ## Changes in 1.5.1

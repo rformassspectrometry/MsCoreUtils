@@ -35,7 +35,8 @@ Other helper functions for developers:
 \code{\link{between}()},
 \code{\link{isPeaksMatrix}()},
 \code{\link{validPeaksMatrix}()},
-\code{\link{vapply1c}()}
+\code{\link{vapply1c}()},
+\code{\link{which.first}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

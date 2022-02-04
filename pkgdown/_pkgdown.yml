@@ -10,16 +10,11 @@ reference:
     contents:
       - bin
       - closest
-      - common
       - group
-      - join
   - title: "Similarity"
     desc: "Functions to calculate similarity/distance."
     contents:
-      - navdist
       - ndotproduct
-      - neuclidean
-      - nspectraangle
       - gnps
   - title: "Noise/Smoothing"
     desc: "Functions for noise estimation and smoothing."
@@ -37,27 +32,23 @@ reference:
       - ppm
       - rla
       - formatRt
-      - rt2numeric
-      - rt2character
   - title: "Helper Functions for Developers"
     desc: "Helper functions for the package developers."
     contents:
-      - "`%between%`"
       - between
       - i2index
       - isPeaksMatrix
       - rbindFill
       - validPeaksMatrix
       - vapply1c
-      - vapply1d
-      - vapply1l
+      - which.first
   - title: "Quantitative features aggregation"
     desc: "Quantitative features aggregation."
     contents:
       - robustSummary
       - medianPolish
       - colCounts
-      - aggregate_by_vector
+      - aggregate_by_matrix
   - title: "Missing data imputation"
     desc: "Missing data imputation."
     contents:

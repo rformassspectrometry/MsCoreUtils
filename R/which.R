@@ -1,16 +1,19 @@
 #' @title Which is the first/last TRUE value.
 #'
 #' @description
-#' Determines the location, i.e., index of the first or last `TRUE` value in a
-#' logical vector.
+#'
+#' Determines the location, i.e., index of the first or last `TRUE`
+#' value in a logical vector.
 #'
 #' @param x `logical`, vector.
-#' @return `integer`, index of the first/last `TRUE` value. `integer(0)` if
-#' no `TRUE` (everything `FALSE` or `NA`) was found.
+#' @return `integer`, index of the first/last `TRUE`
+#'     value. `integer(0)` if no `TRUE` (everything `FALSE` or `NA`)
+#'     was found.
 #'
 #' @rdname which
 #' @author Sebastian Gibb
 #' @seealso [`which.min()`]
+#' @family helper functions for developers
 #' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
 #' @examples
