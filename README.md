@@ -4,7 +4,6 @@
 [![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsCoreUtils/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsCoreUtils/actions?query=workflow%3AR-CMD-check-bioc)
 [![codecov.io](https://codecov.io/github/rformassspectrometry/MsCoreUtils/coverage.svg?branch=master)](https://codecov.io/github/rformassspectrometry/MsCoreUtils?branch=master)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
-
 [![years in bioc](http://bioconductor.org/shields/years-in-bioc/MsCoreUtils.svg)](https://bioconductor.org/packages/release/bioc/html/MsCoreUtils.html)
 [![Ranking by downloads](http://bioconductor.org/shields/downloads/release/MsCoreUtils.svg)](https://bioconductor.org/packages/stats/bioc/MsCoreUtils/)
 Release: [![build release](http://bioconductor.org/shields/build/release/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MsCoreUtils/)
