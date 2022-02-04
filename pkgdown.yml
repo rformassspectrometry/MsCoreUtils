@@ -1,7 +1,10 @@
 pandoc: 2.14.0.3
-pkgdown: 2.0.1.9000
-pkgdown_sha: 1c2bedc10283fe39c5e539083021cb87f208903a
+pkgdown: 2.0.2.9000
+pkgdown_sha: ae7363faac9040a473a54fb3d770decdfb8dfec1
 articles:
   MsCoreUtils: MsCoreUtils.html
-last_built: 2021-12-09T23:43Z
+last_built: 2022-02-04T08:55Z
+urls:
+  reference: https://rformassspectrometry.github.io/Spectra/reference
+  article: https://rformassspectrometry.github.io/Spectra/articles
 
