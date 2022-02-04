@@ -145,20 +145,21 @@ document.addEventListener("DOMContentLoaded", function() {
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>
 <span class="va">x</span></code></pre></div>
-<pre><code><span class="co">##            a          b          c         d          e         f          g</span>
-<span class="co">## A -1.5622867 -1.9299851  0.1396347 0.3392181 -0.7292960 0.1250802 -0.6926812</span>
-<span class="co">## B -1.3735659  0.6957934  0.9490692 1.1654538 -0.6124279 0.2492902 -0.1350983</span>
-<span class="co">## C  0.7984775  0.9946417 -0.7942087 0.4684797 -1.2913471 1.1237060 -0.8562877</span>
-<span class="co">##           h           i          j</span>
-<span class="co">## A 2.0634084 -0.07366224  1.1960791</span>
-<span class="co">## B 0.3889967 -1.37827084 -0.7278756</span>
-<span class="co">## C 0.6716605 -0.85551685  1.7134568</span></code></pre>
+<pre><code><span class="co">##            a          b          c           d          e          f</span>
+<span class="co">## A -0.8365650 -0.1911445  0.4811644 -0.07364039  0.0566719 -1.3564373</span>
+<span class="co">## B -0.2556610 -0.4378026 -0.5860266  1.50683863  2.2657802 -0.1776485</span>
+<span class="co">## C  0.4924426  0.9092065  1.2385028  0.13943155 -1.3264662 -1.7337795</span>
+<span class="co">##             g          h           i           j</span>
+<span class="co">## A -0.38264203 -0.8956532 -0.60875294 -0.75596097</span>
+<span class="co">## B -2.33476725  1.3841903  0.02704881 -0.07217568</span>
+<span class="co">## C -0.03648797  0.9810163  0.75905015  0.25427031</span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20 steps</span></code></pre>
 <pre><code><span class="co">##           a           b           c           d           e           f </span>
-<span class="co">## -0.92849550  0.33312583  0.09850689  0.65771719 -0.87769031  0.49935879 </span>
+<span class="co">## -0.19992781  0.09341978  0.54783912  0.52420993  0.53396851 -1.03636589 </span>
 <span class="co">##           g           h           i           j </span>
-<span class="co">## -0.56135575  1.00352498 -0.76914997  0.93479838</span></code></pre>
+<span class="co">## -0.52150549  0.53392155  0.05911534 -0.19128878</span></code></pre>
 <p>This function is typicall to be used to summarise peptide quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is available in</p>
 <ul>
 <li><p>the <a href="http://lgatto.github.io/MSnbase/reference/combineFeatures.html" class="external-link">MSnbase::combineFeatures()</a> function for <code>MSnSet</code> objects and</p></li>
