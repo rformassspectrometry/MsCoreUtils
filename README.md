@@ -10,9 +10,6 @@
 Release: [![build release](http://bioconductor.org/shields/build/release/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MsCoreUtils/)
 Devel: [![build devel](http://bioconductor.org/shields/build/devel/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MsCoreUtils/)
 
-<img
-src="https://raw.githubusercontent.com/rformassspectrometry/stickers/master/MsCoreUtils/MsCoreUtils.png"
-height="150">
 
 `MsCoreUtils` defines low-level functions for mass spectrometry data and is
 independent of any high-level data structures.
@@ -23,6 +20,9 @@ missing data imputation, data normalisation (quantiles, vsn, ...)
 as well as misc helper functions, that are used across high-level
 data structure within the
 [R for Mass Spectrometry packages](https://www.rformassspectrometry.org/pkgs/).
+
+See the package [homepage](https://rformassspectrometry.github.io/MsCoreUtils)
+for more information.
 
 # Contributions
 
