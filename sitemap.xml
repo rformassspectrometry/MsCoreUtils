@@ -1,108 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/404.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/404.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/articles/MsCoreUtils.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/articles/MsCoreUtils.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/articles/index.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/authors.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/authors.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/index.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/index.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/news/index.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/news/index.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/aggregate.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/binning.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/binning.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/check.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/check.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/coerce.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/coerce.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/colCounts.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/colCounts.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/distance.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/formatRt.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/gnps.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/group.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/group.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/i2index.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/i2index.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/imputation.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/index.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/localMaxima.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/localMaxima.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/matching.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/medianPolish.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/medianPolish.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/noise.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/noise.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/normalize.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/normalize.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/peakRegionMask.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/peakRegionMask.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/ppm.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/ppm.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/range.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/range.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/rbindFill.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/rbindFill.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/refineCentroids.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/refineCentroids.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/rla.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/rla.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/robustSummary.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/robustSummary.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/smooth.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/validation.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/validation.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/valleys.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/valleys.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/vapply.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/vapply.html</loc>
   </url>
   <url>
-    <loc>https://rformassspectrometry.github.io/Spectra/reference/which.html</loc>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/which.html</loc>
   </url>
 </urlset>
