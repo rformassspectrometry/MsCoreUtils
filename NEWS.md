@@ -1,3 +1,9 @@
+# MsCoreUtils 1.6
+
+## Changes in 1.6.1
+
+- Add citation.
+
 # MsCoreUtils 1.3
 
 ## Changes in 1.3.3
