@@ -14,7 +14,7 @@ aggregated with the provided function FUN."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -110,8 +110,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.35505 41.99433 40.72980 41.37209 41.02111 39.87937 40.60747 39.76658</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.04752 41.06068</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.82374 40.35683 40.11382 40.61782 41.21049 40.78098 42.02373 40.50681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.45128 40.07142</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
@@ -120,8 +120,8 @@ bin mid points).</p>
 <span class="r-in"><span class="co">## Repeat but summing up intensities instead of taking the max</span></span>
 <span class="r-in"><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 118.46287  41.99433 118.30365  41.37209 118.05784  79.34435  80.81242</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  78.75948  41.04752  81.03980</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  80.71776  78.49828 119.64083  40.61782  81.09038  81.19817 122.60945</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  40.50681 121.41179  40.07142</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
