@@ -1,5 +1,9 @@
 # MsCoreUtils 1.7
 
+## MsCoreUtils 1.7.3
+
+- Add citation.
+
 ## MsCoreUtils 1.7.2
 
 - Use `Matrix::colSums()` by default to handle sparce 'Matix' and

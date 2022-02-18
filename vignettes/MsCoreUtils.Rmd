@@ -11,6 +11,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %%\VignetteKeywords{Mass Spectrometry, MS, MSMS, Proteomics, Metabolomics, Infrastructure, Quantitative }
   %\VignetteEncoding{UTF-8}
+bibiliography: references.bib
 ---
 
 ```{r style, echo = FALSE, results = 'asis'}
@@ -20,14 +21,13 @@ BiocStyle::markdown()
 
 # Introduction
 
-The `MsCoreUtils` package low-level functions for mass spectrometry
-data and is independent of any high-level data structures. These
+The `MsCoreUtils` package low-level functions for mass spectrometry data and is
+independent of any high-level data structures [@rainer_modular_2022]. These
 functions include mass spectra processing functions (noise estimation,
-smoothing, binning), quantitative aggregation functions (median
-polish, robust summarisation, ...), missing data imputation, data
-normalisation (quantiles, vsn, ...)  as well as misc helper functions,
-that are used across high level data structure within the R for Mass
-Spectrometry packages.
+smoothing, binning), quantitative aggregation functions (median polish, robust
+summarisation, ...), missing data imputation, data normalisation (quantiles,
+vsn, ...)  as well as misc helper functions, that are used across high level
+data structure within the R for Mass Spectrometry packages.
 
 For a full list of function, see
 
@@ -98,3 +98,5 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
 ```{r sessioninfo, echo=FALSE}
 sessionInfo()
 ```
+
+# References {-}
