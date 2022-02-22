@@ -56,6 +56,16 @@ test_that("closest, tolerance/ppm", {
     # lower boundary
     y <- c(3.01, 34.12, 45.021, 46.1, x[3] - (x[3] * 5 / 1e6), 556.449)
     expect_equal(closest(x, y, tolerance = x * 5 / 1e6), c(NA, NA, 5, 6))
+
+    ## Negative values
+    expect_equal(closest(-1.001, -(10:1), tolerance = 0), NA_integer_)
+    expect_equal(closest(-1.4, -(10:1), tolerance = 0.4), 10)
+    expect_equal(closest(-(1 + 1 / 1e6), -(10:1), tolerance = 0, ppm = 1), 10)
+    expect_equal(closest(-1e6 - 2:1, -1e6, tolerance = 0, ppm = 1), c(NA, 1))
+
+    a <- c(33, 34, 35)
+    expect_equal(closest(34.00034, a, ppm = 10, tolerance = 0), 2L)
+    expect_equal(closest(-34.00034, sort(-a), ppm = 10, tolerance = 0), 2L)
 })
 
 test_that("closest, duplicates", {
