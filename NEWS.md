@@ -1,5 +1,10 @@
 # MsCoreUtils 1.7
 
+## MsCoreUtils 1.7.4
+
+- Fix `ppm` to always return a positive value (issue
+  [#94](https://github.com/rformassspectrometry/MsCoreUtils/issues/94)).
+
 ## MsCoreUtils 1.7.3
 
 - Add citation.
