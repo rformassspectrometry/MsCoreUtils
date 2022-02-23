@@ -12,7 +12,7 @@ ppm(x, ppm)
 \item{ppm}{\code{numeric}, parts-per-million (ppm) value(s).}
 }
 \value{
-\code{numeric}: parts-per-million of \code{x}
+\code{numeric}: parts-per-million of \code{x} (always a positive value).
 }
 \description{
 \code{ppm} is a small helper function to determine the parts-per-million for a
@@ -20,6 +20,8 @@ user-provided value and ppm.
 }
 \examples{
 ppm(c(1000, 2000), 5)
+
+ppm(c(-300, 200), 5)
 }
 \author{
 Sebastian Gibb

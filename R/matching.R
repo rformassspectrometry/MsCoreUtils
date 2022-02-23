@@ -136,7 +136,7 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
     if (!length(table))
         return(rep_len(nomatch, length(x)))
 
-    tolerance <- tolerance + abs(ppm(x, ppm)) + sqrt(.Machine$double.eps)
+    tolerance <- tolerance + ppm(x, ppm) + sqrt(.Machine$double.eps)
 
     switch(duplicates[1L],
         "keep" = .Call(
@@ -252,7 +252,7 @@ join <- function(x, y, tolerance = 0, ppm = 0,
              " contain NA.")
     }
 
-    tolerance <- tolerance + abs(ppm(x, ppm = ppm)) + sqrt(.Machine$double.eps)
+    tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
 
     switch(type[1L],
            "outer" = .Call("C_join_outer", x, y, tolerance, NA_integer_),
