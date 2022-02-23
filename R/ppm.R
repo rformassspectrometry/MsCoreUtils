@@ -7,11 +7,13 @@
 #' @param x `numeric`, value(s) used for ppm calculation, e.g. mz value(s).
 #' @param ppm `numeric`, parts-per-million (ppm) value(s).
 #'
-#' @return `numeric`: parts-per-million of `x`
+#' @return `numeric`: parts-per-million of `x` (always positive numeric).
 #'
 #' @author Sebastian Gibb
 #' @family helper functions for users
 #' @export
 #' @examples
 #' ppm(c(1000, 2000), 5)
-ppm <- function(x, ppm)x * ppm * 1e-6
+#'
+#' ppm(c(-49, 200), 5)
+ppm <- function(x, ppm) abs(x * ppm * 1e-6)
