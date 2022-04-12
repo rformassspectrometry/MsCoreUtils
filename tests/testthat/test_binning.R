@@ -43,6 +43,10 @@ test_that("bin works", {
     res <- bin(vals, xs, size = 3, FUN = sum)
     ## The largest bin should contain all values larger than max(brks)
     expect_equal(res$x[length(res$x)], sum(vals[xs >= max(brks)]))
+    ## without reporting mid points.
+    res_2 <- bin(vals, xs, size = 3, FUN = sum, returnMids = FALSE)
+    expect_true(is.numeric(res_2))
+    expect_equal(res$x, res_2)
 
     ## Check exceptions
     expect_error(bin(1:3, 1:5))

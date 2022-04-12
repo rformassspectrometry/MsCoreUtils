@@ -1,5 +1,10 @@
 # MsCoreUtils 1.7
 
+## MsCoreUtils 1.7.5
+
+- Function `bin` gains parameter `returnMids` to choose whether or not bin
+  mid-points should be returned in the result `list`.
+
 ## MsCoreUtils 1.7.4
 
 - Fix `ppm` to always return a positive value (issue
