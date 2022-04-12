@@ -68,7 +68,7 @@ bin <- function(x, y, size = 1,
     idx[idx >= nbrks] <- nbrks - 1L
 
     ints <- double(nbrks - 1L)
-    ints[unique(idx)] <- vapply(base::split(x, idx), FUN, numeric(1))
+    ints[unique(idx)] <- vapply1d(base::split(x, idx), FUN)
     if (returnMids)
         list(x = ints, mids = (breaks[-nbrks] + breaks[-1L]) / 2L)
     else ints
