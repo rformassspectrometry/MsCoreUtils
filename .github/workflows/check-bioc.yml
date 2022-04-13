@@ -205,6 +205,7 @@ jobs:
           ## Temporary fix for failing BiocStyle due to knitr updates
           BiocManager::install("LTLA/BiocStyle")
 
+
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
