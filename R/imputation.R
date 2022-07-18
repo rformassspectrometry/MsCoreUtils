@@ -43,7 +43,7 @@
 ##'   that here, `...` are passed to the [norm::em.norm()` function,
 ##'   rather to the actual imputation function `imp.norm`.
 ##'
-###' - *bpca*: Bayesian missing value imputation are available, as
+##' - *bpca*: Bayesian missing value imputation are available, as
 ##'   implemented in the `pcaMethods::pca()` function. See
 ##'   [pcaMethods::pca()] for details and additional parameters.
 ##'
