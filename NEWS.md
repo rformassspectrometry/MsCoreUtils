@@ -16,7 +16,6 @@
 ## MsCoreUtils 1.7.3
 
 - Add citation.
->>>>>>> f4fd66bd17c54560fdd808706a467e5989c1133b
 
 ## MsCoreUtils 1.7.2
 
