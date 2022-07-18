@@ -1,9 +1,22 @@
 # MsCoreUtils 1.7
 
-## MsCoreUtils 1.7.3
-
 - Random forest imputation (using `missForest`) is now available 
   (`method = "RF")
+
+## MsCoreUtils 1.7.5
+
+- Function `bin` gains parameter `returnMids` to choose whether or not bin
+  mid-points should be returned in the result `list`.
+
+## MsCoreUtils 1.7.4
+
+- Fix `ppm` to always return a positive value (issue
+  [#94](https://github.com/rformassspectrometry/MsCoreUtils/issues/94)).
+
+## MsCoreUtils 1.7.3
+
+- Add citation.
+>>>>>>> f4fd66bd17c54560fdd808706a467e5989c1133b
 
 ## MsCoreUtils 1.7.2
 
