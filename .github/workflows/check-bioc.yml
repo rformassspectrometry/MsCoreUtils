@@ -186,6 +186,7 @@ jobs:
 
       ## See https://github.com/Bioconductor/bioconductor_docker/issues/22
       - name: Manually install preprocessCore
+        if: runner.os == 'Linux'
         run: |
           git clone https://github.com/bmbolstad/preprocessCore.git
           cd preprocessCore
