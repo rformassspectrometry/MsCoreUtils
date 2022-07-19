@@ -1,3 +1,14 @@
+# MsCoreUtils 1.9
+
+## MsCoreUtils 1.9.1
+
+- Random forest imputation (using `missForest`) is now available 
+  (`method = "RF")
+
+## MsCoreUtils 1.9.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.7
 
 ## MsCoreUtils 1.7.5
@@ -16,7 +27,7 @@
 
 ## MsCoreUtils 1.7.2
 
-- Use `Matrix::colSums()` by default to handle sparce 'Matix' and
+- Use `Matrix::colSums()` by default to handle sparce 'Matrix' and
   'matrix' adjacency matrices.
 
 ## MsCoreUtils 1.7.1

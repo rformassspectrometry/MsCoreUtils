@@ -11,6 +11,7 @@
 \alias{impute_min}
 \alias{impute_zero}
 \alias{impute_with}
+\alias{impute_RF}
 \alias{impute_fun}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
@@ -25,6 +26,8 @@ impute_knn(x, ...)
 impute_mle(x, ...)
 
 impute_bpca(x, ...)
+
+impute_RF(x, ...)
 
 impute_mixed(x, randna, mar, mnar, ...)
 
@@ -107,6 +110,9 @@ that here, \code{...} are passed to the [norm::em.norm()\verb{function, rather t
 \item \emph{bpca}: Bayesian missing value imputation are available, as
 implemented in the \code{pcaMethods::pca()} function. See
 \code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and additional parameters.
+\item \emph{RF}: Random Forest imputation, as implemented in the
+\code{missForest::missForest} function. See \code{\link[missForest:missForest]{missForest::missForest()}}] for
+details and additional parameters.
 \item \emph{knn}: Nearest neighbour averaging, as implemented in the
 \code{impute::impute.knn} function. See \code{\link[impute:impute.knn]{impute::impute.knn()}}] for
 details and additional parameters.

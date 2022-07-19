@@ -47,6 +47,10 @@
 ##'   implemented in the `pcaMethods::pca()` function. See
 ##'   [pcaMethods::pca()] for details and additional parameters.
 ##'
+##' - *RF*: Random Forest imputation, as implemented in the
+##'   `missForest::missForest` function. See [missForest::missForest()]] for
+##'   details and additional parameters.
+##'   
 ##' - *knn*: Nearest neighbour averaging, as implemented in the
 ##'   `impute::impute.knn` function. See [impute::impute.knn()]] for
 ##'   details and additional parameters.
@@ -229,6 +233,8 @@ impute_matrix <- function(x,
         res <- impute_zero(x)
     } else if (method == "with") {
         res <- impute_with(x, ...)
+    } else if (method == "RF") {
+        res <- impute_RF(x, ...)
     }
     ## else method == "none" -- do nothing
     res
@@ -240,7 +246,7 @@ impute_matrix <- function(x,
 imputeMethods <- function()
     c("bpca","knn", "QRILC", "MLE",
       "MinDet", "MinProb", "min", "zero",
-      "mixed", "nbavg", "with", "none")
+      "mixed", "nbavg", "with", "RF", "none")
 
 ##' @export
 ##' @rdname imputation
@@ -287,6 +293,13 @@ impute_bpca <- function(x, ...) {
                                    verbose = FALSE,
                                    ...)
     pcaMethods::completeObs(.resultBPCA)
+}
+
+##' @export
+##' @rdname imputation
+impute_RF <- function(x, ...) {
+    requireNamespace("missForest")
+    t(missForest::missForest(t(x), ...)$ximp)
 }
 
 ##' @param randna `logical` of length equal to `nrow(object)` defining
