@@ -1,3 +1,5 @@
+library(HDF5Array)
+
 test_that("aggregation: medianPolish", {
     ## numerical example taken from ?stats::medpolish
     x <- rbind(c(14,15,14),
@@ -63,6 +65,9 @@ test_that("aggregation: aggregate_by_vector", {
                                       "X53", "X55"),
                                     c("iTRAQ4.114", "iTRAQ4.115",
                                       "iTRAQ4.116", "iTRAQ4.117")))
+    ## Data in HDF5
+    tmpf <- paste0(tempdir(), "/xhdf5")
+    xhdf5 <- writeHDF5Array(x, tmpf, with.dimnames = TRUE)
     ## Different ways to provide INDEX
     k_char <- c("B", "E", "X", "E", "B", "B", "E")
     k_fact <- factor(k_char)
@@ -90,7 +95,13 @@ test_that("aggregation: aggregate_by_vector", {
                  aggregate_by_vector(x, k_fact, robustSummary)[same_row_names, ])
     expect_equal(x2_robust_expected[same_row_names, ],
                  aggregate_by_vector(x, k_fact2, robustSummary)[same_row_names, ])
-
+    ## Test HDF5Matrix compatibility
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_char, robustSummary)[same_row_names, ])
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_fact, robustSummary)[same_row_names, ])
+    expect_equal(x2_robust_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_fact2, robustSummary)[same_row_names, ])
     ## aggregate: medianPolish
     x2_medpolish_expected <-
         structure(c(3.36717083720277, 3.63886529932001,
@@ -110,7 +121,14 @@ test_that("aggregation: aggregate_by_vector", {
                  aggregate_by_vector(x, k_fact, medianPolish)[same_row_names, ])
     expect_equal(x2_medpolish_expected[same_row_names, ],
                  aggregate_by_vector(x, k_fact2, medianPolish)[same_row_names, ])
-
+    ## Test HDF5Matrix compatibility
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_char, medianPolish)[same_row_names, ])
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact, medianPolish)[same_row_names, ])
+    expect_equal(x2_medpolish_expected[same_row_names, ],
+                 aggregate_by_vector(x, k_fact2, medianPolish)[same_row_names, ])
+    
     ## aggregate: sum
     x2_sum_expected <-
         structure(c(9.70155804007753, 9.75542561310774,
@@ -130,7 +148,14 @@ test_that("aggregation: aggregate_by_vector", {
                  aggregate_by_vector(x, k_fact, colSums)[same_row_names, ])
     expect_equal(x2_sum_expected[same_row_names, ],
                  aggregate_by_vector(x, k_fact2, colSums)[same_row_names, ])
-
+    ## Test HDF5Matrix compatibility
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_char, Matrix::colSums)[same_row_names, ])
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_fact, Matrix::colSums)[same_row_names, ])
+    expect_equal(x2_sum_expected[same_row_names, ],
+                 aggregate_by_vector(xhdf5, k_fact2, Matrix::colSums)[same_row_names, ])
+    unlink(tmpf, recursive = TRUE)
 })
 
 
@@ -139,6 +164,11 @@ test_that("aggregation: colCounts", {
     m <- matrix(c(1, NA, 2, 3, NA, NA, 4, 5, 6),
                 nrow = 3)
     expect_identical(colCounts(m), c(2, 1, 3))
+    ## Data in HDF5
+    tmpf <- paste0(tempdir(), "/mhdf5")
+    mhdf5 <- writeHDF5Array(m, tmpf, with.dimnames = TRUE)
+    expect_identical(colCounts(mhdf5), c(2, 1, 3))
+    unlink(tmpf)
     ## No NAs
     m <- matrix(rnorm(30), nrow = 3)
     expect_identical(colCounts(m), rep(3, 10))
@@ -169,6 +199,9 @@ test_that("aggregate_by_matix works", {
                c( 0, 2, 0))
     colnames(x) <- paste0("S", 1:3)
     rownames(x) <- paste0("pep", 1:5)
+    ## Data in HDF5
+    tmpf <- paste0(tempdir(), "/mhdf5")
+    xhdf5 <- writeHDF5Array(x, tmpf, with.dimnames = TRUE)
     ## aggregation index
     k <- paste0("Prot", rep(1:2, c(2, 3)))
     ## adjacency matrix
@@ -180,11 +213,17 @@ test_that("aggregate_by_matix works", {
     ## aggregation by sum
     av <- aggregate_by_vector(x, k, colSums)
     am <- aggregate_by_matrix(x, adj, colSumsMat)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colSumsMat)
     expect_identical(av, am)
+    expect_identical(am, amhdf5)
     ## aggregation by mean
     av <- aggregate_by_vector(x, k, colMeans)
     am <- aggregate_by_matrix(x, adj, colMeansMat)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colMeansMat)
     expect_identical(av, am)
+    expect_identical(am, amhdf5)
+    
+    unlink(tmpf)
 })
 
 
@@ -198,6 +237,9 @@ test_that("aggregate_by_matix works with NAs", {
     colnames(x) <- paste0("S", 1:3)
     rownames(x) <- paste0("pep", 1:5)
     x[1, 1] <- x[4, 2] <- NA
+    ## Data in HDF5
+    tmpf <- paste0(tempdir(), "/mhdf5")
+    xhdf5 <- writeHDF5Array(x, tmpf, with.dimnames = TRUE)
     ## aggregation index
     k <- paste0("Prot", rep(1:2, c(2, 3)))
     ## adjacency matrix
@@ -206,14 +248,31 @@ test_that("aggregate_by_matix works with NAs", {
                   ncol = 2)
     rownames(adj) <- rownames(x)
     colnames(adj) <- unique(k)
-    ## aggregation by sum
+    ## aggregation by sum, na.rm = FALSE
     av <- aggregate_by_vector(x, k, colSums)
-    av[1:2, 1:2] <- NA
     am <- aggregate_by_matrix(x, adj, colSumsMat)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colSumsMat)
     expect_identical(av, am)
-    ## aggregation by mean
+    expect_identical(am, amhdf5)
+    ## aggregation by mean, na.rm = FALSE
     av <- aggregate_by_vector(x, k, colMeans)
-    av[1:2, 1:2] <- NA
     am <- aggregate_by_matrix(x, adj, colMeansMat)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colMeansMat)
     expect_identical(av, am)
+    expect_identical(am, amhdf5)
+    ## aggregation by sum, na.rm = TRUE
+    av <- aggregate_by_vector(x, k, colSums, na.rm = TRUE)
+    am <- aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colSumsMat, na.rm = TRUE)
+    expect_identical(av, am)
+    expect_identical(am, amhdf5)
+    ## aggregation by mean, na.rm = TRUE
+    av <- aggregate_by_vector(x, k, colMeans, na.rm = TRUE)
+    am <- aggregate_by_matrix(x, adj, colMeansMat, na.rm = TRUE)
+    amhdf5 <- aggregate_by_matrix(xhdf5, adj, colMeansMat, na.rm = TRUE)
+    expect_identical(av, am)
+    expect_identical(am, amhdf5)
+    
+    unlink(amhdf5)
 })
+

@@ -33,10 +33,10 @@ robustSummary <- function(x, ...) {
 
     ## If there is only one 1 peptide for all samples return
     ## expression of that peptide
-    if (nrow(x) == 1L) return(x)
+    if (nrow(x) == 1L) return(as.matrix(x))
 
     ## remove missing values
-    p <- !is.na(x)
+    p <- as.vector(!is.na(x))
     expression <- x[p] ## expression becomes a vector
     sample <- rep(colnames(x), each = nrow(x))[p]
     feature <- rep(rownames(x), times = ncol(x))[p]
@@ -135,7 +135,7 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' m <- matrix(rnorm(30), nrow = 3)
 ##' colCounts(m)
 colCounts <- function(x, ...)
-    colSums(!is.na(x))
+    Matrix::colSums(!is.na(x))
 
 
 
@@ -155,8 +155,9 @@ colCounts <- function(x, ...)
 ##'
 ##' @export
 aggregate_by_vector <- function(x, INDEX, FUN, ...) {
-    if (!is.matrix(x))
-        stop("'x' must be a matrix.")
+    if (!(is.matrix(x) | inherits(x, "HDF5Matrix")))
+        stop("'x' must be a matrix or an object that inherits from ",
+             "'HDF5Matrix'.")
     if (!identical(length(INDEX), nrow(x)))
         stop("The length of 'INDEX' has to be identical to 'nrow(x).")
     FUN <- match.fun(FUN)
