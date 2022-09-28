@@ -9,9 +9,9 @@
 \alias{aggregate_by_matrix}
 \title{Aggreagate quantitative features}
 \usage{
-colMeansMat(x, MAT)
+colMeansMat(x, MAT, na.rm = FALSE)
 
-colSumsMat(x, MAT)
+colSumsMat(x, MAT, na.rm = FALSE)
 
 aggregate_by_matrix(x, MAT, FUN, ...)
 
@@ -25,6 +25,10 @@ relations with \code{nrow(MAT) == nrow(x)}: a non-missing/non-null
 value at position (i,j) indicates that peptide i belong to
 protein j. This matrix is tyically binary but can also contain
 weighted relations.}
+
+\item{na.rm}{A \code{logical(1)} indicating whether the missing values
+(including NaN) should be omitted from the calculations or not.
+Defaults to \code{FALSE}.}
 
 \item{FUN}{A \code{function} to be applied to the subsets of \code{x}.}
 
@@ -129,24 +133,15 @@ x <- matrix(c(NA, 2:6), ncol = 2,
                             c("S1", "S2")))
 x
 
-## simply use na.rm = TRUE to ignore missng values
+## simply use na.rm = TRUE to ignore missing values
 ## during the aggregation
 
 (k <- LETTERS[c(1, 1, 2)])
 aggregate_by_vector(x, k, colSums)
 aggregate_by_vector(x, k, colSums, na.rm = TRUE)
 
+aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
 
-## NAs are propagated during the matrix
-## multiplication in the aggregation functon
-(adj <- matrix(c(1, 1, 0, 0, 0, 1), ncol = 2,
-               dimnames = list(paste0("Pep", 1:3),
-                               c("A", "B"))))
-
-aggregate_by_matrix(x, adj, colSumsMat)
-## not implemented
-try(aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE))
-colSumsMat
 }
 \seealso{
 Other Quantitative feature aggregation: 
