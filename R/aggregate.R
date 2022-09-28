@@ -100,22 +100,17 @@
 ##'                             c("S1", "S2")))
 ##' x
 ##'
-##' ## simply use na.rm = TRUE to ignore missng values
+##' ## simply use na.rm = TRUE to ignore missing values
 ##' ## during the aggregation
 ##'
 ##' (k <- LETTERS[c(1, 1, 2)])
 ##' aggregate_by_vector(x, k, colSums)
 ##' aggregate_by_vector(x, k, colSums, na.rm = TRUE)
 ##'
-##'
-##' ## NAs are propagated during the matrix
-##' ## multiplication in the aggregation functon
 ##' (adj <- matrix(c(1, 1, 0, 0, 0, 1), ncol = 2,
 ##'                dimnames = list(paste0("Pep", 1:3),
-##'                                c("A", "B"))))
-##'
-##' aggregate_by_matrix(x, adj, colSumsMat)
-##' ## not implemented
-##' try(aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE))
-##' colSumsMat
+##'                            c("A", "B"))))
+##' aggregate_by_matrix(x, adj, colSumsMat, na.rm = FALSE)
+##' aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
+##' 
 NULL
