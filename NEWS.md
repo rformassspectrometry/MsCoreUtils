@@ -1,5 +1,9 @@
 # MsCoreUtils 1.9
 
+## MsCoreUtils 1.9.2
+
+- (Nothing yet)
+
 ## MsCoreUtils 1.9.1
 
 - Random forest imputation (using `missForest`) is now available 
