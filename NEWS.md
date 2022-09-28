@@ -2,7 +2,9 @@
 
 ## MsCoreUtils 1.9.2
 
-- (Nothing yet)
+- feat: matrix aggregation is compatible with HDF5Matrix objects
+- fix+feat: aggregate_by_matrix now correctly handles missing data and
+  implements 'na.rm'
 
 ## MsCoreUtils 1.9.1
 
