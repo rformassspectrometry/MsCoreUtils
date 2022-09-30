@@ -258,8 +258,8 @@ jobs:
       - name: Deploy package
         if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
-          git global --local user.email "actions@github.com"
-          git global --local user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
           git config --global --add safe.directory /__w/MsCoreUtils/MsCoreUtils
           Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
