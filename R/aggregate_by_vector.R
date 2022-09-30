@@ -139,7 +139,8 @@ colCounts <- function(x, ...)
 
 
 
-##' @param x A `matrix` of mode `numeric`.
+##' @param x A `matrix` of mode `numeric` or an `HDF5Matrix` object of
+##'     type `numeric`.
 ##'
 ##' @param INDEX A `vector` or `factor` of length `nrow(x)`.
 ##'
@@ -147,9 +148,10 @@ colCounts <- function(x, ...)
 ##'
 ##' @param ... Additional arguments passed to `FUN`.
 ##'
-##' @return [aggregate_by_vector()] returns a new `matrix` of
-##'     dimensions `length(INDEX)` and `ncol(x), with `dimnames` equal
-##'     to `colnames(x)` and `INDEX`.
+##' @return [aggregate_by_vector()] returns a new `matrix` (if `x` is
+##'     a `matrix`) or `HDF5Matrix` (if `x` is an `HDF5Matrix`)
+##'     of dimensions `length(INDEX)` and `ncol(x), with `dimnames` 
+##'     equal to `colnames(x)` and `INDEX`.
 ##'
 ##' @rdname aggregate
 ##'
@@ -168,5 +170,8 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     res <- do.call(rbind, res)
     rownames(res) <- nms
     colnames(res) <- colnames(x)
+    if (inherits(x, "HDF5Matrix"))
+        res <- HDF5Array::writeHDF5Array(res, filepath = path(x),
+                                         with.dimnames = TRUE)
     res
 }

@@ -18,7 +18,8 @@ aggregate_by_matrix(x, MAT, FUN, ...)
 aggregate_by_vector(x, INDEX, FUN, ...)
 }
 \arguments{
-\item{x}{A \code{matrix} of mode \code{numeric}.}
+\item{x}{A \code{matrix} of mode \code{numeric} or an \code{HDF5Matrix} object of
+type \code{numeric}.}
 
 \item{MAT}{An adjacency matrix that defines peptide-protein
 relations with \code{nrow(MAT) == nrow(x)}: a non-missing/non-null
@@ -40,8 +41,9 @@ Defaults to \code{FALSE}.}
 \code{\link[=aggregate_by_matrix]{aggregate_by_matrix()}} returns a \code{matrix} (or \code{Matrix})
 of dimensions \code{ncol(MAT)} and \verb{ncol(x), with }dimnames\verb{equal to}colnames(x)\code{and}rownames(MAT)`.
 
-\code{\link[=aggregate_by_vector]{aggregate_by_vector()}} returns a new \code{matrix} of
-dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{equal to}colnames(x)\code{and}INDEX`.
+\code{\link[=aggregate_by_vector]{aggregate_by_vector()}} returns a new \code{matrix} (if \code{x} is
+a \code{matrix}) or \code{HDF5Matrix} (if \code{x} is an \code{HDF5Matrix})
+of dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{ equal to}colnames(x)\code{and}INDEX`.
 }
 \description{
 These functions take a matrix of quantitative features \code{x} and
