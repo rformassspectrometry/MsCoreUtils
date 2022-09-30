@@ -56,7 +56,8 @@ Suggests:
     vsn,
     Matrix,
     preprocessCore,
-    missForest,
+    missForest
+Enhances:
     HDF5Array
 License: Artistic-2.0
 Encoding: UTF-8
