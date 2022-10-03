@@ -52,8 +52,7 @@ factor) \code{INDEX} or an adjacency matrix \code{MAT}. The aggregation
 method is defined by function \code{FUN}.
 
 Adjacency matrices are an elegant way to explicitly encode for
-shared peptides (see example below) during aggregation. Note
-however that missing values can't generally be ignore using \code{na.rm = TRUE}, as with vector-based aggregation (see examples below).
+shared peptides (see example below) during aggregation.
 }
 \section{Vector-based aggregation functions}{
 
@@ -85,6 +84,16 @@ for each protein. Shared peptides are re-used multiple times.
 peptide intensities. Shared peptides are re-used multiple
 times.
 }
+}
+
+\section{Handling missing values}{
+
+
+By default, missing values in the quantitative data will propagate
+to the aggregated data. You can provide \code{na.rm = TRUE} to most
+functions listed above to ignore missing values, except for
+\code{robustSummary()} where you should supply \code{na.action = na.omit}
+(see \code{?MASS::rlm}).
 }
 
 \examples{

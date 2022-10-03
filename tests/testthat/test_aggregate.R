@@ -210,7 +210,7 @@ test_that("aggregation: colCounts", {
 })
 
 
-test_that("aggregate_by_matix works", {
+test_that("aggregate_by_matrix works", {
     ## numerical example taken from ?stats::medpolish
     x <- rbind(c(14,15,14),
                c( 7, 4, 7),
@@ -254,7 +254,7 @@ test_that("aggregate_by_matix works", {
 })
 
 
-test_that("aggregate_by_matix works with NAs", {
+test_that("aggregate_by_matrix works with NAs", {
     ## numerical example taken from ?stats::medpolish
     x <- rbind(c(14,15,14),
                c( 7, 4, 7),
