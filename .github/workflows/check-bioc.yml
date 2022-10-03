@@ -196,6 +196,7 @@ jobs:
       - name: Install HDF5Array for unit tests
         run: |
           BiocManager::install("HDF5Array")
+        shell: Rscript {0}
 
       - name: Install covr
         if: github.ref == 'refs/heads/master' && env.run_covr == 'true' && runner.os == 'Linux'
