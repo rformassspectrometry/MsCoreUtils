@@ -192,6 +192,11 @@ jobs:
           cd preprocessCore
           R CMD INSTALL --configure-args="--disable-threading"  .
 
+      ## See https://github.com/rformassspectrometry/MsCoreUtils/pull/99#discussion_r984648126
+      - name: Install HDF5Array for unit tests
+        run: |
+          BiocManager::install("HDF5Array")
+
       - name: Install covr
         if: github.ref == 'refs/heads/master' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |

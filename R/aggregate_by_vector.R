@@ -171,7 +171,8 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     rownames(res) <- nms
     colnames(res) <- colnames(x)
     if (inherits(x, "HDF5Matrix"))
-        res <- HDF5Array::writeHDF5Array(res, filepath = path(x),
+        res <- HDF5Array::writeHDF5Array(res, 
+                                         filepath = HDF5Array::path(x),
                                          with.dimnames = TRUE)
     res
 }

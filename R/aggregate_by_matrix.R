@@ -66,7 +66,8 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
         stop("The column names of 'x' have to be identical to the column names of 'res'!")
     colnames(res) <- colnames(x)
     if (inherits(x, "HDF5Matrix"))
-        res <- HDF5Array::writeHDF5Array(res, filepath = path(x),
+        res <- HDF5Array::writeHDF5Array(res, 
+                                         filepath = HDF5Array::path(x),
                                          with.dimnames = TRUE)
     res
 }
