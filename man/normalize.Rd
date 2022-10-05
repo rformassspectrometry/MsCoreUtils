@@ -10,7 +10,7 @@ normalizeMethods()
 normalize_matrix(x, method, ...)
 }
 \arguments{
-\item{x}{A matrix to be normalised.}
+\item{x}{A matrix or an \code{HDF5Matrix} object to be normalised.}
 
 \item{method}{\code{character(1)} defining the normalisation
 method. See \code{normalizeMethods()} for available ones.}
@@ -19,7 +19,7 @@ method. See \code{normalizeMethods()} for available ones.}
 function.}
 }
 \value{
-A normalised matrix of dimensions \code{dim(x)}.
+A matrix of same class as \code{x} with dimensions \code{dim(x)}.
 }
 \description{
 Function to normalise a matrix of quantitative omics data. The

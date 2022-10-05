@@ -306,7 +306,7 @@ test_that("aggregate_by_matrix works with NAs", {
         amhdf5 <- aggregate_by_matrix(xhdf5, adj, colMeansMat, na.rm = TRUE)
         expect_identical(am4, as.matrix(amhdf5))
         ## Remove file
-        unlink(amhdf5)
+        unlink(tmpf)
     }
 })
 
