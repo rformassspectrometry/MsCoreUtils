@@ -1,5 +1,7 @@
 #' @title Calculate relative log abundances
 #'
+#' @description
+#'
 #' `rla` calculates the relative log abundances (RLA, see reference) on a
 #' `numeric` vector. `rowRla` performs row-wise RLA calculations on a numeric
 #' `matrix`.

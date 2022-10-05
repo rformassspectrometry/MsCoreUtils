@@ -3,11 +3,7 @@
 \name{rla}
 \alias{rla}
 \alias{rowRla}
-\title{Calculate relative log abundances
-
-\code{rla} calculates the relative log abundances (RLA, see reference) on a
-\code{numeric} vector. \code{rowRla} performs row-wise RLA calculations on a numeric
-\code{matrix}.}
+\title{Calculate relative log abundances}
 \usage{
 rla(
   x,
@@ -41,8 +37,6 @@ same length than \code{x} (for \code{rla}) or \code{matrix} with the same dimens
 than \code{x} (for \code{rowRla}).
 }
 \description{
-Calculate relative log abundances
-
 \code{rla} calculates the relative log abundances (RLA, see reference) on a
 \code{numeric} vector. \code{rowRla} performs row-wise RLA calculations on a numeric
 \code{matrix}.

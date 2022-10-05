@@ -1,8 +1,12 @@
 # MsCoreUtils 1.9
 
+## MsCoreUtils 1.9.2
+
+- Fix `rla`/`rowRla` man page.
+
 ## MsCoreUtils 1.9.1
 
-- Random forest imputation (using `missForest`) is now available 
+- Random forest imputation (using `missForest`) is now available
   (`method = "RF")
 
 ## MsCoreUtils 1.9.0
