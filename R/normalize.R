@@ -48,7 +48,7 @@ normalizeMethods <- function()
 ##' @seealso The [scale()] function that centers (like `center.mean` above) and
 ##'     scales.
 ##'
-##' @param x A matrix to be normalised.
+##' @param x A matrix or an `HDF5Matrix` object to be normalised.
 ##'
 ##' @param method `character(1)` defining the normalisation
 ##'     method. See `normalizeMethods()` for available ones.
@@ -56,7 +56,7 @@ normalizeMethods <- function()
 ##' @param ... Additional parameters passed to the inner normalisation
 ##'     function.
 ##'
-##' @return A normalised matrix of dimensions `dim(x)`.
+##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
 ##' @export
 ##'
@@ -84,6 +84,15 @@ normalize_matrix <- function(x, method, ...) {
     if (missing(method))
         stop("Please specify a normalization method. ",
              "See '?normalize_matrix' for details.")
+    ## Handle HDF5Matrix
+    xIsHDF5 <- FALSE
+    if (inherits(x, "HDF5Array")) {
+        xIsHDF5 <- TRUE
+        p <- HDF5Array::path(x) ## stored for later writing to disk
+        ## Watch out this can lead to memory burst when x is large 
+        x <- as.matrix(x) 
+    }
+    
     method <- match.arg(method,
                         choices = normalizeMethods(),
                         several.ok = FALSE)
@@ -121,5 +130,11 @@ normalize_matrix <- function(x, method, ...) {
     }
     rownames(e) <- rownames(x)
     colnames(e) <- colnames(x)
+    ## Write to HDF5 file if the input is on HDF5 backend
+    if (xIsHDF5)
+        e <- HDF5Array::writeHDF5Array(e, filepath = p,
+                                       with.dimnames = TRUE)
     e
 }
+
+

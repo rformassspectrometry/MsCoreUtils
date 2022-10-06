@@ -57,6 +57,8 @@ Suggests:
     Matrix,
     preprocessCore,
     missForest
+Enhances:
+    HDF5Array
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr

@@ -33,10 +33,10 @@ robustSummary <- function(x, ...) {
 
     ## If there is only one 1 peptide for all samples return
     ## expression of that peptide
-    if (nrow(x) == 1L) return(x)
+    if (nrow(x) == 1L) return(as.matrix(x))
 
     ## remove missing values
-    p <- !is.na(x)
+    p <- as.vector(!is.na(x))
     expression <- x[p] ## expression becomes a vector
     sample <- rep(colnames(x), each = nrow(x))[p]
     feature <- rep(rownames(x), times = ncol(x))[p]
@@ -135,11 +135,12 @@ medianPolish <- function(x, verbose = FALSE, ...) {
 ##' m <- matrix(rnorm(30), nrow = 3)
 ##' colCounts(m)
 colCounts <- function(x, ...)
-    colSums(!is.na(x))
+    Matrix::colSums(!is.na(x))
 
 
 
-##' @param x A `matrix` of mode `numeric`.
+##' @param x A `matrix` of mode `numeric` or an `HDF5Matrix` object of
+##'     type `numeric`.
 ##'
 ##' @param INDEX A `vector` or `factor` of length `nrow(x)`.
 ##'
@@ -147,16 +148,18 @@ colCounts <- function(x, ...)
 ##'
 ##' @param ... Additional arguments passed to `FUN`.
 ##'
-##' @return [aggregate_by_vector()] returns a new `matrix` of
-##'     dimensions `length(INDEX)` and `ncol(x), with `dimnames` equal
-##'     to `colnames(x)` and `INDEX`.
+##' @return [aggregate_by_vector()] returns a new `matrix` (if `x` is
+##'     a `matrix`) or `HDF5Matrix` (if `x` is an `HDF5Matrix`)
+##'     of dimensions `length(INDEX)` and `ncol(x), with `dimnames` 
+##'     equal to `colnames(x)` and `INDEX`.
 ##'
 ##' @rdname aggregate
 ##'
 ##' @export
 aggregate_by_vector <- function(x, INDEX, FUN, ...) {
-    if (!is.matrix(x))
-        stop("'x' must be a matrix.")
+    if (!(is.matrix(x) | inherits(x, "HDF5Matrix")))
+        stop("'x' must be a matrix or an object that inherits from ",
+             "'HDF5Matrix'.")
     if (!identical(length(INDEX), nrow(x)))
         stop("The length of 'INDEX' has to be identical to 'nrow(x).")
     FUN <- match.fun(FUN)
@@ -167,5 +170,9 @@ aggregate_by_vector <- function(x, INDEX, FUN, ...) {
     res <- do.call(rbind, res)
     rownames(res) <- nms
     colnames(res) <- colnames(x)
+    if (inherits(x, "HDF5Matrix"))
+        res <- HDF5Array::writeHDF5Array(res, 
+                                         filepath = HDF5Array::path(x),
+                                         with.dimnames = TRUE)
     res
 }

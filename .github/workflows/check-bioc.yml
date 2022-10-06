@@ -192,6 +192,12 @@ jobs:
           cd preprocessCore
           R CMD INSTALL --configure-args="--disable-threading"  .
 
+      ## See https://github.com/rformassspectrometry/MsCoreUtils/pull/99#discussion_r984648126
+      - name: Install HDF5Array for unit tests
+        run: |
+          BiocManager::install("HDF5Array")
+        shell: Rscript {0}
+
       - name: Install covr
         if: github.ref == 'refs/heads/master' && env.run_covr == 'true' && runner.os == 'Linux'
         run: |
@@ -258,8 +264,8 @@ jobs:
       - name: Deploy package
         if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
-          git global --local user.email "actions@github.com"
-          git global --local user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
           git config --global --add safe.directory /__w/MsCoreUtils/MsCoreUtils
           Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
