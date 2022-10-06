@@ -40,7 +40,7 @@
 ##' - *MLE*: Maximum likelihood-based imputation method using the EM
 ##'   algorithm. Implemented in the `norm::imp.norm()`. function. See
 ##'   [norm::imp.norm()] for details and additional parameters. Note
-##'   that here, `...` are passed to the [norm::em.norm()` function,
+##'   that here, `...` are passed to the [norm::em.norm()] function,
 ##'   rather to the actual imputation function `imp.norm`.
 ##'
 ##' - *bpca*: Bayesian missing value imputation are available, as
@@ -183,7 +183,7 @@
 ##'               mar = "knn",
 ##'               mnar = "min")
 ##'
-##' @param x A matrix with missing values to be imputed.
+##' @param x A matrix or an `HDF5Matrix` object to be imputed.
 ##'
 ##' @param method `character(1)` defining the imputation method. See
 ##'     `imputeMethods()` for available ones.
@@ -191,16 +191,31 @@
 ##' @param ... Additional parameters passed to the inner imputation
 ##'     function.
 ##'
+##' @return A matrix of same class as `x` with dimensions `dim(x)`.
+##' 
 ##' @export
 impute_matrix <- function(x,
                           method,
                           FUN,
                           ...) {
-    ## stopifnot(is(m, "matrix"))
     if (!anyNA(x)) return(x)
+    ## Handle HDF5Matrix
+    xIsHDF5 <- FALSE
+    if (inherits(x, "HDF5Array")) {
+        xIsHDF5 <- TRUE
+        p <- HDF5Array::path(x) ## stored for later writing to disk
+        ## Watch out this can lead to memory burst when x is large.
+        x <- as.matrix(x) 
+    }
     ## User-provided imputation function
-    if (!missing(FUN) && is.function(FUN))
-        return(impute_fun(x, FUN, ...))
+    if (!missing(FUN) && is.function(FUN)) {
+        res <- impute_fun(x, FUN, ...)
+        ## Write to HDF5 file if the input is on HDF5 backend
+        if (xIsHDF5)
+            res <- HDF5Array::writeHDF5Array(res, filepath = p,
+                                             with.dimnames = TRUE)
+        return(res)
+    }
     ## Function name provided as a character
     if (missing(method))
         stop("Please specify an imputation method. ",
@@ -237,6 +252,10 @@ impute_matrix <- function(x,
         res <- impute_RF(x, ...)
     }
     ## else method == "none" -- do nothing
+    ## Write to HDF5 file if the input is on HDF5 backend
+    if (xIsHDF5)
+        res <- HDF5Array::writeHDF5Array(res, filepath = p,
+                                         with.dimnames = TRUE)
     res
 }
 

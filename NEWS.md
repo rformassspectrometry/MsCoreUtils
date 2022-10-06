@@ -2,6 +2,7 @@
 
 ## MsCoreUtils 1.9.2
 
+- feat: imputation is compatible with HDF5Matrix objects
 - feat: normalization is compatible with HDF5Matrix objects
 - feat: matrix aggregation is compatible with HDF5Matrix objects
 - fix+feat: aggregate_by_matrix now correctly handles missing data and

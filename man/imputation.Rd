@@ -40,7 +40,7 @@ impute_with(x, val)
 impute_fun(x, FUN, ...)
 }
 \arguments{
-\item{x}{A matrix with missing values to be imputed.}
+\item{x}{A matrix or an \code{HDF5Matrix} object to be imputed.}
 
 \item{method}{\code{character(1)} defining the imputation method. See
 \code{imputeMethods()} for available ones.}
@@ -67,6 +67,9 @@ is \code{mixed}.}
 random. See \code{method} above.}
 
 \item{val}{\code{numeric(1)} used to replace all missing values.}
+}
+\value{
+A matrix of same class as \code{x} with dimensions \code{dim(x)}.
 }
 \description{
 The \code{impute_matrix} function performs data imputation on \code{matrix}
@@ -106,7 +109,8 @@ Currently, the following imputation methods are available.
 \item \emph{MLE}: Maximum likelihood-based imputation method using the EM
 algorithm. Implemented in the \code{norm::imp.norm()}. function. See
 \code{\link[norm:imp.norm]{norm::imp.norm()}} for details and additional parameters. Note
-that here, \code{...} are passed to the [norm::em.norm()\verb{function, rather to the actual imputation function}imp.norm`.
+that here, \code{...} are passed to the \code{\link[norm:em.norm]{norm::em.norm()}} function,
+rather to the actual imputation function \code{imp.norm}.
 \item \emph{bpca}: Bayesian missing value imputation are available, as
 implemented in the \code{pcaMethods::pca()} function. See
 \code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and additional parameters.
