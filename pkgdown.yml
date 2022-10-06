@@ -1,9 +1,9 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.2.9000
-pkgdown_sha: 98d5a5c735eb244cb98b2e6bab1d54bb27c0af95
+pandoc: 2.19.2
+pkgdown: 2.0.6.9000
+pkgdown_sha: 956f076f661eb2de9413f64ea24a580cf444466d
 articles:
   MsCoreUtils: MsCoreUtils.html
-last_built: 2022-04-12T11:53Z
+last_built: 2022-10-06T11:17Z
 urls:
   reference: https://rformassspectrometry.github.io/MsCoreUtils/reference
   article: https://rformassspectrometry.github.io/MsCoreUtils/articles
