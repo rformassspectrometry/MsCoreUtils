@@ -7,10 +7,11 @@
 - feat: matrix aggregation is compatible with HDF5Matrix objects
 - fix+feat: aggregate_by_matrix now correctly handles missing data and
   implements 'na.rm'
+- Fix `rla`/`rowRla` man page.
 
 ## MsCoreUtils 1.9.1
 
-- Random forest imputation (using `missForest`) is now available 
+- Random forest imputation (using `missForest`) is now available
   (`method = "RF")
 
 ## MsCoreUtils 1.9.0
