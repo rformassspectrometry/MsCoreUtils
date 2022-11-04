@@ -223,7 +223,9 @@
 ##'
 ##' @param margin `integer(1)` defining the margin along which to
 ##'     apply imputation, with `1L` for rows and `2L` for columns. The
-##'     default value will depend on the imputation method.
+##'     default value will depend on the imputation method. Use
+##'     `getImputationMargin(fun)` to get the margin of function
+##'     `fun`.
 ##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
@@ -371,9 +373,15 @@ impute_bpca <- function(x, margin = 1L, ...) {
 
 ##' @export
 ##' @rdname imputation
-impute_RF <- function(x, ...) {
+impute_RF <- function(x, margin = 2L, ...) {
     requireNamespace("missForest")
-    t(missForest::missForest(t(x), ...)$ximp)
+    margin <- .checkMargin(margin)
+    if (margin == 2L)
+        x <- t(x)
+    res <- missForest::missForest(x, ...)$ximp
+    if (margin == 2L)
+        res <- t(res)
+    res
 }
 
 ##' @param randna `logical` of length equal to `nrow(object)` defining
@@ -390,7 +398,7 @@ impute_RF <- function(x, ...) {
 ##' @export
 ##'
 ##' @rdname imputation
-impute_mixed <- function(x, randna, mar, mnar, ...) {
+impute_mixed <- function(x, randna, mar, mnar, margin = 1L, ...) {
     if (missing(randna))
         stop("Mixed imputation requires 'randna' argument. See ?impute_mixed.",
              call. = FALSE)
@@ -401,11 +409,16 @@ impute_mixed <- function(x, randna, mar, mnar, ...) {
     if (missing(mnar))
         stop("Mixed imputation requires 'mnar' argument. See ?impute_mixed.",
              call. = FALSE)
+    suppressMessages(margin <- .checkMargin(margin))
+    if (margin == 2L) x <- t(x)
     if (length(randna) != nrow(x))
         stop("Number of proteins and length of randna must be equal.",
              call. = FALSE)
-    x[randna, ] <- impute_matrix(x[randna, ], mar, ...)
-    x[!randna, ] <- impute_matrix(x[!randna, ], mnar, ...)
+    x[randna, ] <- impute_matrix(x[randna, ], mar,
+                                 margin = margin, ...)
+    x[!randna, ] <- impute_matrix(x[!randna, ], mnar,
+                                  margin = margin, ...)
+    if (margin == 2L) x <- t(x)
     x
 }
 
@@ -459,6 +472,7 @@ impute_with <- function(x, val) {
 ##'
 ##' impute_matrix(m, FUN = random_imp)
 impute_fun <- function(x, FUN, margin = 1L, ...) {
+    margin <- .checkMargin(margin)
     if (margin == 2L) x <- t(x)
     res <- do.call(FUN, list(x, ...))
     if (margin == 2L) res <- t(res)
@@ -472,4 +486,28 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
         stop("'margin' must be 1L or 2L")
     message("Imputing along margin ", margin, ".")
     margin
+}
+
+
+##' @export
+##'
+##' @rdname imputation
+##'
+##' @param fun
+##'
+##' @examples
+##'
+##' ## get the default margin
+##'
+##' getImputationMargin(impute_knn) ## default imputes along features
+##'
+##' getImputationMargin(impute_mle) ## default imputes along samples
+##'
+##' getImputationMargin(impute_zero) ## NA: no margin here
+getImputationMargin <- function(fun) {
+    args <- formals(fun)
+    i <- grep("margin", names(args))
+    if (length(i)) ans <- args[[i]]
+    else ans <- NA
+    ans
 }
