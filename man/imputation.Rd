@@ -11,11 +11,12 @@
 \alias{impute_min}
 \alias{impute_zero}
 \alias{impute_with}
-\alias{impute_RF}
 \alias{impute_MinDet}
 \alias{impute_MinProb}
+\alias{impute_QRILC}
+\alias{impute_RF}
 \alias{impute_fun}
-\alias{getImputationMargin}
+\alias{getImputeMargin}
 \title{Quantitative mass spectrometry data imputation}
 \usage{
 impute_matrix(x, method, FUN, ...)
@@ -40,13 +41,15 @@ impute_MinDet(x, q = 0.01, margin = 2L)
 
 impute_MinProb(x, q = 0.01, sigma = 1, margin = 2L)
 
+impute_QRILC(x, sigma = 1, margin = 2L)
+
 impute_zero(x)
 
 impute_with(x, val)
 
 impute_fun(x, FUN, margin = 1L, ...)
 
-getImputationMargin(fun)
+getImputeMargin(fun)
 }
 \arguments{
 \item{x}{A matrix or an \code{HDF5Matrix} object to be imputed.}
@@ -67,7 +70,7 @@ to use the smallest value in the data.}
 \item{margin}{\code{integer(1)} defining the margin along which to
 apply imputation, with \code{1L} for rows and \code{2L} for columns. The
 default value will depend on the imputation method. Use
-\code{getImputationMargin(fun)} to get the margin of imputation
+\code{getImputeMargin(fun)} to get the margin of imputation
 function \code{fun}. If the function doesn't take a margin
 argument, \code{NA} is returned.}
 
@@ -87,7 +90,7 @@ estimate the minimum in \code{MinDet} and \code{MinProb}. Default is
 0.01.}
 
 \item{sigma}{\code{numeric(1)} controling the standard deviation of the
-MNAR distribution in \code{MinProb}. Default is 1.}
+MNAR distribution in \code{MinProb} and \code{QRILC}. Default is 1.}
 
 \item{val}{\code{numeric(1)} used to replace all missing values.}
 
@@ -182,10 +185,8 @@ details and additional parameters.
 \item \emph{QRILC}: A missing data imputation method that performs the
 imputation of left-censored missing data using random draws from
 a truncated distribution with parameters estimated using
-quantile regression. Implemented in the
-\code{imputeLCMD::impute.QRILC}
-function. See \code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} for details and
-additional parameters.
+quantile regression. The \code{impute_QRILC()} function calls
+\code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} from the \code{imputeLCMD} package.
 \item \emph{MinDet}: Performs the imputation of left-censored missing data
 using a deterministic minimal value approach. Considering a
 expression data with \emph{n} samples and \emph{p} features, for each
@@ -208,8 +209,9 @@ standard deviation is estimated as the median of the feature (or
 sample) standard deviations. Note that when estimating the
 standard deviation of the Gaussian distribution, only the
 peptides/proteins (or samples) which present more than 50\\%
-recorded values are considered. The `impute_MinProb``function
-calls the \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} function.
+recorded values are considered. The \code{impute_MinProb()} function
+calls \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} from the \code{imputeLCMD}
+package.
 \item \emph{min}: Replaces the missing values with the smallest non-missing
 value in the data.
 \item \emph{zero}: Replaces the missing values with 0.
@@ -236,7 +238,7 @@ method.
 }
 
 The \code{imputeMethods()} function returns a vector with valid
-imputation method arguments.
+imputation method names.
 }
 
 \examples{
@@ -286,11 +288,11 @@ random_imp <- function(x) {
 impute_matrix(m, FUN = random_imp)
 
 ## get the default margin
-getImputationMargin(impute_knn) ## default imputes along features
+getImputeMargin(impute_knn) ## default imputes along features
 
-getImputationMargin(impute_mle) ## default imputes along samples
+getImputeMargin(impute_mle) ## default imputes along samples
 
-getImputationMargin(impute_zero) ## NA: no margin here
+getImputeMargin(impute_zero) ## NA: no margin here
 }
 \references{
 Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,

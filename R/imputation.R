@@ -86,10 +86,8 @@
 ##' - *QRILC*: A missing data imputation method that performs the
 ##'   imputation of left-censored missing data using random draws from
 ##'   a truncated distribution with parameters estimated using
-##'   quantile regression. Implemented in the
-##'   `imputeLCMD::impute.QRILC`
-##'   function. See [imputeLCMD::impute.QRILC()] for details and
-##'   additional parameters.
+##'   quantile regression. The `impute_QRILC()` function calls
+##'   [imputeLCMD::impute.QRILC()] from the `imputeLCMD` package.
 ##'
 ##' - *MinDet*: Performs the imputation of left-censored missing data
 ##'   using a deterministic minimal value approach. Considering a
@@ -114,8 +112,9 @@
 ##'   sample) standard deviations. Note that when estimating the
 ##'   standard deviation of the Gaussian distribution, only the
 ##'   peptides/proteins (or samples) which present more than 50\%
-##'   recorded values are considered. The `impute_MinProb``function
-##'   calls the [imputeLCMD::impute.MinProb()] function.
+##'   recorded values are considered. The `impute_MinProb()` function
+##'   calls [imputeLCMD::impute.MinProb()] from the `imputeLCMD`
+##'   package.
 ##'
 ##' - *min*: Replaces the missing values with the smallest non-missing
 ##'   value in the data.
@@ -147,7 +146,7 @@
 ##'   method.
 ##'
 ##' The `imputeMethods()` function returns a vector with valid
-##' imputation method arguments.
+##' imputation method names.
 ##'
 ##' @references
 ##'
@@ -171,7 +170,7 @@
 ##'
 ##' @rdname imputation
 ##'
-##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix
+##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix impute_MinDet impute_MinProb impute_QRILC
 ##'
 ##' @useDynLib MsCoreUtils, .registration = TRUE
 ##'
@@ -222,7 +221,7 @@
 ##' @param margin `integer(1)` defining the margin along which to
 ##'     apply imputation, with `1L` for rows and `2L` for columns. The
 ##'     default value will depend on the imputation method. Use
-##'     `getImputationMargin(fun)` to get the margin of imputation
+##'     `getImputeMargin(fun)` to get the margin of imputation
 ##'     function `fun`. If the function doesn't take a margin
 ##'     argument, `NA` is returned.
 ##'
@@ -453,7 +452,7 @@ impute_MinDet <- function(x, q = 0.01, margin = 2L) {
 ##' @rdname imputation
 ##'
 ##' @param sigma `numeric(1)` controling the standard deviation of the
-##'     MNAR distribution in `MinProb`. Default is 1.
+##'     MNAR distribution in `MinProb` and `QRILC`. Default is 1.
 impute_MinProb <- function (x, q = 0.01, sigma = 1, margin = 2L) {
     margin <- .checkMargin(margin)
     ## transpose if we want to non-default version
@@ -463,6 +462,17 @@ impute_MinProb <- function (x, q = 0.01, sigma = 1, margin = 2L) {
     x
 }
 
+##' @export
+##'
+##' @rdname imputation
+impute_QRILC <- function(x, sigma = 1, margin = 2L) {
+   margin <- .checkMargin(margin)
+    ## transpose if we want to non-default version
+    if (margin == 1L) x <- t(x)
+    x <- imputeLCMD::impute.QRILC(x, tune.sigma = sigma)[[1]]
+    if (margin == 1L) x <- t(x)
+    x
+}
 
 ##' @export
 ##'
@@ -471,7 +481,6 @@ impute_zero <- function(x) {
     x[is.na(x)] <- 0
     x
 }
-
 
 ##' @export
 ##'
@@ -521,7 +530,6 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
     margin
 }
 
-
 ##' @export
 ##'
 ##' @rdname imputation
@@ -531,12 +539,12 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
 ##' @examples
 ##'
 ##' ## get the default margin
-##' getImputationMargin(impute_knn) ## default imputes along features
+##' getImputeMargin(impute_knn) ## default imputes along features
 ##'
-##' getImputationMargin(impute_mle) ## default imputes along samples
+##' getImputeMargin(impute_mle) ## default imputes along samples
 ##'
-##' getImputationMargin(impute_zero) ## NA: no margin here
-getImputationMargin <- function(fun) {
+##' getImputeMargin(impute_zero) ## NA: no margin here
+getImputeMargin <- function(fun) {
     args <- formals(fun)
     i <- grep("margin", names(args))
     if (length(i)) ans <- args[[i]]
