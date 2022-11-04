@@ -13,6 +13,7 @@
 \alias{impute_with}
 \alias{impute_RF}
 \alias{impute_MinDet}
+\alias{impute_MinProb}
 \alias{impute_fun}
 \alias{getImputationMargin}
 \title{Quantitative mass spectrometry data imputation}
@@ -36,6 +37,8 @@ impute_mixed(x, randna, mar, mnar, margin = 1L, ...)
 impute_min(x)
 
 impute_MinDet(x, q = 0.01, margin = 2L)
+
+impute_MinProb(x, q = 0.01, sigma = 1, margin = 2L)
 
 impute_zero(x)
 
@@ -78,6 +81,13 @@ is \code{mixed}.}
 
 \item{mnar}{Imputation method for values missing not at
 random. See \code{method} above.}
+
+\item{q}{\code{numeric(1)} indicating the quantile to be used to
+estimate the minimum in \code{MinDet} and \code{MinProb}. Default is
+0.01.}
+
+\item{sigma}{\code{numeric(1)} controling the standard deviation of the
+MNAR distribution in \code{MinProb}. Default is 1.}
 
 \item{val}{\code{numeric(1)} used to replace all missing values.}
 
@@ -174,7 +184,7 @@ imputation of left-censored missing data using random draws from
 a truncated distribution with parameters estimated using
 quantile regression. Implemented in the
 \code{imputeLCMD::impute.QRILC}
-function. \code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} for details and
+function. See \code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} for details and
 additional parameters.
 \item \emph{MinDet}: Performs the imputation of left-censored missing data
 using a deterministic minimal value approach. Considering a
@@ -183,22 +193,23 @@ sample (for \code{margin = 2L}, the default), the missing entries are
 replaced with a minimal value observed in that sample. The
 minimal value observed is estimated as being the q-th quantile
 (default \code{q = 0.01}) of the observed values in that sample. The
-implemented in based on the \code{imputeLCMD::impute.MinDet}
+implemented in based on the \code{imputeLCMD::impute.MinDet()}
 function.
 \item \emph{MinProb}: Performs the imputation of left-censored missing data
 by random draws from a Gaussian distribution centred to a
 minimal value. Considering an expression data matrix with \emph{n}
 samples and \emph{p} features, for each sample, the mean value of the
 Gaussian distribution is set to a minimal observed value in that
-sample. The minimal value observed is estimated as being the
+sample (for default \code{margin = 2L}, in the feature
+otherwise). The minimal value observed is estimated as being the
 q-th quantile (default \code{q = 0.01}) of the observed values in
-that sample. The standard deviation is estimated as the median
-of the feature standard deviations. Note that when estimating
-the standard deviation of the Gaussian distribution, only the
-peptides/proteins which present more than 50\\% recorded values
-are considered. Implemented in the \code{imputeLCMD::impute.MinProb}
-function. See \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} for details and
-additional parameters.
+that sample (for \code{margin = 2L}, in the feature otherwise). The
+standard deviation is estimated as the median of the feature (or
+sample) standard deviations. Note that when estimating the
+standard deviation of the Gaussian distribution, only the
+peptides/proteins (or samples) which present more than 50\\%
+recorded values are considered. The `impute_MinProb``function
+calls the \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} function.
 \item \emph{min}: Replaces the missing values with the smallest non-missing
 value in the data.
 \item \emph{zero}: Replaces the missing values with 0.

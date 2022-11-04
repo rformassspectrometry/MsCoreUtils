@@ -88,7 +88,7 @@
 ##'   a truncated distribution with parameters estimated using
 ##'   quantile regression. Implemented in the
 ##'   `imputeLCMD::impute.QRILC`
-##'   function. [imputeLCMD::impute.QRILC()] for details and
+##'   function. See [imputeLCMD::impute.QRILC()] for details and
 ##'   additional parameters.
 ##'
 ##' - *MinDet*: Performs the imputation of left-censored missing data
@@ -98,7 +98,7 @@
 ##'   replaced with a minimal value observed in that sample. The
 ##'   minimal value observed is estimated as being the q-th quantile
 ##'   (default `q = 0.01`) of the observed values in that sample. The
-##'   implemented in based on the `imputeLCMD::impute.MinDet`
+##'   implemented in based on the `imputeLCMD::impute.MinDet()`
 ##'   function.
 ##'
 ##' - *MinProb*: Performs the imputation of left-censored missing data
@@ -106,15 +106,16 @@
 ##'   minimal value. Considering an expression data matrix with *n*
 ##'   samples and *p* features, for each sample, the mean value of the
 ##'   Gaussian distribution is set to a minimal observed value in that
-##'   sample. The minimal value observed is estimated as being the
+##'   sample (for default `margin = 2L`, in the feature
+##'   otherwise). The minimal value observed is estimated as being the
 ##'   q-th quantile (default `q = 0.01`) of the observed values in
-##'   that sample. The standard deviation is estimated as the median
-##'   of the feature standard deviations. Note that when estimating
-##'   the standard deviation of the Gaussian distribution, only the
-##'   peptides/proteins which present more than 50\% recorded values
-##'   are considered. Implemented in the `imputeLCMD::impute.MinProb`
-##'   function. See [imputeLCMD::impute.MinProb()] for details and
-##'   additional parameters.
+##'   that sample (for `margin = 2L`, in the feature otherwise). The
+##'   standard deviation is estimated as the median of the feature (or
+##'   sample) standard deviations. Note that when estimating the
+##'   standard deviation of the Gaussian distribution, only the
+##'   peptides/proteins (or samples) which present more than 50\%
+##'   recorded values are considered. The `impute_MinProb``function
+##'   calls the [imputeLCMD::impute.MinProb()] function.
 ##'
 ##' - *min*: Replaces the missing values with the smallest non-missing
 ##'   value in the data.
@@ -270,10 +271,10 @@ impute_matrix <- function(x,
         res <- impute_bpca(x, ...)
     } else if (method == "MinDet") {
         res <- impute_MinDet(x, ...)
+    } else if (method == "MinProb") {
+        res <- impute_MinProb(x, ...)
     } else if (method == "QRILC") {
         res <- imputeLCMD::impute.QRILC(x, ...)[[1]]
-    } else if (method == "MinProb") {
-        res <- imputeLCMD::impute.MinProb(x, ...)
     } else if (method == "min") {
         res <- impute_min(x)
     } else if (method == "mixed") {
@@ -433,8 +434,11 @@ impute_min <- function(x) {
 ##'
 ##' @rdname imputation
 ##'
+##' @importFrom stats quantile
+##'
 ##' @param q `numeric(1)` indicating the quantile to be used to
-##'     estimate the minimum in `MinDet`. Default is 0.01.
+##'     estimate the minimum in `MinDet` and `MinProb`. Default is
+##'     0.01.
 impute_MinDet <- function(x, q = 0.01, margin = 2L) {
     margin <- .checkMargin(margin)
     n <- dim(x)[margin]
@@ -443,6 +447,22 @@ impute_MinDet <- function(x, q = 0.01, margin = 2L) {
         x[is.na(x[, i]), i] = impVals[i]
     x
 }
+
+##' @export
+##'
+##' @rdname imputation
+##'
+##' @param sigma `numeric(1)` controling the standard deviation of the
+##'     MNAR distribution in `MinProb`. Default is 1.
+impute_MinProb <- function (x, q = 0.01, sigma = 1, margin = 2L) {
+    margin <- .checkMargin(margin)
+    ## transpose if we want to non-default version
+    if (margin == 1L) x <- t(x)
+    x <- imputeLCMD::impute.MinProb(x, q = q, tune.sigma = sigma)
+    if (margin == 1L) x <- t(x)
+    x
+}
+
 
 ##' @export
 ##'
