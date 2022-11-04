@@ -6,14 +6,9 @@
 ##' objects instance using a variety of methods (see below).
 ##'
 ##' Users should proceed with care when imputing data and take
-##' precautions to assure that the imputation produce valid results,
+##' precautions to assure that the imputation produces valid results,
 ##' in particular with naive imputations such as replacing missing
 ##' values with 0.
-##'
-##' @details
-##'
-##' Missing data imputation is a complex procedure that depends on
-##' several factors, desribed below.
 ##'
 ##' @section Types of missing values:
 ##'
@@ -54,11 +49,11 @@
 ##' level*. In some cases, such as imputation by zero or a global
 ##' minimum value, it doesn't matter. In other cases, it does matter
 ##' very much, such as for example when using the minimum value
-##' computed for each margin (i.e. row or column) - do we want to use
-##' the minimum of the sample or of that features? KNN is another such
-##' example: do we consider the most similar features to impute a
-##' feature with missing values, or the most similar samples to impute all
-##' missing in a sample.
+##' computed for each margin (i.e. row or column) as in the *MinDet*
+##' method (see below) - do we want to use the minimum of the sample
+##' or of that features? KNN is another such example: do we consider
+##' the most similar features to impute a feature with missing values,
+##' or the most similar samples to impute all missing in a sample.
 ##'
 ##' The `margin` argument can be used to change the imputation margin
 ##' from features/rows (`margin = 1`) to samples/columns (`margin = 2`).
@@ -99,13 +94,12 @@
 ##' - *MinDet*: Performs the imputation of left-censored missing data
 ##'   using a deterministic minimal value approach. Considering a
 ##'   expression data with *n* samples and *p* features, for each
-##'   sample, the missing entries are replaced with a minimal value
-##'   observed in that sample. The minimal value observed is estimated
-##'   as being the q-th quantile (default `q = 0.01`) of the observed
-##'   values in that sample. Implemented in the
-##'   `imputeLCMD::impute.MinDet` function. See
-##'   [imputeLCMD::impute.MinDet()] for details and additional
-##'   parameters.
+##'   sample (for `margin = 2L`, the default), the missing entries are
+##'   replaced with a minimal value observed in that sample. The
+##'   minimal value observed is estimated as being the q-th quantile
+##'   (default `q = 0.01`) of the observed values in that sample. The
+##'   implemented in based on the `imputeLCMD::impute.MinDet`
+##'   function.
 ##'
 ##' - *MinProb*: Performs the imputation of left-censored missing data
 ##'   by random draws from a Gaussian distribution centred to a
@@ -227,8 +221,9 @@
 ##' @param margin `integer(1)` defining the margin along which to
 ##'     apply imputation, with `1L` for rows and `2L` for columns. The
 ##'     default value will depend on the imputation method. Use
-##'     `getImputationMargin(fun)` to get the margin of function
-##'     `fun`.
+##'     `getImputationMargin(fun)` to get the margin of imputation
+##'     function `fun`. If the function doesn't take a margin
+##'     argument, `NA` is returned.
 ##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
@@ -263,7 +258,7 @@ impute_matrix <- function(x,
                         choices = imputeMethods(),
                         several.ok = FALSE)
     res <- x
-    if (method %in% c("CRILC", "MinDet", "MinProb"))
+    if (method %in% c("CRILC", "MinProb"))
         requireNamespace("imputeLCMD")
     if (method == "knn") {
         res <- impute_knn(x, ...)
@@ -273,10 +268,10 @@ impute_matrix <- function(x,
         res <- impute_mle(x, ...)
     } else if (method == "bpca"){
         res <- impute_bpca(x, ...)
+    } else if (method == "MinDet") {
+        res <- impute_MinDet(x, ...)
     } else if (method == "QRILC") {
         res <- imputeLCMD::impute.QRILC(x, ...)[[1]]
-    } else if (method == "MinDet") {
-        res <- imputeLCMD::impute.MinDet(x, ...)
     } else if (method == "MinProb") {
         res <- imputeLCMD::impute.MinProb(x, ...)
     } else if (method == "min") {
@@ -437,6 +432,21 @@ impute_min <- function(x) {
 ##' @export
 ##'
 ##' @rdname imputation
+##'
+##' @param q `numeric(1)` indicating the quantile to be used to
+##'     estimate the minimum in `MinDet`. Default is 0.01.
+impute_MinDet <- function(x, q = 0.01, margin = 2L) {
+    margin <- .checkMargin(margin)
+    n <- dim(x)[margin]
+    impVals <- apply(x, margin, quantile, prob = q, na.rm = TRUE)
+    for (i in seq_len(n))
+        x[is.na(x[, i]), i] = impVals[i]
+    x
+}
+
+##' @export
+##'
+##' @rdname imputation
 impute_zero <- function(x) {
     x[is.na(x)] <- 0
     x
@@ -496,12 +506,11 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
 ##'
 ##' @rdname imputation
 ##'
-##' @param fun
+##' @param fun The imputation function to get the default margin from.
 ##'
 ##' @examples
 ##'
 ##' ## get the default margin
-##'
 ##' getImputationMargin(impute_knn) ## default imputes along features
 ##'
 ##' getImputationMargin(impute_mle) ## default imputes along samples

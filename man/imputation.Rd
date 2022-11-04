@@ -12,6 +12,7 @@
 \alias{impute_zero}
 \alias{impute_with}
 \alias{impute_RF}
+\alias{impute_MinDet}
 \alias{impute_fun}
 \alias{getImputationMargin}
 \title{Quantitative mass spectrometry data imputation}
@@ -33,6 +34,8 @@ impute_RF(x, margin = 2L, ...)
 impute_mixed(x, randna, mar, mnar, margin = 1L, ...)
 
 impute_min(x)
+
+impute_MinDet(x, q = 0.01, margin = 2L)
 
 impute_zero(x)
 
@@ -61,8 +64,9 @@ to use the smallest value in the data.}
 \item{margin}{\code{integer(1)} defining the margin along which to
 apply imputation, with \code{1L} for rows and \code{2L} for columns. The
 default value will depend on the imputation method. Use
-\code{getImputationMargin(fun)} to get the margin of function
-\code{fun}.}
+\code{getImputationMargin(fun)} to get the margin of imputation
+function \code{fun}. If the function doesn't take a margin
+argument, \code{NA} is returned.}
 
 \item{randna}{\code{logical} of length equal to \code{nrow(object)} defining
 which rows are missing at random. The other ones are
@@ -77,7 +81,7 @@ random. See \code{method} above.}
 
 \item{val}{\code{numeric(1)} used to replace all missing values.}
 
-\item{fun}{}
+\item{fun}{The imputation function to get the default margin from.}
 }
 \value{
 A matrix of same class as \code{x} with dimensions \code{dim(x)}.
@@ -87,13 +91,9 @@ The \code{impute_matrix} function performs data imputation on \code{matrix}
 objects instance using a variety of methods (see below).
 
 Users should proceed with care when imputing data and take
-precautions to assure that the imputation produce valid results,
+precautions to assure that the imputation produces valid results,
 in particular with naive imputations such as replacing missing
 values with 0.
-}
-\details{
-Missing data imputation is a complex procedure that depends on
-several factors, desribed below.
 }
 \section{Types of missing values}{
 
@@ -137,11 +137,11 @@ such, imputation is by default performed at the \emph{feature
 level}. In some cases, such as imputation by zero or a global
 minimum value, it doesn't matter. In other cases, it does matter
 very much, such as for example when using the minimum value
-computed for each margin (i.e. row or column) - do we want to use
-the minimum of the sample or of that features? KNN is another such
-example: do we consider the most similar features to impute a
-feature with missing values, or the most similar samples to impute all
-missing in a sample.
+computed for each margin (i.e. row or column) as in the \emph{MinDet}
+method (see below) - do we want to use the minimum of the sample
+or of that features? KNN is another such example: do we consider
+the most similar features to impute a feature with missing values,
+or the most similar samples to impute all missing in a sample.
 
 The \code{margin} argument can be used to change the imputation margin
 from features/rows (\code{margin = 1}) to samples/columns (\code{margin = 2}).
@@ -179,13 +179,12 @@ additional parameters.
 \item \emph{MinDet}: Performs the imputation of left-censored missing data
 using a deterministic minimal value approach. Considering a
 expression data with \emph{n} samples and \emph{p} features, for each
-sample, the missing entries are replaced with a minimal value
-observed in that sample. The minimal value observed is estimated
-as being the q-th quantile (default \code{q = 0.01}) of the observed
-values in that sample. Implemented in the
-\code{imputeLCMD::impute.MinDet} function. See
-\code{\link[imputeLCMD:impute.MinDet]{imputeLCMD::impute.MinDet()}} for details and additional
-parameters.
+sample (for \code{margin = 2L}, the default), the missing entries are
+replaced with a minimal value observed in that sample. The
+minimal value observed is estimated as being the q-th quantile
+(default \code{q = 0.01}) of the observed values in that sample. The
+implemented in based on the \code{imputeLCMD::impute.MinDet}
+function.
 \item \emph{MinProb}: Performs the imputation of left-censored missing data
 by random draws from a Gaussian distribution centred to a
 minimal value. Considering an expression data matrix with \emph{n}
@@ -276,7 +275,6 @@ random_imp <- function(x) {
 impute_matrix(m, FUN = random_imp)
 
 ## get the default margin
-
 getImputationMargin(impute_knn) ## default imputes along features
 
 getImputationMargin(impute_mle) ## default imputes along samples
