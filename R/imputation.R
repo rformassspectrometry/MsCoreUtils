@@ -12,28 +12,58 @@
 ##'
 ##' @details
 ##'
+##' @section Types of missing values
+##'
 ##' There are two types of mechanisms resulting in missing values in
 ##' LC/MSMS experiments.
 ##'
 ##' - Missing values resulting from absence of detection of a feature,
 ##'   despite ions being present at detectable concentrations. For
 ##'   example in the case of ion suppression or as a result from the
-##'   stochastic, data-dependent nature of the MS acquisition
+##'   stochastic, data-dependent nature of the DDA MS acquisition
 ##'   method. These missing value are expected to be randomly
-##'   distributed in the data and are defined as missing at random
-##'   (MAR) or missing completely at random (MCAR).
+##'   distributed in the data and are defined, in statistical terms,
+##'   as missing at random (MAR) or missing completely at random (MCAR).
 ##'
 ##' - Biologically relevant missing values resulting from the absence
-##'   of the low abundance of ions (below the limit of detection of
+##'   or the low abundance of ions (i.e. below the limit of detection of
 ##'   the instrument). These missing values are not expected to be
 ##'   randomly distributed in the data and are defined as missing not
 ##'   at random (MNAR).
 ##'
 ##' MNAR features should ideally be imputed with a left-censor method,
-##' such as `QRILC` below. Conversely, it is recommended to use host
+##' such as `QRILC` below. Conversely, it is recommended to use hot
 ##' deck methods such nearest neighbours, Bayesian missing value
 ##' imputation or maximum likelihood methods when values are missing
 ##' at random.
+##'
+##' ##' @section Imputing by rows or columns
+##'
+##' We assume that the input matrix `x` contains features along the
+##' rows and samples along the columns, as is generally the case in
+##' omics data analysis. When performing imputation, the missing
+##' values are taken as a feature-specific property: feature *x* is
+##' missing because it is absent (in a sample or group), or because it
+##' was missed during acquisition (not selected during data dependent
+##' acquisition) or data processing (not identified or with an
+##' identification score below a chosen false discovery threshold). As
+##' such, imputation is by default performed at the *feature
+##' level*. In some cases, such as imputation by zero or a global
+##' minimum value, it doesn't matter. In other cases, it does matter
+##' very much, such as for example when using the minimum value
+##' computed for each margin (i.e. row or column) - do we want to use
+##' the minimum of the sample or of that features? KNN is another such
+##' example: do we consider the most similar features to impute a
+##' feature with missing values, or the most similar samples to impute all
+##' missing in a sample.
+##'
+##' The `margin` argument can be used to change the imputation margin
+##' from features/rows (`marigin = 1`) to samples/columns (`margin = 2`).
+##' Different imputations will have different default values, and
+##' changing this parameter can have a major impact on imputation results
+##' and downstream results.
+##'
+##' @section Imputation methods
 ##'
 ##' Currently, the following imputation methods are available.
 ##'
@@ -50,7 +80,7 @@
 ##' - *RF*: Random Forest imputation, as implemented in the
 ##'   `missForest::missForest` function. See [missForest::missForest()]] for
 ##'   details and additional parameters.
-##'   
+##'
 ##' - *knn*: Nearest neighbour averaging, as implemented in the
 ##'   `impute::impute.knn` function. See [impute::impute.knn()]] for
 ##'   details and additional parameters.
@@ -192,7 +222,7 @@
 ##'     function.
 ##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
-##' 
+##'
 ##' @export
 impute_matrix <- function(x,
                           method,
@@ -205,7 +235,7 @@ impute_matrix <- function(x,
         xIsHDF5 <- TRUE
         p <- HDF5Array::path(x) ## stored for later writing to disk
         ## Watch out this can lead to memory burst when x is large.
-        x <- as.matrix(x) 
+        x <- as.matrix(x)
     }
     ## User-provided imputation function
     if (!missing(FUN) && is.function(FUN)) {
