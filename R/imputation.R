@@ -335,26 +335,38 @@ impute_knn <- function(x, margin = 1L, ...) {
 
 ##' @export
 ##' @rdname imputation
-impute_mle <- function(x, ...) {
+impute_mle <- function(x, margin = 2L, ...) {
     requireNamespace("norm")
+    margin <- .checkMargin(margin)
+    if (margin == 2L)
+        x <- t(x)
     s <- norm::prelim.norm(x)  ## preliminary manipulations
     th <- norm::em.norm(s, ...) ## find the MLE
     seed <- sample(.Machine$integer.max, 1)
     norm::rngseed(seed) ## set random number generator seed
-    norm::imp.norm(s, th, x)  ## impute missing data under the MLE
+    res <- norm::imp.norm(s, th, x)  ## impute missing data under the MLE
+    if (margin == 2L)
+        res <- t(res)
+    res
 }
 
 ##' @export
 ##' @rdname imputation
-impute_bpca <- function(x, ...) {
+impute_bpca <- function(x, margin = 1L, ...) {
     requireNamespace("pcaMethods")
+    margin <- .checkMargin(margin)
+    if (margin == 2L)
+        x <- t(x)
     nSamples <- dim(x)[2]
     .resultBPCA <- pcaMethods::pca(x,
                                    method = "bpca",
                                    nPcs = (nSamples - 1),
                                    verbose = FALSE,
                                    ...)
-    pcaMethods::completeObs(.resultBPCA)
+    res <- pcaMethods::completeObs(.resultBPCA)
+    if (margin == 2L)
+        res <- t(res)
+    res
 }
 
 ##' @export
@@ -458,6 +470,6 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
     margin <- as.integer(margin)
     if (!margin %in% c(1L, 2L))
         stop("'margin' must be 1L or 2L")
-    message("Using margin ", margin, ".")
+    message("Imputing along margin ", margin, ".")
     margin
 }
