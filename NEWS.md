@@ -1,3 +1,15 @@
+# MsCoreUtils 1.11
+
+## MsCoreUtils 1.11.0
+
+- New Bioconductor 3.17 (devel) release
+
+# MsCoreUtils 1.10
+
+## MsCoreUtils 1.10.0
+
+- New Bioconductor 3.16 (stable) release
+
 # MsCoreUtils 1.9
 
 ## MsCoreUtils 1.9.2
