@@ -12,7 +12,10 @@
 ##'
 ##' @details
 ##'
-##' @section Types of missing values
+##' Missing data imputation is a complex procedure that depends on
+##' several factors, desribed below.
+##'
+##' @section Types of missing values:
 ##'
 ##' There are two types of mechanisms resulting in missing values in
 ##' LC/MSMS experiments.
@@ -37,7 +40,7 @@
 ##' imputation or maximum likelihood methods when values are missing
 ##' at random.
 ##'
-##' ##' @section Imputing by rows or columns
+##' @section Imputing by rows or columns:
 ##'
 ##' We assume that the input matrix `x` contains features along the
 ##' rows and samples along the columns, as is generally the case in
@@ -63,7 +66,7 @@
 ##' changing this parameter can have a major impact on imputation results
 ##' and downstream results.
 ##'
-##' @section Imputation methods
+##' @section Imputation methods:
 ##'
 ##' Currently, the following imputation methods are available.
 ##'
