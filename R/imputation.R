@@ -58,7 +58,7 @@
 ##' missing in a sample.
 ##'
 ##' The `margin` argument can be used to change the imputation margin
-##' from features/rows (`marigin = 1`) to samples/columns (`margin = 2`).
+##' from features/rows (`margin = 1`) to samples/columns (`margin = 2`).
 ##' Different imputations will have different default values, and
 ##' changing this parameter can have a major impact on imputation results
 ##' and downstream results.
@@ -221,6 +221,10 @@
 ##' @param ... Additional parameters passed to the inner imputation
 ##'     function.
 ##'
+##' @param margin `integer(1)` defining the margin along which to
+##'     apply imputation, with `1L` for rows and `2L` for columns. The
+##'     default value will depend on the imputation method.
+##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
 ##' @export
@@ -302,22 +306,31 @@ imputeMethods <- function()
 ##' @param k `numeric(1)` providing the imputation value used for the
 ##'     first and last samples if they contain an `NA`. The default is
 ##'     to use the smallest value in the data.
-impute_neighbour_average <- function(x, k = min(x, na.rm = TRUE)) {
+impute_neighbour_average <- function(x, k = min(x, na.rm = TRUE), margin = 1L) {
     message("Assuming values are ordered.")
-    .Call("C_impNeighbourAvg", x, k)
+    margin <- .checkMargin(margin)
+    if (margin == 2L) x <- t(x)
+    res <- .Call("C_impNeighbourAvg", x, k)
+    if (margin == 2L) return(t(res))
+    else return(res)
 }
 
 ##' @export
 ##' @rdname imputation
-impute_knn <- function(x, ...) {
+impute_knn <- function(x, margin = 1L, ...) {
     requireNamespace("impute")
+    margin <- .checkMargin(margin)
+    if (margin == 2L)
+        x <- t(x)
     imp_res <- impute::impute.knn(x, ...)
     if (!is.null(imp_res$rng.state)) {
         assign(".Random.seed", imp_res$rng.state, envir = .GlobalEnv)
     } else {
         rm(".Random.seed", envir = .GlobalEnv)
     }
-    imp_res$data
+    if (margin == 2L)
+        return(t(imp_res$data))
+    else imp_res$data
 }
 
 ##' @export
@@ -433,8 +446,18 @@ impute_with <- function(x, val) {
 ##' }
 ##'
 ##' impute_matrix(m, FUN = random_imp)
-impute_fun <- function(x, FUN, ...) {
+impute_fun <- function(x, FUN, margin = 1L, ...) {
+    if (margin == 2L) x <- t(x)
     res <- do.call(FUN, list(x, ...))
+    if (margin == 2L) res <- t(res)
     stopifnot(identical(dim(x), dim(res)))
     res
+}
+
+.checkMargin <- function(margin) {
+    margin <- as.integer(margin)
+    if (!margin %in% c(1L, 2L))
+        stop("'margin' must be 1L or 2L")
+    message("Using margin ", margin, ".")
+    margin
 }
