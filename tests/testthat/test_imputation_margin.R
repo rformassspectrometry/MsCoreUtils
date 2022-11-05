@@ -1,11 +1,11 @@
 test_that(".checkMargin works", {
-    expect_identical(.checkMargin(1L), 1L)
-    expect_identical(.checkMargin(1), 1L)
-    expect_identical(.checkMargin(2L), 2L)
-    expect_identical(.checkMargin(2), 2L)
-    expect_error(.checkMargin(3L))
-    expect_error(.checkMargin(3))
-    expect_error(.checkMargin(0))
+    expect_identical(MsCoreUtils:::.checkMargin(1L), 1L)
+    expect_identical(MsCoreUtils:::.checkMargin(1), 1L)
+    expect_identical(MsCoreUtils:::.checkMargin(2L), 2L)
+    expect_identical(MsCoreUtils:::.checkMargin(2), 2L)
+    expect_error(MsCoreUtils:::.checkMargin(3L))
+    expect_error(MsCoreUtils:::.checkMargin(3))
+    expect_error(MsCoreUtils:::.checkMargin(0))
 })
 
 test_that("test all default margins", {
