@@ -70,7 +70,7 @@ to use the smallest value in the data.}
 \item{margin}{\code{integer(1)} defining the margin along which to
 apply imputation, with \code{1L} for rows and \code{2L} for columns. The
 default value will depend on the imputation method. Use
-\code{getImputeMargin(fun)} to get the margin of imputation
+\code{getImputeMargin(fun)} to get the default margin of imputation
 function \code{fun}. If the function doesn't take a margin
 argument, \code{NA} is returned.}
 
@@ -190,28 +190,24 @@ quantile regression. The \code{impute_QRILC()} function calls
 \item \emph{MinDet}: Performs the imputation of left-censored missing data
 using a deterministic minimal value approach. Considering a
 expression data with \emph{n} samples and \emph{p} features, for each
-sample (for \code{margin = 2L}, the default), the missing entries are
-replaced with a minimal value observed in that sample. The
-minimal value observed is estimated as being the q-th quantile
-(default \code{q = 0.01}) of the observed values in that sample. The
-implemented in based on the \code{imputeLCMD::impute.MinDet()}
-function.
+sample, the missing entries are replaced with a minimal value
+observed in that sample. The minimal value observed is estimated
+as being the q-th quantile (default \code{q = 0.01}) of the observed
+values in that sample. The implemented in based on the
+\code{imputeLCMD::impute.MinDet()} function.
 \item \emph{MinProb}: Performs the imputation of left-censored missing data
 by random draws from a Gaussian distribution centred to a
 minimal value. Considering an expression data matrix with \emph{n}
 samples and \emph{p} features, for each sample, the mean value of the
 Gaussian distribution is set to a minimal observed value in that
-sample (for default \code{margin = 2L}, in the feature
-otherwise). The minimal value observed is estimated as being the
+sample. The minimal value observed is estimated as being the
 q-th quantile (default \code{q = 0.01}) of the observed values in
-that sample (for \code{margin = 2L}, in the feature otherwise). The
-standard deviation is estimated as the median of the feature (or
-sample) standard deviations. Note that when estimating the
-standard deviation of the Gaussian distribution, only the
-peptides/proteins (or samples) which present more than 50\\%
-recorded values are considered. The \code{impute_MinProb()} function
-calls \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} from the \code{imputeLCMD}
-package.
+that sample. The standard deviation is estimated as the median
+of the feature (or sample) standard deviations. Note that when
+estimating the standard deviation of the Gaussian distribution,
+only the peptides/proteins which present more than 50\\% recorded
+values are considered. The \code{impute_MinProb()} function calls
+\code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} from the \code{imputeLCMD} package.
 \item \emph{min}: Replaces the missing values with the smallest non-missing
 value in the data.
 \item \emph{zero}: Replaces the missing values with 0.
@@ -238,7 +234,8 @@ method.
 }
 
 The \code{imputeMethods()} function returns a vector with valid
-imputation method names.
+imputation method names. Use \code{getImputeMargin()} to get the
+default margin for each imputation function.
 }
 
 \examples{

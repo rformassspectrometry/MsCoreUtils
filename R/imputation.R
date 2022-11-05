@@ -92,29 +92,25 @@
 ##' - *MinDet*: Performs the imputation of left-censored missing data
 ##'   using a deterministic minimal value approach. Considering a
 ##'   expression data with *n* samples and *p* features, for each
-##'   sample (for `margin = 2L`, the default), the missing entries are
-##'   replaced with a minimal value observed in that sample. The
-##'   minimal value observed is estimated as being the q-th quantile
-##'   (default `q = 0.01`) of the observed values in that sample. The
-##'   implemented in based on the `imputeLCMD::impute.MinDet()`
-##'   function.
+##'   sample, the missing entries are replaced with a minimal value
+##'   observed in that sample. The minimal value observed is estimated
+##'   as being the q-th quantile (default `q = 0.01`) of the observed
+##'   values in that sample. The implemented in based on the
+##'   `imputeLCMD::impute.MinDet()` function.
 ##'
 ##' - *MinProb*: Performs the imputation of left-censored missing data
 ##'   by random draws from a Gaussian distribution centred to a
 ##'   minimal value. Considering an expression data matrix with *n*
 ##'   samples and *p* features, for each sample, the mean value of the
 ##'   Gaussian distribution is set to a minimal observed value in that
-##'   sample (for default `margin = 2L`, in the feature
-##'   otherwise). The minimal value observed is estimated as being the
+##'   sample. The minimal value observed is estimated as being the
 ##'   q-th quantile (default `q = 0.01`) of the observed values in
-##'   that sample (for `margin = 2L`, in the feature otherwise). The
-##'   standard deviation is estimated as the median of the feature (or
-##'   sample) standard deviations. Note that when estimating the
-##'   standard deviation of the Gaussian distribution, only the
-##'   peptides/proteins (or samples) which present more than 50\%
-##'   recorded values are considered. The `impute_MinProb()` function
-##'   calls [imputeLCMD::impute.MinProb()] from the `imputeLCMD`
-##'   package.
+##'   that sample. The standard deviation is estimated as the median
+##'   of the feature (or sample) standard deviations. Note that when
+##'   estimating the standard deviation of the Gaussian distribution,
+##'   only the peptides/proteins which present more than 50\% recorded
+##'   values are considered. The `impute_MinProb()` function calls
+##'   [imputeLCMD::impute.MinProb()] from the `imputeLCMD` package.
 ##'
 ##' - *min*: Replaces the missing values with the smallest non-missing
 ##'   value in the data.
@@ -146,7 +142,8 @@
 ##'   method.
 ##'
 ##' The `imputeMethods()` function returns a vector with valid
-##' imputation method names.
+##' imputation method names. Use `getImputeMargin()` to get the
+##' default margin for each imputation function.
 ##'
 ##' @references
 ##'
@@ -221,7 +218,7 @@
 ##' @param margin `integer(1)` defining the margin along which to
 ##'     apply imputation, with `1L` for rows and `2L` for columns. The
 ##'     default value will depend on the imputation method. Use
-##'     `getImputeMargin(fun)` to get the margin of imputation
+##'     `getImputeMargin(fun)` to get the default margin of imputation
 ##'     function `fun`. If the function doesn't take a margin
 ##'     argument, `NA` is returned.
 ##'
