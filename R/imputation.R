@@ -255,7 +255,7 @@ impute_matrix <- function(x,
                         choices = imputeMethods(),
                         several.ok = FALSE)
     res <- x
-    if (method %in% c("CRILC", "MinProb"))
+    if (method %in% c("QRILC", "MinProb"))
         requireNamespace("imputeLCMD")
     if (method == "knn") {
         res <- impute_knn(x, ...)
@@ -371,10 +371,10 @@ impute_bpca <- function(x, margin = 1L, ...) {
 impute_RF <- function(x, margin = 2L, ...) {
     requireNamespace("missForest")
     margin <- .checkMargin(margin)
-    if (margin == 2L)
+    if (margin == 1L)
         x <- t(x)
     res <- missForest::missForest(x, ...)$ximp
-    if (margin == 2L)
+    if (margin == 1L)
         res <- t(res)
     res
 }
@@ -523,7 +523,9 @@ impute_fun <- function(x, FUN, margin = 1L, ...) {
     margin <- as.integer(margin)
     if (!margin %in% c(1L, 2L))
         stop("'margin' must be 1L or 2L")
-    message("Imputing along margin ", margin, ".")
+    message("Imputing along margin ", margin,
+            ifelse(margin == 1L, " (features/rows)",
+                   " (samples/columns)"), ".")
     margin
 }
 
