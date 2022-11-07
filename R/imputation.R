@@ -263,6 +263,8 @@ impute_matrix <- function(x,
         res <- impute_neighbour_average(x, ...)
     } else if (method == "MLE") {
         res <- impute_mle(x, ...)
+    } else if (method == "MLE2") {
+        res <- impute_mle2(x, ...)
     } else if (method == "bpca"){
         res <- impute_bpca(x, ...)
     } else if (method == "MinDet") {
@@ -294,7 +296,7 @@ impute_matrix <- function(x,
 ##' @export
 ##' @rdname imputation
 imputeMethods <- function()
-    c("bpca","knn", "QRILC", "MLE",
+    c("bpca","knn", "QRILC", "MLE", "MLE2",
       "MinDet", "MinProb", "min", "zero",
       "mixed", "nbavg", "with", "RF", "none")
 
@@ -342,6 +344,19 @@ impute_mle <- function(x, margin = 2L, ...) {
     seed <- sample(.Machine$integer.max, 1)
     norm::rngseed(seed) ## set random number generator seed
     res <- norm::imp.norm(s, th, x)  ## impute missing data under the MLE
+    if (margin == 2L)
+        res <- t(res)
+    res
+}
+
+##' @export
+##' @rdname imputation
+impute_mle2 <- function(x, margin = 2L, ...) {
+    requireNamespace("norm2")
+    margin <- .checkMargin(margin)
+    if (margin == 2L)
+        x <- t(x)
+    res <- norm2::emNorm(obj = x, ...)$y.mean.imp
     if (margin == 2L)
         res <- t(res)
     res

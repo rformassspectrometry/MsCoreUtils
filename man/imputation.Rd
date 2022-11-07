@@ -14,6 +14,7 @@
 \alias{impute_MinDet}
 \alias{impute_MinProb}
 \alias{impute_QRILC}
+\alias{impute_mle2}
 \alias{impute_RF}
 \alias{impute_fun}
 \alias{getImputeMargin}
@@ -28,6 +29,8 @@ impute_neighbour_average(x, k = min(x, na.rm = TRUE), margin = 1L)
 impute_knn(x, margin = 1L, ...)
 
 impute_mle(x, margin = 2L, ...)
+
+impute_mle2(x, margin = 2L, ...)
 
 impute_bpca(x, margin = 1L, ...)
 
