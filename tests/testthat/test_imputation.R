@@ -9,7 +9,7 @@ test_that("all imputation methods", {
             expect_warning(xx <- impute_matrix(x, method = .m),
                            regexp = "more than.*entries missing")
         } else {
-            xx <- impute_matrix(x, method = .m)  
+            xx <- impute_matrix(x, method = .m)
         }
         expect_false(any(is.na(xx)))
     }
@@ -55,7 +55,7 @@ test_that("all imputation methods", {
                     expect_warning(xx <- impute_matrix(x, method = .m),
                                    regexp = "more than.*entries missing")
                 } else {
-                    xx <- impute_matrix(x, method = .m)  
+                    xx <- impute_matrix(x, method = .m)
                 }
                 expect_equal(as.matrix(xxhdf5), xx)
             }
@@ -207,5 +207,31 @@ test_that("impute: user-provided function", {
         expect_equal(as.matrix(xxhdf5), x_imp)
         ## Remove file
         unlink(tmpf)
+    }
+})
+
+
+test_that("impute_matrix() preserves dimnames", {
+    ## imputation methods
+    m <- imputeMethods()
+    m <- m[m != "mixed"]
+    m <- m[m != "with"]
+    ## test data
+    set.seed(1)
+    x_miss <- matrix(rnorm(100 * 10), ncol = 10)
+    i <- sample(1:10, size = 3, replace = FALSE)
+    j <- sample(1:10, size = 5, replace = FALSE)
+    x_miss[i, j] <- NA_real_
+    ## test with dimnames
+    for (.m in m) {
+        suppressWarnings(x_imp <- impute_matrix(x_miss, method = .m))
+        expect_identical(dimnames(x_miss), dimnames(x_imp))
+    }
+    ## same, but with a matrix without dimnames
+    x_miss2 <- x_miss
+    dimnames(x_miss2) <- NULL
+    for (.m in m) {
+        suppressWarnings(x_imp <- impute_matrix(x_miss2, method = .m))
+        expect_identical(dimnames(x_miss2), dimnames(x_imp))
     }
 })

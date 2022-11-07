@@ -354,11 +354,13 @@ impute_mle <- function(x, margin = 2L, ...) {
 impute_mle2 <- function(x, margin = 2L, ...) {
     requireNamespace("norm2")
     margin <- .checkMargin(margin)
+    dn <- dimnames(x)
     if (margin == 2L)
         x <- t(x)
     res <- norm2::emNorm(obj = x, ...)$y.mean.imp
     if (margin == 2L)
         res <- t(res)
+    dimnames(res) <- dn
     res
 }
 
