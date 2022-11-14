@@ -225,7 +225,7 @@ minimum value, it doesn't matter. In other cases, it does matter
 very much, such as for example when using the minimum value
 computed for each margin (i.e. row or column) as in the <em>MinDet</em>
 method (see below) - do we want to use the minimum of the sample
-or of that features? KNN is another such example: do we consider
+or of that feature? KNN is another such example: do we consider
 the most similar features to impute a feature with missing values,
 or the most similar samples to impute all missing in a sample.</p>
 <p>The <code>margin</code> argument can be used to change the imputation margin
@@ -264,7 +264,7 @@ expression data with <em>n</em> samples and <em>p</em> features, for each
 sample, the missing entries are replaced with a minimal value
 observed in that sample. The minimal value observed is estimated
 as being the q-th quantile (default <code>q = 0.01</code>) of the observed
-values in that sample. The implemented in based on the
+values in that sample. The implementation in based on the
 <code><a href="https://rdrr.io/pkg/imputeLCMD/man/impute.MinDet.html" class="external-link">imputeLCMD::impute.MinDet()</a></code> function.</p></li>
 <li><p><em>MinProb</em>: Performs the imputation of left-censored missing data
 by random draws from a Gaussian distribution centred to a
