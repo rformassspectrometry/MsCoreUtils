@@ -155,7 +155,7 @@ minimum value, it doesn't matter. In other cases, it does matter
 very much, such as for example when using the minimum value
 computed for each margin (i.e. row or column) as in the \emph{MinDet}
 method (see below) - do we want to use the minimum of the sample
-or of that features? KNN is another such example: do we consider
+or of that feature? KNN is another such example: do we consider
 the most similar features to impute a feature with missing values,
 or the most similar samples to impute all missing in a sample.
 
@@ -196,7 +196,7 @@ expression data with \emph{n} samples and \emph{p} features, for each
 sample, the missing entries are replaced with a minimal value
 observed in that sample. The minimal value observed is estimated
 as being the q-th quantile (default \code{q = 0.01}) of the observed
-values in that sample. The implemented in based on the
+values in that sample. The implementation in based on the
 \code{imputeLCMD::impute.MinDet()} function.
 \item \emph{MinProb}: Performs the imputation of left-censored missing data
 by random draws from a Gaussian distribution centred to a
