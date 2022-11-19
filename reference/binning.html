@@ -132,27 +132,27 @@ within a loop for multiple pairs of <code>x</code> and <code>y</code> values).</
 <span class="r-in"><span><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.98271 38.99064 40.50356 39.71556 39.81341 40.86332 38.19966 40.71804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.98590 37.92273 40.52498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.44729 39.12833 38.87596 41.24135 39.96691 41.90643 41.16043 41.07261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.43363 41.19193</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Repeat but summing up intensities instead of taking the max</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  79.96248  38.99064 120.69695  79.16829  39.81341 121.04145  38.19966</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 119.70944  81.63208  37.92273  40.52498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  80.71190 115.91509  38.87596 122.19376  79.76133  82.43409  41.16043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 117.86117  40.43363  81.18492</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get only the binned values without the bin mid points.</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, returnMids <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.98271 38.99064 40.50356 39.71556 39.81341 40.86332 38.19966 40.71804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.98590 37.92273 40.52498</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.44729 39.12833 38.87596 41.24135 39.96691 41.90643 41.16043 41.07261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.43363 41.19193</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
