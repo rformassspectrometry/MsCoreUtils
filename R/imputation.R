@@ -272,7 +272,7 @@ impute_matrix <- function(x,
     } else if (method == "MinProb") {
         res <- impute_MinProb(x, ...)
     } else if (method == "QRILC") {
-        res <- imputeLCMD::impute.QRILC(x, ...)[[1]]
+        res <- impute_QRILC(x, ...)
     } else if (method == "min") {
         res <- impute_min(x)
     } else if (method == "mixed") {
