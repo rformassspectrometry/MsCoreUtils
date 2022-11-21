@@ -2,7 +2,7 @@
 
 ## MsCoreUtils 1.11.1
 
-- Add a `margin` argument to (relevant) imputation functions to
+- Add a `MARGIN` argument to (relevant) imputation functions to
   support (and make it explicit) along which dimensions (row or
   columns) imputation is performed.
 - New `impute_mle2()` function that uses `norm2` (see issue #100).

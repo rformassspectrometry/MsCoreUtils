@@ -24,33 +24,33 @@ impute_matrix(x, method, FUN, ...)
 
 imputeMethods()
 
-impute_neighbour_average(x, k = min(x, na.rm = TRUE), margin = 1L)
+impute_neighbour_average(x, k = min(x, na.rm = TRUE), MARGIN = 1L)
 
-impute_knn(x, margin = 1L, ...)
+impute_knn(x, MARGIN = 1L, ...)
 
-impute_mle(x, margin = 2L, ...)
+impute_mle(x, MARGIN = 2L, ...)
 
-impute_mle2(x, margin = 2L, ...)
+impute_mle2(x, MARGIN = 2L, ...)
 
-impute_bpca(x, margin = 1L, ...)
+impute_bpca(x, MARGIN = 1L, ...)
 
-impute_RF(x, margin = 2L, ...)
+impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, margin = 1L, ...)
+impute_mixed(x, randna, mar, mnar, MARGIN = 1L, ...)
 
 impute_min(x)
 
-impute_MinDet(x, q = 0.01, margin = 2L)
+impute_MinDet(x, q = 0.01, MARGIN = 2L)
 
-impute_MinProb(x, q = 0.01, sigma = 1, margin = 2L)
+impute_MinProb(x, q = 0.01, sigma = 1, MARGIN = 2L)
 
-impute_QRILC(x, sigma = 1, margin = 2L)
+impute_QRILC(x, sigma = 1, MARGIN = 2L)
 
 impute_zero(x)
 
 impute_with(x, val)
 
-impute_fun(x, FUN, margin = 1L, ...)
+impute_fun(x, FUN, MARGIN = 1L, ...)
 
 getImputeMargin(fun)
 }
@@ -70,7 +70,7 @@ function.}
 first and last samples if they contain an \code{NA}. The default is
 to use the smallest value in the data.}
 
-\item{margin}{\code{integer(1)} defining the margin along which to
+\item{MARGIN}{\code{integer(1)} defining the margin along which to
 apply imputation, with \code{1L} for rows and \code{2L} for columns. The
 default value will depend on the imputation method. Use
 \code{getImputeMargin(fun)} to get the default margin of imputation
@@ -159,8 +159,8 @@ or of that feature? KNN is another such example: do we consider
 the most similar features to impute a feature with missing values,
 or the most similar samples to impute all missing in a sample.
 
-The \code{margin} argument can be used to change the imputation margin
-from features/rows (\code{margin = 1}) to samples/columns (\code{margin = 2}).
+The \code{MARGIN} argument can be used to change the imputation margin
+from features/rows (\code{MARGIN = 1}) to samples/columns (\code{MARGIN = 2}).
 Different imputations will have different default values, and
 changing this parameter can have a major impact on imputation results
 and downstream results.
