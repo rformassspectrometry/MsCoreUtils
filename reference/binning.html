@@ -14,7 +14,7 @@ aggregated with the provided function FUN."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.2</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,27 +132,27 @@ within a loop for multiple pairs of <code>x</code> and <code>y</code> values).</
 <span class="r-in"><span><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.44704 40.38622 40.24127 39.62644 40.98383 41.29759 40.90732 40.11111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.80865 38.76968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.20887 43.53366 40.31790 40.01270 40.73034 40.27581 40.75471 39.70372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.66353 42.31255</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Repeat but summing up intensities instead of taking the max</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 117.97221  80.45844  40.24127  79.00915 119.34877  41.29759 118.97752</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  80.04363  40.80865  76.75280</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  39.20887  83.54706 118.06820  80.01952  40.73034 117.10650  79.78747</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  39.70372  78.85307 121.73489</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  2  4  6  8 10 12 14 16 18 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get only the binned values without the bin mid points.</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, returnMids <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.44704 40.38622 40.24127 39.62644 40.98383 41.29759 40.90732 40.11111</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 40.80865 38.76968</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.20887 43.53366 40.31790 40.01270 40.73034 40.27581 40.75471 39.70372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.66353 42.31255</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
