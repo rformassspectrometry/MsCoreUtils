@@ -1,5 +1,9 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.2
+
+- Nothing yet.
+
 ## MsCoreUtils 1.11.1
 
 - Add a `MARGIN` argument to (relevant) imputation functions to
