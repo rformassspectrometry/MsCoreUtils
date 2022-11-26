@@ -5,16 +5,14 @@ using namespace Rcpp;
 using namespace std;
 
 double weightedMean(NumericVector mzs, NumericVector ints) {
-    // Get the total intensity
-    double intensity = sum(ints);
-
-    // Calculate the weighted mass
     int n = ints.length();
     double total = 0;
+    double intensity = 0;
     for (int i = 0; i < n; i++) {
-        total += mzs[i] * ints[i] / intensity;
+        total += mzs[i] * ints[i];
+        intensity += ints[i];
     }
-    return total;
+    return total / intensity;
 }
 
 double descend(int centroid, NumericVector intensities,
