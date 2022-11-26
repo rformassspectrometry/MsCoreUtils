@@ -16,10 +16,8 @@ double weightedMean(NumericVector mzs, NumericVector ints) {
 }
 
 double descend(int centroid, NumericVector intensities,
-               NumericVector masses, double signalRatio) {
+               NumericVector masses, double signalRatio, int maxK = 30) {
 
-    // Maximum deviation from the centroid index
-    int maxK = 30;
 
     // Define a min and max index for the region where the region is not negative
     // and does not exceed the size of the intensities vector, since we only
@@ -124,7 +122,7 @@ double descend(int centroid, NumericVector intensities,
 //' @export
 // [[Rcpp::export]]
 NumericVector descendPeaksC(NumericVector centroids, NumericVector intensities,
-                           NumericVector masses, double signalPercentage) {
+                           NumericVector masses, double signalPercentage, int maxK = 30) {
 
     // Prepare variables
     int n = centroids.length();
@@ -135,7 +133,7 @@ NumericVector descendPeaksC(NumericVector centroids, NumericVector intensities,
     for (int i = 0; i < n; i++) {
         // Calculate the weighted mass
         weightedMZs[i] = descend(centroids[i], intensities,
-                                 masses, signalRatio);
+                                 masses, signalRatio, maxK);
     }
     return weightedMZs;
 }
