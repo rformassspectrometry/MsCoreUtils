@@ -19,6 +19,7 @@ extern SEXP C_join_outer(SEXP, SEXP, SEXP, SEXP);
 
 extern SEXP C_which_first(SEXP);
 extern SEXP C_which_last(SEXP);
+extern SEXP C_between(SEXP, SEXP, SEXP);
 
 extern SEXP C_localMaxima(SEXP, SEXP);
 

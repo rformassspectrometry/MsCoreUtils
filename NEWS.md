@@ -2,7 +2,7 @@
 
 ## MsCoreUtils 1.11.2
 
-- Nothing yet.
+- Reimplement `between` in C (see issue #105).
 
 ## MsCoreUtils 1.11.1
 
