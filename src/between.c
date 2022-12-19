@@ -14,7 +14,10 @@ SEXP C_between(SEXP x, SEXP range) {
     if (!isReal(x))
         x = coerceVector(x, REALSXP);
 
-    if (!isReal(range) || XLENGTH(range) != 2L)
+    if (!isReal(range))
+        range = coerceVector(range, REALSXP);
+
+    if (XLENGTH(range) != 2L)
         error("'range' has to be a numeric of length 2.");
 
     double l = REAL(range)[0], r = REAL(range)[1];

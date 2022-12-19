@@ -16,7 +16,7 @@
 #' @export
 #' @examples
 #' between(1:4, 2:3)
-between <- function(x, range).Call(C_between, x, as.numeric(range))
+between <- function(x, range).Call(C_between, x, range)
 
 #' @rdname range
 #'
