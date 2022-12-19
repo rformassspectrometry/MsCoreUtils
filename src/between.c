@@ -7,12 +7,23 @@
  * Determine whether a vector element is between a given range of values.
  *
  * \param x numeric
- * \param left numeric(1)
- * \param right numeric(1)
+ * \param range numeric(2)
  * \author Sebastian Gibb
  */
-SEXP C_between(SEXP x, SEXP left, SEXP right) {
-    double l = REAL(left)[0], r = REAL(right)[0];
+SEXP C_between(SEXP x, SEXP range) {
+    if (!isReal(x))
+        x = coerceVector(x, REALSXP);
+
+    if (!isReal(range) || XLENGTH(range) != 2L)
+        error("'range' has to be a numeric of length 2.");
+
+    double l = REAL(range)[0], r = REAL(range)[1];
+
+    if (l > r) {
+        double tmp = r;
+        r = l;
+        l = tmp;
+    }
 
     R_xlen_t n = XLENGTH(x);
     SEXP between = PROTECT(allocVector(LGLSXP, n));

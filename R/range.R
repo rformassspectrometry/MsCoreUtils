@@ -16,18 +16,7 @@
 #' @export
 #' @examples
 #' between(1:4, 2:3)
-between <- function(x, range) {
-    if (!is.numeric(x))
-        stop("'x' has to be numeric.")
-    if (!is.double(x))
-        x <- as.double(x)
-    if (!is.numeric(range) || length(range) != 2L)
-        stop("'range' has to be a numeric of length 2.")
-    if (range[1L] > range[2L])
-        range[2L:1L] <- range[1L:2L]
-
-    .Call(C_between, x, as.numeric(range[1L]), as.numeric(range[2L]))
-}
+between <- function(x, range).Call(C_between, x, as.numeric(range))
 
 #' @rdname range
 #'

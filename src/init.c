@@ -12,7 +12,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
     {"C_which_first", (DL_FUNC) &C_which_first, 1},
     {"C_which_last", (DL_FUNC) &C_which_last, 1},
-    {"C_between", (DL_FUNC) &C_between, 3},
+    {"C_between", (DL_FUNC) &C_between, 2},
     {NULL, NULL, 0}
 };
 
