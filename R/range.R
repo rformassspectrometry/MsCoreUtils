@@ -12,6 +12,7 @@
 #' @return `logical` vector of length `length(x)`.
 #' @aliases between
 #' @family helper functions for developers
+#' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
 #' @examples
 #' between(1:4, 2:3)
@@ -25,7 +26,7 @@ between <- function(x, range) {
     if (range[1L] > range[2L])
         range[2L:1L] <- range[1L:2L]
 
-    .Call("C_between", x, as.numeric(range[1L]), as.numeric(range[2L]))
+    .Call(C_between, x, as.numeric(range[1L]), as.numeric(range[2L]))
 }
 
 #' @rdname range

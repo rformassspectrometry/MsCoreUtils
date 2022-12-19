@@ -309,7 +309,7 @@ impute_neighbour_average <- function(x, k = min(x, na.rm = TRUE), MARGIN = 1L) {
     message("Assuming values are ordered.")
     MARGIN <- .checkMargin(MARGIN)
     if (MARGIN == 2L) x <- t(x)
-    res <- .Call("C_impNeighbourAvg", x, k)
+    res <- .Call(C_impNeighbourAvg, x, k)
     if (MARGIN == 2L) return(t(res))
     else return(res)
 }
