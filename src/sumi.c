@@ -6,7 +6,8 @@
 
 
 /**
- * Sum values skipping NA values. Returns NA if all values are NA.
+ * Sum values skipping NA values. Returns NA if all values are NA or if
+ * length of x is 0.
  */
 SEXP C_sumi(SEXP x) {
     SEXP r;
@@ -16,17 +17,16 @@ SEXP C_sumi(SEXP x) {
     double* rp = REAL(r);
     double  result = 0.0, val = 0.0;
     double* xp = REAL(x);
-    double* ep = xp + n;
 
-    while( xp++!=ep ) {
-        val = *xp;
-        if( !ISNA(val) ) {
+    for (int i = 0; i < n; i++) {
+        val = xp[i];
+        if (!ISNA(val)) {
             result += val;
             calc = 1;
         }
     }
 
-    *rp = calc ? result : (n==0 ? 0 : NA_REAL);
+    *rp = calc ? result : NA_REAL;
     UNPROTECT(1);
     return(r);
 }

@@ -1,5 +1,9 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.3
+
+- Add function `sumi` to sum intensity values with *correct* NA handling.
+
 ## MsCoreUtils 1.11.2
 
 - Reimplement `between` in C (see issue #105).
