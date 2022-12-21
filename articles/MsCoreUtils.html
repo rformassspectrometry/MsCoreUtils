@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.1.3/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.1.3/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Core Utils for Mass Spectrometry Data">
 <meta property="og:description" content="MsCoreUtils">
@@ -161,20 +161,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##             a          b          c         d          e         f          g</span></span>
-<span><span class="co">## A -0.03884962  0.6101258 -0.1124223 0.5727322  1.2920737  1.657480 -0.2408172</span></span>
-<span><span class="co">## B -1.70148790 -0.6821928 -0.6887776 0.2220224 -1.8642062  0.652366 -0.1993473</span></span>
-<span><span class="co">## C  0.07835273 -0.7783152  0.1267784 1.3520526  0.6829704 -1.762925  2.8572524</span></span>
-<span><span class="co">##           h          i          j</span></span>
-<span><span class="co">## A 0.4155715 -0.3696405 -1.0510330</span></span>
-<span><span class="co">## B 0.6122124 -0.3269104 -1.2397921</span></span>
-<span><span class="co">## C 0.1561962  0.4863753 -0.7495172</span></span></code></pre>
+<pre><code><span><span class="co">##           a          b         c          d          e         f          g</span></span>
+<span><span class="co">## A 0.1894018 -0.7530490 0.2591545 -1.0202443 -0.2947632 1.2108507 -0.5013892</span></span>
+<span><span class="co">## B 0.2201910 -0.7877498 1.8086498 -0.1149877 -0.1741054 0.5310974 -0.9238529</span></span>
+<span><span class="co">## C 0.1130345 -0.2596428 1.6334731 -0.4467039  0.5894417 0.6724917 -0.2981576</span></span>
+<span><span class="co">##           h          i           j</span></span>
+<span><span class="co">## A  1.511624  0.3854122 -0.04659276</span></span>
+<span><span class="co">## B -0.604568  0.2186470 -0.88700371</span></span>
+<span><span class="co">## C -2.477268 -0.9176340  0.29631936</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">## -0.54378456 -0.23195915 -0.22480718  0.71560239  0.42266725  0.95895574 </span></span>
+<span><span class="co">##  0.17420908 -0.60014722  1.47909231 -0.53622378  0.04019107  0.80481329 </span></span>
 <span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">##  0.27574639  0.37437269 -0.07005854 -1.01344743</span></span></code></pre>
+<span><span class="co">## -0.57446655 -0.52717187  0.11127351 -0.14954392</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
@@ -201,13 +201,13 @@ GitHub issue</a>.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">## R Under development (unstable) (2022-11-17 r83363)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2022-12-14 r83463)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">## Running under: Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
-<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3</span></span>
-<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so</span></span>
+<span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
+<span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
 <span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
@@ -227,19 +227,20 @@ GitHub issue</a>.</p>
 <span><span class="co">## [1] MsCoreUtils_1.11.2 BiocStyle_2.27.0  </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
-<span><span class="co">##  [1] cli_3.4.1           knitr_1.41          rlang_1.0.6        </span></span>
-<span><span class="co">##  [4] xfun_0.35           stringi_1.7.8       purrr_0.3.5        </span></span>
-<span><span class="co">##  [7] textshaping_0.3.6   clue_0.3-63         jsonlite_1.8.3     </span></span>
-<span><span class="co">## [10] S4Vectors_0.37.0    rprojroot_2.0.3     htmltools_0.5.3    </span></span>
-<span><span class="co">## [13] stats4_4.3.0        ragg_1.2.4          sass_0.4.3         </span></span>
-<span><span class="co">## [16] rmarkdown_2.18      evaluate_0.18       jquerylib_0.1.4    </span></span>
-<span><span class="co">## [19] MASS_7.3-58.1       fastmap_1.1.0       yaml_2.3.6         </span></span>
-<span><span class="co">## [22] memoise_2.0.1       bookdown_0.30       BiocManager_1.30.19</span></span>
-<span><span class="co">## [25] stringr_1.4.1       cluster_2.1.4       compiler_4.3.0     </span></span>
-<span><span class="co">## [28] fs_1.5.2            systemfonts_1.0.4   digest_0.6.30      </span></span>
-<span><span class="co">## [31] R6_2.5.1            magrittr_2.0.3      bslib_0.4.1        </span></span>
-<span><span class="co">## [34] tools_4.3.0         BiocGenerics_0.45.0 pkgdown_2.0.6.9000 </span></span>
-<span><span class="co">## [37] cachem_1.0.6        desc_1.4.2</span></span></code></pre>
+<span><span class="co">##  [1] vctrs_0.5.1         cli_3.5.0           knitr_1.41         </span></span>
+<span><span class="co">##  [4] rlang_1.0.6         xfun_0.35           stringi_1.7.8      </span></span>
+<span><span class="co">##  [7] purrr_1.0.0         textshaping_0.3.6   clue_0.3-63        </span></span>
+<span><span class="co">## [10] jsonlite_1.8.4      glue_1.6.2          S4Vectors_0.37.3   </span></span>
+<span><span class="co">## [13] rprojroot_2.0.3     htmltools_0.5.4     stats4_4.3.0       </span></span>
+<span><span class="co">## [16] ragg_1.2.4          sass_0.4.4          rmarkdown_2.19     </span></span>
+<span><span class="co">## [19] evaluate_0.19       jquerylib_0.1.4     MASS_7.3-58.1      </span></span>
+<span><span class="co">## [22] fastmap_1.1.0       lifecycle_1.0.3     yaml_2.3.6         </span></span>
+<span><span class="co">## [25] memoise_2.0.1       bookdown_0.31       BiocManager_1.30.19</span></span>
+<span><span class="co">## [28] stringr_1.5.0       cluster_2.1.4       compiler_4.3.0     </span></span>
+<span><span class="co">## [31] fs_1.5.2            systemfonts_1.0.4   digest_0.6.31      </span></span>
+<span><span class="co">## [34] R6_2.5.1            magrittr_2.0.3      bslib_0.4.2        </span></span>
+<span><span class="co">## [37] tools_4.3.0         BiocGenerics_0.45.0 pkgdown_2.0.7.9000 </span></span>
+<span><span class="co">## [40] cachem_1.0.6        desc_1.4.2</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
@@ -259,7 +260,7 @@ GitHub issue</a>.</p>
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.9000.</p>
 </div>
 
     </footer>
