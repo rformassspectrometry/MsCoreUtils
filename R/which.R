@@ -19,10 +19,10 @@
 #' @examples
 #' l <- 2 <= 1:3
 #' which.first(l)
-which.first <- function(x).Call("C_which_first", x)
+which.first <- function(x).Call(C_which_first, x)
 
 #' @rdname which
 #' @export
 #' @examples
 #' which.last(l)
-which.last <- function(x).Call("C_which_last", x)
+which.last <- function(x).Call(C_which_last, x)
