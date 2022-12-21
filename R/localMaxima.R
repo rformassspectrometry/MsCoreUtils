@@ -21,5 +21,5 @@
 localMaxima <- function(x, hws = 1L) {
     i <- seq_along(x) + hws
     side <- rep.int(0L, hws)
-    .Call("C_localMaxima", c(side, x, side), hws)[i]
+    .Call(C_localMaxima, c(side, x, side), hws)[i]
 }

@@ -1,7 +1,15 @@
 test_that("between throws errors", {
-    expect_error(between("A", 1:2), "numeric")
-    expect_error(between(1, c("A", "B")), "numeric of length 2")
     expect_error(between(1, 1:4), "numeric of length 2")
+})
+
+test_that("between throws warnings", {
+    expect_warning(between("A", 1:2), "NAs introduced")
+    expect_warning(between(1, c("A", "B")), "NAs introduced")
+})
+
+test_that("between handles NA", {
+    expect_equal(suppressWarnings(between("A", 1:2)), NA)
+    expect_equal(suppressWarnings(between(1:3, c("A", "B"))), rep(NA, 3))
 })
 
 test_that("between", {
