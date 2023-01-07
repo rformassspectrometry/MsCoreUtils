@@ -3,8 +3,11 @@
 ## MsCoreUtils 1.11.2
 
 - Reimplement `between` in C (see issue #105).
-- Use symbols to call registered C methods for faster lookup (see PR #106 and
-  [Writing R extensions: Converting a package to use registration](https://cran.r-project.org/doc/manuals/R-exts.html#Converting-a-package-to-use-registration)).
+- Use symbols to call registered C methods for faster lookup (see PR
+  #106 and [Writing R extensions: Converting a package to use
+  registration](https://cran.r-project.org/doc/manuals/R-exts.html#Converting-a-package-to-use-registration)).
+- Documentation improvement: explicitly mention `impute_mle2()` in the
+  MLE imputation paragraph.
 
 ## MsCoreUtils 1.11.1
 

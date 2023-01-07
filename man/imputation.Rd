@@ -172,10 +172,13 @@ and downstream results.
 Currently, the following imputation methods are available.
 \itemize{
 \item \emph{MLE}: Maximum likelihood-based imputation method using the EM
-algorithm. Implemented in the \code{norm::imp.norm()}. function. See
-\code{\link[norm:imp.norm]{norm::imp.norm()}} for details and additional parameters. Note
-that here, \code{...} are passed to the \code{\link[norm:em.norm]{norm::em.norm()}} function,
-rather to the actual imputation function \code{imp.norm}.
+algorithm. The \code{impute_mle()} function relies on
+\code{norm::imp.norm()}. function. See \code{\link[norm:imp.norm]{norm::imp.norm()}} for details
+and additional parameters. Note that here, \code{...} are passed to
+the \code{\link[norm:em.norm]{norm::em.norm()}} function, rather to the actual imputation
+function \code{imp.norm}. The \code{impute_mle2()} function uses the more
+recent \code{norm2::emNorm()} function that is more reliable when the
+number of variables exceed 30.
 \item \emph{bpca}: Bayesian missing value imputation are available, as
 implemented in the \code{pcaMethods::pca()} function. See
 \code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and additional parameters.
