@@ -161,20 +161,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##           a          b         c          d          e         f          g</span></span>
-<span><span class="co">## A 0.1894018 -0.7530490 0.2591545 -1.0202443 -0.2947632 1.2108507 -0.5013892</span></span>
-<span><span class="co">## B 0.2201910 -0.7877498 1.8086498 -0.1149877 -0.1741054 0.5310974 -0.9238529</span></span>
-<span><span class="co">## C 0.1130345 -0.2596428 1.6334731 -0.4467039  0.5894417 0.6724917 -0.2981576</span></span>
-<span><span class="co">##           h          i           j</span></span>
-<span><span class="co">## A  1.511624  0.3854122 -0.04659276</span></span>
-<span><span class="co">## B -0.604568  0.2186470 -0.88700371</span></span>
-<span><span class="co">## C -2.477268 -0.9176340  0.29631936</span></span></code></pre>
+<pre><code><span><span class="co">##            a          b         c         d           e          f          g</span></span>
+<span><span class="co">## A -0.7346999  1.5284385 0.3548961 0.1170174  0.97667675 0.19501742 -0.1570561</span></span>
+<span><span class="co">## B  0.2181249 -1.5689652 1.6792302 0.1438870 -0.61926130 0.05272019  1.3807196</span></span>
+<span><span class="co">## C  0.2489401  0.7366405 0.9405319 0.6172891 -0.04126512 0.79289333 -0.8249088</span></span>
+<span><span class="co">##              h            i           j</span></span>
+<span><span class="co">## A -0.006590366  0.751471359 -0.36017196</span></span>
+<span><span class="co">## B  0.591385197 -1.288890993 -0.74822668</span></span>
+<span><span class="co">## C  0.325037637 -0.007281143  0.04097578</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">##  0.17420908 -0.60014722  1.47909231 -0.53622378  0.04019107  0.80481329 </span></span>
-<span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">## -0.57446655 -0.52717187  0.11127351 -0.14954392</span></span></code></pre>
+<pre><code><span><span class="co">##          a          b          c          d          e          f          g </span></span>
+<span><span class="co">## -0.0444133  0.5872151  0.8509738  0.2927312 -0.0612192  0.3468770 -0.1480681 </span></span>
+<span><span class="co">##          h          i          j </span></span>
+<span><span class="co">##  0.3032775 -0.1566834 -0.3558076</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
@@ -201,7 +201,7 @@ GitHub issue</a>.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">## R Under development (unstable) (2022-12-14 r83463)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2023-01-05 r83566)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">## Running under: Ubuntu 22.04.1 LTS</span></span>
 <span><span class="co">## </span></span>
@@ -228,7 +228,7 @@ GitHub issue</a>.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] vctrs_0.5.1         cli_3.5.0           knitr_1.41         </span></span>
-<span><span class="co">##  [4] rlang_1.0.6         xfun_0.35           stringi_1.7.8      </span></span>
+<span><span class="co">##  [4] rlang_1.0.6         xfun_0.36           stringi_1.7.8      </span></span>
 <span><span class="co">##  [7] purrr_1.0.0         textshaping_0.3.6   clue_0.3-63        </span></span>
 <span><span class="co">## [10] jsonlite_1.8.4      glue_1.6.2          S4Vectors_0.37.3   </span></span>
 <span><span class="co">## [13] rprojroot_2.0.3     htmltools_0.5.4     stats4_4.3.0       </span></span>

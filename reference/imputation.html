@@ -240,10 +240,13 @@ and downstream results.</p>
 
 
 <p>Currently, the following imputation methods are available.</p><ul><li><p><em>MLE</em>: Maximum likelihood-based imputation method using the EM
-algorithm. Implemented in the <code><a href="https://rdrr.io/pkg/norm/man/imp.norm.html" class="external-link">norm::imp.norm()</a></code>. function. See
-<code><a href="https://rdrr.io/pkg/norm/man/imp.norm.html" class="external-link">norm::imp.norm()</a></code> for details and additional parameters. Note
-that here, <code>...</code> are passed to the <code><a href="https://rdrr.io/pkg/norm/man/em.norm.html" class="external-link">norm::em.norm()</a></code> function,
-rather to the actual imputation function <code>imp.norm</code>.</p></li>
+algorithm. The <code>impute_mle()</code> function relies on
+<code><a href="https://rdrr.io/pkg/norm/man/imp.norm.html" class="external-link">norm::imp.norm()</a></code>. function. See <code><a href="https://rdrr.io/pkg/norm/man/imp.norm.html" class="external-link">norm::imp.norm()</a></code> for details
+and additional parameters. Note that here, <code>...</code> are passed to
+the <code><a href="https://rdrr.io/pkg/norm/man/em.norm.html" class="external-link">norm::em.norm()</a></code> function, rather to the actual imputation
+function <code>imp.norm</code>. The <code>impute_mle2()</code> function uses the more
+recent <code><a href="https://rdrr.io/pkg/norm2/man/emNorm.html" class="external-link">norm2::emNorm()</a></code> function that is more reliable when the
+number of variables exceed 30.</p></li>
 <li><p><em>bpca</em>: Bayesian missing value imputation are available, as
 implemented in the <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html" class="external-link">pcaMethods::pca()</a></code> function. See
 <code><a href="https://rdrr.io/pkg/pcaMethods/man/pca.html" class="external-link">pcaMethods::pca()</a></code> for details and additional parameters.</p></li>
