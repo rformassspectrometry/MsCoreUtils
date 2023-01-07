@@ -1,5 +1,9 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.3
+
+- Nothing yet
+
 ## MsCoreUtils 1.11.2
 
 - Reimplement `between` in C (see issue #105).
