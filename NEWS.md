@@ -2,7 +2,7 @@
 
 ## MsCoreUtils 1.11.3
 
-- Nothing yet
+- Add function `sumi` to sum intensity values with *correct* NA handling.
 
 ## MsCoreUtils 1.11.2
 
