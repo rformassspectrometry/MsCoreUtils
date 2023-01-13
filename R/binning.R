@@ -9,7 +9,8 @@
 #' @param x `numeric` with the values that should be aggregated/binned.
 #'
 #' @param y `numeric` with same length than `x` with values to be used for
-#'     the binning.
+#'     the binning. Ideally, `y` should be increasingly sorted, but it's not 
+#'     mandatory.
 #'
 #' @param size `numeric(1)` with the size of a bin.
 #'
@@ -59,6 +60,10 @@ bin <- function(x, y, size = 1,
                 returnMids = TRUE) {
     if (length(x) != length(y))
         stop("lengths of 'x' and 'y' have to match.")
+    if (is.unsorted(y)) {
+        x <- x[order(y)]
+        y <- sort(y)
+    }
     FUN <- match.fun(FUN)
     breaks <- .fix_breaks(breaks, range(y))
     nbrks <- length(breaks)

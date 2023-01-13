@@ -48,6 +48,16 @@ test_that("bin works", {
     expect_true(is.numeric(res_2))
     expect_equal(res$x, res_2)
 
+    ## Ensure y order does not matter
+    ## Issue #108 https://github.com/rformassspectrometry/MsCoreUtils/issues/108
+    expect_false(is.unsorted(xs))
+    expect_equal(bin(vals, xs), bin(rev(vals), rev(xs)))
+    xs_unsorted <- sample(xs, length(xs))
+    expect_true(is.unsorted(xs_unsorted))
+    expect_equal(bin(vals, xs_unsorted),
+                 bin(vals[order(xs_unsorted)], sort(xs_unsorted)))
+    
+
     ## Check exceptions
     expect_error(bin(1:3, 1:5))
     expect_error(bin(1:3, 1:5), FUN = other)

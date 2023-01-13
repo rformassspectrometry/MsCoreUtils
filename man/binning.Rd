@@ -17,7 +17,8 @@ bin(
 \item{x}{\code{numeric} with the values that should be aggregated/binned.}
 
 \item{y}{\code{numeric} with same length than \code{x} with values to be used for
-the binning.}
+the binning. Ideally, \code{y} should be increasingly sorted, but it's not
+mandatory.}
 
 \item{size}{\code{numeric(1)} with the size of a bin.}
 
