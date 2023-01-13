@@ -66,10 +66,13 @@
 ##' Currently, the following imputation methods are available.
 ##'
 ##' - *MLE*: Maximum likelihood-based imputation method using the EM
-##'   algorithm. Implemented in the `norm::imp.norm()`. function. See
-##'   [norm::imp.norm()] for details and additional parameters. Note
-##'   that here, `...` are passed to the [norm::em.norm()] function,
-##'   rather to the actual imputation function `imp.norm`.
+##'   algorithm. The `impute_mle()` function relies on
+##'   `norm::imp.norm()`. function. See [norm::imp.norm()] for details
+##'   and additional parameters. Note that here, `...` are passed to
+##'   the [norm::em.norm()] function, rather to the actual imputation
+##'   function `imp.norm`. The `impute_mle2()` function uses the more
+##'   recent `norm2::emNorm()` function that is more reliable when the
+##'   number of variables exceed 30.
 ##'
 ##' - *bpca*: Bayesian missing value imputation are available, as
 ##'   implemented in the `pcaMethods::pca()` function. See
