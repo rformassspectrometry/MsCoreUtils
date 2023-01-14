@@ -50,10 +50,8 @@ test_that("bin works", {
 
     ## Ensure y order does not matter
     ## Issue #108 https://github.com/rformassspectrometry/MsCoreUtils/issues/108
-    expect_false(is.unsorted(xs))
     expect_equal(bin(vals, xs), bin(rev(vals), rev(xs)))
     xs_unsorted <- sample(xs, length(xs))
-    expect_true(is.unsorted(xs_unsorted))
     expect_equal(bin(vals, xs_unsorted),
                  bin(vals[order(xs_unsorted)], sort(xs_unsorted)))
     
