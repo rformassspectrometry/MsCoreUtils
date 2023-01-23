@@ -8,9 +8,9 @@
 #'
 #' @param x `numeric` with the values that should be aggregated/binned.
 #'
-#' @param y `numeric` with same length than `x` with values to be used for
-#'     the binning. Ideally, `y` should be increasingly sorted, but it's not 
-#'     mandatory.
+#' @param y `numeric` with same length than `x` with values to be used for the
+#'   binning. `y` **must** be increasingly sorted, or else an error will be
+#'   thrown.
 #'
 #' @param size `numeric(1)` with the size of a bin.
 #'
@@ -24,6 +24,10 @@
 #'     `returnMids = FALSE` might be useful if the breaks are defined before
 #'     hand and binning needs to be performed on a large set of values (i.e.
 #'     within a loop for multiple pairs of `x` and `y` values).
+#'     
+#' @param .check `logical(1)` whether to check that `y` is an ordered vector.
+#'     Setting `.check = FALSE` will improve performance, provided you are sure
+#'     that `y` is always ordered.
 #'
 #' @return
 #'
@@ -57,13 +61,12 @@
 bin <- function(x, y, size = 1,
                 breaks = seq(floor(min(y)),
                              ceiling(max(y)), by = size), FUN = max,
-                returnMids = TRUE) {
+                returnMids = TRUE,
+                .check = TRUE) {
     if (length(x) != length(y))
         stop("lengths of 'x' and 'y' have to match.")
-    if (is.unsorted(y)) {
-        x <- x[order(y)]
-        y <- sort(y)
-    }
+    if (.check) 
+        if (is.unsorted(y)) stop("'y' must be an ordered vector")
     FUN <- match.fun(FUN)
     breaks <- .fix_breaks(breaks, range(y))
     nbrks <- length(breaks)
