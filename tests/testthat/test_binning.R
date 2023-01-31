@@ -48,6 +48,11 @@ test_that("bin works", {
     expect_true(is.numeric(res_2))
     expect_equal(res$x, res_2)
 
+    ## Ensure y is ordered (if .check = TRUE), throw error if its not
+    ## Issue #108 https://github.com/rformassspectrometry/MsCoreUtils/issues/108
+    expect_error(bin(1:5, 5:1))
+    expect_no_error(bin(1:5, 5:1, .check = FALSE))
+
     ## Check exceptions
     expect_error(bin(1:3, 1:5))
     expect_error(bin(1:3, 1:5), FUN = other)
