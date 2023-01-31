@@ -1,6 +1,6 @@
 Package: MsCoreUtils
 Title: Core Utils for Mass Spectrometry Data
-Version: 1.11.3
+Version: 1.11.4
 Description: MsCoreUtils defines low-level functions for mass
     spectrometry data and is independent of any high-level data
     structures. These functions include mass spectra processing
@@ -35,7 +35,7 @@ Authors@R: c(person(given = "RforMassSpectrometry Package Maintainer",
                     role = "ctb",
                     comment = c(ORCID = "0000-0002-1462-4426")),
              person(given = "Samuel", family = "Wieczorek", role = "ctb"),
-             person(given = "Roger", family = "Gine Bertomeu", 
+             person(given = "Roger", family = "Gine Bertomeu",
                     email = "roger.gine@iispv.cat",
                     comment = c(ORCID = "0000-0003-0288-9619"),
                     role = "ctb"))

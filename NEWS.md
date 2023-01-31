@@ -1,5 +1,10 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.4
+
+- Check if parameter `y` is increasingly ordered in `bin`: [issue
+  #108](https://github.com/rformassspectrometry/MsCoreUtils/issues/108).
+
 ## MsCoreUtils 1.11.3
 
 - Add function `sumi` to sum intensity values with *correct* NA handling.
