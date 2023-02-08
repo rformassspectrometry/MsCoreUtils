@@ -20,6 +20,12 @@ from a spectrum or chromatogram. In contrast to the base R \code{\link[=max]{max
 this function returns \code{NA_real_} if all intensity values are \code{NA} or if
 \code{length(x)} is 0 (the base R \code{max} function returns \code{-Inf} in these cases).
 }
+\note{
+For larger \code{x} (length > 1000) this function becomes slower than a base R
+implementation using \code{max}. For \code{x} consisting of just missing values
+(which is common when ion chromatograms are extracted from MS spectral data)
+\code{maxi} however outperforms \code{max}.
+}
 \examples{
 
 x <- c(3.2, 34.4, 1.3, NA)
@@ -36,7 +42,7 @@ max(c(NA, NA), na.rm = TRUE)
 maxi(c(NA, NA))
 }
 \seealso{
-\code{\link[=maxi]{maxi()}}
+\code{\link[=sumi]{sumi()}}
 }
 \author{
 Johannes Rainer

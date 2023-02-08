@@ -13,9 +13,16 @@
 #' @return `numeric(1)` representing the sum of values in `x`. Always returns
 #'     a numeric (double) even if `x` is an integer.
 #'
+#' @note
+#'
+#' For larger `x` (length > 1000) this function becomes slower than a base R
+#' implementation using `max`. For `x` consisting of just missing values
+#' (which is common when ion chromatograms are extracted from MS spectral data)
+#' `maxi` however outperforms `max`.
+#'
 #' @author Johannes Rainer
 #'
-#' @seealso [maxi()]
+#' @seealso [sumi()]
 #'
 #' @export
 #'

@@ -14,6 +14,8 @@
 #'
 #' @author Johannes Rainer
 #'
+#' @seealso [maxi()]
+#'
 #' @export
 #'
 #' @examples
