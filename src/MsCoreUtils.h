@@ -27,4 +27,7 @@ extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
 
 extern SEXP C_sumi(SEXP);
 
+extern SEXP C_maxi(SEXP);
+extern SEXP C_maxi2(SEXP);
+
 #endif /* end of MSCOREUTILS_H */
