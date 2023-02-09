@@ -20,7 +20,7 @@
 #' (which is common when ion chromatograms are extracted from MS spectral data)
 #' `maxi` however outperforms `max`.
 #'
-#' @author Johannes Rainer
+#' @author Johannes Rainer, Sebastian Gibb
 #'
 #' @seealso [sumi()]
 #'
@@ -41,5 +41,5 @@
 #' max(c(NA, NA), na.rm = TRUE)
 #' maxi(c(NA, NA))
 maxi <- function(x) {
-    .Call(C_maxi, as.double(x))
+    .Call(C_maxi, x)
 }

@@ -7,12 +7,12 @@
 maxi(x)
 }
 \arguments{
-\item{x}{\code{numeric} with intensity values to be summed up. Will be coerced
-to \code{numeric} using \code{as.double}.}
+\item{x}{\code{numeric} with intensity values from which the maximum should be
+reported. Will be coerced to \code{numeric}.}
 }
 \value{
-\code{numeric(1)} representing the sum of values in \code{x}. Always returns
-a numeric (double) even if \code{x} is an integer.
+\code{numeric(1)} representing the maximum of values in \code{x}. Returns
+always a \code{numeric} (double) even if \code{x} is an integer.
 }
 \description{
 \code{maxi} determines the maximum or mass spectrometry intensity values, e.g.
@@ -45,5 +45,5 @@ maxi(c(NA, NA))
 \code{\link[=sumi]{sumi()}}
 }
 \author{
-Johannes Rainer
+Johannes Rainer, Sebastian Gibb
 }

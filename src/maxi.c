@@ -10,19 +10,21 @@
  * 0 or if all values are missing.
  */
 SEXP C_maxi(SEXP x) {
-    SEXP r;
-    const R_len_t n = XLENGTH(x);
-    PROTECT(r=allocVector(REALSXP, 1));
-    double* rp = REAL(r);
+    if (!isReal(x))
+        x = coerceVector(x, REALSXP);
     double* xp = REAL(x);
-    *rp = NA_REAL;
+    const R_len_t n = XLENGTH(x);
 
-    for (int i = 0; i < n; i++) {
-        if (!ISNA(xp[i])) {
-            if (ISNA(*rp) || (!ISNA(*rp) && xp[i] > *rp))
-                *rp = xp[i];
-        }
-    }
+    SEXP r = PROTECT(allocVector(REALSXP, 1));
+    double* rp = REAL(r);
+    *rp = R_NegInf;
+
+    for (R_xlen_t i = 0; i < n; i++)
+        if (xp[i] > *rp)
+            *rp = xp[i];
+
+    if (!(R_FINITE(*rp)))
+        *rp = NA_REAL;
 
     UNPROTECT(1);
     return(r);
