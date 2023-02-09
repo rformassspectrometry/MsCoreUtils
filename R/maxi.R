@@ -10,7 +10,7 @@
 #' @param x `numeric` with intensity values to be summed up. Will be coerced
 #'     to `numeric` using `as.double`.
 #'
-#' @return `numeric(1)` representing the sum of values in `x`. Always returns
+#' @return `numeric(1)` representing the maximum of values in `x`. Always returns
 #'     a numeric (double) even if `x` is an integer.
 #'
 #' @note
