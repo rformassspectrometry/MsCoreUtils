@@ -7,11 +7,11 @@
 #' this function returns `NA_real_` if all intensity values are `NA` or if
 #' `length(x)` is 0 (the base R `max` function returns `-Inf` in these cases).
 #'
-#' @param x `numeric` with intensity values to be summed up. Will be coerced
-#'     to `numeric` using `as.double`.
+#' @param x `numeric` with intensity values from which the maximum should be
+#'     reported. Will be coerced to `numeric`.
 #'
-#' @return `numeric(1)` representing the sum of values in `x`. Always returns
-#'     a numeric (double) even if `x` is an integer.
+#' @return `numeric(1)` representing the maximum of values in `x`. Returns
+#'     always a `numeric` (double) even if `x` is an integer.
 #'
 #' @note
 #'
