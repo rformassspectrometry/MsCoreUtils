@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.5</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,26 +50,30 @@
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.11" id="mscoreutils-111">MsCoreUtils 1.11<a class="anchor" aria-label="anchor" href="#mscoreutils-111"></a></h2>
 <div class="section level3">
-<h3 id="mscoreutils-1-11">MsCoreUtils 1.11.4<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11"></a></h3>
+<h3 id="mscoreutils-1-11">MsCoreUtils 1.11.5<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11"></a></h3>
+<ul><li>Add function <code>maxi</code> to determine the maximal intensity value. This function returns <code>NA_real_</code> instead of <code>-Inf</code> if all values are missing or if the length of the input parameter is 0.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mscoreutils-1-11-1">MsCoreUtils 1.11.4<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-1"></a></h3>
 <ul><li>Check if parameter <code>y</code> is increasingly ordered in <code>bin</code>: <a href="https://github.com/rformassspectrometry/MsCoreUtils/issues/108" class="external-link">issue </a><a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues/108" class="external-link">#108</a>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-11-1">MsCoreUtils 1.11.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-1"></a></h3>
+<h3 id="mscoreutils-1-11-2">MsCoreUtils 1.11.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-2"></a></h3>
 <ul><li>Add function <code>sumi</code> to sum intensity values with <em>correct</em> NA handling.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-11-2">MsCoreUtils 1.11.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-2"></a></h3>
+<h3 id="mscoreutils-1-11-3">MsCoreUtils 1.11.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-3"></a></h3>
 <ul><li>Reimplement <code>between</code> in C (see issue <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues/105" class="external-link">#105</a>).</li>
 <li>Use symbols to call registered C methods for faster lookup (see PR <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues/106" class="external-link">#106</a> and <a href="https://cran.r-project.org/doc/manuals/R-exts.html#Converting-a-package-to-use-registration" class="external-link">Writing R extensions: Converting a package to use registration</a>).</li>
 <li>Documentation improvement: explicitly mention <code><a href="../reference/imputation.html">impute_mle2()</a></code> in the MLE imputation paragraph.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-11-3">MsCoreUtils 1.11.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-3"></a></h3>
+<h3 id="mscoreutils-1-11-4">MsCoreUtils 1.11.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-4"></a></h3>
 <ul><li>Add a <code>MARGIN</code> argument to (relevant) imputation functions to support (and make it explicit) along which dimensions (row or columns) imputation is performed.</li>
 <li>New <code><a href="../reference/imputation.html">impute_mle2()</a></code> function that uses <code>norm2</code> (see issue <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues/100" class="external-link">#100</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-11-4">MsCoreUtils 1.11.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-4"></a></h3>
+<h3 id="mscoreutils-1-11-5">MsCoreUtils 1.11.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-11-5"></a></h3>
 <ul><li>New Bioconductor 3.17 (devel) release</li>
 </ul></div>
 </div>
