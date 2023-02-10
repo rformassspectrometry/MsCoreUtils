@@ -34,6 +34,9 @@ sumi(numeric())
 sum(c(NA, NA), na.rm = TRUE)
 sumi(c(NA, NA))
 }
+\seealso{
+\code{\link[=maxi]{maxi()}}
+}
 \author{
 Johannes Rainer
 }
