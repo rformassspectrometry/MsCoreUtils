@@ -162,20 +162,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##           a          b          c         d          e          f          g</span></span>
-<span><span class="co">## A  0.588154  0.2608245  1.2776391 0.1332892  0.4290895 -0.9731231  1.3782070</span></span>
-<span><span class="co">## B  0.106626 -1.5801853 -0.3806717 1.4116172 -0.6511895 -1.0232752 -0.7139443</span></span>
-<span><span class="co">## C -1.021054 -0.2217250  2.1524548 0.4457344 -0.5498934 -1.5606376  2.4515972</span></span>
-<span><span class="co">##           h          i          j</span></span>
-<span><span class="co">## A 1.7950623  0.2245025 -0.1940276</span></span>
-<span><span class="co">## B 0.4005853 -0.0890704 -1.5971483</span></span>
-<span><span class="co">## C 0.4292773  0.5362956  1.5356256</span></span></code></pre>
+<pre><code><span><span class="co">##            a          b          c          d          e          f          g</span></span>
+<span><span class="co">## A  1.5012659 -1.4067814  0.3516242 -1.0827602 0.13938198 -0.4571642 -0.3399109</span></span>
+<span><span class="co">## B -1.6278059  0.9557237 -0.3425348  1.0177305 0.05232184  0.8986755  0.3800180</span></span>
+<span><span class="co">## C  0.5915675  0.2106837 -0.4144180  0.6778031 0.52620364 -0.5483081 -0.2655172</span></span>
+<span><span class="co">##           h           i          j</span></span>
+<span><span class="co">## A -1.336109  1.70298860 -0.4963142</span></span>
+<span><span class="co">## B -1.053417 -2.66341351 -1.0234867</span></span>
+<span><span class="co">## C -1.124042 -0.05798079  1.1949404</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">## -0.04006852 -0.51369528  1.01647404  0.49882538 -0.25733111 -1.18567861 </span></span>
+<span><span class="co">##  0.55260040  0.17167087 -0.13510951  0.53653108  0.23930249 -0.21094205 </span></span>
 <span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">##  1.02224255  0.87497498  0.22390924 -0.28325044</span></span></code></pre>
+<span><span class="co">## -0.07513671 -1.17118923 -0.09688999 -0.43815904</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
@@ -202,9 +202,9 @@ GitHub issue</a>.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">## R Under development (unstable) (2023-02-09 r83797)</span></span>
+<pre><code><span><span class="co">## R Under development (unstable) (2023-03-02 r83926)</span></span>
 <span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
-<span><span class="co">## Running under: Ubuntu 22.04.1 LTS</span></span>
+<span><span class="co">## Running under: Ubuntu 22.04.2 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
 <span><span class="co">## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 </span></span>
@@ -231,17 +231,17 @@ GitHub issue</a>.</p>
 <span><span class="co">##  [1] vctrs_0.5.2         cli_3.6.0           knitr_1.42         </span></span>
 <span><span class="co">##  [4] rlang_1.0.6         xfun_0.37           stringi_1.7.12     </span></span>
 <span><span class="co">##  [7] purrr_1.0.1         textshaping_0.3.6   clue_0.3-64        </span></span>
-<span><span class="co">## [10] jsonlite_1.8.4      glue_1.6.2          S4Vectors_0.37.3   </span></span>
+<span><span class="co">## [10] jsonlite_1.8.4      glue_1.6.2          S4Vectors_0.37.4   </span></span>
 <span><span class="co">## [13] rprojroot_2.0.3     htmltools_0.5.4     stats4_4.3.0       </span></span>
 <span><span class="co">## [16] ragg_1.2.5          sass_0.4.5          rmarkdown_2.20     </span></span>
 <span><span class="co">## [19] evaluate_0.20       jquerylib_0.1.4     MASS_7.3-58.2      </span></span>
-<span><span class="co">## [22] fastmap_1.1.0       lifecycle_1.0.3     yaml_2.3.7         </span></span>
-<span><span class="co">## [25] memoise_2.0.1       bookdown_0.32       BiocManager_1.30.19</span></span>
+<span><span class="co">## [22] fastmap_1.1.1       lifecycle_1.0.3     yaml_2.3.7         </span></span>
+<span><span class="co">## [25] memoise_2.0.1       bookdown_0.33       BiocManager_1.30.20</span></span>
 <span><span class="co">## [28] stringr_1.5.0       cluster_2.1.4       compiler_4.3.0     </span></span>
 <span><span class="co">## [31] fs_1.6.1            systemfonts_1.0.4   digest_0.6.31      </span></span>
 <span><span class="co">## [34] R6_2.5.1            magrittr_2.0.3      bslib_0.4.2        </span></span>
 <span><span class="co">## [37] tools_4.3.0         BiocGenerics_0.45.0 pkgdown_2.0.7.9000 </span></span>
-<span><span class="co">## [40] cachem_1.0.6        desc_1.4.2</span></span></code></pre>
+<span><span class="co">## [40] cachem_1.0.7        desc_1.4.2</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
