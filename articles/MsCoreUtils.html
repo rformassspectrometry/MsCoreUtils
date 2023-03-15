@@ -162,20 +162,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##             a          b          c           d           e          f</span></span>
-<span><span class="co">## A -0.86101007  0.4460187  1.4534626 -0.05852705 -0.55485036 -0.9406112</span></span>
-<span><span class="co">## B  0.07756291  0.9955892  0.7270965  0.40021986  0.02967881 -0.1055853</span></span>
-<span><span class="co">## C -0.49476954 -1.3536066 -0.5992968 -0.56094160  0.35303211  0.6488884</span></span>
-<span><span class="co">##           g          h          i          j</span></span>
-<span><span class="co">## A -1.732216 -0.7378002 -0.6957731  0.3736998</span></span>
-<span><span class="co">## B -1.879316  0.4725497  0.3236707  0.7269436</span></span>
-<span><span class="co">## C -1.164366  0.1228074 -0.8426217 -0.4635025</span></span></code></pre>
+<pre><code><span><span class="co">##           a          b          c          d          e          f           g</span></span>
+<span><span class="co">## A 1.2270232 -1.3884648 -1.3449669  1.0185269  1.0965764 -0.1989862 -0.40040823</span></span>
+<span><span class="co">## B 0.7166362 -0.1040916 -0.5071423 -0.1797354  0.7392744  0.3366613  0.03731038</span></span>
+<span><span class="co">## C 1.4110443  0.1558805  0.6295208  0.3558230 -1.6752816  0.6683999 -0.69153541</span></span>
+<span><span class="co">##             h          i          j</span></span>
+<span><span class="co">## A -0.08176656  0.5599637  1.2647011</span></span>
+<span><span class="co">## B  0.21974995  0.1579132 -1.0045853</span></span>
+<span><span class="co">## C -0.89290739 -1.6131159 -0.2695816</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">## -0.42607223  0.32732830  0.33934826 -0.07308293 -0.05737981 -0.31531456 </span></span>
-<span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">## -1.55495961 -0.04748104 -0.40490802  0.21238028</span></span></code></pre>
+<pre><code><span><span class="co">##          a          b          c          d          e          f          g </span></span>
+<span><span class="co">##  1.1182346 -0.3890695 -0.5104299  0.3982048  0.3734917  0.2686917 -0.3515444 </span></span>
+<span><span class="co">##          h          i          j </span></span>
+<span><span class="co">## -0.2516413 -0.1854947 -0.0944350</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
