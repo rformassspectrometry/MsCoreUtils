@@ -2,7 +2,7 @@
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsCoreUtils/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsCoreUtils/actions?query=workflow%3AR-CMD-check-bioc)
-[![codecov.io](https://codecov.io/github/rformassspectrometry/MsCoreUtils/coverage.svg?branch=master)](https://codecov.io/github/rformassspectrometry/MsCoreUtils?branch=master)
+[![codecov.io](https://codecov.io/github/rformassspectrometry/MsCoreUtils/coverage.svg?branch=devel)](https://codecov.io/github/rformassspectrometry/MsCoreUtils?branch=devel)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 [![years in bioc](http://bioconductor.org/shields/years-in-bioc/MsCoreUtils.svg)](https://bioconductor.org/packages/release/bioc/html/MsCoreUtils.html)
 [![Ranking by downloads](http://bioconductor.org/shields/downloads/release/MsCoreUtils.svg)](https://bioconductor.org/packages/stats/bioc/MsCoreUtils/)
