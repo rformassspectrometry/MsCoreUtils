@@ -116,7 +116,6 @@ test_that("impute_MinProb(margin) works", {
     expect_true(m_imp1[2, 2] != m_imp2[2, 2])
 })
 
-
 test_that("impute_mle(margin) works", {
     m <- matrix(1:16, ncol = 4)
     m[2, 2] <- NA
@@ -133,4 +132,17 @@ test_that("impute_mle2(margin) works", {
     suppressWarnings(m_imp2 <- impute_mle2(m, MARGIN = 2L))
     expect_equal(m_imp1[-2, -2], m_imp2[-2, -2])
     expect_true(m_imp1[2, 2] != m_imp2[2, 2])
+})
+
+test_that("impute_MinDet(margin) works", {
+    m <- matrix(1:16, ncol = 4)
+    m[1, 1] <- NA
+    m_imp1 <- impute_MinDet(m, MARGIN = 1L)
+    m_imp2 <- impute_MinDet(m, MARGIN = 2L)
+    expect_identical(m_imp1[-1, -1], m_imp2[-1, -1])
+    expect_true(m_imp1[1, 1] != m_imp2[1, 1])
+    expect_identical(m_imp1[1, 1], 5.08)
+    expect_identical(m_imp2[1, 1], 2.02)
+    expect_identical(dim(m), dim(m_imp1))
+    expect_identical(dim(m), dim(m_imp2))
 })
