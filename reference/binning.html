@@ -14,7 +14,7 @@ aggregated with the provided function FUN."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.3</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,8 +66,7 @@ aggregated with the provided function <code>FUN</code>.</p>
 <span>  size <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  breaks <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">floor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">)</span>, by <span class="op">=</span> <span class="va">size</span><span class="op">)</span>,</span>
 <span>  FUN <span class="op">=</span> <span class="va">max</span>,</span>
-<span>  returnMids <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  .check <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  returnMids <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -78,9 +77,8 @@ aggregated with the provided function <code>FUN</code>.</p>
 
 
 <dt>y</dt>
-<dd><p><code>numeric</code> with same length than <code>x</code> with values to be used for the
-binning. <code>y</code> <strong>must</strong> be increasingly sorted, or else an error will be
-thrown.</p></dd>
+<dd><p><code>numeric</code> with same length than <code>x</code> with values to be used for
+the binning.</p></dd>
 
 
 <dt>size</dt>
@@ -102,12 +100,6 @@ returned in addition to the binned (aggregated) values of <code>x</code>. Settin
 <code>returnMids = FALSE</code> might be useful if the breaks are defined before
 hand and binning needs to be performed on a large set of values (i.e.
 within a loop for multiple pairs of <code>x</code> and <code>y</code> values).</p></dd>
-
-
-<dt>.check</dt>
-<dd><p><code>logical(1)</code> whether to check that <code>y</code> is an ordered vector.
-Setting <code>.check = FALSE</code> will improve performance, provided you are sure
-that <code>y</code> is always ordered.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -140,27 +132,27 @@ that <code>y</code> is always ordered.</p></dd>
 <span class="r-in"><span><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.84946 40.44180 40.20797 41.00159 42.10112 40.56097 40.75573 40.85154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.59985 40.66669 40.14655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.57974 41.92653 39.68086 40.77528 40.34172 38.85016 40.69751 39.91854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.50937 40.89459</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Repeat but summing up intensities instead of taking the max</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  39.84946 119.13236  40.20797  81.14944  81.12598 120.40113  79.89905</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  81.36672  80.61754  40.66669  40.14655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  39.57974  83.30966  77.97995 117.86921  80.53559  38.85016 118.93793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  78.00691  39.50937 120.29365</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get only the binned values without the bin mid points.</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, returnMids <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.84946 40.44180 40.20797 41.00159 42.10112 40.56097 40.75573 40.85154</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 41.59985 40.66669 40.14655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 39.57974 41.92653 39.68086 40.77528 40.34172 38.85016 40.69751 39.91854</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.50937 40.89459</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
