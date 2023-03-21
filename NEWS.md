@@ -1,5 +1,11 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.3
+
+- Fix bug in `impute_MinDet(MARGIN = 1)` and add unit test.
+- Check that package is available and namespace is loaded adding
+  `stopifnot()` when calling `requireNamespace()`.
+
 ## MsCoreUtils 1.11.2
 
 - Reimplement `between` in C (see issue #105).
