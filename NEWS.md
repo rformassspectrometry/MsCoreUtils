@@ -1,10 +1,25 @@
 # MsCoreUtils 1.11
 
-## MsCoreUtils 1.11.3
+## MsCoreUtils 1.11.6
 
 - Fix bug in `impute_MinDet(MARGIN = 1)` and add unit test.
 - Check that package is available and namespace is loaded adding
   `stopifnot()` when calling `requireNamespace()`.
+  
+## MsCoreUtils 1.11.5
+
+- Add function `maxi` to determine the maximal intensity value. This function
+  returns `NA_real_` instead of `-Inf` if all values are missing or if the
+  length of the input parameter is 0.
+
+## MsCoreUtils 1.11.4
+
+- Check if parameter `y` is increasingly ordered in `bin`: [issue
+  #108](https://github.com/rformassspectrometry/MsCoreUtils/issues/108).
+
+## MsCoreUtils 1.11.3
+
+- Add function `sumi` to sum intensity values with *correct* NA handling.
 
 ## MsCoreUtils 1.11.2
 

@@ -10,14 +10,16 @@ bin(
   size = 1,
   breaks = seq(floor(min(y)), ceiling(max(y)), by = size),
   FUN = max,
-  returnMids = TRUE
+  returnMids = TRUE,
+  .check = TRUE
 )
 }
 \arguments{
 \item{x}{\code{numeric} with the values that should be aggregated/binned.}
 
-\item{y}{\code{numeric} with same length than \code{x} with values to be used for
-the binning.}
+\item{y}{\code{numeric} with same length than \code{x} with values to be used for the
+binning. \code{y} \strong{must} be increasingly sorted, or else an error will be
+thrown.}
 
 \item{size}{\code{numeric(1)} with the size of a bin.}
 
@@ -31,6 +33,10 @@ returned in addition to the binned (aggregated) values of \code{x}. Setting
 \code{returnMids = FALSE} might be useful if the breaks are defined before
 hand and binning needs to be performed on a large set of values (i.e.
 within a loop for multiple pairs of \code{x} and \code{y} values).}
+
+\item{.check}{\code{logical(1)} whether to check that \code{y} is an ordered vector.
+Setting \code{.check = FALSE} will improve performance, provided you are sure
+that \code{y} is always ordered.}
 }
 \value{
 Depending on the value of \code{returnMids}:
