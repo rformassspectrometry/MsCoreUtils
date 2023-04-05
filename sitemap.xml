@@ -61,6 +61,9 @@
     <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.html</loc>
   </url>
   <url>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/maxi.html</loc>
+  </url>
+  <url>
     <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/medianPolish.html</loc>
   </url>
   <url>
@@ -92,6 +95,9 @@
   </url>
   <url>
     <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.html</loc>
+  </url>
+  <url>
+    <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/sumi.html</loc>
   </url>
   <url>
     <loc>https://rformassspectrometry.github.io/MsCoreUtils/reference/validation.html</loc>
