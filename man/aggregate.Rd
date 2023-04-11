@@ -9,22 +9,27 @@
 \alias{aggregate_by_matrix}
 \title{Aggreagate quantitative features}
 \usage{
-colMeansMat(x, MAT)
+colMeansMat(x, MAT, na.rm = FALSE)
 
-colSumsMat(x, MAT)
+colSumsMat(x, MAT, na.rm = FALSE)
 
 aggregate_by_matrix(x, MAT, FUN, ...)
 
 aggregate_by_vector(x, INDEX, FUN, ...)
 }
 \arguments{
-\item{x}{A \code{matrix} of mode \code{numeric}.}
+\item{x}{A \code{matrix} of mode \code{numeric} or an \code{HDF5Matrix} object of
+type \code{numeric}.}
 
 \item{MAT}{An adjacency matrix that defines peptide-protein
 relations with \code{nrow(MAT) == nrow(x)}: a non-missing/non-null
 value at position (i,j) indicates that peptide i belong to
 protein j. This matrix is tyically binary but can also contain
 weighted relations.}
+
+\item{na.rm}{A \code{logical(1)} indicating whether the missing values
+(including NaN) should be omitted from the calculations or not.
+Defaults to \code{FALSE}.}
 
 \item{FUN}{A \code{function} to be applied to the subsets of \code{x}.}
 
@@ -36,8 +41,9 @@ weighted relations.}
 \code{\link[=aggregate_by_matrix]{aggregate_by_matrix()}} returns a \code{matrix} (or \code{Matrix})
 of dimensions \code{ncol(MAT)} and \verb{ncol(x), with }dimnames\verb{equal to}colnames(x)\code{and}rownames(MAT)`.
 
-\code{\link[=aggregate_by_vector]{aggregate_by_vector()}} returns a new \code{matrix} of
-dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{equal to}colnames(x)\code{and}INDEX`.
+\code{\link[=aggregate_by_vector]{aggregate_by_vector()}} returns a new \code{matrix} (if \code{x} is
+a \code{matrix}) or \code{HDF5Matrix} (if \code{x} is an \code{HDF5Matrix})
+of dimensions \code{length(INDEX)} and \verb{ncol(x), with }dimnames\verb{ equal to}colnames(x)\code{and}INDEX`.
 }
 \description{
 These functions take a matrix of quantitative features \code{x} and
@@ -46,8 +52,7 @@ factor) \code{INDEX} or an adjacency matrix \code{MAT}. The aggregation
 method is defined by function \code{FUN}.
 
 Adjacency matrices are an elegant way to explicitly encode for
-shared peptides (see example below) during aggregation. Note
-however that missing values can't generally be ignore using \code{na.rm = TRUE}, as with vector-based aggregation (see examples below).
+shared peptides (see example below) during aggregation.
 }
 \section{Vector-based aggregation functions}{
 
@@ -79,6 +84,16 @@ for each protein. Shared peptides are re-used multiple times.
 peptide intensities. Shared peptides are re-used multiple
 times.
 }
+}
+
+\section{Handling missing values}{
+
+
+By default, missing values in the quantitative data will propagate
+to the aggregated data. You can provide \code{na.rm = TRUE} to most
+functions listed above to ignore missing values, except for
+\code{robustSummary()} where you should supply \code{na.action = na.omit}
+(see \code{?MASS::rlm}).
 }
 
 \examples{
@@ -129,24 +144,19 @@ x <- matrix(c(NA, 2:6), ncol = 2,
                             c("S1", "S2")))
 x
 
-## simply use na.rm = TRUE to ignore missng values
+## simply use na.rm = TRUE to ignore missing values
 ## during the aggregation
 
 (k <- LETTERS[c(1, 1, 2)])
 aggregate_by_vector(x, k, colSums)
 aggregate_by_vector(x, k, colSums, na.rm = TRUE)
 
-
-## NAs are propagated during the matrix
-## multiplication in the aggregation functon
 (adj <- matrix(c(1, 1, 0, 0, 0, 1), ncol = 2,
                dimnames = list(paste0("Pep", 1:3),
-                               c("A", "B"))))
+                           c("A", "B"))))
+aggregate_by_matrix(x, adj, colSumsMat, na.rm = FALSE)
+aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
 
-aggregate_by_matrix(x, adj, colSumsMat)
-## not implemented
-try(aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE))
-colSumsMat
 }
 \seealso{
 Other Quantitative feature aggregation: 

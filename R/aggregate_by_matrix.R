@@ -1,14 +1,39 @@
 #' @rdname aggregate
+#' 
+#' @param na.rm A `logical(1)` indicating whether the missing values 
+#'     (including NaN) should be omitted from the calculations or not.
+#'     Defaults to `FALSE`.
 #'
 #' @export
-colMeansMat <- function(x, MAT)
-  colSumsMat(x, MAT) / colSums(MAT)
+colMeansMat <- function(x, MAT, na.rm = FALSE) {
+    if (na.rm) {
+        n <- Matrix::crossprod(MAT, !is.na(x))
+    } else {
+        n <- Matrix::colSums(MAT)
+    }
+    colSumsMat(x, MAT, na.rm = na.rm) / n
+}
+  
 
 #' @rdname aggregate
 #'
 #' @export
-colSumsMat <- function(x, MAT)
-  Matrix::crossprod(MAT, x)
+colSumsMat <- function(x, MAT, na.rm = FALSE) {
+    if (na.rm) {
+        x[is.na(x)] <- 0
+        res <- Matrix::crossprod(MAT, x)
+    } else {
+        ## Locate the missing data post-aggregation
+        xna <- Matrix::crossprod(MAT, is.na(x))
+        ## Avoid NAs to propagate to the whole column
+        x[is.na(x)] <- 0
+        res <- Matrix::crossprod(MAT, x)
+        ## Replace aggregated values that should be missing
+        res[xna == 1] <- NA
+    }
+    res
+}
+  
 
 
 ##' @param MAT An adjacency matrix that defines peptide-protein
@@ -27,8 +52,9 @@ colSumsMat <- function(x, MAT)
 ##'
 ##' @export
 aggregate_by_matrix <- function(x, MAT, FUN, ...) {
-    if (!is.matrix(x))
-        stop("'x' must be a matrix.")
+    if (!(is.matrix(x) | inherits(x, "HDF5Matrix")))
+        stop("'x' must be a matrix or an object that inherits from ",
+             "'HDF5Matrix'.")
     if (!is(MAT, "Matrix") && !is(MAT, "matrix"))
         stop("'MAT' must be a matrix.")
     if (!identical(nrow(MAT), nrow(x)))
@@ -39,5 +65,9 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
     if (!is.null(colnames(x)) && !identical(colnames(x), colnames(res)))
         stop("The column names of 'x' have to be identical to the column names of 'res'!")
     colnames(res) <- colnames(x)
+    if (inherits(x, "HDF5Matrix"))
+        res <- HDF5Array::writeHDF5Array(res, 
+                                         filepath = HDF5Array::path(x),
+                                         with.dimnames = TRUE)
     res
 }

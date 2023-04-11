@@ -140,19 +140,19 @@ closest <- function(x, table, tolerance = Inf, ppm = 0,
 
     switch(duplicates[1L],
         "keep" = .Call(
-            "C_closest_dup_keep",
+            C_closest_dup_keep,
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         ),
         "closest" = .Call(
-            "C_closest_dup_closest",
+            C_closest_dup_closest,
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
         ),
         "remove" = .Call(
-            "C_closest_dup_remove",
+            C_closest_dup_remove,
             as.double(x), as.double(table),
             as.double(tolerance),
             as.integer(nomatch)
@@ -255,10 +255,10 @@ join <- function(x, y, tolerance = 0, ppm = 0,
     tolerance <- tolerance + ppm(x, ppm = ppm) + sqrt(.Machine$double.eps)
 
     switch(type[1L],
-           "outer" = .Call("C_join_outer", x, y, tolerance, NA_integer_),
-           "left" = .Call("C_join_left", x, y, tolerance, NA_integer_),
-           "right" = .Call("C_join_right", x, y, tolerance, NA_integer_),
-           "inner" = .Call("C_join_inner", x, y, tolerance, NA_integer_),
+           "outer" = .Call(C_join_outer, x, y, tolerance, NA_integer_),
+           "left" = .Call(C_join_left, x, y, tolerance, NA_integer_),
+           "right" = .Call(C_join_right, x, y, tolerance, NA_integer_),
+           "inner" = .Call(C_join_inner, x, y, tolerance, NA_integer_),
            stop("'type' has to be one of \"outer\", \"left\", \"right\", or ",
                 "\"inner\"")
     )

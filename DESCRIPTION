@@ -1,6 +1,6 @@
 Package: MsCoreUtils
 Title: Core Utils for Mass Spectrometry Data
-Version: 1.7.2
+Version: 1.11.6
 Description: MsCoreUtils defines low-level functions for mass
     spectrometry data and is independent of any high-level data
     structures. These functions include mass spectra processing
@@ -34,7 +34,11 @@ Authors@R: c(person(given = "RforMassSpectrometry Package Maintainer",
                     email = "michael.witting@helmholtz-muenchen.de",
                     role = "ctb",
                     comment = c(ORCID = "0000-0002-1462-4426")),
-             person(given = "Samuel", family = "Wieczorek", role = "ctb"))
+             person(given = "Samuel", family = "Wieczorek", role = "ctb"),
+             person(given = "Roger", family = "Gine Bertomeu",
+                    email = "roger.gine@iispv.cat",
+                    comment = c(ORCID = "0000-0003-0288-9619"),
+                    role = "ctb"))
 Depends:
     R (>= 3.6.0)
 Imports:
@@ -52,10 +56,14 @@ Suggests:
     imputeLCMD,
     impute,
     norm,
+    norm2,
     pcaMethods,
     vsn,
     Matrix,
-    preprocessCore
+    preprocessCore,
+    missForest
+Enhances:
+    HDF5Array
 License: Artistic-2.0
 Encoding: UTF-8
 VignetteBuilder: knitr
@@ -64,4 +72,4 @@ BugReports: https://github.com/RforMassSpectrometry/MsCoreUtils/issues
 URL: https://github.com/RforMassSpectrometry/MsCoreUtils
 biocViews: Infrastructure, Proteomics, MassSpectrometry, Metabolomics
 Roxygen: list(markdown=TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
