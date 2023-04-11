@@ -14,7 +14,7 @@ aggregated with the provided function FUN."><meta property="og:image" content="h
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.11.6</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -140,8 +140,8 @@ that <code>y</code> is always ordered.</p></dd>
 <span class="r-in"><span><span class="co">## Bin intensities by m/z bins with a bin size of 2</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.03849 40.82258 41.52729 39.77246 40.75561 41.01533 40.92552 40.25376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.31802 39.70702 39.59905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.26815 41.15886 40.78529 40.70195 39.84575 41.00116 40.82142 40.06814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.87609 39.44584 41.99945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
@@ -150,8 +150,8 @@ that <code>y</code> is always ordered.</p></dd>
 <span class="r-in"><span><span class="co">## Repeat but summing up intensities instead of taking the max</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, FUN <span class="op">=</span> <span class="va">sum</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $x</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  40.03849 121.30678  81.42311  39.77246 119.86418  81.10403  79.41756</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  40.25376  78.49723  78.97920  39.59905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  79.62170  80.34727  40.78529 119.83707  39.84575 120.55255  79.59987</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8]  40.06814  79.55914  78.08931  41.99945</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $mids</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  1  3  5  7  9 11 13 15 17 19 21</span>
@@ -159,8 +159,8 @@ that <code>y</code> is always ordered.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Get only the binned values without the bin mid points.</span></span></span>
 <span class="r-in"><span><span class="fu">bin</span><span class="op">(</span><span class="va">ints</span>, <span class="va">mz</span>, size <span class="op">=</span> <span class="fl">2</span>, returnMids <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.03849 40.82258 41.52729 39.77246 40.75561 41.01533 40.92552 40.25376</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.31802 39.70702 39.59905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 40.26815 41.15886 40.78529 40.70195 39.84575 41.00116 40.82142 40.06814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 39.87609 39.44584 41.99945</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
