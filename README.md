@@ -25,6 +25,14 @@ for more information.
 
 # Contributions
 
+Contributions are highly welcome and should follow the [contribution
+guidelines](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions).
+Also, please check the coding style guidelines in the [RforMassSpectrometry
+vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html).
+
+
+## Previous external contributions
+
 - Sigurdur Smarason (@SiggiSmara): weighted moving average (https://github.com/sgibb/MALDIquant/pull/54)
 - Thomas Naake (@tnaake): dotproduct calculation (https://github.com/rformassspectrometry/MsCoreUtils/pull/17)
 - Adriaan Sticker: `robustSummary` aggregation function (originally contributed to `MSnbase`)
