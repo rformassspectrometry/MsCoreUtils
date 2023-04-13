@@ -31,11 +31,11 @@
 on:
   push:
     branches:
-      - devel
+      - main
       # - 'RELEASE_*'
   pull_request:
     branches:
-      - devel
+      - main
       # - 'RELEASE_*'
 
 name: R-CMD-check-bioc
@@ -152,7 +152,7 @@ jobs:
         name: Find Bioc and R versions
         run: |
           ## Find what branch we are working on
-          if echo "$GITHUB_REF" | grep -q "devel"; then
+          if echo "$GITHUB_REF" | grep -q "main"; then
               biocversion="devel"
           elif echo "$GITHUB_REF" | grep -q "RELEASE_"; then
               biocversion="release"
@@ -274,29 +274,29 @@ jobs:
         shell: Rscript {0}
 
       - name: Install covr
-        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true'
+        if: github.ref == 'refs/heads/main' && env.run_covr == 'true'
         run: |
           remotes::install_cran("covr")
         shell: Rscript {0}
 
       - name: Test coverage
-        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true'
+        if: github.ref == 'refs/heads/main' && env.run_covr == 'true'
         run: |
           covr::codecov()
         shell: Rscript {0}
 
       - name: Install pkgdown
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true'
+        if: github.ref == 'refs/heads/main' && env.run_pkgdown == 'true'
         run: |
           remotes::install_github("r-lib/pkgdown")
         shell: Rscript {0}
 
       - name: Install package
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true'
+        if: github.ref == 'refs/heads/main' && env.run_pkgdown == 'true'
         run: R CMD INSTALL .
 
       - name: Deploy package
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: github.ref == 'refs/heads/main' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
