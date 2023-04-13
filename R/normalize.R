@@ -89,22 +89,22 @@ normalize_matrix <- function(x, method, ...) {
     if (inherits(x, "HDF5Array")) {
         xIsHDF5 <- TRUE
         p <- HDF5Array::path(x) ## stored for later writing to disk
-        ## Watch out this can lead to memory burst when x is large 
-        x <- as.matrix(x) 
+        ## Watch out this can lead to memory burst when x is large
+        x <- as.matrix(x)
     }
-    
+
     method <- match.arg(method,
                         choices = normalizeMethods(),
                         several.ok = FALSE)
 
     if (method == "vsn") {
-        requireNamespace("vsn")
+        stopifnot(requireNamespace("vsn"))
         e <- vsn::vsn2(x, ...)@hx
     } else if (method == "quantiles") {
-        requireNamespace("preprocessCore")
+        stopifnot(requireNamespace("preprocessCore"))
         e <- preprocessCore::normalize.quantiles(x, ...)
     } else if (method == "quantiles.robust") {
-        requireNamespace("preprocessCore")
+        stopifnot(requireNamespace("preprocessCore"))
         e <- preprocessCore::normalize.quantiles.robust(x, ...)
     } else if (method == "center.mean") {
         center <- colMeans(x, na.rm = TRUE)
@@ -136,5 +136,3 @@ normalize_matrix <- function(x, method, ...) {
                                        with.dimnames = TRUE)
     e
 }
-
-

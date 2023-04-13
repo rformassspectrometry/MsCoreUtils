@@ -259,7 +259,7 @@ impute_matrix <- function(x,
                         several.ok = FALSE)
     res <- x
     if (method %in% c("QRILC", "MinProb"))
-        requireNamespace("imputeLCMD")
+        stopifnot(requireNamespace("imputeLCMD"))
     if (method == "knn") {
         res <- impute_knn(x, ...)
     } else if (method == "nbavg") {
@@ -320,7 +320,7 @@ impute_neighbour_average <- function(x, k = min(x, na.rm = TRUE), MARGIN = 1L) {
 ##' @export
 ##' @rdname imputation
 impute_knn <- function(x, MARGIN = 1L, ...) {
-    requireNamespace("impute")
+    stopifnot(requireNamespace("impute"))
     MARGIN <- .checkMargin(MARGIN)
     if (MARGIN == 2L)
         x <- t(x)
@@ -338,7 +338,7 @@ impute_knn <- function(x, MARGIN = 1L, ...) {
 ##' @export
 ##' @rdname imputation
 impute_mle <- function(x, MARGIN = 2L, ...) {
-    requireNamespace("norm")
+    stopifnot(requireNamespace("norm"))
     MARGIN <- .checkMargin(MARGIN)
     if (MARGIN == 2L)
         x <- t(x)
@@ -355,7 +355,7 @@ impute_mle <- function(x, MARGIN = 2L, ...) {
 ##' @export
 ##' @rdname imputation
 impute_mle2 <- function(x, MARGIN = 2L, ...) {
-    requireNamespace("norm2")
+    stopifnot(requireNamespace("norm2"))
     MARGIN <- .checkMargin(MARGIN)
     dn <- dimnames(x)
     if (MARGIN == 2L)
@@ -370,7 +370,7 @@ impute_mle2 <- function(x, MARGIN = 2L, ...) {
 ##' @export
 ##' @rdname imputation
 impute_bpca <- function(x, MARGIN = 1L, ...) {
-    requireNamespace("pcaMethods")
+    stopifnot(requireNamespace("pcaMethods"))
     MARGIN <- .checkMargin(MARGIN)
     if (MARGIN == 2L)
         x <- t(x)
@@ -389,7 +389,7 @@ impute_bpca <- function(x, MARGIN = 1L, ...) {
 ##' @export
 ##' @rdname imputation
 impute_RF <- function(x, MARGIN = 2L, ...) {
-    requireNamespace("missForest")
+    stopifnot(requireNamespace("missForest"))
     MARGIN <- .checkMargin(MARGIN)
     if (MARGIN == 1L)
         x <- t(x)
@@ -459,8 +459,10 @@ impute_MinDet <- function(x, q = 0.01, MARGIN = 2L) {
     MARGIN <- .checkMargin(MARGIN)
     n <- dim(x)[MARGIN]
     impVals <- apply(x, MARGIN, quantile, prob = q, na.rm = TRUE)
+    if (MARGIN == 1L) x <- t(x)
     for (i in seq_len(n))
         x[is.na(x[, i]), i] = impVals[i]
+    if (MARGIN == 1L) x <- t(x)
     x
 }
 
