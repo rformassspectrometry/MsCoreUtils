@@ -14,7 +14,7 @@
 #' that have a normalized entropy higher than 0.8 and spectral entropy 
 #' higher than 3. 
 #'
-#' @param x `numeric`, intensities of the fragment ions(s).
+#' @param x `numeric`, intensities of the fragment ions.
 #'
 #' @return `numeric`: (normalized) entropy `x`.
 #'
