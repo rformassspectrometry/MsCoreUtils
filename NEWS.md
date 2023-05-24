@@ -1,5 +1,9 @@
 # MsCoreUtils 1.11
 
+## MsCoreUtils 1.11.7
+
+- Add functions `entropy` and `nentropy`.
+  
 ## MsCoreUtils 1.11.6
 
 - Fix bug in `impute_MinDet(MARGIN = 1)` and add unit test.
