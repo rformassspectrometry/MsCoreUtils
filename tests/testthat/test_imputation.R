@@ -1,9 +1,11 @@
 test_that("all imputation methods", {
     m <- imputeMethods()
-    m <- m[m != "mixed"]
-    m <- m[m != "none"]
-    m <- m[m != "with"]  ## see below
-    m <- m[m != "nbavg"] ## see next test
+    dontTest <- c("mixed",
+                  "none",
+                  "with",  ## see below
+                  "nbavg", ## see next test
+                  "MLE2")  ## see 117 for MLE2
+    m <- setdiff(imputeMethods(), dontTest)
     for (.m in m) {
         if (.m == "knn") {
             expect_warning(xx <- impute_matrix(x, method = .m),
