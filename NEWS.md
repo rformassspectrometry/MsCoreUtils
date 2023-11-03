@@ -1,3 +1,15 @@
+# MsCoreUtils 1.15
+
+## MsCoreUtils 1.15.1
+
+- Remove `impute_mle2()` since norm2 has been removed from CRAN (see
+  [issue
+  117])https://github.com/rformassspectrometry/MsCoreUtils/issues/117)).
+
+## MsCoreUtils 1.15.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.13
 
 ## MsCoreUtils 1.13.1

@@ -70,9 +70,7 @@
 ##'   `norm::imp.norm()`. function. See [norm::imp.norm()] for details
 ##'   and additional parameters. Note that here, `...` are passed to
 ##'   the [norm::em.norm()] function, rather to the actual imputation
-##'   function `imp.norm`. The `impute_mle2()` function uses the more
-##'   recent `norm2::emNorm()` function that is more reliable when the
-##'   number of variables exceed 30.
+##'   function `imp.norm`.
 ##'
 ##' - *bpca*: Bayesian missing value imputation are available, as
 ##'   implemented in the `pcaMethods::pca()` function. See
@@ -352,19 +350,23 @@ impute_mle <- function(x, MARGIN = 2L, ...) {
     res
 }
 
-##' @export
-##' @rdname imputation
+## ##' @export
+## ##' @rdname imputation
 impute_mle2 <- function(x, MARGIN = 2L, ...) {
-    stopifnot(requireNamespace("norm2"))
-    MARGIN <- .checkMargin(MARGIN)
-    dn <- dimnames(x)
-    if (MARGIN == 2L)
-        x <- t(x)
-    res <- norm2::emNorm(obj = x, ...)$y.mean.imp
-    if (MARGIN == 2L)
-        res <- t(res)
-    dimnames(res) <- dn
-    res
+    ## The `impute_mle2()` function uses the more recent
+    ## `norm2::emNorm()` function that is more reliable when the
+    ## number of variables exceed 30.
+    .Defunct("Please use impute_mle() (see issue 117 for details).")
+    ## stopifnot(requireNamespace("norm2"))
+    ## MARGIN <- .checkMargin(MARGIN)
+    ## dn <- dimnames(x)
+    ## if (MARGIN == 2L)
+    ##     x <- t(x)
+    ## res <- norm2::emNorm(obj = x, ...)$y.mean.imp
+    ## if (MARGIN == 2L)
+    ##     res <- t(res)
+    ## dimnames(res) <- dn
+    ## res
 }
 
 ##' @export
