@@ -1,3 +1,10 @@
+# MsCoreUtils 1.13
+
+## MsCoreUtils 1.13.1
+
+- Add functions `entropy` and `nentropy`.
+
+
 # MsCoreUtils 1.11
 
 ## MsCoreUtils 1.11.6

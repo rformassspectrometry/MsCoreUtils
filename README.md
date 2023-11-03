@@ -2,7 +2,7 @@
 
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 [![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsCoreUtils/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsCoreUtils/actions?query=workflow%3AR-CMD-check-bioc)
-[![codecov](https://codecov.io/gh/rformassspectrometry/MsCoreUtils/branch/devel/graph/badge.svg?token=sv2V5zQjib)](https://codecov.io/gh/rformassspectrometry/MsCoreUtils)
+[![codecov](https://codecov.io/gh/rformassspectrometry/MsCoreUtils/branch/main/graph/badge.svg?token=sv2V5zQjib)](https://codecov.io/gh/rformassspectrometry/MsCoreUtils)
 [![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
 [![years in bioc](http://bioconductor.org/shields/years-in-bioc/MsCoreUtils.svg)](https://bioconductor.org/packages/release/bioc/html/MsCoreUtils.html)
 [![Ranking by downloads](http://bioconductor.org/shields/downloads/release/MsCoreUtils.svg)](https://bioconductor.org/packages/stats/bioc/MsCoreUtils/)
@@ -22,6 +22,17 @@ data structure within the
 
 See the package [homepage](https://rformassspectrometry.github.io/MsCoreUtils)
 for more information.
+
+
+# Installation
+
+The package can be installed with
+
+```r
+install.packages("BiocManager")
+BiocManager::install("MsCoreUtils")
+```
+
 
 # Contributions
 
