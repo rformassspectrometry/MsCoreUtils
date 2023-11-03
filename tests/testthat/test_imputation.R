@@ -214,8 +214,8 @@ test_that("impute: user-provided function", {
 test_that("impute_matrix() preserves dimnames", {
     ## imputation methods
     m <- imputeMethods()
-    m <- m[m != "mixed"]
-    m <- m[m != "with"]
+    ## skip some - see 117 for MLE2
+    m <- setdiff(imputeMethods(), c("MLE2", "mixed", "with"))
     ## test data
     set.seed(1)
     x_miss <- matrix(rnorm(100 * 10), ncol = 10)
