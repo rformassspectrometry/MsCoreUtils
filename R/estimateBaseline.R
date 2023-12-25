@@ -26,14 +26,14 @@
 ##'   The algorithm based on the following equation:
 ##'   \deqn{y_i(k) = \min \{ y_i, \frac{(y_{i-k}+y_{i+k})}{2} \}}{y_i(k) = min \{ y_i, (y_{i-k}+y_{i+k})/2 \}}
 ##'
-##'   It has two additional arguments namely `iterations` and
-##'   `decreasing`. `iterations` controls the window size (*k*;
-##'   similar to `halfWindowSize` in `"TopHat"`, `"median"`) of the
+##'   It has two additional arguments namely an integer `iterations`
+##'   (default is 100L) and a logical `decreasing` (default is
+##'   TRUE). `iterations` controls the window size (*k*; similar to
+##'   `halfWindowSize` in `"TopHat"`, `"median"`) of the
 ##'   algorithm. The resulting window reaches from
-##'   `x[cur_index-iterations]` to
-##'   `x[cur_index+iterations]`. `
+##'   `x[cur_index-iterations]` to `x[cur_index+iterations]`. `
 ##'
-##'   decreasing`: In Morhac 2009 a decreasing clipping window is
+##'   decreasing`: In Morhac (2009) a decreasing clipping window is
 ##'   suggested to get a smoother baseline.  For `decreasing = TRUE`
 ##'   (`decreasing = FALSE`) *k*=`iterations` is decreased (increased)
 ##'   by one until zero (`iterations`) is reached. The default setting
@@ -42,15 +42,15 @@
 ##' - TopHat: This algorithm applies a moving minimum (erosion filter)
 ##'   and subsequently a moving maximum (dilation filter) filter on
 ##'   the intensity values. The implementation is based on van Herk
-##'   1996. It has an additional `halfWindowSize` argument determining
-##'   the half size of the moving window for the TopHat filter. The
-##'   resulting window reaches from `x[cur_index-halfWindowSize]` to
-##'   `x[cur_index+halfWindowSize]`.
+##'   (1996). It has an additional `halfWindowSize` argument
+##'   determining the half size of the moving window for the TopHat
+##'   filter. The resulting window reaches from
+##'   `x[cur_index-halfWindowSize]` to `x[cur_index+halfWindowSize]`.
 ##'
 ##' - ConvexHull: The baseline estimation is based on a convex hull
 ##'   constructed below the spectrum.
 ##'
-##' - median: This baseline estimation uses a moving median. It is
+##' - Median: This baseline estimation uses a moving median. It is
 ##'   based on [stats::runmed()]. The additional argument
 ##'   `halfWindowSize` corresponds to the `k` argument in
 ##'   [stats::runmed()] (`k = 2 * halfWindowSize + 1`) and controls
@@ -68,14 +68,14 @@
 ##'
 ##' SNIP:
 ##'
-##' - C.G. Ryan, E. Clayton, W.L. Griffin, S.H. Sie, and
-##'   D.R. Cousens. 1988. Snip, a statistics-sensitive background
-##'   treatment for the quantitative analysis of pixe spectra in
-##'   geoscience applications. Nuclear Instruments and Methods in
-##'   Physics Research Section B: Beam Interactions with Materials and
-##'   Atoms, 34(3): 396-402.
+##' - C.G. Ryan, E. Clayton, W.L. Griffin, S.H. Sie, and D.R. Cousens
+##'   (1988). Snip, a statistics-sensitive background treatment for
+##'   the quantitative analysis of pixe spectra in geoscience
+##'   applications. Nuclear Instruments and Methods in Physics
+##'   Research Section B: Beam Interactions with Materials and Atoms,
+##'   34(3): 396-402.
 ##'
-##' - M. Morhac. 2009. An algorithm for determination of peak regions
+##' - M. Morhac (2009). An algorithm for determination of peak regions
 ##'   and baseline elimination in spectroscopic data. Nuclear
 ##'   Instruments and Methods in Physics Research Section A:
 ##'   Accelerators, Spectrometers, Detectors and Associated Equipment,
@@ -83,17 +83,17 @@
 ##'
 ##' TopHat:
 ##'
-##' - M. van Herk. 1992. A Fast Algorithm for Local Minimum and
+##' - M. van Herk (1992). A Fast Algorithm for Local Minimum and
 ##'   Maximum Filters on Rectangular and Octagonal Kernels. Pattern
 ##'   Recognition Letters 13.7: 517-521.
 ##'
-##' - J. Y. Gil and M. Werman. 1996. Computing 2-Dimensional Min,
+##' - J. Y. Gil and M. Werman (1996). Computing 2-Dimensional Min,
 ##'   Median and Max Filters. IEEE Transactions: 504-507.
 ##'
 ##' ConvexHull:
 ##'
-##' - Andrew, A. M. 1979. Another efficient algorithm for convex hulls
-##'   in two dimensions. Information Processing Letters, 9(5),
+##' - Andrew, A. M. (1979). Another efficient algorithm for convex
+##'   hulls in two dimensions. Information Processing Letters, 9(5),
 ##'   216-219.
 ##'
 ##' @author Sebastian Gibb
@@ -103,6 +103,46 @@
 ##' @useDynLib MsCoreUtils, .registration = TRUE
 ##'
 ##' @export
+##'
+##' @examples
+##'
+##' ## Using the first spectrum from and example dataset from
+##' ## the MALDIquant package, without loading the package
+##' data("fiedler2009subset", package="MALDIquant")
+##' s <- fiedler2009subset[[1]]
+##' s <- list(mass = s@mass, intensity = s@intensity)
+##'
+##' ## Example spectrum
+##' plot(s$mass, s$intensity, type = "l")
+##'
+##' ## ----------------------------
+##' ## SNIP baseline
+##' base_SNIP <- estimateBaseline(s$mass, s$intensity,
+##'                               method = "SNIP",
+##'                               iterations = 100)
+##' lines(s$mass, base_SNIP, col = "red")
+##'
+##' ## ----------------------------
+##' ## TopHat baseline
+##' base_TH75 <- estimateBaseline(s$mass, s$intensity,
+##'                               method = "TopHat", halfWindowSize = 75)
+##' lines(s$mass, base_TH75, col = "blue")
+##'
+##' base_TH150 <- estimateBaseline(s$mass, s$intensity,
+##'                                method = "TopHat", halfWindowSize = 150)
+##' lines(s$mass, base_TH150, col = "steelblue")
+##'
+##' ## ----------------------------
+##' ## Convex hull baseline
+##' base_CH <- estimateBaseline(s$mass, s$intensity,
+##'                             method = "ConvexHull")
+##' lines(s$mass, base_CH, col = "green")
+##'
+##' ## ----------------------------
+##' ## Median baseline
+##' base_med <- estimateBaseline(s$mass, s$intensity,
+##'                              method = "median")
+##' lines(s$mass, base_med, col = "orange")
 estimateBaseline <- function(x, y,
                              method = c("SNIP", "TopHat",
                                         "ConvexHull", "median"),

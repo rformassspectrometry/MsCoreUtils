@@ -64,7 +64,8 @@ Suggests:
     vsn,
     Matrix,
     preprocessCore,
-    missForest
+    missForest,
+    MALDIquant
 Enhances:
     HDF5Array
 License: Artistic-2.0
