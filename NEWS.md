@@ -1,3 +1,22 @@
+# MsCoreUtils 1.15
+
+## MsCoreUtils 1.15.1
+
+- Remove `impute_mle2()` since norm2 has been removed from CRAN (see
+  [issue
+  117])https://github.com/rformassspectrometry/MsCoreUtils/issues/117)).
+
+## MsCoreUtils 1.15.0
+
+- New Bioc devel version
+
+# MsCoreUtils 1.13
+
+## MsCoreUtils 1.13.1
+
+- Add functions `entropy` and `nentropy`.
+
+
 # MsCoreUtils 1.11
 
 ## MsCoreUtils 1.11.6
@@ -5,7 +24,7 @@
 - Fix bug in `impute_MinDet(MARGIN = 1)` and add unit test.
 - Check that package is available and namespace is loaded adding
   `stopifnot()` when calling `requireNamespace()`.
-  
+
 ## MsCoreUtils 1.11.5
 
 - Add function `maxi` to determine the maximal intensity value. This function
