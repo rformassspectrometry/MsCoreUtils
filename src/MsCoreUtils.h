@@ -19,9 +19,14 @@ extern SEXP C_join_outer(SEXP, SEXP, SEXP, SEXP);
 
 extern SEXP C_which_first(SEXP);
 extern SEXP C_which_last(SEXP);
+extern SEXP C_between(SEXP, SEXP);
 
 extern SEXP C_localMaxima(SEXP, SEXP);
 
 extern SEXP _MsCoreUtils_imp_neighbour_avg(SEXP, SEXP);
+
+extern SEXP C_sumi(SEXP);
+
+extern SEXP C_maxi(SEXP);
 
 #endif /* end of MSCOREUTILS_H */

@@ -20,7 +20,6 @@
 ## Thank you!
 
 
-
 ## Acronyms:
 ## * GHA: GitHub Action
 ## * OS: operating system
@@ -32,12 +31,12 @@
 on:
   push:
     branches:
-      - master
-      - 'RELEASE_*'
+      - devel
+      # - 'RELEASE_*'
   pull_request:
     branches:
-      - master
-      - 'RELEASE_*'
+      - devel
+      # - 'RELEASE_*'
 
 name: R-CMD-check-bioc
 
@@ -69,7 +68,7 @@ jobs:
           ## Find what Bioconductor RELEASE branch we are working on
           ## otherwise, assume we are working on bioc-devel.
           if echo "$GITHUB_REF" | grep -q "RELEASE_"; then
-              biocversion="$(basename -- $GITHUB_REF | tr '[:lower:]' '[:upper:]')"
+              biocversion="$(basename -- $GITHUB_REF | tr '[:upper:]' '[:lower:]')"
           else
               biocversion="devel"
           fi
@@ -153,7 +152,7 @@ jobs:
         name: Find Bioc and R versions
         run: |
           ## Find what branch we are working on
-          if echo "$GITHUB_REF" | grep -q "master"; then
+          if echo "$GITHUB_REF" | grep -q "devel"; then
               biocversion="devel"
           elif echo "$GITHUB_REF" | grep -q "RELEASE_"; then
               biocversion="release"
@@ -202,13 +201,15 @@ jobs:
           deps <- remotes::dev_package_deps(dependencies = TRUE, repos = BiocManager::repositories())
           BiocManager::install(deps$package[deps$diff != 0])
 
-          ## Temporary fix for failing BiocStyle due to knitr updates
-          BiocManager::install("LTLA/BiocStyle")
-
           ## For running the checks
           message(paste('****', Sys.time(), 'installing rcmdcheck and BiocCheck ****'))
           remotes::install_cran("rcmdcheck")
           BiocManager::install("BiocCheck")
+        shell: Rscript {0}
+
+      ## Fix error: The magick package is required to crop "...png" but not available.
+      - name: Manually install magick
+        run: BiocManager::install("magick")
         shell: Rscript {0}
 
       ## See https://github.com/Bioconductor/bioconductor_docker/issues/22
@@ -217,6 +218,17 @@ jobs:
           git clone https://github.com/bmbolstad/preprocessCore.git
           cd preprocessCore
           R CMD INSTALL --configure-args="--disable-threading"  .
+
+      ## See https://github.com/rformassspectrometry/MsCoreUtils/pull/99#discussion_r984648126
+      - name: Install HDF5Array for unit tests
+        run: |
+          BiocManager::install("HDF5Array")
+        shell: Rscript {0}
+
+
+      - name: Install ProtGenerics from Github (to get version 1.27.1)
+        run: BiocManager::install("RforMassSpectrometry/ProtGenerics")
+        shell: Rscript {0}
 
       - name: Session info
         run: |
@@ -262,32 +274,33 @@ jobs:
         shell: Rscript {0}
 
       - name: Install covr
-        if: github.ref == 'refs/heads/master' && env.run_covr == 'true'
+        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true'
         run: |
           remotes::install_cran("covr")
         shell: Rscript {0}
 
       - name: Test coverage
-        if: github.ref == 'refs/heads/master' && env.run_covr == 'true'
+        if: github.ref == 'refs/heads/devel' && env.run_covr == 'true'
         run: |
           covr::codecov()
         shell: Rscript {0}
 
       - name: Install pkgdown
-        if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true'
+        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true'
         run: |
           remotes::install_github("r-lib/pkgdown")
         shell: Rscript {0}
 
       - name: Install package
-        if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true'
+        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true'
         run: R CMD INSTALL .
 
       - name: Deploy package
-        if: github.ref == 'refs/heads/master' && env.run_pkgdown == 'true'
+        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git config --global --add safe.directory /__w/MsCoreUtils/MsCoreUtils
           Rscript -e "pkgdown::deploy_to_branch(new_process = FALSE)"
         shell: bash {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)

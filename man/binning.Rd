@@ -9,25 +9,43 @@ bin(
   y,
   size = 1,
   breaks = seq(floor(min(y)), ceiling(max(y)), by = size),
-  FUN = max
+  FUN = max,
+  returnMids = TRUE,
+  .check = TRUE
 )
 }
 \arguments{
 \item{x}{\code{numeric} with the values that should be aggregated/binned.}
 
-\item{y}{\code{numeric} with same length than \code{x} with values to be used for
-the binning.}
+\item{y}{\code{numeric} with same length than \code{x} with values to be used for the
+binning. \code{y} \strong{must} be increasingly sorted, or else an error will be
+thrown.}
 
 \item{size}{\code{numeric(1)} with the size of a bin.}
 
 \item{breaks}{\code{numeric} defining the breaks (bins).}
 
 \item{FUN}{\code{function} to be used to aggregate values of \code{x} falling into the
-bins defined by \code{breaks}.}
+bins defined by \code{breaks}. \code{FUN} is expected to return a \code{numeric(1)}.}
+
+\item{returnMids}{\code{logical(1)} whether the midpoints for the breaks should be
+returned in addition to the binned (aggregated) values of \code{x}. Setting
+\code{returnMids = FALSE} might be useful if the breaks are defined before
+hand and binning needs to be performed on a large set of values (i.e.
+within a loop for multiple pairs of \code{x} and \code{y} values).}
+
+\item{.check}{\code{logical(1)} whether to check that \code{y} is an ordered vector.
+Setting \code{.check = FALSE} will improve performance, provided you are sure
+that \code{y} is always ordered.}
 }
 \value{
-\code{list} with elements \code{x} (aggregated values of \code{x}) and \code{mids} (the
-bin mid points).
+Depending on the value of \code{returnMids}:
+\itemize{
+\item \code{returnMids = TRUE} (the default): returns a \code{list} with elements \code{x}
+(aggregated values of \code{x}) and \code{mids} (the bin mid points).
+\item \code{returnMids = FALSE}: returns a \code{numeric} with just the binned values for
+\code{x}.
+}
 }
 \description{
 Aggregate values in \code{x} for bins defined on \code{y}: all values
@@ -45,6 +63,9 @@ bin(ints, mz, size = 2)
 
 ## Repeat but summing up intensities instead of taking the max
 bin(ints, mz, size = 2, FUN = sum)
+
+## Get only the binned values without the bin mid points.
+bin(ints, mz, size = 2, returnMids = FALSE)
 }
 \seealso{
 Other grouping/matching functions: 

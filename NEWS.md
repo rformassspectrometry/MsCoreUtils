@@ -1,8 +1,91 @@
+# MsCoreUtils 1.11
+
+## MsCoreUtils 1.11.6
+
+- Fix bug in `impute_MinDet(MARGIN = 1)` and add unit test.
+- Check that package is available and namespace is loaded adding
+  `stopifnot()` when calling `requireNamespace()`.
+  
+## MsCoreUtils 1.11.5
+
+- Add function `maxi` to determine the maximal intensity value. This function
+  returns `NA_real_` instead of `-Inf` if all values are missing or if the
+  length of the input parameter is 0.
+
+## MsCoreUtils 1.11.4
+
+- Check if parameter `y` is increasingly ordered in `bin`: [issue
+  #108](https://github.com/rformassspectrometry/MsCoreUtils/issues/108).
+
+## MsCoreUtils 1.11.3
+
+- Add function `sumi` to sum intensity values with *correct* NA handling.
+
+## MsCoreUtils 1.11.2
+
+- Reimplement `between` in C (see issue #105).
+- Use symbols to call registered C methods for faster lookup (see PR
+  #106 and [Writing R extensions: Converting a package to use
+  registration](https://cran.r-project.org/doc/manuals/R-exts.html#Converting-a-package-to-use-registration)).
+- Documentation improvement: explicitly mention `impute_mle2()` in the
+  MLE imputation paragraph.
+
+## MsCoreUtils 1.11.1
+
+- Add a `MARGIN` argument to (relevant) imputation functions to
+  support (and make it explicit) along which dimensions (row or
+  columns) imputation is performed.
+- New `impute_mle2()` function that uses `norm2` (see issue #100).
+
+## MsCoreUtils 1.11.0
+
+- New Bioconductor 3.17 (devel) release
+
+# MsCoreUtils 1.10
+
+## MsCoreUtils 1.10.0
+
+- New Bioconductor 3.16 (stable) release
+
+# MsCoreUtils 1.9
+
+## MsCoreUtils 1.9.2
+
+- feat: imputation is compatible with HDF5Matrix objects
+- feat: normalization is compatible with HDF5Matrix objects
+- feat: matrix aggregation is compatible with HDF5Matrix objects
+- fix+feat: aggregate_by_matrix now correctly handles missing data and
+  implements 'na.rm'
+- Fix `rla`/`rowRla` man page.
+
+## MsCoreUtils 1.9.1
+
+- Random forest imputation (using `missForest`) is now available
+  (`method = "RF")
+
+## MsCoreUtils 1.9.0
+
+- New Bioc devel version
+
 # MsCoreUtils 1.7
+
+## MsCoreUtils 1.7.5
+
+- Function `bin` gains parameter `returnMids` to choose whether or not bin
+  mid-points should be returned in the result `list`.
+
+## MsCoreUtils 1.7.4
+
+- Fix `ppm` to always return a positive value (issue
+  [#94](https://github.com/rformassspectrometry/MsCoreUtils/issues/94)).
+
+## MsCoreUtils 1.7.3
+
+- Add citation.
 
 ## MsCoreUtils 1.7.2
 
-- Use `Matrix::colSums()` by default to handle sparce 'Matix' and
+- Use `Matrix::colSums()` by default to handle sparce 'Matrix' and
   'matrix' adjacency matrices.
 
 ## MsCoreUtils 1.7.1

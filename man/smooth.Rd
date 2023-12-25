@@ -50,23 +50,23 @@ peak shape.
 }
 \section{Functions}{
 \itemize{
-\item \code{coefMA}: Simple Moving Average
+\item \code{coefMA()}: Simple Moving Average
 
 This function calculates the coefficients for a simple moving average.
 
-\item \code{coefWMA}: Weighted Moving Average
+\item \code{coefWMA()}: Weighted Moving Average
 
 This function calculates the coefficients for a weighted moving average with
 weights depending on the distance from the center calculated as
 \code{1/2^abs(-hws:hws)} with the sum of all weigths normalized to 1.
 
-\item \code{coefSG}: Savitzky-Golay-Filter
+\item \code{coefSG()}: Savitzky-Golay-Filter
 
 This function calculates the Savitzky-Golay-Coefficients. The additional
 argument \code{k} controls the order of the used polynomial. If \code{k} is set to zero
 it yield a simple moving average.
-}}
 
+}}
 \note{
 The \code{hws} depends on the used method ((weighted) moving
 average/Savitzky-Golay).
