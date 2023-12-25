@@ -15,6 +15,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_between", (DL_FUNC) &C_between, 2},
     {"C_sumi", (DL_FUNC) &C_sumi, 1},
     {"C_maxi", (DL_FUNC) &C_maxi, 1},
+    {"C_snip", (DL_FUNC) &C_snip, 3},
+    {"C_lowerConvexHull", (DL_FUNC) &C_lowerConvexHull, 2},
+    {"C_dilation", (DL_FUNC) &C_dilation, 2},
+    {"C_erosion", (DL_FUNC) &C_erosion, 2},
     {NULL, NULL, 0}
 };
 

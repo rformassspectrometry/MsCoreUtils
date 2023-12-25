@@ -156,36 +156,10 @@ estimateBaseline <- function(x, y,
 ## returns:
 ##  moving max
 
-##' @useDynLib MsCoreUtils, .registration = TRUE
 .dilation <- function(x, halfWindowSize) {
   .Call(C_dilation, x, halfWindowSize)
 }
 
-##' @useDynLib MsCoreUtils, .registration = TRUE
 .erosion <- function(x, halfWindowSize) {
   .Call(C_erosion, x, halfWindowSize)
-}
-
-##' @title Tests for too small/large half window sizes
-##'
-##' @param halfWindowSize `numeric(1)` specifying half window size.
-##'
-##' @param n `numeric(1)` with the length of the data.
-##'
-##' @return `TRUE` if valid.
-##'
-##' @noRd
-.stopIfNotIsValidHalfWindowSize <- function(halfWindowSize, n) {
-    parentCall <- deparse(sys.call(-1L))
-
-    if (halfWindowSize < 1L) {
-        stop(parentCall, " : ", sQuote("halfWindowSize"),
-             " is too small!", call. = FALSE)
-    }
-    windowSize <- halfWindowSize * 2L + 1L
-    if (windowSize > n) {
-        stop(parentCall, " : ", sQuote("halfWindowSize"),
-             " is too large!", call. = FALSE)
-    }
-    TRUE
 }
