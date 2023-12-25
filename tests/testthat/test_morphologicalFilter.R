@@ -9,12 +9,12 @@ d <- list(c(rep(8, 3), rep(7, 2), rep(10, 3)),
 
 test_that(".erosion", {
   for (i in seq(along = x)) {
-    expect_equal(.erosion(x[[i]], halfWindowSize = 2), e[[i]])
+    expect_equal(MsCoreUtils:::.erosion(x[[i]], halfWindowSize = 2), e[[i]])
   }
 })
 
 test_that(".dilation", {
   for (i in seq(along = x)) {
-    expect_equal(.dilation(x[[i]], halfWindowSize = 2), d[[i]])
+    expect_equal(MsCoreUtils:::.dilation(x[[i]], halfWindowSize = 2), d[[i]])
   }
 })
