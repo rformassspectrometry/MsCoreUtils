@@ -2,17 +2,17 @@
 ##'
 ##' @description
 ##'
-##' This function estimates the baseline of mass spectrometry data,
-##' represented by numeric vectors of masses and intesities of equal
-##' lengths.
+##' This function estimates the the baseline of mass spectrometry
+##' data, represented by numeric vectors of masses and intensities of
+##' identical lengths.
 ##'
-##' @param x `numeric()` vector masses.
+##' @param x `numeric()` vector of masses.
 ##'
-##' @param y `numeric()` vector containing intensities.
+##' @param y `numeric()` vector of intensities.
 ##'
-##' @param method `character(1)` specifying the estimation
-##'     method. Once of `"SNIP"` (default), `"TopHat"`, `"ConvexHull"`
-##'     or `"median"`. See details below.
+##' @param method `character(1)` specifying the estimation method. One
+##'     of `"SNIP"` (default), `"TopHat"`, `"ConvexHull"` or
+##'     `"median"`. See details below.
 ##'
 ##' @param ... Additional parameters passed to the respective method
 ##'     function. See details below.
@@ -58,7 +58,7 @@
 ##'   from `x[cur_index-halfWindowSize]` to
 ##'   `x[cur_index+halfWindowSize]`.
 ##'
-##' @return `numeric()` with estimated baseline intenstities.
+##' @return `numeric()` with estimated baseline intensities.
 ##'
 ##' @references
 ##'
@@ -107,7 +107,9 @@ estimateBaseline <- function(x, y,
                              method = c("SNIP", "TopHat",
                                         "ConvexHull", "median"),
                              ...) {
-    stopifnot(identical(length(x), length(y)))
+    if (!identical(length(x), length(y))) {
+        stop("Mass and intensity vectors must be of same lengths.")
+    }
     method <- match.arg(method)
 
     switch(method,

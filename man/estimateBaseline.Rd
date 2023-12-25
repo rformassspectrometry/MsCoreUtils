@@ -12,24 +12,24 @@ estimateBaseline(
 )
 }
 \arguments{
-\item{x}{\code{numeric()} vector masses.}
+\item{x}{\code{numeric()} vector of masses.}
 
-\item{y}{\code{numeric()} vector containing intensities.}
+\item{y}{\code{numeric()} vector of intensities.}
 
-\item{method}{\code{character(1)} specifying the estimation
-method. Once of \code{"SNIP"} (default), \code{"TopHat"}, \code{"ConvexHull"}
-or \code{"median"}. See details below.}
+\item{method}{\code{character(1)} specifying the estimation method. One
+of \code{"SNIP"} (default), \code{"TopHat"}, \code{"ConvexHull"} or
+\code{"median"}. See details below.}
 
 \item{...}{Additional parameters passed to the respective method
 function. See details below.}
 }
 \value{
-\code{numeric()} with estimated baseline intenstities.
+\code{numeric()} with estimated baseline intensities.
 }
 \description{
-This function estimates the baseline of mass spectrometry data,
-represented by numeric vectors of masses and intesities of equal
-lengths.
+This function estimates the the baseline of mass spectrometry
+data, represented by numeric vectors of masses and intensities of
+identical lengths.
 }
 \details{
 \itemize{
