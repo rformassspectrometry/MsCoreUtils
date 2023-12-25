@@ -29,4 +29,10 @@ extern SEXP C_sumi(SEXP);
 
 extern SEXP C_maxi(SEXP);
 
+/* Originally in MALDIquant */
+extern SEXP C_dilation(SEXP y, SEXP s);
+extern SEXP C_erosion(SEXP y, SEXP s);
+extern SEXP C_snip(SEXP y, SEXP iterations, SEXP decreasing);
+extern SEXP C_lowerConvexHull(SEXP x, SEXP y);
+
 #endif /* end of MSCOREUTILS_H */
