@@ -109,40 +109,48 @@
 ##' ## Using the first spectrum from and example dataset from
 ##' ## the MALDIquant package, without loading the package
 ##' data("fiedler2009subset", package="MALDIquant")
-##' s <- fiedler2009subset[[1]]
-##' s <- list(mass = s@mass, intensity = s@intensity)
+##' mass <- fiedler2009subset[[1]]@mass
+##' intensity <- fiedler2009subset[[1]]@intensity
+##' rm(fiedler2009subset)
 ##'
 ##' ## Example spectrum
-##' plot(s$mass, s$intensity, type = "l")
+##' plot(mass, intensity, type = "l")
 ##'
 ##' ## ----------------------------
 ##' ## SNIP baseline
-##' base_SNIP <- estimateBaseline(s$mass, s$intensity,
+##' base_SNIP <- estimateBaseline(mass, intensity,
 ##'                               method = "SNIP",
 ##'                               iterations = 100)
-##' lines(s$mass, base_SNIP, col = "red")
+##' lines(mass, base_SNIP, col = "red")
 ##'
 ##' ## ----------------------------
 ##' ## TopHat baseline
-##' base_TH75 <- estimateBaseline(s$mass, s$intensity,
+##' base_TH75 <- estimateBaseline(mass, intensity,
 ##'                               method = "TopHat", halfWindowSize = 75)
-##' lines(s$mass, base_TH75, col = "blue")
+##' lines(mass, base_TH75, col = "blue")
 ##'
-##' base_TH150 <- estimateBaseline(s$mass, s$intensity,
+##' base_TH150 <- estimateBaseline(mass, intensity,
 ##'                                method = "TopHat", halfWindowSize = 150)
-##' lines(s$mass, base_TH150, col = "steelblue")
+##' lines(mass, base_TH150, col = "steelblue")
 ##'
 ##' ## ----------------------------
 ##' ## Convex hull baseline
-##' base_CH <- estimateBaseline(s$mass, s$intensity,
+##' base_CH <- estimateBaseline(mass, intensity,
 ##'                             method = "ConvexHull")
-##' lines(s$mass, base_CH, col = "green")
+##' lines(mass, base_CH, col = "green")
 ##'
 ##' ## ----------------------------
 ##' ## Median baseline
-##' base_med <- estimateBaseline(s$mass, s$intensity,
+##' base_med <- estimateBaseline(mass, intensity,
 ##'                              method = "median")
-##' lines(s$mass, base_med, col = "orange")
+##' lines(mass, base_med, col = "orange")
+##'
+##' legend("topright", lwd = 1,
+##'         legend = c("SNIP", "TopHat (hws = 75)",
+##'                    "TopHat (hws = 150)",
+##'                    "ConvexHull", "Media"),
+##'         col = c("red", "blue", "steelblue",
+##'                 "green", "orange"))
 estimateBaseline <- function(x, y,
                              method = c("SNIP", "TopHat",
                                         "ConvexHull", "median"),
