@@ -21,6 +21,10 @@ reference:
     contents:
       - noise
       - smooth
+  - title: "Baseline estimation"
+    desc: "Spectrum intensity baseline estimation."
+    contents:
+      - estimateBaseline
   - title: "Coerce Functions"
     desc: "Functions for converting objects."
     contents:

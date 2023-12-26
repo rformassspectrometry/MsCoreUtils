@@ -10,15 +10,15 @@
 [![build devel](http://bioconductor.org/shields/build/devel/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MsCoreUtils/)
 
 
-`MsCoreUtils` defines low-level functions for mass spectrometry data and is
-independent of any high-level data structures.
-These functions include mass spectra processing functions
-(noise estimation, smoothing, binning),
-quantitative aggregation functions (median polish, robust summarisation, ...),
-missing data imputation, data normalisation (quantiles, vsn, ...)
-as well as misc helper functions, that are used across high-level
-data structure within the
-[R for Mass Spectrometry packages](https://www.rformassspectrometry.org/pkgs/).
+`MsCoreUtils` defines low-level functions for mass spectrometry data
+and is independent of any high-level data structures.  These functions
+include mass spectra processing functions (noise estimation,
+smoothing, binning, baseline estimation), quantitative aggregation
+functions (median polish, robust summarisation, ...), missing data
+imputation, data normalisation (quantiles, vsn, ...)  as well as misc
+helper functions, that are used across high-level data structure
+within the [R for Mass Spectrometry
+packages](https://www.rformassspectrometry.org/pkgs/).
 
 See the package [homepage](https://rformassspectrometry.github.io/MsCoreUtils)
 for more information.
@@ -32,7 +32,6 @@ The package can be installed with
 install.packages("BiocManager")
 BiocManager::install("MsCoreUtils")
 ```
-
 
 # Contributions
 
