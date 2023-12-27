@@ -14,8 +14,8 @@
 ##'     of `"SNIP"` (default), `"TopHat"`, `"ConvexHull"` or
 ##'     `"median"`. See details below.
 ##'
-##' @param ... Additional parameters passed to the respective method
-##'     function. See details below.
+##' @param ... Additional parameters passed to the respective
+##'     functions.
 ##'
 ##' @details
 ##'
@@ -27,25 +27,14 @@
 ##'   \deqn{y_i(k) = \min \{ y_i, \frac{(y_{i-k}+y_{i+k})}{2} \}}{y_i(k) = min \{ y_i, (y_{i-k}+y_{i+k})/2 \}}
 ##'
 ##'   It has two additional arguments namely an integer `iterations`
-##'   (default is 100L) and a logical `decreasing` (default is
-##'   TRUE). `iterations` controls the window size (*k*; similar to
-##'   `halfWindowSize` in `"TopHat"`, `"median"`) of the
-##'   algorithm. The resulting window reaches from
-##'   `x[cur_index-iterations]` to `x[cur_index+iterations]`. `
-##'
-##'   decreasing`: In Morhac (2009) a decreasing clipping window is
-##'   suggested to get a smoother baseline.  For `decreasing = TRUE`
-##'   (`decreasing = FALSE`) *k*=`iterations` is decreased (increased)
-##'   by one until zero (`iterations`) is reached. The default setting
-##'   is `decreasing = TRUE`.
+##'   and a logical `decreasing`.
 ##'
 ##' - TopHat: This algorithm applies a moving minimum (erosion filter)
 ##'   and subsequently a moving maximum (dilation filter) filter on
 ##'   the intensity values. The implementation is based on van Herk
 ##'   (1996). It has an additional `halfWindowSize` argument
 ##'   determining the half size of the moving window for the TopHat
-##'   filter. The resulting window reaches from
-##'   `x[cur_index-halfWindowSize]` to `x[cur_index+halfWindowSize]`.
+##'   filter.
 ##'
 ##' - ConvexHull: The baseline estimation is based on a convex hull
 ##'   constructed below the spectrum.
@@ -54,9 +43,7 @@
 ##'   based on [stats::runmed()]. The additional argument
 ##'   `halfWindowSize` corresponds to the `k` argument in
 ##'   [stats::runmed()] (`k = 2 * halfWindowSize + 1`) and controls
-##'   the half size of the moving window. The resulting window reaches
-##'   from `x[cur_index-halfWindowSize]` to
-##'   `x[cur_index+halfWindowSize]`.
+##'   the half size of the moving window.
 ##'
 ##' @return `numeric()` with estimated baseline intensities.
 ##'
@@ -106,44 +93,59 @@
 ##'
 ##' @examples
 ##'
-##' ## Using the first spectrum from and example dataset from
-##' ## the MALDIquant package, without loading the package
-##' data("fiedler2009subset", package="MALDIquant")
-##' mass <- fiedler2009subset[[1]]@mass
-##' intensity <- fiedler2009subset[[1]]@intensity
-##' rm(fiedler2009subset)
+##' ## ----------------------------
+##' ## Simulation example data
+##' nmz <- 5000
+##' mz <- seq(1000, length.out = nmz)
+##' ## create peaks
+##' center <- seq(50, nmz, by = 500)
+##' peaks <- lapply(center, function(cc)1000 * dpois(0:100, (1000 + cc) / 75))
+##' ## create baseline
+##' intensity <- 100 * exp(-seq_len(nmz)/2000)
+##' ## add peaks to baseline
+##' for (i in seq(along = center)) {
+##' intensity[center[i]:(center[i] + 100)] <-
+##'    intensity[center[i]:(center[i] + 100)] + peaks[[i]]
+##' }
+##' ## add noise
+##' intensity <- intensity + rnorm(nmz, mean = 0, sd = 1)
 ##'
-##' ## Example spectrum
-##' plot(mass, intensity, type = "l")
+##' plot(mz, intensity, type = "l")
 ##'
 ##' ## ----------------------------
 ##' ## SNIP baseline
-##' base_SNIP <- estimateBaseline(mass, intensity,
+##' base_SNIP <- estimateBaseline(mz, intensity,
 ##'                               method = "SNIP",
-##'                               iterations = 100)
-##' lines(mass, base_SNIP, col = "red")
+##'                               iterations = 100L)
+##' ## same as estimateBaselineSnip(mz, intensity, iterations = 100L)
+##' lines(mz, base_SNIP, col = "red")
 ##'
 ##' ## ----------------------------
 ##' ## TopHat baseline
-##' base_TH75 <- estimateBaseline(mass, intensity,
-##'                               method = "TopHat", halfWindowSize = 75)
-##' lines(mass, base_TH75, col = "blue")
+##' base_TH75 <- estimateBaseline(mz, intensity,
+##'                               method = "TopHat",
+##'                               halfWindowSize = 75L)
+##' ## same as estimateBaselineTopHat(mz, intenstity, halfWindowSize = 75L)
+##' lines(mz, base_TH75, col = "blue")
 ##'
-##' base_TH150 <- estimateBaseline(mass, intensity,
-##'                                method = "TopHat", halfWindowSize = 150)
-##' lines(mass, base_TH150, col = "steelblue")
+##' base_TH150 <- estimateBaseline(mz, intensity,
+##'                                method = "TopHat",
+##'                                halfWindowSize = 150L)
+##' lines(mz, base_TH150, col = "steelblue")
 ##'
 ##' ## ----------------------------
 ##' ## Convex hull baseline
-##' base_CH <- estimateBaseline(mass, intensity,
+##' base_CH <- estimateBaseline(mz, intensity,
 ##'                             method = "ConvexHull")
-##' lines(mass, base_CH, col = "green")
+##' ## same as estimateBaselineConvexHull(mz, intensity)
+##' lines(mz, base_CH, col = "green")
 ##'
 ##' ## ----------------------------
 ##' ## Median baseline
-##' base_med <- estimateBaseline(mass, intensity,
+##' base_med <- estimateBaseline(mz, intensity,
 ##'                              method = "median")
-##' lines(mass, base_med, col = "orange")
+##' ## same as estimateBaselineMedian(mz, intensity)
+##' lines(mz, base_med, col = "orange")
 ##'
 ##' legend("topright", lwd = 1,
 ##'         legend = c("SNIP", "TopHat (hws = 75)",
@@ -161,28 +163,53 @@ estimateBaseline <- function(x, y,
     method <- match.arg(method)
 
     switch(method,
-           "SNIP" = .estimateBaselineSnip(x, y, ...),
-           "TopHat" = .estimateBaselineTopHat(x, y, ...),
-           "ConvexHull" = .estimateBaselineConvexHull(x, y, ...),
-           "median" = .estimateBaselineMedian(x, y, ...)
+           "SNIP" = estimateBaselineSnip(x, y, ...),
+           "TopHat" = estimateBaselineTopHat(x, y, ...),
+           "ConvexHull" = estimateBaselineConvexHull(x, y, ...),
+           "median" = estimateBaselineMedian(x, y, ...)
            )
 }
 
-.estimateBaselineConvexHull <- function(x, y) {
+##' @rdname estimateBaseline
+##' @export
+estimateBaselineConvexHull <- function(x, y) {
   .Call(C_lowerConvexHull, x, y)
 }
 
-.estimateBaselineMedian <- function(x, y, halfWindowSize = 100L) {
+##' @param halfWindowSize `integer()` defining the half window
+##'     size. Default is 100L. The resulting window reaches from
+##'     `x[cur_index - halfWindowSize]` to `x[cur_index +
+##'     halfWindowSize]`.
+##' @rdname estimateBaseline
+##' @export
+estimateBaselineMedian <- function(x, y, halfWindowSize = 100L) {
     .stopIfNotIsValidHalfWindowSize(halfWindowSize = halfWindowSize,
                                     n = length(x))
     as.vector(runmed(y, k = 2L * halfWindowSize + 1L))
 }
 
-.estimateBaselineSnip <- function(x, y, iterations = 100L, decreasing = TRUE) {
+##' @param iterations `integer()` controling the window size (*k*,
+##'     similar to `halfWindowSize` in `"TopHat"`, `"median"`) of the
+##'     algorithm. The resulting window reaches from `x[cur_index -
+##'     iterations]` to `x[cur_index + iterations]`.
+##'
+##' @param decreasing `logical(1)` whether the cliping window should
+##'     be decreasing, as defined in Morhac (2009). A decreasing
+##'     clipping window is suggested to get a smoother baseline.  For
+##'     `TRUE` (`FALSE`) *k*=`iterations` is decreased (increased) by
+##'     one until zero (`iterations`) is reached. The default setting
+##'     is `decreasing = TRUE`.
+##' @rdname estimateBaseline
+##' @export
+estimateBaselineSnip <- function(x, y,
+                                 iterations = 100L,
+                                 decreasing = TRUE) {
   .Call(C_snip, y, iterations, decreasing)
 }
 
-.estimateBaselineTopHat <- function(x, y, halfWindowSize = 100L) {
+##' @rdname estimateBaseline
+##' @export
+estimateBaselineTopHat <- function(x, y, halfWindowSize = 100L) {
     .stopIfNotIsValidHalfWindowSize(halfWindowSize = halfWindowSize,
                                     n = length(x))
     .dilation(.erosion(y, halfWindowSize = halfWindowSize),

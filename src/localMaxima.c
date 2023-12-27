@@ -1,6 +1,7 @@
 /* Sebastian Gibb <mail@sebastiangibb.de>
  *
  * This file is taken from MALDIquant for R and related languages.
+ * License: Artistic-2.0
  *
  */
 

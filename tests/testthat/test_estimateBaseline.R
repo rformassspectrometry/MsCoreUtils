@@ -12,7 +12,7 @@ test_that("estimateBaseline throws errors", {
 test_that("estimateBaselineConvexHull", {
     b <- c(10:1, rep(1, 10))
     expect_identical(
-        MsCoreUtils:::.estimateBaselineConvexHull(s$mass, s$intensity),
+        estimateBaselineConvexHull(s$mass, s$intensity),
         b)
     ## user method
     expect_identical(
@@ -24,10 +24,10 @@ test_that("estimateBaselineMedian", {
     b <- c(10:4, rep(c(3, 8), each = 3), 7:1)
     b1 <- c(10:3, rep(c(2, 9), each = 2), 8:1)
     expect_identical(
-        MsCoreUtils:::.estimateBaselineMedian(s$mass, s$intensity, 1),
+        estimateBaselineMedian(s$mass, s$intensity, 1),
         b1)
     expect_identical(
-        MsCoreUtils:::.estimateBaselineMedian(s$mass, s$intensity, 2),
+        estimateBaselineMedian(s$mass, s$intensity, 2),
         b)
     ## user method
     expect_identical(
@@ -39,9 +39,9 @@ test_that("estimateBaselineMedian", {
                          method = "median", halfWindowSize = 2),
         b)
     ## halfWindowSize
-    expect_error(MsCoreUtils:::.estimateBaselineMedian(s$mass, s$intensity, 0),
+    expect_error(estimateBaselineMedian(s$mass, s$intensity, 0),
                  "too small")
-    expect_error(MsCoreUtils:::.estimateBaselineMedian(s$mass, s$intensity, 20),
+    expect_error(estimateBaselineMedian(s$mass, s$intensity, 20),
                  "too large")
 })
 
@@ -54,17 +54,17 @@ test_that("estimateBaselineSnip", {
                           b100 = c(10:1, 3.75, 3.375, 3:1, 2.5, 4:1)))
     ## test default decreasing argument
     expect_identical(
-        MsCoreUtils:::.estimateBaselineSnip(s$mass, s$intensity, 2),
+        estimateBaselineSnip(s$mass, s$intensity, 2),
         b$decreasing$b)
     for (j in seq(along = b)) {
         d <- names(b)[j] == "decreasing"
 
         expect_identical(
-            MsCoreUtils:::.estimateBaselineSnip(s$mass, s$intensity,
+            estimateBaselineSnip(s$mass, s$intensity,
                                                 2, decreasing = d),
             b[[j]]$b)
         expect_equal(
-            MsCoreUtils:::.estimateBaselineSnip(s$mass, s$intensity,
+            estimateBaselineSnip(s$mass, s$intensity,
                                                 decreasing = d),
             b[[j]]$b100)
         ## user method
@@ -88,10 +88,10 @@ test_that("estimateBaselineTopHat", {
     b <- c(rep(8, 3), 7:1, rep(6, 5), 5:1)
     b1 <- c(rep(9, 2), 8:1, rep(8, 3), 7:1)
     expect_identical(
-        MsCoreUtils:::.estimateBaselineTopHat(s$mass, s$intensity, 1),
+        estimateBaselineTopHat(s$mass, s$intensity, 1),
         b1)
     expect_identical(
-        MsCoreUtils:::.estimateBaselineTopHat(s$mass, s$intensity, 2),
+        estimateBaselineTopHat(s$mass, s$intensity, 2),
         b)
     ## user method
     expect_identical(
@@ -101,9 +101,9 @@ test_that("estimateBaselineTopHat", {
         b)
     ## halfWindowSize
     expect_error(
-        MsCoreUtils:::.estimateBaselineTopHat(s$mass, s$intensity, 0),
+        estimateBaselineTopHat(s$mass, s$intensity, 0),
         "too small")
     expect_error(
-        MsCoreUtils:::.estimateBaselineTopHat(s$mass, s$intensity, 20),
+        estimateBaselineTopHat(s$mass, s$intensity, 20),
         "too large")
 })
