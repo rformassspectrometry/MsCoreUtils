@@ -122,11 +122,11 @@
 ##'
 ##' ## ----------------------------
 ##' ## TopHat baseline
-##' base_TH75 <- estimateBaseline(mz, intensity,
+##' base_TH25 <- estimateBaseline(mz, intensity,
 ##'                               method = "TopHat",
-##'                               halfWindowSize = 75L)
-##' ## same as estimateBaselineTopHat(mz, intenstity, halfWindowSize = 75L)
-##' lines(mz, base_TH75, col = "blue")
+##'                               halfWindowSize = 25L)
+##' ## same as estimateBaselineTopHat(mz, intenstity, halfWindowSize = 25L)
+##' lines(mz, base_TH25, col = "blue")
 ##'
 ##' base_TH15 <- estimateBaseline(mz, intensity,
 ##'                                method = "TopHat",
