@@ -1,10 +1,15 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.2
+
+- Porting baseline baseline estimation function (see [issue
+  119](https://github.com/rformassspectrometry/MsCoreUtils/issues/119)).
+
 ## MsCoreUtils 1.15.1
 
 - Remove `impute_mle2()` since norm2 has been removed from CRAN (see
   [issue
-  117])https://github.com/rformassspectrometry/MsCoreUtils/issues/117)).
+  117](https://github.com/rformassspectrometry/MsCoreUtils/issues/117)).
 
 ## MsCoreUtils 1.15.0
 

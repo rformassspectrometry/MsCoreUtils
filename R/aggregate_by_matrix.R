@@ -1,6 +1,6 @@
 #' @rdname aggregate
-#' 
-#' @param na.rm A `logical(1)` indicating whether the missing values 
+#'
+#' @param na.rm A `logical(1)` indicating whether the missing values
 #'     (including NaN) should be omitted from the calculations or not.
 #'     Defaults to `FALSE`.
 #'
@@ -13,7 +13,6 @@ colMeansMat <- function(x, MAT, na.rm = FALSE) {
     }
     colSumsMat(x, MAT, na.rm = na.rm) / n
 }
-  
 
 #' @rdname aggregate
 #'
@@ -33,7 +32,7 @@ colSumsMat <- function(x, MAT, na.rm = FALSE) {
     }
     res
 }
-  
+
 
 
 ##' @param MAT An adjacency matrix that defines peptide-protein
@@ -66,7 +65,7 @@ aggregate_by_matrix <- function(x, MAT, FUN, ...) {
         stop("The column names of 'x' have to be identical to the column names of 'res'!")
     colnames(res) <- colnames(x)
     if (inherits(x, "HDF5Matrix"))
-        res <- HDF5Array::writeHDF5Array(res, 
+        res <- HDF5Array::writeHDF5Array(res,
                                          filepath = HDF5Array::path(x),
                                          with.dimnames = TRUE)
     res
