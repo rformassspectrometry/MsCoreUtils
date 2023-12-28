@@ -117,7 +117,7 @@
 ##' base_SNIP <- estimateBaseline(mz, intensity,
 ##'                               method = "SNIP",
 ##'                               iterations = 20L)
-##' ## same as estimateBaselineSnip(mz, intensity, iterations = 100L)
+##' ## same as estimateBaselineSnip(mz, intensity, iterations = 20L)
 ##' lines(mz, base_SNIP, col = "red")
 ##'
 ##' ## ----------------------------
