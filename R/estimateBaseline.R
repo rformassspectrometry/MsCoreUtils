@@ -148,8 +148,8 @@
 ##' lines(mz, base_med, col = "orange")
 ##'
 ##' legend("topright", lwd = 1,
-##'         legend = c("SNIP", "TopHat (hws = 75)",
-##'                    "TopHat (hws = 150)",
+##'         legend = c("SNIP", "TopHat (hws = 25)",
+##'                    "TopHat (hws = 15)",
 ##'                    "ConvexHull", "Median"),
 ##'         col = c("red", "blue", "steelblue",
 ##'                 "green", "orange"))
