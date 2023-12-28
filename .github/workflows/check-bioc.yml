@@ -268,11 +268,13 @@ jobs:
         shell: Rscript {0}
 
       - name: Install package
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        # if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: R CMD INSTALL .
 
       - name: Build pkgdown site
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        # if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
         ## Note that you need to run pkgdown::deploy_to_branch(new_process = FALSE)
@@ -281,12 +283,14 @@ jobs:
         ## makes the git history recognizable by pkgdown.
 
       - name: Install deploy dependencies
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        # if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: env.run_pkgdown == 'true' && runner.os == 'Linux'
         run: |
           apt-get update && apt-get -y install rsync
 
       - name: Deploy pkgdown site to GitHub pages 🚀
-        if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        # if: github.ref == 'refs/heads/devel' && env.run_pkgdown == 'true' && runner.os == 'Linux'
+        if: env.run_pkgdown == 'true' && runner.os == 'Linux'
         uses: JamesIves/github-pages-deploy-action@releases/v4
         with:
           clean: false
@@ -299,7 +303,6 @@ jobs:
         with:
           name: ${{ runner.os }}-biocversion-devel-r-4.3-results
           path: check
-
 
   ## Code adapted from
   ## https://github.com/waldronlab/cBioPortalData/blob/e0440a4445f0cc731e426363a76faa22ee5e0f9d/.github/workflows/devel_check_dock.yml#L65-L92
