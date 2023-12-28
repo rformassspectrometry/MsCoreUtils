@@ -128,10 +128,10 @@
 ##' ## same as estimateBaselineTopHat(mz, intenstity, halfWindowSize = 75L)
 ##' lines(mz, base_TH75, col = "blue")
 ##'
-##' base_TH150 <- estimateBaseline(mz, intensity,
+##' base_TH15 <- estimateBaseline(mz, intensity,
 ##'                                method = "TopHat",
-##'                                halfWindowSize = 150L)
-##' lines(mz, base_TH150, col = "steelblue")
+##'                                halfWindowSize = 15L)
+##' lines(mz, base_TH15, col = "steelblue")
 ##'
 ##' ## ----------------------------
 ##' ## Convex hull baseline
