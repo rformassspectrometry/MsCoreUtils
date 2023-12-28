@@ -176,8 +176,9 @@ jobs:
 
           ## Pass #1 at installing dependencies
           message(paste('****', Sys.time(), 'pass number 1 at installing dependencies: local dependencies ****'))
-          BiocManager::install("bmbolstad/preprocessCore", configure.args = "--disable-threading")
-          BiocManager::install("vsn", ask = FALSE, force = TRUE, type = "source", build_vignettes = FALSE)
+          ## See https://github.com/Bioconductor/bioconductor_docker/issues/22
+          # BiocManager::install("bmbolstad/preprocessCore", configure.args = "--disable-threading")
+          # BiocManager::install("vsn", ask = FALSE, force = TRUE, type = "source", build_vignettes = FALSE)
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = FALSE, upgrade = TRUE)
           BiocManager::install("HDF5Array", ask = FALSE, force = TRUE)
         continue-on-error: true
@@ -189,6 +190,13 @@ jobs:
           message(paste('****', Sys.time(), 'pass number 2 at installing dependencies: any remaining dependencies ****'))
           remotes::install_local(dependencies = TRUE, repos = BiocManager::repositories(), build_vignettes = TRUE, upgrade = TRUE, force = TRUE)
         shell: Rscript {0}
+
+      - name: Manually install preprocessCore without threading
+        ## See https://github.com/Bioconductor/bioconductor_docker/issues/22
+        run: |
+          git clone https://github.com/bmbolstad/preprocessCore.git
+          cd preprocessCore
+          R CMD INSTALL --configure-args="--disable-threading"  .
 
       - name: Install BiocGenerics
         if:  env.has_RUnit == 'true'
