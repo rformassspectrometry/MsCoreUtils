@@ -150,7 +150,7 @@
 ##' legend("topright", lwd = 1,
 ##'         legend = c("SNIP", "TopHat (hws = 75)",
 ##'                    "TopHat (hws = 150)",
-##'                    "ConvexHull", "Media"),
+##'                    "ConvexHull", "Median"),
 ##'         col = c("red", "blue", "steelblue",
 ##'                 "green", "orange"))
 estimateBaseline <- function(x, y,
