@@ -57,3 +57,14 @@ test_that("bin works", {
     expect_error(bin(1:3, 1:5))
     expect_error(bin(1:3, 1:5), FUN = other)
 })
+
+test_that("breaks_ppm works", {
+    res <- breaks_ppm(2, 23, by = 1, ppm = 0)
+    expect_equal(res, seq(2, 23, by = 1))
+
+    res <- breaks_ppm(10, 23.3, by = 0.1, ppm = 50)
+    expect_true(res[length(res)] > 23.3)
+    expect_true(res[length(res) - 1L] < 23.3)
+    diffs <- diff(res)
+    expect_true(diffs[2] > diffs[1])
+})
