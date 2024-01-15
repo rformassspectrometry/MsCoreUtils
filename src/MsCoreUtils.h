@@ -29,4 +29,9 @@ extern SEXP C_sumi(SEXP);
 
 extern SEXP C_maxi(SEXP);
 
+extern SEXP C_dilation(SEXP, SEXP);
+extern SEXP C_erosion(SEXP, SEXP);
+extern SEXP C_snip(SEXP, SEXP, SEXP);
+extern SEXP C_lowerConvexHull(SEXP, SEXP);
+
 #endif /* end of MSCOREUTILS_H */
