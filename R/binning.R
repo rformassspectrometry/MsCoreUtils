@@ -150,9 +150,9 @@ breaks_ppm <- function(from = 1, to = 1, by = 1, ppm = 0) {
     res <- rep(NA_real_, l)
     res[1L] <- a <- from
     i <- 2L
+    p <- 1 + ppm(1, ppm)
     while(a < to) {
-        a <- a + by
-        a <- a + ppm(a, ppm)
+        a <- (a + by) * p
         res[i] <- a
         i <- i + 1L
     }
