@@ -135,6 +135,8 @@ bin <- function(x, y, size = 1,
 #' @return `numeric` with the sequence of values with increasing differences.
 #'     The returned values include `from` and `to`.
 #'
+#' @export
+#'
 #' @author Johannes Rainer
 #'
 #' @examples

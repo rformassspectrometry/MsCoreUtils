@@ -1,8 +1,13 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.3
+
+- Add function `breaks_ppm` to create a sequence of numbers with increasing
+  difference between elements (defined by parameter `ppm`).
+
 ## MsCoreUtils 1.15.2
 
-- Porting baseline baseline estimation function (see [issue
+- Porting baseline estimation function (see [issue
   119](https://github.com/rformassspectrometry/MsCoreUtils/issues/119)).
 
 ## MsCoreUtils 1.15.1
