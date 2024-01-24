@@ -145,7 +145,6 @@ bin <- function(x, y, size = 1,
 #' ## difference between the values increases (by ppm)
 #' diff(res)
 breaks_ppm <- function(from = 1, to = 1, by = 1, ppm = 0) {
-    ## Maybe implement in C for higher performance.
     l <- ceiling((to - from + 1) / by)
     res <- rep(NA_real_, l)
     res[1L] <- a <- from
