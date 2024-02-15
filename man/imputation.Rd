@@ -14,7 +14,6 @@
 \alias{impute_MinDet}
 \alias{impute_MinProb}
 \alias{impute_QRILC}
-\alias{impute_mle2}
 \alias{impute_RF}
 \alias{impute_fun}
 \alias{getImputeMargin}
@@ -29,8 +28,6 @@ impute_neighbour_average(x, k = min(x, na.rm = TRUE), MARGIN = 1L)
 impute_knn(x, MARGIN = 1L, ...)
 
 impute_mle(x, MARGIN = 2L, ...)
-
-impute_mle2(x, MARGIN = 2L, ...)
 
 impute_bpca(x, MARGIN = 1L, ...)
 
@@ -176,9 +173,7 @@ algorithm. The \code{impute_mle()} function relies on
 \code{norm::imp.norm()}. function. See \code{\link[norm:imp.norm]{norm::imp.norm()}} for details
 and additional parameters. Note that here, \code{...} are passed to
 the \code{\link[norm:em.norm]{norm::em.norm()}} function, rather to the actual imputation
-function \code{imp.norm}. The \code{impute_mle2()} function uses the more
-recent \code{norm2::emNorm()} function that is more reliable when the
-number of variables exceed 30.
+function \code{imp.norm}.
 \item \emph{bpca}: Bayesian missing value imputation are available, as
 implemented in the \code{pcaMethods::pca()} function. See
 \code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and additional parameters.

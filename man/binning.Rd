@@ -23,7 +23,8 @@ thrown.}
 
 \item{size}{\code{numeric(1)} with the size of a bin.}
 
-\item{breaks}{\code{numeric} defining the breaks (bins).}
+\item{breaks}{\code{numeric} defining the breaks (bins). See \code{\link[=breaks_ppm]{breaks_ppm()}} to
+define breaks with increasing size (depending on ppm).}
 
 \item{FUN}{\code{function} to be used to aggregate values of \code{x} falling into the
 bins defined by \code{breaks}. \code{FUN} is expected to return a \code{numeric(1)}.}

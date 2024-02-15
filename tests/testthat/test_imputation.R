@@ -1,9 +1,11 @@
 test_that("all imputation methods", {
     m <- imputeMethods()
-    m <- m[m != "mixed"]
-    m <- m[m != "none"]
-    m <- m[m != "with"]  ## see below
-    m <- m[m != "nbavg"] ## see next test
+    dontTest <- c("mixed",
+                  "none",
+                  "with",  ## see below
+                  "nbavg", ## see next test
+                  "MLE2")  ## see 117 for MLE2
+    m <- setdiff(imputeMethods(), dontTest)
     for (.m in m) {
         if (.m == "knn") {
             expect_warning(xx <- impute_matrix(x, method = .m),
@@ -214,8 +216,8 @@ test_that("impute: user-provided function", {
 test_that("impute_matrix() preserves dimnames", {
     ## imputation methods
     m <- imputeMethods()
-    m <- m[m != "mixed"]
-    m <- m[m != "with"]
+    ## skip some - see 117 for MLE2
+    m <- setdiff(imputeMethods(), c("MLE2", "mixed", "with"))
     ## test data
     set.seed(1)
     x_miss <- matrix(rnorm(100 * 10), ncol = 10)

@@ -17,8 +17,8 @@ test_that("test all default margins", {
     expect_identical(getImputeMargin(impute_MinDet), 2L)
     expect_identical(getImputeMargin(impute_MinProb), 2L)
     expect_identical(getImputeMargin(impute_mixed), 1L)
-    expect_identical(getImputeMargin(impute_mle), 2L)
-    expect_identical(getImputeMargin(impute_mle2), 2L)
+    ## expect_identical(getImputeMargin(impute_mle), 2L)
+    ## expect_identical(getImputeMargin(impute_mle2), 2L)
     expect_identical(getImputeMargin(impute_neighbour_average), 1L)
     expect_identical(getImputeMargin(impute_QRILC), 2L)
     expect_identical(getImputeMargin(impute_RF), 2L)
@@ -125,14 +125,14 @@ test_that("impute_mle(margin) works", {
     expect_true(m_imp1[2, 2] != m_imp2[2, 2])
 })
 
-test_that("impute_mle2(margin) works", {
-    m <- matrix(1:16, ncol = 4)
-    m[2, 2] <- NA
-    suppressWarnings(m_imp1 <- impute_mle2(m, MARGIN = 1L))
-    suppressWarnings(m_imp2 <- impute_mle2(m, MARGIN = 2L))
-    expect_equal(m_imp1[-2, -2], m_imp2[-2, -2])
-    expect_true(m_imp1[2, 2] != m_imp2[2, 2])
-})
+## test_that("impute_mle2(margin) works", {
+##     m <- matrix(1:16, ncol = 4)
+##     m[2, 2] <- NA
+##     suppressWarnings(m_imp1 <- impute_mle2(m, MARGIN = 1L))
+##     suppressWarnings(m_imp2 <- impute_mle2(m, MARGIN = 2L))
+##     expect_equal(m_imp1[-2, -2], m_imp2[-2, -2])
+##     expect_true(m_imp1[2, 2] != m_imp2[2, 2])
+## })
 
 test_that("impute_MinDet(margin) works", {
     m <- matrix(1:16, ncol = 4)

@@ -2,15 +2,18 @@
 % Please edit documentation in R/entropy.R
 \name{entropy}
 \alias{entropy}
+\alias{nentropy}
 \title{Spectral entropy}
 \usage{
 entropy(x)
+
+nentropy(x)
 }
 \arguments{
 \item{x}{\code{numeric}, intensities of the fragment ions.}
 }
 \value{
-\code{numeric}: (normalized) entropy \code{x}.
+\code{numeric}: (normalized) entropy of \code{x}.
 }
 \description{
 These functions allow to calculate entropy measurements of an MS/MS
@@ -20,10 +23,9 @@ Spectral entropy and normalized entropy are used to measure the complexity
 of an spectra.
 MassBank of North America (MoNA) defines spectra entropy as the intensity
 weighted spectral peak number
-(https://mona.fiehnlab.ucdavis.edu/documentation/entropy.
-Additionally it is suggested to label as low-quality spectrums the ones
-that have a normalized entropy higher than 0.8 and spectral entropy
-higher than 3.
+(https://mona.fiehnlab.ucdavis.edu/documentation/entropy).
+Additionally it is suggested to consider spectra with a normalized
+entropy larger than 0.8, or a spectral entropy larger than 3 as low-quality spectra.
 }
 \examples{
 spectrum <- rbind(c(41.04, 37.16), c(69.07, 66.83), c(86.1, 999.0))
