@@ -91,7 +91,7 @@ NULL
 #' MassBank (Horai et al. 2010) uses `m = 2` and `n = 0.5`
 #' for small compounds. In general with increasing values for `m`,
 #' high m/z values will be taken more into account for similarity calculation.
-#' Especially when working with small molecules, a value `n > 0` can be set
+#' Especially when working with small molecules, a value `m > 0` can be set
 #' to give a weight on the m/z values to accommodate that shared fragments
 #' with higher m/z are less likely and will mean that molecules might be more
 #' similar. Increasing `n` will result in a higher importance of the intensity
