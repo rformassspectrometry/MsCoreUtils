@@ -60,7 +60,7 @@ Spectral Library.
 MassBank (Horai et al. 2010) uses \code{m = 2} and \code{n = 0.5}
 for small compounds. In general with increasing values for \code{m},
 high m/z values will be taken more into account for similarity calculation.
-Especially when working with small molecules, a value \code{n > 0} can be set
+Especially when working with small molecules, a value \code{m > 0} can be set
 to give a weight on the m/z values to accommodate that shared fragments
 with higher m/z are less likely and will mean that molecules might be more
 similar. Increasing \code{n} will result in a higher importance of the intensity
