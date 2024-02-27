@@ -1,5 +1,9 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.4
+
+- Fix documentation of `ndotproduct`.
+
 ## MsCoreUtils 1.15.3
 
 - Add function `breaks_ppm` to create a sequence of numbers with increasing
