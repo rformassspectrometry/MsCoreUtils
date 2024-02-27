@@ -165,20 +165,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##            a          b          c          d          e           f</span></span>
-<span><span class="co">## A  1.7033837  1.2858984 -2.3821843  0.1407964 -0.6995904 -0.75185622</span></span>
-<span><span class="co">## B -1.3663145 -0.4565486 -0.2441276  0.3028654  0.8978168  0.05262823</span></span>
-<span><span class="co">## C -0.2801444 -1.1078161  0.6876623 -0.4572735 -0.1606801  0.84894360</span></span>
-<span><span class="co">##             g          h          i         j</span></span>
-<span><span class="co">## A  2.50436486  2.1897652 -0.1527386 0.3032293</span></span>
-<span><span class="co">## B  0.03202517  0.9890963  0.7383010 0.9847843</span></span>
-<span><span class="co">## C -2.23179312 -0.8314464 -0.9885621 1.3924081</span></span></code></pre>
+<pre><code><span><span class="co">##            a         b           c          d          e           f          g</span></span>
+<span><span class="co">## A -0.2507439 1.3671996 -0.50619374 -0.5251414  1.1629592  1.64369751 -0.2137197</span></span>
+<span><span class="co">## B -1.4732080 0.4546810  0.09597305  1.3346701 -0.4793404 -0.08536795 -1.2542089</span></span>
+<span><span class="co">## C -0.8706464 0.3732869  0.51349341  0.9011578  0.1548785  1.37191810  0.7349594</span></span>
+<span><span class="co">##            h          i           j</span></span>
+<span><span class="co">## A 0.86811764  0.9872744  0.06439297</span></span>
+<span><span class="co">## B 0.03652461 -1.6474724 -1.58870092</span></span>
+<span><span class="co">## C 2.30944669 -0.1741770 -0.72331064</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##            a            b            c            d            e            f </span></span>
-<span><span class="co">##  0.018974906 -0.092822094 -0.411891562 -0.004537267  0.012515427  0.049905205 </span></span>
-<span><span class="co">##            g            h            i            j </span></span>
-<span><span class="co">## -0.054735985  0.782471680 -0.134333253  0.893473899</span></span></code></pre>
+<pre><code><span><span class="co">##          a          b          c          d          e          f          g </span></span>
+<span><span class="co">## -0.8648661  0.7317225  0.1277520  0.6246077  0.2794991  0.9767492 -0.2443230 </span></span>
+<span><span class="co">##          h          i          j </span></span>
+<span><span class="co">##  0.9669547 -0.3349563 -0.7492062</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
@@ -232,7 +232,7 @@ GitHub issue</a>.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] vctrs_0.6.5         cli_3.6.2           knitr_1.45         </span></span>
-<span><span class="co">##  [4] rlang_1.1.3         xfun_0.41           stringi_1.8.3      </span></span>
+<span><span class="co">##  [4] rlang_1.1.3         xfun_0.42           stringi_1.8.3      </span></span>
 <span><span class="co">##  [7] purrr_1.0.2         textshaping_0.3.7   clue_0.3-65        </span></span>
 <span><span class="co">## [10] jsonlite_1.8.8      glue_1.7.0          S4Vectors_0.40.2   </span></span>
 <span><span class="co">## [13] htmltools_0.5.7     stats4_4.3.2        ragg_1.2.7         </span></span>
