@@ -33,7 +33,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.15.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.15.4</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,20 +165,22 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##            a         b          c          d          e          f          g</span></span>
-<span><span class="co">## A  0.4566105  1.325709  0.0105806 -0.5951775 -0.8889721 -2.1276060 1.53372617</span></span>
-<span><span class="co">## B -0.2213302 -1.005668  1.7609008  0.1440269 -0.1947948  1.4093358 0.72042456</span></span>
-<span><span class="co">## C  1.6150999 -1.511843 -0.1361789  1.7137571  0.5541926  0.4038464 0.09676067</span></span>
-<span><span class="co">##            h           i          j</span></span>
-<span><span class="co">## A  0.4150372  0.55651623 -0.7215153</span></span>
-<span><span class="co">## B -0.9385183 -0.09171408  1.0348679</span></span>
-<span><span class="co">## C  0.7896004  1.06505011 -1.5252271</span></span></code></pre>
+<pre><code><span><span class="co">##            a          b          c          d          e          f          g</span></span>
+<span><span class="co">## A  0.7257343  0.8014827  1.2362460  0.3169707 -0.1633619 -0.1461350  1.5592079</span></span>
+<span><span class="co">## B -1.0835990 -0.6412636  0.9004971  1.0550450 -0.6333983 -0.5890515 -0.2036167</span></span>
+<span><span class="co">## C -1.2796069 -0.6302460 -0.7820806 -0.6291810 -1.4328877 -1.5398617 -0.2246544</span></span>
+<span><span class="co">##            h          i          j</span></span>
+<span><span class="co">## A -0.2109941 -0.7473855 -0.2425756</span></span>
+<span><span class="co">## B -0.4595713  0.8651575  1.5642190</span></span>
+<span><span class="co">## C  0.4564525 -0.7374193 -1.8265243</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning in rlm.default(X, expression, ...): 'rlm' failed to converge in 20</span></span>
+<span><span class="co">## steps</span></span></code></pre>
 <pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">##  0.61679341 -0.61942582  0.54510083  0.42086880 -0.17652479  0.06516856 </span></span>
+<span><span class="co">## -0.53077316 -0.15667563  0.45155416  0.24761157 -0.74321599 -0.75834941 </span></span>
 <span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">##  0.78363713  0.08870644  0.50995075 -0.40395816</span></span></code></pre>
+<span><span class="co">##  0.42030025 -0.38187194  0.01155081 -0.62549886</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
@@ -205,8 +207,8 @@ GitHub issue</a>.</p>
 <div class="section level2">
 <h2 class="unnumbered" id="session-information">Session information<a class="anchor" aria-label="anchor" href="#session-information"></a>
 </h2>
-<pre><code><span><span class="co">## R Under development (unstable) (2024-02-21 r85967)</span></span>
-<span><span class="co">## Platform: x86_64-pc-linux-gnu</span></span>
+<pre><code><span><span class="co">## R version 4.3.2 (2023-10-31)</span></span>
+<span><span class="co">## Platform: x86_64-pc-linux-gnu (64-bit)</span></span>
 <span><span class="co">## Running under: Ubuntu 22.04.3 LTS</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Matrix products: default</span></span>
@@ -228,22 +230,22 @@ GitHub issue</a>.</p>
 <span><span class="co">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## other attached packages:</span></span>
-<span><span class="co">## [1] MsCoreUtils_1.15.3 BiocStyle_2.31.0  </span></span>
+<span><span class="co">## [1] MsCoreUtils_1.15.4 BiocStyle_2.30.0  </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## loaded via a namespace (and not attached):</span></span>
 <span><span class="co">##  [1] vctrs_0.6.5         cli_3.6.2           knitr_1.45         </span></span>
 <span><span class="co">##  [4] rlang_1.1.3         xfun_0.42           stringi_1.8.3      </span></span>
 <span><span class="co">##  [7] purrr_1.0.2         textshaping_0.3.7   clue_0.3-65        </span></span>
-<span><span class="co">## [10] jsonlite_1.8.8      glue_1.7.0          S4Vectors_0.41.3   </span></span>
-<span><span class="co">## [13] htmltools_0.5.7     stats4_4.4.0        ragg_1.2.7         </span></span>
+<span><span class="co">## [10] jsonlite_1.8.8      glue_1.7.0          S4Vectors_0.40.2   </span></span>
+<span><span class="co">## [13] htmltools_0.5.7     stats4_4.3.2        ragg_1.2.7         </span></span>
 <span><span class="co">## [16] sass_0.4.8          rmarkdown_2.25      evaluate_0.23      </span></span>
-<span><span class="co">## [19] jquerylib_0.1.4     MASS_7.3-60.2       fastmap_1.1.1      </span></span>
+<span><span class="co">## [19] jquerylib_0.1.4     MASS_7.3-60.0.1     fastmap_1.1.1      </span></span>
 <span><span class="co">## [22] yaml_2.3.8          lifecycle_1.0.4     memoise_2.0.1      </span></span>
 <span><span class="co">## [25] bookdown_0.37       BiocManager_1.30.22 stringr_1.5.1      </span></span>
-<span><span class="co">## [28] cluster_2.1.6       compiler_4.4.0      fs_1.6.3           </span></span>
+<span><span class="co">## [28] cluster_2.1.6       compiler_4.3.2      fs_1.6.3           </span></span>
 <span><span class="co">## [31] systemfonts_1.0.5   digest_0.6.34       R6_2.5.1           </span></span>
-<span><span class="co">## [34] magrittr_2.0.3      bslib_0.6.1         tools_4.4.0        </span></span>
-<span><span class="co">## [37] BiocGenerics_0.49.1 pkgdown_2.0.7       cachem_1.0.8       </span></span>
+<span><span class="co">## [34] magrittr_2.0.3      bslib_0.6.1         tools_4.3.2        </span></span>
+<span><span class="co">## [37] BiocGenerics_0.48.1 pkgdown_2.0.7       cachem_1.0.8       </span></span>
 <span><span class="co">## [40] desc_1.4.3</span></span></code></pre>
 </div>
 <div class="section level2">
