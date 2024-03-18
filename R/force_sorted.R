@@ -18,8 +18,8 @@
 #'
 #' @export
 #'
-#' @rdname force_increase
-force_increase <- function(x){
+#' @rdname force_sorted
+force_sorted <- function(x){
     # Select only the non-NA values
     if (!is.numeric(x) && !is.integer(x))
         stop("'x' needs to be numeric or integer")
