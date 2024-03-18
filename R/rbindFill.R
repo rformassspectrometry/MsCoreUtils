@@ -58,7 +58,7 @@ rbindFill <- function(...) {
     allnms <- unique(names(allcl))
     allcl <- allcl[allnms]
 
-    for (i in seq(along=l)) {
+    for (i in seq(along.with = l)) {
         diffcn <- setdiff(allnms, names(l[[i]]))
         if (length(diffcn))
             l[[i]][, diffcn] <- lapply(allcl[diffcn], as, object = NA)
