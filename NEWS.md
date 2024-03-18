@@ -1,5 +1,10 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.5
+
+- Add function `force_increase()` to adjust a vector to ensure increasing
+  values. 
+
 ## MsCoreUtils 1.15.4
 
 - Fix documentation of `ndotproduct`.
