@@ -20,7 +20,7 @@ input vector to ensure its values are continuously increasing.
 NA values will not be replaced.
 }
 \examples{
-x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, 1.1, 1.04, 1.4, 1.6, NA, NA)
+x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, NA, 1.04, 1.4, 1.6, NA, NA)
 sorted_rtime <- force_increase(x)
 is.unsorted(x, na.rm = TRUE)
 

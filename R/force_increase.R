@@ -21,7 +21,7 @@
 #' @rdname force_increase
 force_increase <- function(x){
     # Select only the non-NA values
-    if (!is.numeric(x) || !is.integer(x))
+    if (!is.numeric(x) && !is.integer(x))
         stop("'x' needs to be numeric or integer")
     nna_idx <- which(!is.na(x))
     vec_temp <- x[nna_idx]
