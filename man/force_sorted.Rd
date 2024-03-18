@@ -21,7 +21,7 @@ NA values will not be replaced.
 }
 \examples{
 x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, NA, 1.04, 1.4, 1.6, NA, NA)
-sorted_rtime <- force_increase(x)
+sorted_rtime <- force_sorted(x)
 is.unsorted(x, na.rm = TRUE)
 
 }
