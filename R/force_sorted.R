@@ -12,7 +12,8 @@
 #' @param by `numeric(1)` value that will determine the monotonous increase in
 #'        case the values at the end of the vector are non-increasing and
 #'        therefore interpolation would not be possible. Default
-#'        to `by = 0.000001`.
+#'        to `by = .Machine$double.eps` which is the smallest positive
+#'        floating-point number x such that 1 + x != 1.
 #'
 #' @return A vector with continuously increasing values.
 #'
@@ -36,7 +37,7 @@
 #' @export
 #'
 #' @rdname force_sorted
-force_sorted <- function(x, by = 0.000001) {
+force_sorted <- function(x, by = .Machine$double.eps) {
     # Select only the non-NA values
     if (!is.numeric(x) && !is.integer(x))
         stop("'x' needs to be numeric or integer")
@@ -52,9 +53,11 @@ force_sorted <- function(x, by = 0.000001) {
             l <- idx:length(vec_temp)
             vec_temp[l] <- seq(vec_temp[idx], by = by,
                                length.out = length(l))
-            warning("Found decreasing values at the end of vector, ",
-                    "interpolation not possible there. Increasing values by ",
-                    by, " instead. See help for more details")
+            warning("Found decreasing values at the end of the vector. ",
+                    "Interpolation is not possible in this region. Instead, ",
+                    "replacing these values with a sequence that starts from ",
+                    "the last increasing value and increments by  ", by,
+                    ". See help for more details")
             break
         }
         # Interpolation

@@ -4,7 +4,7 @@
 \alias{force_sorted}
 \title{Forcing a numeric vector into a monotonously increasing sequence.}
 \usage{
-force_sorted(x, by = 1e-06)
+force_sorted(x, by = .Machine$double.eps)
 }
 \arguments{
 \item{x}{\code{numeric} vector.}
@@ -12,7 +12,8 @@ force_sorted(x, by = 1e-06)
 \item{by}{\code{numeric(1)} value that will determine the monotonous increase in
 case the values at the end of the vector are non-increasing and
 therefore interpolation would not be possible. Default
-to \code{by = 0.000001}.}
+to \code{by = .Machine$double.eps} which is the smallest positive
+floating-point number x such that 1 + x != 1.}
 }
 \value{
 A vector with continuously increasing values.
