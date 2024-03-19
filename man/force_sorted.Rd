@@ -4,24 +4,41 @@
 \alias{force_sorted}
 \title{Forcing a numeric vector into a monotonously increasing sequence.}
 \usage{
-force_sorted(x)
+force_sorted(x, by = 1e-06)
 }
 \arguments{
 \item{x}{\code{numeric} vector.}
+
+\item{by}{\code{numeric(1)} value that will determine the monotonous increase in
+case the values at the end of the vector are non-increasing and
+therefore interpolation would not be possible. Default
+to \code{by = 0.000001}.}
 }
 \value{
 A vector with continuously increasing values.
 }
 \description{
 This function performs interpolation on the non-increasing parts of an
-input vector to ensure its values are continuously increasing.
+input vector to ensure its values are monotonously increasing.
+If the values are non-increasing at the end of the vector, these values
+will be monotonously increasing by the value defined with parameter \code{by }
+from the last increasing value.
 }
 \note{
 NA values will not be replaced.
 }
 \examples{
 x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, NA, 1.04, 1.4, 1.6, NA, NA)
-sorted_rtime <- force_sorted(x)
+sorted_vec <- force_sorted(x)
 is.unsorted(x, na.rm = TRUE)
+
+## Vector non increasing at the end
+x <- c(1, 2, 1.5, 2)
+sorted_rtime <- force_sorted(x, by = 0.1)
+is.unsorted(x, na.rm = TRUE)
+
+## We can see the values were not interpolated but rather replaced by the
+## last increasing value `2` and increasing by 0.1.
+sorted_vec
 
 }
