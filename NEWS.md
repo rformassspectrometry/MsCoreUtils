@@ -2,6 +2,10 @@
 
 ## MsCoreUtils 1.15.4
 
+- Fix partial argument match (see issue #125).
+
+## MsCoreUtils 1.15.4
+
 - Fix documentation of `ndotproduct`.
 
 ## MsCoreUtils 1.15.3
