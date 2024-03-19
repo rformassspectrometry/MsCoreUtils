@@ -8,7 +8,7 @@ test_that("forceSorting works", {
 
     # Test with decreasing values at the end
     vec <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, 1.4, 1.04, 1.2, 1.04, NA)
-    expect_warning(result <- force_sorted(vec), "replacing")
+    expect_warning(result <- force_sorted(vec, by = 0.000001), "replacing")
     sorted <- c(NA, NA, NA, 1.2, 1.225, 1.25, 1.275, 1.3, 1.4, 1.400001,
                 1.400002, 1.400003, NA)
     expect_equal(result, sorted)
