@@ -53,7 +53,7 @@ force_sorted <- function(x, by = 0.000001) {
             vec_temp[l] <- seq(vec_temp[idx], by = by,
                                length.out = length(l))
             warning("Found decreasing values at the end of vector, ",
-                    "interpolation not possible there. Increasing values by",
+                    "interpolation not possible there. Increasing values by ",
                     by, " instead. See help for more details")
             break
         }
