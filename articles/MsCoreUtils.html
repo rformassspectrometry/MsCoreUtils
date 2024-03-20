@@ -123,32 +123,33 @@ packages.</p>
 <span><span class="co">## [15] "common"                     "entropy"                   </span></span>
 <span><span class="co">## [17] "estimateBaseline"           "estimateBaselineConvexHull"</span></span>
 <span><span class="co">## [19] "estimateBaselineMedian"     "estimateBaselineSnip"      </span></span>
-<span><span class="co">## [21] "estimateBaselineTopHat"     "formatRt"                  </span></span>
-<span><span class="co">## [23] "getImputeMargin"            "gnps"                      </span></span>
-<span><span class="co">## [25] "group"                      "i2index"                   </span></span>
-<span><span class="co">## [27] "impute_bpca"                "impute_fun"                </span></span>
-<span><span class="co">## [29] "impute_knn"                 "impute_matrix"             </span></span>
-<span><span class="co">## [31] "impute_min"                 "impute_MinDet"             </span></span>
-<span><span class="co">## [33] "impute_MinProb"             "impute_mixed"              </span></span>
-<span><span class="co">## [35] "impute_mle"                 "impute_neighbour_average"  </span></span>
-<span><span class="co">## [37] "impute_QRILC"               "impute_RF"                 </span></span>
-<span><span class="co">## [39] "impute_with"                "impute_zero"               </span></span>
-<span><span class="co">## [41] "imputeMethods"              "isPeaksMatrix"             </span></span>
-<span><span class="co">## [43] "join"                       "join_gnps"                 </span></span>
-<span><span class="co">## [45] "localMaxima"                "maxi"                      </span></span>
-<span><span class="co">## [47] "medianPolish"               "navdist"                   </span></span>
-<span><span class="co">## [49] "ndotproduct"                "nentropy"                  </span></span>
-<span><span class="co">## [51] "neuclidean"                 "noise"                     </span></span>
-<span><span class="co">## [53] "normalize_matrix"           "normalizeMethods"          </span></span>
-<span><span class="co">## [55] "nspectraangle"              "ppm"                       </span></span>
-<span><span class="co">## [57] "rbindFill"                  "refineCentroids"           </span></span>
-<span><span class="co">## [59] "rla"                        "robustSummary"             </span></span>
-<span><span class="co">## [61] "rowRla"                     "rt2character"              </span></span>
-<span><span class="co">## [63] "rt2numeric"                 "smooth"                    </span></span>
-<span><span class="co">## [65] "sumi"                       "validPeaksMatrix"          </span></span>
-<span><span class="co">## [67] "valleys"                    "vapply1c"                  </span></span>
-<span><span class="co">## [69] "vapply1d"                   "vapply1l"                  </span></span>
-<span><span class="co">## [71] "which.first"                "which.last"</span></span></code></pre>
+<span><span class="co">## [21] "estimateBaselineTopHat"     "force_sorted"              </span></span>
+<span><span class="co">## [23] "formatRt"                   "getImputeMargin"           </span></span>
+<span><span class="co">## [25] "gnps"                       "group"                     </span></span>
+<span><span class="co">## [27] "i2index"                    "impute_bpca"               </span></span>
+<span><span class="co">## [29] "impute_fun"                 "impute_knn"                </span></span>
+<span><span class="co">## [31] "impute_matrix"              "impute_min"                </span></span>
+<span><span class="co">## [33] "impute_MinDet"              "impute_MinProb"            </span></span>
+<span><span class="co">## [35] "impute_mixed"               "impute_mle"                </span></span>
+<span><span class="co">## [37] "impute_neighbour_average"   "impute_QRILC"              </span></span>
+<span><span class="co">## [39] "impute_RF"                  "impute_with"               </span></span>
+<span><span class="co">## [41] "impute_zero"                "imputeMethods"             </span></span>
+<span><span class="co">## [43] "isPeaksMatrix"              "join"                      </span></span>
+<span><span class="co">## [45] "join_gnps"                  "localMaxima"               </span></span>
+<span><span class="co">## [47] "maxi"                       "medianPolish"              </span></span>
+<span><span class="co">## [49] "navdist"                    "ndotproduct"               </span></span>
+<span><span class="co">## [51] "nentropy"                   "neuclidean"                </span></span>
+<span><span class="co">## [53] "noise"                      "normalize_matrix"          </span></span>
+<span><span class="co">## [55] "normalizeMethods"           "nspectraangle"             </span></span>
+<span><span class="co">## [57] "ppm"                        "rbindFill"                 </span></span>
+<span><span class="co">## [59] "refineCentroids"            "rla"                       </span></span>
+<span><span class="co">## [61] "robustSummary"              "rowRla"                    </span></span>
+<span><span class="co">## [63] "rt2character"               "rt2numeric"                </span></span>
+<span><span class="co">## [65] "smooth"                     "sumi"                      </span></span>
+<span><span class="co">## [67] "validPeaksMatrix"           "valleys"                   </span></span>
+<span><span class="co">## [69] "vapply1c"                   "vapply1d"                  </span></span>
+<span><span class="co">## [71] "vapply1l"                   "which.first"               </span></span>
+<span><span class="co">## [73] "which.last"</span></span></code></pre>
 <p>or the <a href="https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html">reference
 page</a> on the package webpage.</p>
 </div>
@@ -165,20 +166,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##             a         b         c          d          e          f          g</span></span>
-<span><span class="co">## A  0.71918497 0.9322629  1.320579  0.1447917 1.39678002 -0.8941075  0.2373132</span></span>
-<span><span class="co">## B -0.42692566 1.3517662 -1.671515 -0.8630114 0.03729928 -0.4848686 -1.2825081</span></span>
-<span><span class="co">## C  0.04599621 0.3184978  0.219185  1.7592614 0.82230635 -1.9117935 -1.2704007</span></span>
-<span><span class="co">##           h          i          j</span></span>
-<span><span class="co">## A  1.025381 -0.5683607  0.7864336</span></span>
-<span><span class="co">## B -1.046924 -0.5966201 -0.3684604</span></span>
-<span><span class="co">## C -0.965639 -1.0120185 -0.6958225</span></span></code></pre>
+<pre><code><span><span class="co">##            a           b           c          d          e         f         g</span></span>
+<span><span class="co">## A  1.6843284  1.55176845  0.02657566  0.4021417 -1.2865579 1.4147579 1.1641865</span></span>
+<span><span class="co">## B -0.9470063  0.01932198 -0.15453810  1.1182210 -0.5463729 0.2772561 0.7413289</span></span>
+<span><span class="co">## C  0.1693075 -1.18227345 -0.45448662 -0.2661087 -1.3398396 0.2410379 0.7824528</span></span>
+<span><span class="co">##             h           i          j</span></span>
+<span><span class="co">## A -0.35258197 -1.31884052 0.05668527</span></span>
+<span><span class="co">## B -0.21815764  0.17970590 0.61813442</span></span>
+<span><span class="co">## C  0.02769129  0.07107963 1.16138879</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">##  0.11275184  0.76828494  0.24906840 -0.16447467  0.75212855 -1.26005313 </span></span>
+<span><span class="co">##  0.35756965 -0.02629177 -0.19414969  0.41808465 -1.05759012  0.64435064 </span></span>
 <span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">## -0.77186520 -0.34821611 -0.72566645 -0.09261641</span></span></code></pre>
+<span><span class="co">##  0.89598941 -0.18101611 -0.14515096  0.58508894</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
