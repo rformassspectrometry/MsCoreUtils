@@ -166,20 +166,20 @@ that calculates the robust summary of the columns of a matrix:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span></span>
 <span><span class="va">x</span></span></code></pre></div>
-<pre><code><span><span class="co">##            a           b           c          d          e         f         g</span></span>
-<span><span class="co">## A  1.6843284  1.55176845  0.02657566  0.4021417 -1.2865579 1.4147579 1.1641865</span></span>
-<span><span class="co">## B -0.9470063  0.01932198 -0.15453810  1.1182210 -0.5463729 0.2772561 0.7413289</span></span>
-<span><span class="co">## C  0.1693075 -1.18227345 -0.45448662 -0.2661087 -1.3398396 0.2410379 0.7824528</span></span>
-<span><span class="co">##             h           i          j</span></span>
-<span><span class="co">## A -0.35258197 -1.31884052 0.05668527</span></span>
-<span><span class="co">## B -0.21815764  0.17970590 0.61813442</span></span>
-<span><span class="co">## C  0.02769129  0.07107963 1.16138879</span></span></code></pre>
+<pre><code><span><span class="co">##            a          b          c          d          e           f         g</span></span>
+<span><span class="co">## A -1.0624577 -1.8427862  0.6685956  1.8017235 -0.7746122 -0.01590415 0.7098715</span></span>
+<span><span class="co">## B  0.5898052  0.2682967 -0.7712275  0.4341023  0.2163039 -0.87630321 1.4861983</span></span>
+<span><span class="co">## C  0.5766584  2.2194329  1.5347801 -1.5027460 -1.2915916  0.41541088 0.6109650</span></span>
+<span><span class="co">##            h           i           j</span></span>
+<span><span class="co">## A  0.3310430 -1.22179257 -0.87194328</span></span>
+<span><span class="co">## B -2.3766641 -0.81848759  0.49094260</span></span>
+<span><span class="co">## C -0.4631622  0.07371936 -0.02839597</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/robustSummary.html">robustSummary</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##           a           b           c           d           e           f </span></span>
-<span><span class="co">##  0.35756965 -0.02629177 -0.19414969  0.41808465 -1.05759012  0.64435064 </span></span>
+<span><span class="co">##  0.03466861  0.37903540  0.47738274  0.54480863 -0.61663334 -0.15893216 </span></span>
 <span><span class="co">##           g           h           i           j </span></span>
-<span><span class="co">##  0.89598941 -0.18101611 -0.14515096  0.58508894</span></span></code></pre>
+<span><span class="co">##  0.93567827 -0.75041521 -0.65552026 -0.13646555</span></span></code></pre>
 <p>This function is typicall to be used to summarise peptide
 quantitation values into protein intensities<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content='&lt;p&gt;See Sticker &lt;em&gt;et al.&lt;/em&gt; Robust summarization and
 inference in proteome-wide label-free quantification. &lt;a href="https://doi.org/10.1101/668863" class="external-link uri"&gt;https://doi.org/10.1101/668863&lt;/a&gt;.&lt;/p&gt;'><sup>1</sup></a>. This functionality is
