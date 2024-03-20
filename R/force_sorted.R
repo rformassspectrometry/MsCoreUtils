@@ -23,17 +23,17 @@
 #'
 #' @examples
 #' x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, NA, 1.04, 1.4, 1.6, NA, NA)
-#' sorted_vec <- force_sorted(x)
-#' is.unsorted(x, na.rm = TRUE)
+#' y <- force_sorted(x)
+#' is.unsorted(y, na.rm = TRUE)
 #'
 #' ## Vector non increasing at the end
 #' x <- c(1, 2, 1.5, 2)
-#' sorted_rtime <- force_sorted(x, by = 0.1)
-#' is.unsorted(x, na.rm = TRUE)
+#' y <- force_sorted(x, by = 0.1)
+#' is.unsorted(y, na.rm = TRUE)
 #'
 #' ## We can see the values were not interpolated but rather replaced by the
 #' ## last increasing value `2` and increasing by 0.1.
-#' sorted_vec
+#' y
 #'
 #' @export
 #'
@@ -57,7 +57,7 @@ force_sorted <- function(x, by = .Machine$double.eps) {
             warning("Found decreasing values at the end of the vector. ",
                     "Interpolation is not possible in this region. Instead, ",
                     "replacing these values with a sequence that starts from ",
-                    "the last increasing value and increments by  ", by,
+                    "the last increasing value and increments by ", by,
                     ". See help for more details")
             break
         }
