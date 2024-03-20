@@ -2,8 +2,8 @@
 
 ## MsCoreUtils 1.15.5
 
-- Add function `force_sorted()` to adjust a vector to ensure increasing/sorted
-  values. 
+- Add function `force_sorted()` to adjust a numeric vector to ensure
+increasing/sorted values. 
 
 ## MsCoreUtils 1.15.4
 

@@ -1,24 +1,25 @@
 #' @title Forcing a numeric vector into a monotonously increasing sequence.
 #'
 #' @description
-#' This function performs interpolation on the non-increasing parts of an
-#' input vector to ensure its values are monotonously increasing.
-#' If the values are non-increasing at the end of the vector, these values
-#' will be monotonously increasing by the value defined with parameter `by `
-#' from the last increasing value.
+#' This function performs interpolation on the non-increasing parts of a
+#' numeric input vector to ensure its values are monotonously increasing.
+#' If the values are non-increasing at the end of the vector, these values will
+#' be replaced by a sequence of numeric values, starting from the last
+#' increasing value in the input vector, and increasing by a very small value,
+#' which can be defined with parameter `by `
 #'
 #' @param x `numeric` vector.
 #'
 #' @param by `numeric(1)` value that will determine the monotonous increase in
 #'        case the values at the end of the vector are non-increasing and
-#'        therefore interpolation would not be possible. Default
+#'        therefore interpolation would not be possible. Defaults
 #'        to `by = .Machine$double.eps` which is the smallest positive
 #'        floating-point number x such that 1 + x != 1.
 #'
 #' @return A vector with continuously increasing values.
 #'
 #' @note
-#' NA values will not be replaced.
+#' NA values will not be replaced and be returned as-is.
 #'
 #' @examples
 #' x <- c(NA, NA, NA, 1.2, 1.1, 1.14, 1.2, 1.3, NA, 1.04, 1.4, 1.6, NA, NA)
