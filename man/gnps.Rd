@@ -118,7 +118,7 @@ Other grouping/matching functions:
 \code{\link{closest}()}
 
 Other distance/similarity functions: 
-\code{\link{distance}}
+\code{\link{distance}()}
 }
 \author{
 Johannes Rainer, Michael Witting, based on the code from
