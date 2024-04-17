@@ -1,5 +1,18 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.6
+
+- Bump version to force new package build on Bioconductor servers.
+
+## MsCoreUtils 1.15.5
+
+- Add function `force_sorted()` to adjust a numeric vector to ensure
+  increasing/sorted values.
+
+## MsCoreUtils 1.15.4
+
+- Fix partial argument match (see issue #125).
+
 ## MsCoreUtils 1.15.4
 
 - Fix documentation of `ndotproduct`.
