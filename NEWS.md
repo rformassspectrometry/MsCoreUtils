@@ -1,5 +1,9 @@
 # MsCoreUtils 1.15
 
+## MsCoreUtils 1.15.7
+
+- Add `common_path()` function.
+
 ## MsCoreUtils 1.15.6
 
 - Bump version to force new package build on Bioconductor servers.
