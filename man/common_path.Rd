@@ -7,7 +7,7 @@
 common_path(x, fsep = .Platform$file.sep)
 }
 \arguments{
-\item{x}{\code{character} with the file names (including paths).}
+\item{x}{\code{character} with the \strong{file names} (including paths).}
 
 \item{fsep}{\code{character(1)} defining the file separator to be used in
 the returned common path. Defaults to the system platform's file
@@ -17,7 +17,10 @@ separator.}
 \code{character(1)} representing the path common to all files in \code{x}.
 }
 \description{
-Find the common part of the path for a provided set of files.
+Find the common part of the path up to a provided set of files. Be aware that
+the last element (after the last file separator) is treated as a \emph{file}.
+Thus, if only directories, without files are submitted, the common path
+containing these directories is returned.
 }
 \note{
 This function uses \code{"(\\\\\\\\)|/"} to split the provided paths into the
@@ -44,6 +47,9 @@ common_path(character())
 
 ## No path
 common_path(c("a.txt", "b.txt"))
+
+## Same path for all
+common_path(c("a/a.txt", "a/a.txt"))
 }
 \author{
 Johannes Rainer

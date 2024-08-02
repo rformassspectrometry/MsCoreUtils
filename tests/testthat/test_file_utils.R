@@ -11,4 +11,8 @@ test_that("common_path works", {
     expect_equal(common_path(x), "C:/first/second")
     x <- c("C:\\first\\second\\a.txt", "C:\\first\\second\\third\\b.txt")
     expect_equal(common_path(x), "C:/first/second")
+
+    ## Check if we have a single input.
+    expect_equal(common_path("a/b.txt"), "a")
+    expect_equal(common_path("a/b.txt", "a/b.txt"), "a")
 })

@@ -2,9 +2,12 @@
 #'
 #' @description
 #'
-#' Find the common part of the path for a provided set of files.
+#' Find the common part of the path up to a provided set of files. Be aware that
+#' the last element (after the last file separator) is treated as a *file*.
+#' Thus, if only directories, without files are submitted, the common path
+#' containing these directories is returned.
 #'
-#' @param x `character` with the file names (including paths).
+#' @param x `character` with the **file names** (including paths).
 #'
 #' @param fsep `character(1)` defining the file separator to be used in
 #'     the returned common path. Defaults to the system platform's file
@@ -42,16 +45,21 @@
 #'
 #' ## No path
 #' common_path(c("a.txt", "b.txt"))
+#'
+#' ## Same path for all
+#' common_path(c("a/a.txt", "a/a.txt"))
 common_path <- function(x, fsep = .Platform$file.sep) {
     if (!length(x))
         return(character())
     sx <- strsplit(x, split = "(\\\\)|/")
-    minl <- min(lengths(sx))
-    cpath <- character()
-    for (i in seq_len(minl)) {
-        uvals <- unique(vapply(sx, `[`, character(1), i = i))
-        if (length(uvals) == 1L)
-            cpath <- c(cpath, uvals)
-    }
-    paste0(cpath, collapse = fsep)
+    minl <- min(lengths(sx)) - 1L
+    if (minl > 0) {
+        cpath <- character()
+        for (i in seq_len(minl)) {
+            uvals <- unique(vapply(sx, `[`, character(1), i = i))
+            if (length(uvals) == 1L)
+                cpath <- c(cpath, uvals)
+        }
+        paste0(cpath, collapse = fsep)
+    } else ""
 }

@@ -1,3 +1,10 @@
+# MsCoreUtils 1.17
+
+## MsCoreUtils 1.17.1
+
+- Fix `common_path()` to not return also the file name if the input parameter
+  contains only identical character strings.
+
 # MsCoreUtils 1.15
 
 ## MsCoreUtils 1.15.7
