@@ -28,7 +28,7 @@ argument, described below.
 }
 \details{
 The \code{method} parameter can be one of \code{"sum"}, \code{"max"}, \code{"center.mean"},
-\code{"center.median"}, \code{"div.mean"}, \code{"div.median"}, \code{"diff.meda"},
+\code{"center.median"}, \code{"div.mean"}, \code{"div.median"}, \code{"diff.median"},
 \verb{"quantiles}", \verb{"quantiles.robust}" or \code{"vsn"}. The \code{normalizeMethods()}
 function returns a vector of available normalisation methods.
 \itemize{
