@@ -1,5 +1,9 @@
 # MsCoreUtils 1.17
 
+## MsCoreUtils 1.17.2
+
+- Fix typo in normalisation methods description.
+
 ## MsCoreUtils 1.17.1
 
 - Fix `common_path()` to not return also the file name if the input parameter
