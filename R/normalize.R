@@ -21,7 +21,7 @@ normalizeMethods <- function()
 ##' @details
 ##'
 ##' The `method` parameter can be one of `"sum"`, `"max"`, `"center.mean"`,
-##' `"center.median"`, `"div.mean"`, `"div.median"`, `"diff.meda"`,
+##' `"center.median"`, `"div.mean"`, `"div.median"`, `"diff.median"`,
 ##' `"quantiles`", `"quantiles.robust`" or `"vsn"`. The `normalizeMethods()`
 ##' function returns a vector of available normalisation methods.
 ##'
