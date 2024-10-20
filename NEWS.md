@@ -1,5 +1,11 @@
 # MsCoreUtils 1.17
 
+## MsCoreUtils 1.17.3
+
+- Use `R_Calloc` and `R_Free` instead of `Calloc` and `Free` in
+  `src/lowerConvexHull.c`, respectively, to reflect changes in the R API and
+  fullfil STRICT_R_HEADERS check.
+
 ## MsCoreUtils 1.17.2
 
 - Fix typo in normalisation methods description.
