@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.17.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.17.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,17 +29,21 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/strict-r-headers/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.17" id="mscoreutils-117">MsCoreUtils 1.17<a class="anchor" aria-label="anchor" href="#mscoreutils-117"></a></h2>
 <div class="section level3">
-<h3 id="mscoreutils-1-17">MsCoreUtils 1.17.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-17"></a></h3>
+<h3 id="mscoreutils-1-17">MsCoreUtils 1.17.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-17"></a></h3>
+<ul><li>Use <code>R_Calloc</code> and <code>R_Free</code> instead of <code>Calloc</code> and <code>Free</code> in <code>src/lowerConvexHull.c</code>, respectively, to reflect changes in the R API and fullfil STRICT_R_HEADERS check.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mscoreutils-1-17-1">MsCoreUtils 1.17.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-17-1"></a></h3>
 <ul><li>Fix typo in normalisation methods description.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-17-1">MsCoreUtils 1.17.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-17-1"></a></h3>
+<h3 id="mscoreutils-1-17-2">MsCoreUtils 1.17.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-17-2"></a></h3>
 <ul><li>Fix <code><a href="../reference/common_path.html">common_path()</a></code> to not return also the file name if the input parameter contains only identical character strings.</li>
 </ul></div>
 </div>
