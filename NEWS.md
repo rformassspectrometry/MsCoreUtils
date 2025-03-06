@@ -1,3 +1,10 @@
+# MsCoreUtils 1.19
+
+## MsCoreUtils 1.19.1
+
+- Add new `reduce()` function to *reduce* overlapping numeric ranges to
+  disjoint ranges.
+
 # MsCoreUtils 1.17
 
 ## MsCoreUtils 1.17.3
