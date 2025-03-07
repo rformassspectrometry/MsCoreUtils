@@ -50,5 +50,5 @@ reduce(3.12, 34)
 reduce(c(3, 9), c(4, 19))
 }
 \author{
-Johannes Rainer
+Johannes Rainer and Sebastian Gibb
 }

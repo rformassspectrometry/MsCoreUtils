@@ -26,7 +26,7 @@
 #' @return `list` of length 2, the first element being the start (mininum)
 #'     values for the disjoint ranges, the second the end (maximum) values.
 #'
-#' @author Johannes Rainer
+#' @author Johannes Rainer and Sebastian Gibb
 #'
 #' @examples
 #'
@@ -44,33 +44,7 @@
 #'
 #' ## Non-overlapping ranges
 #' reduce(c(3, 9), c(4, 19))
+#' @useDynLib MsCoreUtils, .registration = TRUE
 #' @export
-reduce <- function(start = numeric(), end = numeric(), .check = TRUE) {
-    l <- length(start)
-    if (!l)
-        return(list(numeric(), numeric()))
-    if (.check) {
-        if (l != length(end))
-            stop("'start' and 'end' need to have the same length")
-        if (!all(start <= end))
-            stop("Values in 'start' have to be smaller or equal to",
-                 "the respective values in 'end'")
-    }
-    idx <- order(start, method = "radix")
-    start_res <- end_res <- rep(NA_real_, l)
-    pos <- 1L
-    start_res[pos] <- start[idx[1L]]
-    end_res[pos] <- end[idx[1L]]
-    for (i in idx[-1L]) {
-        if (start[i] < end_res[pos]) {
-            if (end[i] > end_res[pos])
-                end_res[pos] <- end[i]
-        } else {
-            pos <- pos + 1L
-            start_res[pos] <- start[i]
-            end_res[pos] <- end[i]
-        }
-    }
-    fin <- seq_len(pos)
-    list(start_res[fin], end_res[fin])
-}
+reduce <- function(start = numeric(), end = numeric(), .check = TRUE)
+    .Call(C_reduce, as.numeric(start), as.numeric(end), .check)
