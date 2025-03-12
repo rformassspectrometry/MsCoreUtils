@@ -66,8 +66,10 @@ Has to match the length of <code>start</code> and <code>all(start &lt;= end)</co
 
 
 <dt id="arg--check">.check<a class="anchor" aria-label="anchor" href="#arg--check"></a></dt>
-<dd><p><code>logical(1)</code> whether input parameter checks should be
-performed.</p></dd>
+<dd><p><code>logical(1)</code> whether input parameter validations should be
+performed. With <code>.check = TRUE</code> (the default) the function checks if
+the length of input parameters <code>start</code> and <code>end</code> is the same and whether
+all values in <code>start</code> are <code>&lt;=</code> the values in <code>end</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
