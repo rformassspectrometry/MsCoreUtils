@@ -13,8 +13,10 @@ reduce(start = numeric(), end = numeric(), .check = TRUE)
 Has to match the length of \code{start} and \code{all(start <= end)} has to be
 \code{TRUE}.}
 
-\item{.check}{\code{logical(1)} whether input parameter checks should be
-performed.}
+\item{.check}{\code{logical(1)} whether input parameter validations should be
+performed. With \code{.check = TRUE} (the default) the function checks if
+the length of input parameters \code{start} and \code{end} is the same and whether
+all values in \code{start} are \code{<=} the values in \code{end}.}
 }
 \value{
 \code{list} of length 2, the first element being the start (mininum)

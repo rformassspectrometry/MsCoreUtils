@@ -20,8 +20,10 @@
 #'     Has to match the length of `start` and `all(start <= end)` has to be
 #'     `TRUE`.
 #'
-#' @param .check `logical(1)` whether input parameter checks should be
-#'     performed.
+#' @param .check `logical(1)` whether input parameter validations should be
+#'     performed. With `.check = TRUE` (the default) the function checks if
+#'     the length of input parameters `start` and `end` is the same and whether
+#'     all values in `start` are `<=` the values in `end`.
 #'
 #' @return `list` of length 2, the first element being the start (mininum)
 #'     values for the disjoint ranges, the second the end (maximum) values.
