@@ -1,5 +1,9 @@
 # MsCoreUtils 1.19
 
+## MsCoreUtils 1.19.2
+
+- Fix `reduce()` to merge also ranges with the same end.
+
 ## MsCoreUtils 1.19.1
 
 - Add new `reduce()` function to *reduce* overlapping numeric ranges to

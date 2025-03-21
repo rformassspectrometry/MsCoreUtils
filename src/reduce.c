@@ -55,7 +55,7 @@ SEXP C_reduce(SEXP start, SEXP end, SEXP check) {
     unsigned int i = 1;
 
     for (; i < n; ++i) {
-        if (ps[pord[i]] < pre[pos]) {
+        if (ps[pord[i]] <= pre[pos]) {
             if (pre[pos] < pe[pord[i]]) {
                 pre[pos] = pe[pord[i]];
             }
