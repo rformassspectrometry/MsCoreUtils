@@ -1,3 +1,9 @@
+# MsCoreUtils 1.21
+
+# MsCoreUtils 1.21.1
+
+- Fix RF imputation, that now needs dimnames.
+
 # MsCoreUtils 1.19
 
 ## MsCoreUtils 1.19.2
