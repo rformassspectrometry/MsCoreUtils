@@ -1,0 +1,179 @@
+# Low level functions for MS data
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![R-CMD-check-bioc](https://github.com/RforMassSpectrometry/MsCoreUtils/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/RforMassSpectrometry/MsCoreUtils/actions?query=workflow%3AR-CMD-check-bioc)
+[![codecov](https://codecov.io/gh/rformassspectrometry/MsCoreUtils/branch/main/graph/badge.svg?token=sv2V5zQjib)](https://codecov.io/gh/rformassspectrometry/MsCoreUtils)
+[![license](https://img.shields.io/badge/license-Artistic--2.0-brightgreen.svg)](https://opensource.org/licenses/Artistic-2.0)
+[![years in
+bioc](http://bioconductor.org/shields/years-in-bioc/MsCoreUtils.svg)](https://bioconductor.org/packages/release/bioc/html/MsCoreUtils.html)
+[![Ranking by
+downloads](http://bioconductor.org/shields/downloads/release/MsCoreUtils.svg)](https://bioconductor.org/packages/stats/bioc/MsCoreUtils/)
+[![build
+release](http://bioconductor.org/shields/build/release/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/MsCoreUtils/)
+[![build
+devel](http://bioconductor.org/shields/build/devel/bioc/MsCoreUtils.svg)](https://bioconductor.org/checkResults/devel/bioc-LATEST/MsCoreUtils/)
+
+`MsCoreUtils` defines low-level functions for mass spectrometry data and
+is independent of any high-level data structures. These functions
+include mass spectra processing functions (noise estimation, smoothing,
+binning, baseline estimation), quantitative aggregation functions
+(median polish, robust summarisation, …), missing data imputation, data
+normalisation (quantiles, vsn, …) as well as misc helper functions, that
+are used across high-level data structure within the [R for Mass
+Spectrometry packages](https://www.rformassspectrometry.org/pkgs/).
+
+See the package
+[homepage](https://rformassspectrometry.github.io/MsCoreUtils) for more
+information.
+
+# Installation
+
+The package can be installed with
+
+``` r
+
+install.packages("BiocManager")
+BiocManager::install("MsCoreUtils")
+```
+
+# Contributions
+
+Contributions are highly welcome and should follow the [contribution
+guidelines](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html#contributions).
+Also, please check the coding style guidelines in the
+[RforMassSpectrometry
+vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/RforMassSpectrometry.html).
+
+## Previous external contributions
+
+- Sigurdur Smarason (@SiggiSmara): weighted moving average
+  (<https://github.com/sgibb/MALDIquant/pull/54>)
+- Thomas Naake (@tnaake): dotproduct calculation
+  (<https://github.com/rformassspectrometry/MsCoreUtils/pull/17>)
+- Adriaan Sticker: `robustSummary` aggregation function (originally
+  contributed to `MSnbase`)
+
+# Package index
+
+## All functions
+
+- [`colMeansMat()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md)
+  [`colSumsMat()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md)
+  [`aggregate_by_matrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md)
+  [`aggregate_by_vector()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md)
+  : Aggreagate quantitative features
+- [`bin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/binning.md)
+  : Binning
+- [`breaks_ppm()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/breaks_ppm.md)
+  : Sequence with increasing difference between elements
+- [`isPeaksMatrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/check.md)
+  : Check functions
+- [`asInteger()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/coerce.md)
+  : Coerce functions
+- [`colCounts()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/colCounts.md)
+  : Counts the number of features
+- [`common_path()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/common_path.md)
+  : Extract the common file path
+- [`ndotproduct()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.md)
+  [`dotproduct()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.md)
+  [`neuclidean()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.md)
+  [`navdist()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.md)
+  [`nspectraangle()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/distance.md)
+  : Spectra Distance/Similarity Measurements
+- [`entropy()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/entropy.md)
+  [`nentropy()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/entropy.md)
+  : Spectral entropy
+- [`estimateBaseline()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/estimateBaseline.md)
+  [`estimateBaselineConvexHull()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/estimateBaseline.md)
+  [`estimateBaselineMedian()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/estimateBaseline.md)
+  [`estimateBaselineSnip()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/estimateBaseline.md)
+  [`estimateBaselineTopHat()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/estimateBaseline.md)
+  : Estimates the Baseline of a Mass Spectrum
+- [`force_sorted()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/force_sorted.md)
+  : Forcing a numeric vector into a monotonously increasing sequence.
+- [`rt2numeric()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.md)
+  [`rt2character()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.md)
+  [`formatRt()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.md)
+  : Format Retention Time
+- [`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  [`join_gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  : GNPS spectrum similarity scores
+- [`group()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group.md)
+  : Grouping of numeric values by similarity
+- [`i2index()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/i2index.md)
+  : Input parameter check for subsetting operations
+- [`impute_matrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`imputeMethods()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_neighbour_average()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_knn()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_mle()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_bpca()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_RF()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_min()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_MinDet()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_MinProb()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_QRILC()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_zero()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_with()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`impute_fun()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  [`getImputeMargin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  : Quantitative mass spectrometry data imputation
+- [`localMaxima()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/localMaxima.md)
+  : Local Maxima
+- [`closest()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.md)
+  [`common()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.md)
+  [`join()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.md)
+  : Relaxed Value Matching
+- [`maxi()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/maxi.md)
+  : Maximum MS Intensity Value
+- [`medianPolish()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/medianPolish.md)
+  : Return the Median Polish (Robust Twoway Decomposition) of a matrix
+- [`noise()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/noise.md)
+  : Noise Estimation
+- [`normalizeMethods()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/normalize.md)
+  [`normalize_matrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/normalize.md)
+  : Quantitative data normalisation
+- [`ppm()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/ppm.md)
+  : PPM - Parts per Million
+- [`between()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/range.md)
+  [`` `%between%` ``](https://rformassspectrometry.github.io/MsCoreUtils/reference/range.md)
+  : Range helper functions
+- [`rbindFill()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rbindFill.md)
+  : Combine R Objects by Row
+- [`reduce()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/reduce.md)
+  : Reduce overlapping numeric ranges to disjoined ranges
+- [`refineCentroids()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/refineCentroids.md)
+  : Refine Peak Centroids
+- [`rla()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rla.md)
+  [`rowRla()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rla.md)
+  : Calculate relative log abundances
+- [`robustSummary()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/robustSummary.md)
+  : Return the Robust Expression Summary of a matrix
+- [`smooth()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.md)
+  [`coefMA()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.md)
+  [`coefWMA()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.md)
+  [`coefSG()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/smooth.md)
+  : Smoothing
+- [`sumi()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/sumi.md)
+  : Summing MS Intensity Values
+- [`validPeaksMatrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/validation.md)
+  : Validation functions
+- [`valleys()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/valleys.md)
+  : Find Peak Valleys
+- [`vapply1c()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/vapply.md)
+  [`vapply1d()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/vapply.md)
+  [`vapply1l()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/vapply.md)
+  : vapply wrappers
+- [`which.first()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/which.md)
+  [`which.last()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/which.md)
+  : Which is the first/last TRUE value.
+
+# Articles
+
+### All vignettes
+
+- [Core Utils for Mass Spectrometry
+  Data](https://rformassspectrometry.github.io/MsCoreUtils/articles/MsCoreUtils.md):

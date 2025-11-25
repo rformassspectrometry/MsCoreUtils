@@ -1,0 +1,70 @@
+# Extract the common file path
+
+Find the common part of the path up to a provided set of files. Be aware
+that the last element (after the last file separator) is treated as a
+*file*. Thus, if only directories, without files are submitted, the
+common path containing these directories is returned.
+
+## Usage
+
+``` r
+common_path(x, fsep = .Platform$file.sep)
+```
+
+## Arguments
+
+- x:
+
+  `character` with the **file names** (including paths).
+
+- fsep:
+
+  `character(1)` defining the file separator to be used in the returned
+  common path. Defaults to the system platform's file separator.
+
+## Value
+
+`character(1)` representing the path common to all files in `x`.
+
+## Note
+
+This function uses `"(\\\\)|/"` to split the provided paths into the
+individual directories to support both Windows-specific and
+unix-specific separators between folders. File and folder names should
+thus **not** contain these characters.
+
+## Author
+
+Johannes Rainer
+
+## Examples
+
+``` r
+
+## Find the common part of the file path
+pths <- c("/tmp/some/dir/a.txt", "/tmp/some/dir/b.txt",
+    "/tmp/some/other/dir/c.txt", "/tmp/some/other/dir/d.txt")
+
+common_path(pths)
+#> [1] "/tmp/some"
+
+## If there is no common part
+common_path(c("/a/b", "b"))
+#> [1] ""
+
+## Windows paths; note that "/" is used as file separator in the result
+common_path(c("C:\\some\\path\\a.txt", "C:\\some\\path\\b.txt"))
+#> [1] "C:/some/path"
+
+## No input
+common_path(character())
+#> character(0)
+
+## No path
+common_path(c("a.txt", "b.txt"))
+#> [1] ""
+
+## Same path for all
+common_path(c("a/a.txt", "a/a.txt"))
+#> [1] "a"
+```
