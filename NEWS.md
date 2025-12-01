@@ -1,4 +1,41 @@
+# MsCoreUtils 1.23
+
+## MsCoreUtils 1.23.1
+
+- Fix RF imputation, that now needs dimnames.
+
+## MsCoreUtils 1.23.0
+
+- New devel version
+
+# MsCoreUtils 1.21
+
+## MsCoreUtils 1.21.0
+
+- New devel version
+
+# MsCoreUtils 1.19
+
+## MsCoreUtils 1.19.2
+
+- Fix `reduce()` to merge also ranges with the same end.
+
+## MsCoreUtils 1.19.1
+
+- Add new `reduce()` function to *reduce* overlapping numeric ranges to
+  disjoint ranges.
+
 # MsCoreUtils 1.17
+
+## MsCoreUtils 1.17.3
+
+- Use `R_Calloc` and `R_Free` instead of `Calloc` and `Free` in
+  `src/lowerConvexHull.c`, respectively, to reflect changes in the R API and
+  fullfil STRICT_R_HEADERS check.
+
+## MsCoreUtils 1.17.2
+
+- Fix typo in normalisation methods description.
 
 ## MsCoreUtils 1.17.1
 

@@ -9,6 +9,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"C_join_right", (DL_FUNC) &C_join_right, 4},
     {"C_join_inner", (DL_FUNC) &C_join_inner, 4},
     {"C_join_outer", (DL_FUNC) &C_join_outer, 4},
+    {"C_reduce", (DL_FUNC) &C_reduce, 3},
     {"C_localMaxima", (DL_FUNC) &C_localMaxima, 2},
     {"C_which_first", (DL_FUNC) &C_which_first, 1},
     {"C_which_last", (DL_FUNC) &C_which_last, 1},
