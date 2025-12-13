@@ -128,7 +128,7 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
 
 ## Session information
 
-    ## R Under development (unstable) (2025-11-22 r89050)
+    ## R version 4.5.2 (2025-10-31)
     ## Platform: x86_64-pc-linux-gnu
     ## Running under: Ubuntu 24.04.3 LTS
     ## 
@@ -151,20 +151,20 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MsCoreUtils_1.23.1 BiocStyle_2.39.0  
+    ## [1] MsCoreUtils_1.23.2 BiocStyle_2.39.0  
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] cli_3.6.5           knitr_1.50          rlang_1.1.6        
     ##  [4] xfun_0.54           generics_0.1.4      textshaping_1.0.4  
     ##  [7] clue_0.3-66         jsonlite_2.0.0      S4Vectors_0.49.0   
-    ## [10] htmltools_0.5.8.1   stats4_4.6.0        ragg_1.5.0         
+    ## [10] htmltools_0.5.9     stats4_4.5.2        ragg_1.5.0         
     ## [13] sass_0.4.10         rmarkdown_2.30      evaluate_1.0.5     
     ## [16] jquerylib_0.1.4     MASS_7.3-65         fastmap_1.2.0      
-    ## [19] yaml_2.3.10         lifecycle_1.0.4     bookdown_0.45      
-    ## [22] BiocManager_1.30.27 cluster_2.1.8.1     compiler_4.6.0     
+    ## [19] yaml_2.3.12         lifecycle_1.0.4     bookdown_0.46      
+    ## [22] BiocManager_1.30.27 cluster_2.1.8.1     compiler_4.5.2     
     ## [25] fs_1.6.6            htmlwidgets_1.6.4   systemfonts_1.3.1  
     ## [28] digest_0.6.39       R6_2.6.1            bslib_0.9.0        
-    ## [31] tools_4.6.0         BiocGenerics_0.57.0 pkgdown_2.2.0      
+    ## [31] tools_4.5.2         BiocGenerics_0.57.0 pkgdown_2.2.0      
     ## [34] cachem_1.1.0        desc_1.4.3
 
 ## References
