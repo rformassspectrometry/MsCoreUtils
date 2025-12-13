@@ -111,12 +111,10 @@ SEXP C_join_inner(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
             ++j;
         }
     }
-    SETLENGTH(rx, j);
-    SETLENGTH(ry, j);
     SEXP out = PROTECT(allocVector(VECSXP, 2));
     SEXP nms = PROTECT(allocVector(STRSXP, 2));
-    SET_VECTOR_ELT(out, 0, rx);
-    SET_VECTOR_ELT(out, 1, ry);
+    SET_VECTOR_ELT(out, 0, lengthgets(rx, j));
+    SET_VECTOR_ELT(out, 1, lengthgets(ry, j));
     SET_STRING_ELT(nms, 0, mkChar("x"));
     SET_STRING_ELT(nms, 1, mkChar("y"));
     setAttrib(out, R_NamesSymbol, nms);
@@ -201,12 +199,10 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
         ++i;
     }
 
-    SETLENGTH(rx, i);
-    SETLENGTH(ry, i);
     SEXP out = PROTECT(allocVector(VECSXP, 2));
     SEXP nms = PROTECT(allocVector(STRSXP, 2));
-    SET_VECTOR_ELT(out, 0, rx);
-    SET_VECTOR_ELT(out, 1, ry);
+    SET_VECTOR_ELT(out, 0, lengthgets(rx, i));
+    SET_VECTOR_ELT(out, 1, lengthgets(ry, i));
     SET_STRING_ELT(nms, 0, mkChar("x"));
     SET_STRING_ELT(nms, 1, mkChar("y"));
     setAttrib(out, R_NamesSymbol, nms);
