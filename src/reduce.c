@@ -66,11 +66,9 @@ SEXP C_reduce(SEXP start, SEXP end, SEXP check) {
         }
     }
 
-    SETLENGTH(rs, pos + 1);
-    SETLENGTH(re, pos + 1);
     SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SET_VECTOR_ELT(out, 0, rs);
-    SET_VECTOR_ELT(out, 1, re);
+    SET_VECTOR_ELT(out, 0, lengthgets(rs, pos + 1));
+    SET_VECTOR_ELT(out, 1, lengthgets(re, pos + 1));
 
     UNPROTECT(4);
 

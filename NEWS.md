@@ -1,5 +1,11 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.2
+
+- Fix *Found non-API call to R: ‘SETLENGTH’* in `C_reduce`, `C_join_inner`,
+  and `C_join_outer` by using `lengthgets()` instead
+  (see [issue 136](https://github.com/rformassspectrometry/MsCoreUtils/issues/136)).
+
 ## MsCoreUtils 1.23.1
 
 - Fix RF imputation, that now needs dimnames.
