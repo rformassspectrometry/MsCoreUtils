@@ -28,10 +28,10 @@ SEXP C_closest_dup_keep(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
 
     double *ptolerance = REAL(tolerance);
 
-    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
-    const unsigned int inomatch = asInteger(nomatch);
+    const unsigned int inomatch = Rf_asInteger(nomatch);
     unsigned int j = 1;
 
     double prevdiff = R_PosInf, nextdiff = R_PosInf;
@@ -79,10 +79,10 @@ SEXP C_closest_dup_closest(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
 
     double *ptolerance = REAL(tolerance);
 
-    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
-    const unsigned int inomatch = asInteger(nomatch);
+    const unsigned int inomatch = Rf_asInteger(nomatch);
 
     unsigned int ix = 0, ixlastused = 1;
     unsigned int itbl = 0, itbllastused = 1;
@@ -149,10 +149,10 @@ SEXP C_closest_dup_remove(SEXP x, SEXP table, SEXP tolerance, SEXP nomatch) {
 
     double *ptolerance = REAL(tolerance);
 
-    SEXP out = PROTECT(allocVector(INTSXP, nx));
+    SEXP out = PROTECT(Rf_allocVector(INTSXP, nx));
     int* pout = INTEGER(out);
 
-    const unsigned int inomatch = asInteger(nomatch);
+    const unsigned int inomatch = Rf_asInteger(nomatch);
     unsigned int j = 1, lastj = 0;
     double prevdiff = R_PosInf, nextdiff = R_PosInf;
 

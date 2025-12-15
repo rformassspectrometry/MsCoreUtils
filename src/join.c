@@ -19,19 +19,19 @@ SEXP C_join_left(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
     SEXP ry = PROTECT(C_closest_dup_closest(x, y, tolerance, nomatch));
     const unsigned int ny = LENGTH(ry);
 
-    SEXP rx = PROTECT(allocVector(INTSXP, ny));
+    SEXP rx = PROTECT(Rf_allocVector(INTSXP, ny));
     int* px = INTEGER(rx);
 
     for (unsigned int i = 0; i < ny; ++i)
         px[i] = i + 1;
 
-    SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SEXP nms = PROTECT(allocVector(STRSXP, 2));
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, 2));
+    SEXP nms = PROTECT(Rf_allocVector(STRSXP, 2));
     SET_VECTOR_ELT(out, 0, rx);
     SET_VECTOR_ELT(out, 1, ry);
-    SET_STRING_ELT(nms, 0, mkChar("x"));
-    SET_STRING_ELT(nms, 1, mkChar("y"));
-    setAttrib(out, R_NamesSymbol, nms);
+    SET_STRING_ELT(nms, 0, Rf_mkChar("x"));
+    SET_STRING_ELT(nms, 1, Rf_mkChar("y"));
+    Rf_setAttrib(out, R_NamesSymbol, nms);
 
     UNPROTECT(4);
 
@@ -53,12 +53,12 @@ SEXP C_join_right(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
     int* pc = INTEGER(c);
     const unsigned int nc = LENGTH(c);
 
-    const int inomatch = asInteger(nomatch);
+    const int inomatch = Rf_asInteger(nomatch);
 
     const unsigned int ny = LENGTH(y);
-    SEXP rx = PROTECT(allocVector(INTSXP, ny));
+    SEXP rx = PROTECT(Rf_allocVector(INTSXP, ny));
     int* px = INTEGER(rx);
-    SEXP ry = PROTECT(allocVector(INTSXP, ny));
+    SEXP ry = PROTECT(Rf_allocVector(INTSXP, ny));
     int* py = INTEGER(ry);
 
     for (unsigned int i = 0; i < ny; ++i) {
@@ -70,13 +70,13 @@ SEXP C_join_right(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
             px[pc[i] - 1] = i + 1;
     }
 
-    SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SEXP nms = PROTECT(allocVector(STRSXP, 2));
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, 2));
+    SEXP nms = PROTECT(Rf_allocVector(STRSXP, 2));
     SET_VECTOR_ELT(out, 0, rx);
     SET_VECTOR_ELT(out, 1, ry);
-    SET_STRING_ELT(nms, 0, mkChar("x"));
-    SET_STRING_ELT(nms, 1, mkChar("y"));
-    setAttrib(out, R_NamesSymbol, nms);
+    SET_STRING_ELT(nms, 0, Rf_mkChar("x"));
+    SET_STRING_ELT(nms, 1, Rf_mkChar("y"));
+    Rf_setAttrib(out, R_NamesSymbol, nms);
 
     UNPROTECT(5);
 
@@ -98,10 +98,10 @@ SEXP C_join_inner(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
     int* py = INTEGER(ry);
     const unsigned int ny = LENGTH(ry);
 
-    SEXP rx = PROTECT(allocVector(INTSXP, ny));
+    SEXP rx = PROTECT(Rf_allocVector(INTSXP, ny));
     int* px = INTEGER(rx);
 
-    const int inomatch = asInteger(nomatch);
+    const int inomatch = Rf_asInteger(nomatch);
     unsigned int j = 0;
 
     for (unsigned int i = 0; i < ny; ++i) {
@@ -111,13 +111,13 @@ SEXP C_join_inner(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
             ++j;
         }
     }
-    SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SEXP nms = PROTECT(allocVector(STRSXP, 2));
-    SET_VECTOR_ELT(out, 0, lengthgets(rx, j));
-    SET_VECTOR_ELT(out, 1, lengthgets(ry, j));
-    SET_STRING_ELT(nms, 0, mkChar("x"));
-    SET_STRING_ELT(nms, 1, mkChar("y"));
-    setAttrib(out, R_NamesSymbol, nms);
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, 2));
+    SEXP nms = PROTECT(Rf_allocVector(STRSXP, 2));
+    SET_VECTOR_ELT(out, 0, Rf_lengthgets(rx, j));
+    SET_VECTOR_ELT(out, 1, Rf_lengthgets(ry, j));
+    SET_STRING_ELT(nms, 0, Rf_mkChar("x"));
+    SET_STRING_ELT(nms, 1, Rf_mkChar("y"));
+    Rf_setAttrib(out, R_NamesSymbol, nms);
 
     UNPROTECT(4);
 
@@ -142,10 +142,10 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
 
     double *ptolerance = REAL(tolerance);
 
-    const unsigned int inomatch = asInteger(nomatch);
+    const unsigned int inomatch = Rf_asInteger(nomatch);
 
-    SEXP rx = PROTECT(allocVector(INTSXP, nx + ny));
-    SEXP ry = PROTECT(allocVector(INTSXP, nx + ny));
+    SEXP rx = PROTECT(Rf_allocVector(INTSXP, nx + ny));
+    SEXP ry = PROTECT(Rf_allocVector(INTSXP, nx + ny));
 
     int* prx = INTEGER(rx);
     int* pry = INTEGER(ry);
@@ -199,13 +199,13 @@ SEXP C_join_outer(SEXP x, SEXP y, SEXP tolerance, SEXP nomatch) {
         ++i;
     }
 
-    SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SEXP nms = PROTECT(allocVector(STRSXP, 2));
-    SET_VECTOR_ELT(out, 0, lengthgets(rx, i));
-    SET_VECTOR_ELT(out, 1, lengthgets(ry, i));
-    SET_STRING_ELT(nms, 0, mkChar("x"));
-    SET_STRING_ELT(nms, 1, mkChar("y"));
-    setAttrib(out, R_NamesSymbol, nms);
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, 2));
+    SEXP nms = PROTECT(Rf_allocVector(STRSXP, 2));
+    SET_VECTOR_ELT(out, 0, Rf_lengthgets(rx, i));
+    SET_VECTOR_ELT(out, 1, Rf_lengthgets(ry, i));
+    SET_STRING_ELT(nms, 0, Rf_mkChar("x"));
+    SET_STRING_ELT(nms, 1, Rf_mkChar("y"));
+    Rf_setAttrib(out, R_NamesSymbol, nms);
 
     UNPROTECT(4);
 

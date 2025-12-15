@@ -29,20 +29,20 @@ SEXP C_reduce(SEXP start, SEXP end, SEXP check) {
     }
     if (*LOGICAL(check)) {
         if (n != LENGTH(end))
-            error("'start' and 'end' need to have the same length.");
+            Rf_error("'start' and 'end' need to have the same length.");
 
         for (unsigned int i = 0; i < n; ++i)
             if (ps[i] > pe[i])
-                error("Values in 'start' have to be smaller or equal \
+                Rf_error("Values in 'start' have to be smaller or equal \
                         to the respective values in 'end'.");
     }
 
-    SEXP rs = PROTECT(allocVector(REALSXP, n));
+    SEXP rs = PROTECT(Rf_allocVector(REALSXP, n));
     double* prs = REAL(rs);
-    SEXP re = PROTECT(allocVector(REALSXP, n));
+    SEXP re = PROTECT(Rf_allocVector(REALSXP, n));
     double* pre = REAL(re);
 
-    SEXP ord = PROTECT(allocVector(INTSXP, n));
+    SEXP ord = PROTECT(Rf_allocVector(INTSXP, n));
     int* pord = INTEGER(ord);
     Rboolean nalast = TRUE;
     Rboolean decreasing = FALSE;
@@ -66,9 +66,9 @@ SEXP C_reduce(SEXP start, SEXP end, SEXP check) {
         }
     }
 
-    SEXP out = PROTECT(allocVector(VECSXP, 2));
-    SET_VECTOR_ELT(out, 0, lengthgets(rs, pos + 1));
-    SET_VECTOR_ELT(out, 1, lengthgets(re, pos + 1));
+    SEXP out = PROTECT(Rf_allocVector(VECSXP, 2));
+    SET_VECTOR_ELT(out, 0, Rf_lengthgets(rs, pos + 1));
+    SET_VECTOR_ELT(out, 1, Rf_lengthgets(re, pos + 1));
 
     UNPROTECT(4);
 

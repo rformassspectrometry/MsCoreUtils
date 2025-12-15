@@ -36,11 +36,11 @@ SEXP C_lowerConvexHull(SEXP x, SEXP y) {
   int* nodes;
   double m, c;
 
-  PROTECT(x=coerceVector(x, REALSXP));
-  PROTECT(y=coerceVector(y, REALSXP));
+  PROTECT(x=Rf_coerceVector(x, REALSXP));
+  PROTECT(y=Rf_coerceVector(y, REALSXP));
   n=XLENGTH(x);
 
-  PROTECT(output=allocVector(REALSXP, n));
+  PROTECT(output=Rf_allocVector(REALSXP, n));
   /* TODO: replace by R_xlen_t in R 3.0.0 */
   /* allocate vector - error handling is done by R */
   nodes=(int*) R_Calloc((size_t) n, int);

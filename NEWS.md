@@ -5,6 +5,8 @@
 - Fix *Found non-API call to R: ‘SETLENGTH’* in `C_reduce`, `C_join_inner`,
   and `C_join_outer` by using `lengthgets()` instead
   (see [issue 136](https://github.com/rformassspectrometry/MsCoreUtils/issues/136)).
+- Use `Rf_` prefix for R API functions and set R_NO_REMAP to avoid use of
+  accidentially using non-`Rf_` prefixed functions in future.
 
 ## MsCoreUtils 1.23.1
 

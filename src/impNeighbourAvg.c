@@ -8,11 +8,11 @@
  */
 SEXP C_impNeighbourAvg(SEXP x, SEXP k) {
     SEXP output;
-    PROTECT(output = duplicate(x));
+    PROTECT(output = Rf_duplicate(x));
 
     double *po = REAL(output);
-    double dk = asReal(k);
-    R_xlen_t nr = nrows(x), nc = ncols(x);
+    double dk = Rf_asReal(k);
+    R_xlen_t nr = Rf_nrows(x), nc = Rf_ncols(x);
 
     int cur = 0;
     for(int i = 0; i < nr; ++i) {
