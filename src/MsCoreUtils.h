@@ -1,9 +1,11 @@
 #ifndef MSCOREUTILS_H
 #define MSCOREUTILS_H
 
+#define R_NO_REMAP /* don't allow to use R API without Rf_ prefix */
+
 #include <R.h>
 #include <Rinternals.h>
-#include <stdlib.h> // for NULL
+#include <stdlib.h> /* for NULL */
 #include <R_ext/Rdynload.h>
 
 extern SEXP C_closest_dup_keep(SEXP, SEXP, SEXP, SEXP);

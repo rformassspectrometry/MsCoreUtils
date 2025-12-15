@@ -13,7 +13,7 @@ SEXP C_sumi(SEXP x) {
     SEXP r;
     const R_len_t n = XLENGTH(x);
     unsigned int calc = 0;
-    PROTECT(r=allocVector(REALSXP, 1));
+    PROTECT(r=Rf_allocVector(REALSXP, 1));
     double* rp = REAL(r);
     double  result = 0.0, val = 0.0;
     double* xp = REAL(x);

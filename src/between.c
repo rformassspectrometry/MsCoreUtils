@@ -11,14 +11,14 @@
  * \author Sebastian Gibb
  */
 SEXP C_between(SEXP x, SEXP range) {
-    if (!isReal(x))
-        x = coerceVector(x, REALSXP);
+    if (!Rf_isReal(x))
+        x = Rf_coerceVector(x, REALSXP);
 
-    if (!isReal(range))
-        range = coerceVector(range, REALSXP);
+    if (!Rf_isReal(range))
+        range = Rf_coerceVector(range, REALSXP);
 
     if (XLENGTH(range) != 2L)
-        error("'range' has to be a numeric of length 2.");
+        Rf_error("'range' has to be a numeric of length 2.");
 
     double l = REAL(range)[0], r = REAL(range)[1];
 
@@ -29,7 +29,7 @@ SEXP C_between(SEXP x, SEXP range) {
     }
 
     R_xlen_t n = XLENGTH(x);
-    SEXP between = PROTECT(allocVector(LGLSXP, n));
+    SEXP between = PROTECT(Rf_allocVector(LGLSXP, n));
     int* pbetween = LOGICAL(between);
 
     if (R_IsNA(l) || R_IsNA(r))
