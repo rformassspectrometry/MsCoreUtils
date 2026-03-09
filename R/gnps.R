@@ -2,8 +2,8 @@
 #'
 #' @description
 #'
-#' The `join_gnps_r` and `gnps_r` functions allow to calculate spectra 
-#' similarity scores as used in [GNPS](https://gnps.ucsd.edu/). The approach 
+#' The `join_gnps_r` and `gnps_r` functions allow to calculate spectra
+#' similarity scores as used in [GNPS](https://gnps.ucsd.edu/). The approach
 #' matches first peaks between the two spectra directly using a user-defined ppm
 #' and/or tolerance as well as using a fixed delta m/z (considering the same ppm
 #' and tolerance) that is defined by the difference of the two spectras'
@@ -112,56 +112,72 @@
 #' map <- join_gnps_r(x[, 1], y[, 1], pmz_x, pmz_y)
 #' gnps_r(x[map[[1]], ], y[map[[2]], ])
 gnps_r <- function(x, y, ...) {
-    if (nrow(x) != nrow(y))
-        stop("'x' and 'y' are expected to have the same number of rows).")
-    ## Scale intensities; !duplicated because we can have duplicated matches.
-    x_sum <- sum(x[!duplicated(x[, 1]), 2], na.rm = TRUE)
-    y_sum <- sum(y[!duplicated(y[, 1]), 2], na.rm = TRUE)
-    ## is 0 if only NAs in input - avoids division through 0
-    if (x_sum == 0 || y_sum == 0)
-        return(0)
-    ## Keep only matches.
-    keep <- which(complete.cases(cbind(x[, 1], y[, 1])))
-    l <- length(keep)
-    if (!l)
-        return(0)
-    x <- x[keep, , drop = FALSE]
-    y <- y[keep, , drop = FALSE]
-    scores <- sqrt(x[, 2]) / sqrt(x_sum) * sqrt(y[, 2]) / sqrt(y_sum)
+  if (nrow(x) != nrow(y)) {
+    stop("'x' and 'y' are expected to have the same number of rows).")
+  }
+  ## Scale intensities; !duplicated because we can have duplicated matches.
+  x_sum <- sum(x[!duplicated(x[, 1]), 2], na.rm = TRUE)
+  y_sum <- sum(y[!duplicated(y[, 1]), 2], na.rm = TRUE)
+  ## is 0 if only NAs in input - avoids division through 0
+  if (x_sum == 0 || y_sum == 0) {
+    return(0)
+  }
+  ## Keep only matches.
+  keep <- which(complete.cases(cbind(x[, 1], y[, 1])))
+  l <- length(keep)
+  if (!l) {
+    return(0)
+  }
+  x <- x[keep, , drop = FALSE]
+  y <- y[keep, , drop = FALSE]
+  scores <- sqrt(x[, 2]) / sqrt(x_sum) * sqrt(y[, 2]) / sqrt(y_sum)
 
-    x_idx <- as.integer(factor(x[, 1]))
-    y_idx <- as.integer(factor(y[, 1]))
-    score_mat <- matrix(0, nrow = l, ncol = l)
-    seq_l <- seq_len(l)
-    for (i in seq_l) {
-        score_mat[x_idx[i], y_idx[i]] <- scores[i]
-    }
-    best <- solve_LSAP(score_mat, maximum = TRUE)
-    sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
+  x_idx <- as.integer(factor(x[, 1]))
+  y_idx <- as.integer(factor(y[, 1]))
+  score_mat <- matrix(0, nrow = l, ncol = l)
+  seq_l <- seq_len(l)
+  for (i in seq_l) {
+    score_mat[x_idx[i], y_idx[i]] <- scores[i]
+  }
+  best <- solve_LSAP(score_mat, maximum = TRUE)
+  sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
 }
 
 #' @rdname gnps
 #'
 #' @export
-join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
-                      tolerance = 0, ppm = 0, type = "outer", ...) {
-    pdiff <- yPrecursorMz - xPrecursorMz
-    map <- join(x, y, tolerance = tolerance, ppm = ppm,
-                type = type, ...)
-    if (is.finite(pdiff) && pdiff != 0) {
-        pmap <- join(x + pdiff, y, tolerance = tolerance,
-                     ppm = ppm, type = type, ...)
-        ## Keep only matches here
-        nona <- !(is.na(pmap[[1L]]) | is.na(pmap[[2L]]))
-        if (any(nona)) {
-            map[[1L]] <- c(map[[1L]], pmap[[1L]][nona])
-            map[[2L]] <- c(map[[2L]], pmap[[2L]][nona])
-            idx <- order(map[[1L]])
-            map[[1L]] <- map[[1L]][idx]
-            map[[2L]] <- map[[2L]][idx]
-        }
+join_gnps_r <- function(
+  x,
+  y,
+  xPrecursorMz = NA_real_,
+  yPrecursorMz = NA_real_,
+  tolerance = 0,
+  ppm = 0,
+  type = "outer",
+  ...
+) {
+  pdiff <- yPrecursorMz - xPrecursorMz
+  map <- join(x, y, tolerance = tolerance, ppm = ppm, type = type, ...)
+  if (is.finite(pdiff) && pdiff != 0) {
+    pmap <- join(
+      x + pdiff,
+      y,
+      tolerance = tolerance,
+      ppm = ppm,
+      type = type,
+      ...
+    )
+    ## Keep only matches here
+    nona <- !(is.na(pmap[[1L]]) | is.na(pmap[[2L]]))
+    if (any(nona)) {
+      map[[1L]] <- c(map[[1L]], pmap[[1L]][nona])
+      map[[2L]] <- c(map[[2L]], pmap[[2L]][nona])
+      idx <- order(map[[1L]])
+      map[[1L]] <- map[[1L]][idx]
+      map[[2L]] <- map[[2L]][idx]
     }
-    map
+  }
+  map
 }
 
 #' @title Wrapper for the C function "C_join_gnps"
@@ -196,15 +212,15 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #' )
 #' }
 join_gnps <- function(
-    x,
-    y,
-    xPrecursorMz,
-    yPrecursorMz,
-    tolerance,
-    ppm
+  x,
+  y,
+  xPrecursorMz,
+  yPrecursorMz,
+  tolerance,
+  ppm
 ) {
   .Call(
-    "C_join_gnps",
+    C_join_gnps,
     x = x,
     y = y,
     xPrecursorMz = xPrecursorMz,
@@ -249,7 +265,7 @@ join_gnps <- function(
 #' }
 #' @keywords internal
 gnps <- function(x, y) {
-  .Call("gnps", x = x, y = y)
+  .Call(C_gnps, x = x, y = y)
 }
 
 #' @title Optimized GNPS Modified Cosine Similarity via Chain-DP
@@ -370,7 +386,7 @@ gnps <- function(x, y) {
 #' @export
 gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
   .Call(
-    "C_gnps_chain_dp",
+    C_gnps_chain_dp,
     x = x,
     y = y,
     xPrecursorMz = xPrecursorMz,
@@ -379,5 +395,3 @@ gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
     ppm = ppm
   )
 }
-
-
