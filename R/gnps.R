@@ -29,6 +29,10 @@
 #'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
 #'   the higher similarity are considered in the final score calculation.
 #'
+#' - `join_gnps`: C implementation of `join_gnps_r`, with `type=outer` default.
+#'
+#' - `gnps`: C implementation of `gnps_r`, with `type=outer` default.
+#'
 #' @details
 #'
 #' The implementation of `gnps_r` bases on the R code from the publication
@@ -101,7 +105,7 @@
 #' ## Plain join identifies only 2 matching peaks
 #' join(x[, 1], y[, 1])
 #'
-#' ## join_gnps finds 4 matches
+#' ## join_gnps_r finds 4 matches
 #' join_gnps_r(x[, 1], y[, 1], pmz_x, pmz_y)
 #'
 #' ## with one of the two precursor m/z being NA, the result are the same as
@@ -140,15 +144,8 @@ gnps_r <- function(x, y, ...) {
 #' @rdname gnps
 #'
 #' @export
-join_gnps_r <- function(
-  x,
-  y,
-  xPrecursorMz = NA_real_,
-  yPrecursorMz = NA_real_,
-  tolerance = 0,
-  ppm = 0,
-  type = "outer",
-  ...
+join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
+  tolerance = 0, ppm = 0, type = "outer", ...
 ) {
   pdiff <- yPrecursorMz - xPrecursorMz
   map <- join(x, y, tolerance = tolerance, ppm = ppm, type = type, ...)
@@ -174,45 +171,10 @@ join_gnps_r <- function(
   map
 }
 
-#' @title Wrapper for the C function "C_join_gnps"
+#' @rdname gnps
 #'
-#' @description Performs GNPS-style peak matching between query and target
-#'     mass lists with tolerance-based matching and precursor filtering
-#'
-#' @param x Numeric vector of query m/z values
-#' @param y Numeric vector of target m/z values
-#' @param xPrecursorMz Numeric precursor m/z for query spectrum
-#' @param yPrecursorMz Numeric precursor m/z for target spectrum
-#' @param tolerance Numeric value specifying the absolute tolerance in Daltons
-#' @param ppm Numeric value specifying the relative tolerance in ppm
-#'
-#' @return A list with two integer vectors:
-#'   \item{indices_x}{Indices of matched peaks in x}
-#'   \item{indices_y}{Indices of matched peaks in y}
-#'
-#' @keywords internal
-#'
-#' @examples
-#' \dontrun{
-#' query_mz <- c(100.05, 200.10, 300.15)
-#' target_mz <- c(100.06, 200.11, 400.20)
-#' matches <- join_gnps_wrapper(
-#'   x = query_mz,
-#'   y = target_mz,
-#'   xPrecursorMz = 500.0,
-#'   yPrecursorMz = 500.0,
-#'   tolerance = 0.01,
-#'   ppm = 10
-#' )
-#' }
-join_gnps <- function(
-  x,
-  y,
-  xPrecursorMz,
-  yPrecursorMz,
-  tolerance,
-  ppm
-) {
+#' @export
+join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
   .Call(
     C_join_gnps,
     x = x,
@@ -224,46 +186,14 @@ join_gnps <- function(
   )
 }
 
-## These wrappers are needed for compatibility with the targets package
-## to prevent unnecessary re-running of steps that call C code.
-## See https://github.com/ropensci/targets/issues/721
-## A future improvement could return a hash of the source C file
-#' @title Wrapper for the C function "gnps"
+#' @rdname gnps
 #'
-#' @description Calculates GNPS-style spectral similarity score between
-#'     two matched peak matrices using a chain-DP optimal assignment
-#'     algorithm (O(n+m) time).
-#'
-#'     **Spectra must be sanitized** before calling this function:
-#'     unique m/z values (no duplicates within tolerance), sorted by m/z,
-#'     no NaN/NA. This is guaranteed by [sanitize_spectra()] via
-#'     [import_spectra()]. See [sanitize_spectrum_matrix()] for a
-#'     lightweight fallback.
-#'
-#' @param x Numeric matrix with matched peaks from query spectrum.
-#'     Must have columns for mz and intensity.
-#' @param y Numeric matrix with matched peaks from target spectrum.
-#'     Must have columns for mz and intensity.
-#'
-#' @return A list containing:
-#'   \item{score}{Numeric similarity score (0-1)}
-#'   \item{matches}{Integer count of matched peaks}
-#'
-#' @examples
-#' \dontrun{
-#' # Matched peaks from two spectra
-#' x_peaks <- cbind(mz = c(100, 200), intensity = c(50, 100))
-#' y_peaks <- cbind(mz = c(100, 200), intensity = c(45, 95))
-#' result <- gnps_wrapper(x = x_peaks, y = y_peaks)
-#' print(result$score)
-#' }
-#' @keywords internal
+#' @export
 gnps <- function(x, y) {
   .Call(C_gnps, x = x, y = y)
 }
 
 #' @title Optimized GNPS Modified Cosine Similarity via Chain-DP
-
 #' @description
 #' Computes the GNPS (Global Natural Products Social molecular networking)
 #' modified cosine similarity score between two mass spectra using a fused
