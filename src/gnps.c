@@ -680,7 +680,7 @@ SEXP C_gnps(SEXP x, SEXP y)
   SEXP xd = getAttrib(x, R_DimSymbol), yd = getAttrib(y, R_DimSymbol);
   if (!isInteger(xd) || !isInteger(yd)) error("dim must be integer");
   int n = INTEGER(xd)[0];
-  if (n != INTEGER(yd)[0]) error("row count mismatch");
+  if (n != INTEGER(yd)[0]) error("number of rows");
   const double *xmz = REAL(x), *xin = xmz + n;
   const double *ymz = REAL(y), *yin = ymz + n;
 
@@ -862,7 +862,10 @@ SEXP C_join_gnps(SEXP x, SEXP y,
   const double tol = asReal(tolerance), ppm_val = asReal(ppm);
   const int nx = (int)xlength(x), ny = (int)xlength(y);
   const double pdiff = y_pre - x_pre;
-  const int do_pdiff = (!ISNA(x_pre) && !ISNA(y_pre));
+  /* Skip shifted matching if precursors are NA or pdiff is within tolerance */
+  const double max_pre = (x_pre > y_pre) ? x_pre : y_pre;
+  const double pdiff_tol = tol + ppm_val * fabs(max_pre) * 1e-6;
+  const int do_pdiff = (!ISNA(x_pre) && !ISNA(y_pre) && fabs(pdiff) > pdiff_tol);
   const double eps_tol = sqrt(DBL_EPSILON);
 
   /* Sort x and y by mass (keeping original indices) */

@@ -146,8 +146,7 @@ gnps_r <- function(x, y, ...) {
 #'
 #' @export
 join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
-  tolerance = 0, ppm = 0, type = "outer", ...
-) {
+  tolerance = 0, ppm = 0, type = "outer", ...) {
   pdiff <- yPrecursorMz - xPrecursorMz
   map <- join(x, y, tolerance = tolerance, ppm = ppm, type = type, ...)
   if (is.finite(pdiff) && pdiff != 0) {
@@ -175,7 +174,8 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #' @rdname gnps
 #'
 #' @export
-join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, ...) {
+join_gnps <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
+                      tolerance = 0, ppm = 0, ...) {
   .Call(
     C_join_gnps,
     x = x,
@@ -190,8 +190,13 @@ join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, ...) {
 #' @rdname gnps
 #'
 #' @export
-gnps <- function(x, y, ...) {
-  .Call(C_gnps, x = x, y = y)
+gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
+  res <- .Call(C_gnps, x = x, y = y)
+  if (return_matched_peaks) {
+    res
+  } else{
+    res$score
+  }
 }
 
 #' @title Optimized GNPS Modified Cosine Similarity via Chain-DP
@@ -200,14 +205,14 @@ gnps <- function(x, y, ...) {
 #' modified cosine similarity score between two mass spectra using a fused
 #' join + score algorithm based on Chain-DP (Chain Dynamic Programming).
 #' This function combines peak matching and scoring in a single C call,
-#' achieving **10–50× speedup** over the standard \code{\link{gnps}()}
+#' achieving consequent speedup over the standard \code{\link{gnps}()}
 #' implementation while maintaining exact mathematical equivalence
 #' (differences ≤ 2.2e-16).
 #'
 #' **Algorithm**: Chain-DP optimal assignment. When spectra are sanitized,
 #' the bipartite matching graph forms simple chains (not arbitrary networks).
-#' This enables O(n+m) greedy scoring for ~99% of pairs, with exact Hungarian
-#' solver O(k³) only for rare conflicts (k ≈ 3–5).
+#' This enables O(n+m) greedy scoring for most of the pairs, with exact
+#' Hungarian solver O(k³) only for rare conflicts (k ≈ 3–5).
 #'
 #' **Complexity**: O(n+m) time, O(n+m) memory (vs. O(n³) time, O(n²) memory
 #' for full Hungarian).
