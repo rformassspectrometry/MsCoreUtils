@@ -115,32 +115,26 @@ gnps_r <- function(x, y, ...) {
   if (nrow(x) != nrow(y)) {
     stop("'x' and 'y' are expected to have the same number of rows).")
   }
-  ## Scale intensities; !duplicated because we can have duplicated matches.
-  x_sum <- sum(x[!duplicated(x[, 1]), 2], na.rm = TRUE)
-  y_sum <- sum(y[!duplicated(y[, 1]), 2], na.rm = TRUE)
-  ## is 0 if only NAs in input - avoids division through 0
+  x_sum <- sum(x[!duplicated(x[, 1L]), 2L], na.rm = TRUE)
+  y_sum <- sum(y[!duplicated(y[, 1L]), 2L], na.rm = TRUE)
   if (x_sum == 0 || y_sum == 0) {
     return(0)
   }
   ## Keep only matches.
-  keep <- which(complete.cases(cbind(x[, 1], y[, 1])))
-  l <- length(keep)
-  if (!l) {
+  keep <- which(!is.na(x[, 1L]) & !is.na(y[, 1L]))
+  if (length(keep) == 0) {
     return(0)
   }
   x <- x[keep, , drop = FALSE]
   y <- y[keep, , drop = FALSE]
-  scores <- sqrt(x[, 2]) / sqrt(x_sum) * sqrt(y[, 2]) / sqrt(y_sum)
-
-  x_idx <- as.integer(factor(x[, 1]))
-  y_idx <- as.integer(factor(y[, 1]))
-  score_mat <- matrix(0, nrow = l, ncol = l)
-  seq_l <- seq_len(l)
-  for (i in seq_l) {
-    score_mat[x_idx[i], y_idx[i]] <- scores[i]
-  }
+  scores <- sqrt(x[, 2L]) / sqrt(x_sum) * sqrt(y[, 2L]) / sqrt(y_sum)
+  x_idx <- match(x[, 1L], unique(x[, 1L]))
+  y_idx <- match(y[, 1L], unique(y[, 1L]))
+  n <- length(keep)
+  score_mat <- matrix(0.0, nrow = n, ncol = n)
+  score_mat[(y_idx - 1L) * n + x_idx] <- scores
   best <- solve_LSAP(score_mat, maximum = TRUE)
-  sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
+  sum(score_mat[(best - 1L) * n + seq_len(n)], na.rm = TRUE)
 }
 
 #' @rdname gnps
