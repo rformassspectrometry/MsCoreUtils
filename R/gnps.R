@@ -29,9 +29,10 @@
 #'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
 #'   the higher similarity are considered in the final score calculation.
 #'
-#' - `join_gnps`: C implementation of `join_gnps_r`, with `type=outer` default.
+#' - `join_gnps`: C implementation of `join_gnps_r`, with `type ="outer"` 
+#'   default.
 #'
-#' - `gnps`: C implementation of `gnps_r`, with `type=outer` default.
+#' - `gnps`: C implementation of `gnps_r`, with `type = "outer"` default.
 #'
 #' @details
 #'
@@ -65,7 +66,7 @@
 #'     of the spectrum `y`.
 #'
 #' @param ... for `join_gnps_r`: optional parameters passed to the [join()]
-#'     function. For `gnps_r`: ignored.
+#'     function. For `join`, `gnps_r`, and `gnps`: ignored.
 #'
 #' @author Johannes Rainer, Michael Witting, based on the code from
 #'     Xing *et al.* (2020).
@@ -174,7 +175,7 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #' @rdname gnps
 #'
 #' @export
-join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
+join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, ...) {
   .Call(
     C_join_gnps,
     x = x,
@@ -189,7 +190,7 @@ join_gnps <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
 #' @rdname gnps
 #'
 #' @export
-gnps <- function(x, y) {
+gnps <- function(x, y, ...) {
   .Call(C_gnps, x = x, y = y)
 }
 

@@ -2,21 +2,8 @@
 
 ## MsCoreUtils 1.24.0
 
-### Optimized GNPS Modified Cosine (`gnps_chain_dp()`)
-
-New high-performance implementation of the GNPS modified cosine similarity score.
-
-- Ported `join_gnps()` and `gnps()` implementations to `C`.
-  - `R`versions are still available under `join_gnps_r()`and `gnps_r`.
-- New `gnps_chain_dp`: Chain-DP optimal assignment inspired by [Sirius FastCosine](https://github.com/sirius-ms/sirius/blob/stable/spectral_alignment/src/main/java/de/unijena/bionf/fastcosine/FastCosine.java). Exploits the structure of mass-tolerance matching: after sorting, each peak can match at most two targets (direct + shifted), forming chains rather than arbitrary bipartite graphs.
-
-### Fix: Precursor Threshold in Modified Cosine (for `gnps_chain_dp()`)
-
-`gnps_chain_dp()` now skips shifted matching when `|pdiff| ≤ tolerance + ppm × precursor × 1e-6`, where `pdiff = yPrecursorMz - xPrecursorMz`.
-
-**Rationale**: When the precursor mass difference is within the peak matching tolerance, the "neutral loss" is indistinguishable from measurement noise.
-The shifted pass would only duplicate direct matches, inflating the score.
-Modified cosine correctly degenerates to cosine in this regime.
+- `gnps()` and `join_gnps()` use C implementations for modified cosine similarity calculation. The original R implementations are available as `gnps_r()` and `join_gnps_r()`. See [issue #131](https://github.com/rformassspectrometry/MsCoreUtils/issues/131) for discussion and performance comparison.
+- *FastCosine* spectral similarity calculation implementation: `gnps_chain_dp()`.
 
 ## MsCoreUtils 1.23.1
 

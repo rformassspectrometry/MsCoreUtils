@@ -146,7 +146,7 @@ Pull Request for these distance/similarity measurements:
 }
 \seealso{
 Other distance/similarity functions: 
-\code{\link{gnps}()}
+\code{\link{gnps_r}()}
 }
 \author{
 \code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb
