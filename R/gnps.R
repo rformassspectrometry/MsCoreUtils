@@ -194,7 +194,7 @@ gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
   res <- .Call(C_gnps, x = x, y = y)
   if (return_matched_peaks) {
     res
-  } else{
+  } else {
     res$score
   }
 }
