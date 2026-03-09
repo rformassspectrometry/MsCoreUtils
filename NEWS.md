@@ -1,5 +1,56 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.24.0
+
+### Optimized GNPS Modified Cosine (`gnps_chain_dp()`)
+
+New high-performance implementation of the GNPS modified cosine similarity score.
+
+- Ported `join_gnps()` and `gnps()` implementations to `C`.
+  - `R`versions are still available under `join_gnps_r()`and `gnps_r`.
+- New `gnps_chain_dp`: Chain-DP optimal assignment inspired by [Sirius FastCosine](https://github.com/sirius-ms/sirius/blob/stable/spectral_alignment/src/main/java/de/unijena/bionf/fastcosine/FastCosine.java). Exploits the structure of mass-tolerance matching: after sorting, each peak can match at most two targets (direct + shifted), forming chains rather than arbitrary bipartite graphs.
+
+**Usage:**
+```r
+# Hot path (recommended for high-throughput)
+result <- gnps_chain_dp(x, y,
+                       xPrecursorMz = 300.0,
+                       yPrecursorMz = 314.0,
+                       tolerance = 0.01,
+                       ppm = 10)
+
+# Standard path (backward compatible)
+matches <- join_gnps(x[,1], y[,1], 300.0, 314.0, 0.01, 10)
+score <- gnps(x[matches$x, ], y[matches$y, ])
+```
+
+**Prerequisites**: Input spectra **must be sanitized** before calling `gnps_chain_dp()`:
+- Unique m/z values (no duplicates within tolerance)
+- Non-negative intensities (no NaN/NA/Inf)
+- Sorted by m/z in ascending order
+
+Use `Spectra::reduceSpectra()`, `Spectra::combinePeaks()`, and `Spectra::scalePeaks()` to ensure proper sanitization.
+
+See `?gnps_chain_dp` for details.
+
+#### Fix: Precursor Threshold in Modified Cosine
+
+`gnps_chain_dp()` now skips shifted matching when `|pdiff| ≤ tolerance + ppm × precursor × 1e-6`, where `pdiff = yPrecursorMz - xPrecursorMz`.
+
+**Rationale**: When the precursor mass difference is within the peak matching tolerance, the "neutral loss" is indistinguishable from measurement noise.
+The shifted pass would only duplicate direct matches, inflating the score.
+Modified cosine correctly degenerates to cosine in this regime.
+
+**Example** (from pesticides.mgf):
+- Precursors: 341.026 vs. 341.039 (pdiff = 0.013 Da)
+- Tolerance: 0.01 + 10 ppm × 341.039 = 0.01341 Da
+- pdiff / tolerance = 97% → pdiff is measurement noise
+
+**Impact**:
+- Affects really few pairs (edge cases where precursors are within tolerance)
+- Differences are small (Δ ≈ 1e-3) and in the direction of lower scores (no false positives)
+- `gnps_chain_dp()` agrees with `compareSpectra(PRES = 0)` (cosine mode) on these pairs
+
 ## MsCoreUtils 1.23.2
 
 - Fix *Found non-API call to R: ‘SETLENGTH’* in `C_reduce`, `C_join_inner`,
