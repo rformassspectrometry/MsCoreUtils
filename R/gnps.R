@@ -29,7 +29,7 @@
 #'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
 #'   the higher similarity are considered in the final score calculation.
 #'
-#' - `join_gnps`: C implementation of `join_gnps_r`, with `type ="outer"` 
+#' - `join_gnps`: C implementation of `join_gnps_r`, with `type ="outer"`
 #'   default.
 #'
 #' - `gnps`: C implementation of `gnps_r`, with `type = "outer"` default.
