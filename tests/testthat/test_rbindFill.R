@@ -75,4 +75,18 @@ test_that("rbindFill works", {
     expect_equal(rbindFill(a), a)
     b <- data.frame(a = 1:3)
     expect_equal(rbindFill(b), b)
+
+    ## data.frame
+    a <- data.frame(char = c("a", "b", "c"), int = c(1L, 2L, 3L),
+                    num = c(1.23, 1.45, 1.2))
+    b <- data.frame(int = c(4L, 5L), char = c("d", "e"))
+    res <- rbindFill(a, b)
+    expect_equal(res$char, c("a", "b", "c", "d", "e"))
+    expect_equal(res$int, c(1L, 2L, 3L, 4L, 5L))
+    expect_equal(res$num, c(1.23, 1.45, 1.2, NA_real_, NA_real_))
+
+    res <- rbindFill(b, a)
+    expect_equal(res$char, c("d", "e", "a", "b", "c"))
+    expect_equal(res$int, c(4L, 5L, 1L, 2L, 3L))
+    expect_equal(res$num, c(NA_real_, NA_real_, 1.23, 1.45, 1.2))
 })
