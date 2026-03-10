@@ -11,7 +11,9 @@
  * ═══════════════════════════════════════════════════════════════════════════
  *
  * Sanitized spectra satisfy:
- *   • Unique m/z values (no two peaks within matching tolerance of each other)
+ *   • Unique m/z values: no two peaks in the same spectrum should have m/z
+ *     values close enough to match each other (i.e., |mz_i - mz_j| > tolerance
+ *     for all peak pairs i,j within the same spectrum)
  *   • Non-negative intensities, no NaN/NA/Inf intensities
  *   • Peaks sorted by m/z in ascending order
  *

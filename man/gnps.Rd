@@ -30,7 +30,7 @@ join_gnps(
   ...
 )
 
-gnps(x, y, matchedPeaksCount = FALSE, ...)
+gnps(x, y, ..., matchedPeaksCount = FALSE)
 }
 \arguments{
 \item{x}{for \code{join_gnps_r}: \code{numeric} with m/z values from a spectrum. For
