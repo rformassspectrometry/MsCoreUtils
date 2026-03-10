@@ -195,7 +195,7 @@ gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
   if (return_matched_peaks) {
     res
   } else {
-    res$score
+    unname(res["score"])
   }
 }
 
