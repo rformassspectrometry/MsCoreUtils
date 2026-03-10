@@ -12,10 +12,10 @@
 #' is considered in the final similarity score calculation. Note that GNPS
 #' similarity scores are calculated only if the two functions are used together.
 #'
-#' - `join_gnps`: matches/maps peaks between spectra with the same approach
+#' - `join_gnps()`: matches/maps peaks between spectra with the same approach
 #'   as in GNPS: peaks are considered matching if a) the
 #'   difference in their m/z values is smaller than defined by `tolerance`
-#'   and `ppm` (this is the same as `joinPeaks`) **and** b) the difference of
+#'   and `ppm` (this is the same as `joinPeaks()`) **and** b) the difference of
 #'   their m/z *adjusted* for the difference of the spectras' precursor is
 #'   smaller than defined by `tolerance` and `ppm`. Based on this definition,
 #'   peaks in `x` can match up to two peaks in `y` hence returned peak indices
@@ -25,14 +25,20 @@
 #'   indices of the peaks matching peaks in the other spectrum or `NA`
 #'   otherwise.
 #'
-#' - `gnps`: calculates the GNPS similarity score on peak matrices' previously
+#' - `gnps()`: calculates the GNPS similarity score on peak matrices' previously
 #'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
-#'   the higher similarity are considered in the final score calculation.
+#'   the higher similarity are considered in the final score calculation. By
+#'   setting `matchedPeaksCount = TRUE` the number of peak pairs on which the
+#'   score was calculated is returned in addition to the similarity score. By
+#'   default (with `matchedPeaksCount = FALSE`) a `numeric(1)` with the
+#'   similarity score is returned. For `matchedPeaksCount = TRUE` a
+#'   `numeric(2)` is returned with the first element being the similarity score
+#'   and the second the number of matched peak pairs.
 #'
 #' @details
 #'
-#' The implementation of `gnps` bases on the R code from the publication listed
-#' in the references.
+#' The implementation of `gnps()` bases on the R code from the publication
+#' listed in the references.
 #'
 #' @param ppm for `join_gnps`: `numeric(1)` defining a relative, m/z-dependent,
 #'     maximal accepted difference between m/z values of peaks from the two
@@ -59,6 +65,11 @@
 #'
 #' @param yPrecursorMz for `join_gnps`: `numeric(1)` with the precursor m/z
 #'     of the spectrum `y`.
+#'
+#' @param matchedPeaksCount `logical(1)` whether the number of peak pairs on
+#'     which the score was calculated should be returned. Defaults to
+#'     `matchedPeaksCount = FALSE`. If set to `matchedPeaksCount = TRUE` a
+#'     `numeric` of length 2 is returned.
 #'
 #' @param ... for `join_gnps`: optional parameters passed to the [join()]
 #'     function. For `gnps`: ignored.
@@ -111,7 +122,7 @@
 #' ## Calculate GNPS similarity score:
 #' map <- join_gnps(x[, 1], y[, 1], pmz_x, pmz_y)
 #' gnps(x[map[[1]], ], y[map[[2]], ])
-gnps <- function(x, y, ...) {
+gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
     if (nrow(x) != nrow(y))
         stop("'x' and 'y' are expected to have the same number of rows).")
     ## Scale intensities; !duplicated because we can have duplicated matches.
@@ -137,7 +148,10 @@ gnps <- function(x, y, ...) {
         score_mat[x_idx[i], y_idx[i]] <- scores[i]
     }
     best <- solve_LSAP(score_mat, maximum = TRUE)
-    sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
+    res <- sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
+    if (matchedPeaksCount)
+        return(c(res, length(best))) # matched peaks are considered values
+    res
 }
 
 #' @rdname gnps

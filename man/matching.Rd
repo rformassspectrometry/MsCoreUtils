@@ -37,11 +37,11 @@ join(
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched. In contrast to
-\code{\link[=match]{match()}} \code{x} has to be sorted in increasing order and must not contain any
+\code{\link[BiocGenerics:match]{BiocGenerics::match()}} \code{x} has to be sorted in increasing order and must not contain any
 \code{NA}.}
 
 \item{table}{\code{numeric}, the values to be matched against. In contrast to
-\code{\link[=match]{match()}} \code{table} has to be sorted in increasing order and must not contain
+\code{\link[BiocGenerics:match]{BiocGenerics::match()}} \code{table} has to be sorted in increasing order and must not contain
 any \code{NA}.}
 
 \item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
@@ -82,13 +82,13 @@ in \code{y} (or \code{NA} if the value does not match).
 }
 \description{
 These functions offer relaxed matching of one vector in another.
-In contrast to the similar \code{\link[=match]{match()}} and \code{\link{\%in\%}} functions they
+In contrast to the similar \code{\link[BiocGenerics:match]{BiocGenerics::match()}} and \code{\link{\%in\%}} functions they
 just accept \code{numeric} arguments but have an additional \code{tolerance}
 argument that allows relaxed matching.
 }
 \details{
 For \code{closest}/\code{common} the \code{tolerance} argument could be set to \code{0} to get
-the same results as for \code{\link[=match]{match()}}/\code{\link{\%in\%}}. If it is set to \code{Inf} (default)
+the same results as for \code{\link[BiocGenerics:match]{BiocGenerics::match()}}/\code{\link{\%in\%}}. If it is set to \code{Inf} (default)
 the index of the closest values is returned without any restriction.
 
 It is not guaranteed that there is a one-to-one matching for neither the
@@ -96,7 +96,7 @@ It is not guaranteed that there is a one-to-one matching for neither the
 
 If multiple elements in \code{x} match a single element in \code{table} all their
 corresponding indices are returned if \code{duplicates="keep"} is set (default).
-This behaviour is identical to \code{\link[=match]{match()}}. For \code{duplicates="closest"} just
+This behaviour is identical to \code{\link[BiocGenerics:match]{BiocGenerics::match()}}. For \code{duplicates="closest"} just
 the closest element in \code{x} gets the corresponding index in \code{table} and
 for \code{duplicates="remove"} all elements in \code{x} that match to the same element
 in \code{table} are set to \code{nomatch}.
@@ -205,7 +205,7 @@ x[ji$x]
 y[ji$y]
 }
 \seealso{
-\code{\link[=match]{match()}}
+\code{\link[BiocGenerics:match]{BiocGenerics::match()}}
 
 \code{\link{\%in\%}}
 

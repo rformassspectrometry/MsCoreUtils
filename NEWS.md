@@ -1,5 +1,10 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.3
+
+- Add parameter `matchedPeaksCount` to spectra similarity/distance functions to
+  report, in addition to the similarity, also the number of matched peaks.
+
 ## MsCoreUtils 1.23.2
 
 - Fix *Found non-API call to R: ‘SETLENGTH’* in `C_reduce`, `C_join_inner`,

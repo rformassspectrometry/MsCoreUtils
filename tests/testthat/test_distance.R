@@ -1,28 +1,44 @@
 x <- matrix(c(1:5, 1:5), ncol = 2)
 y <- matrix(c(1:5, 5:1), ncol = 2)
+z <- matrix(c(NA, 2, 3, NA, 5, NA, 2, 3, NA, 5), ncol = 2)
 
 test_that("ndotproduct", {
     expect_equal(ndotproduct(x, x), 1)
     expect_equal(ndotproduct(x, y), 0.7661, tolerance = 1e-4)
     expect_equal(ndotproduct(x, y, m = 3, n = 0.6), 0.91276, tolerance = 1e-4)
+    res <- ndotproduct(x, y, 1, matchedPeaksCount = TRUE)
+    expect_true(length(res) == 2L)
+    expect_equal(res[2L], 5)
+    res <- ndotproduct(x, z, matchedPeaksCount = TRUE)
+    expect_equal(res[1L], 2/3)
+    expect_equal(res[2L], 3)
 })
 
 test_that("neuclidean", {
     expect_equal(neuclidean(x, x), 1)
     expect_equal(neuclidean(x, y), 0.8003, tolerance = 1e-4)
     expect_equal(neuclidean(x, y, m = 3, n = 0.6), 0.3904, tolerance = 1e-4)
+    res <- neuclidean(x, y, matchedPeaksCount = TRUE)
+    expect_true(length(res) == 2L)
+    expect_equal(res[2L], 5)
 })
 
 test_that("navdist", {
     expect_equal(navdist(x, x), 1)
     expect_equal(navdist(x, y), 0.697, tolerance = 1e-4)
     expect_equal(navdist(x, y, m = 3, n = 0.6), 0.5305, tolerance = 1e-4)
+    res <- navdist(x, y, matchedPeaksCount = TRUE)
+    expect_true(length(res) == 2L)
+    expect_equal(res[2L], 5)
 })
 
 test_that("nspectraangle", {
     expect_equal(nspectraangle(x, x), 1)
     expect_equal(nspectraangle(x, y), 0.5556, tolerance = 1e-4)
     expect_equal(nspectraangle(x, y, m = 3, n = 0.6), 0.732, tolerance = 1e-4)
+    res <- nspectraangle(x, y, matchedPeaksCount = TRUE)
+    expect_true(length(res) == 2L)
+    expect_equal(res[2L], 5)
 })
 
 test_that(".calibrate", {
@@ -40,4 +56,14 @@ test_that("dotproduct", {
     expect_warning(res1 <- dotproduct(x, y))
     expect_equal(res1, ndotproduct(x, y))
 
+})
+
+test_that(".matched_peaks_count works", {
+    a <- cbind(c(1L, NA, 3L, NA), 1:4)
+    b <- cbind(c(NA, 1L, NA, 2L), 1:4)
+    expect_equal(.matched_peaks_count(a, b), 0)
+    b[1, 1] <- 1L
+    expect_equal(.matched_peaks_count(a, b), 1)
+    a[2, 1] <- 1L
+    expect_equal(.matched_peaks_count(a, b), 2)
 })
