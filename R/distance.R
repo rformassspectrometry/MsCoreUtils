@@ -7,27 +7,40 @@
 #' @param x `matrix`, two-columns e.g. m/z, intensity
 #' @param y `matrix`, two-columns e.g. m/z, intensity
 #' @param ... ignored.
+#' @param matchedPeaksCount `logical(1)` whether also the number of matched
+#' peaks should be reported (defaults to `matchedPeaksCount = FALSE`). Note
+#' that with `matchedPeaksCount = TRUE` a `numeric` of length 2 is returned.
 #'
 #' @details
+#'
 #' All functions that calculate normalized similarity/distance measurements are
 #' prefixed with a *n*.
 #'
+#' All functions support reporting in addition to the similarity score also the
+#' number of matched peaks (values) on which the similarity was calculated by
+#' setting `matchedPeaksCount = TRUE`.
+#'
 #' @note
+#'
 #' These methods are implemented as described in Stein and Scott 1994
 #' (`navdist`, `ndotproduct`, `neuclidean`) and Toprak et al. 2014
 #' (`nspectraangle`) but because there is no reference implementation available
 #' we are unable to guarantee that the results are identical.
 #' Note that the Stein and Scott 1994 normalized dot product method (and by
-#' extension `ndotproduct`) corresponds to the square of the orthodox 
+#' extension `ndotproduct`) corresponds to the square of the orthodox
 #' normalized dot product (or cosine distance) used also commonly as spectrum
-#' similarity measure (Yilmaz et al. 2017). 
+#' similarity measure (Yilmaz et al. 2017).
 #' Please see also the corresponding discussion at the github pull request
 #' linked below. If you find any problems or reference implementation please
 #' open an issue at
 #' <https://github.com/rformassspectrometry/MsCoreUtils/issues>.
 #'
-#' @return `double(1)` value between `0:1`, where `0` is completely different
-#' and `1` identically.
+#' @return
+#' For `matchedPeaksCount = FALSE` (the default): `double(1)` value between
+#' `0:1`, where `0` is completely different and `1` identically.
+#' For `matchedPeaksCount = TRUE`: `double(2)` with the first element being the
+#' similarity score and the second the number of matched peaks on which the
+#' score was calculated.
 #'
 #' @rdname distance
 #' @author `navdist`, `neuclidean`, `nspectraangle`: Sebastian Gibb
@@ -40,9 +53,9 @@
 #' \doi{10.1016/1044-0305(94)87009-8}.
 #'
 #' Yilmaz, S., Vandermarliere, E.,  and Lennart Martens (2017).
-#' Methods to Calculate Spectrum Similarity. 
+#' Methods to Calculate Spectrum Similarity.
 #' In S. Keerthikumar and S. Mathivanan (eds.), Proteome
-#' Bioinformatics: Methods in Molecular Biology, vol. 1549 (pp. 81). 
+#' Bioinformatics: Methods in Molecular Biology, vol. 1549 (pp. 81).
 #' \doi{10.1007/978-1-4939-6740-7_7}.
 #'
 #' Horai et al. (2010).
@@ -108,11 +121,19 @@ NULL
 #' ndotproduct(x, y)
 #' ndotproduct(x, y, m = 2, n = 0.5)
 #' ndotproduct(x, y, m = 3, n = 0.6)
-ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
+ndotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...,
+                        matchedPeaksCount = FALSE) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
-    sum(wx * wy, na.rm = na.rm)^2L /
+    res <- sum(wx * wy, na.rm = na.rm)^2L /
         (sum(wx^2L, na.rm = na.rm) * sum(wy^2L, na.rm = na.rm))
+    if (matchedPeaksCount)
+        return(c(res, .matched_peaks_count(x, y)))
+    res
+}
+
+.matched_peaks_count <- function(x, y) {
+    sum(!is.na(x[, 1L] + y[, 1L]))
 }
 
 #' @rdname distance
@@ -136,10 +157,15 @@ dotproduct <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
 #' @examples
 #'
 #' neuclidean(x, y)
-neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
+neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...,
+                       matchedPeaksCount = FALSE) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
-    1 / (1 + sum((wy - wx)^2L, na.rm = na.rm) / sum(wy^2L, na.rm = na.rm))
+    res <- 1 / (1 + sum((wy - wx)^2L, na.rm = na.rm) /
+                sum(wy^2L, na.rm = na.rm))
+    if (matchedPeaksCount)
+        return(c(res, .matched_peaks_count(x, y)))
+    res
 }
 
 #' @rdname distance
@@ -157,10 +183,14 @@ neuclidean <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
 #' @examples
 #'
 #' navdist(x, y)
-navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
+navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...,
+                    matchedPeaksCount = FALSE) {
     wx <- .weightxy(x[, 1L], x[, 2L], m, n)
     wy <- .weightxy(y[, 1L], y[, 2L], m, n)
-    1 / (1 + sum(abs(wy - wx), na.rm = na.rm) / sum(wy, na.rm = na.rm))
+    res <- 1 / (1 + sum(abs(wy - wx), na.rm = na.rm) / sum(wy, na.rm = na.rm))
+    if (matchedPeaksCount)
+        return(c(res, .matched_peaks_count(x, y)))
+    res
 }
 
 #' @rdname distance
@@ -179,8 +209,12 @@ navdist <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
 #' @examples
 #'
 #' nspectraangle(x, y)
-nspectraangle <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...) {
-    1 - 2 * acos(ndotproduct(x, y, m, n, na.rm = na.rm)) / pi
+nspectraangle <- function(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...,
+                          matchedPeaksCount = FALSE) {
+    res <- 1 - 2 * acos(ndotproduct(x, y, m, n, na.rm = na.rm)) / pi
+    if (matchedPeaksCount)
+        return(c(res, .matched_peaks_count(x, y)))
+    res
 }
 
 #' Calibrate function (workhorse of normalise)

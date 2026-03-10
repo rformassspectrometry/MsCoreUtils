@@ -75,6 +75,28 @@ test_that("gnps works", {
     res_2 <- gnps(y[map$x, ], x[map$y, ])
     expect_equal(res, res_2)
 
+    ## peak count
+    map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
+    res <- gnps(x[map$x, ], y[map$y, ], matchedPeaksCount = TRUE)
+    ## here matched peaks count is the number of scores (peak pairs) on which
+    ## the final score was calculated.
+    expect_equal(res[2L], 6)
+    expect_true(res[2L] <= max(nrow(x), nrow(y)))
+
+    a <- cbind(mz = c(10, 36, 63, 91, 93),
+               intensity = c(14, 15, 999, 650, 1))
+    a_pmz <- 91
+
+    b <- cbind(mz = c(10, 12, 50, 63, 105),
+               intensity = c(35, 5, 16, 999, 450))
+    b_pmz <- 105
+
+    map <- join_gnps(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+                     yPrecursorMz = b_pmz, type = "left")
+    res <- gnps(a[map[[1L]], ], b[map[[2L]], ], matchedPeaksCount = TRUE)
+    expect_true(length(res) == 2L)
+    expect_equal(res[[2L]], 4)
+
     ## Unit tests with reference values from GNPS online kindly provided by
     ## Liesa Salzer
     apmz <- 184.097
@@ -94,6 +116,8 @@ test_that("gnps works", {
     expect_equal(round(gnps(a[map$x, ], b[map$y, ]), 2), 0.76)
     mapr <- join_gnps(b[, 1L], a[, 1L], bpmz, apmz, tolerance = 0.1, ppm = 0)
     expect_equal(gnps(a[map$x, ], b[map$y, ]), gnps(b[mapr$x, ], a[mapr$y, ]))
+    res <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    expect_true(res[2L] <= max(nrow(a), nrow(b)))
 
     dpmz <- 220.12
     d <- cbind(
@@ -106,11 +130,15 @@ test_that("gnps works", {
     expect_equal(round(gnps(a[map$x, ], d[map$y, ]), 2), 0.74)
     mapr <- join_gnps(d[, 1L], a[, 1L], dpmz, apmz, tolerance = 0.1, ppm = 0)
     expect_equal(gnps(a[map$x, ], d[map$y, ]), gnps(d[mapr$x, ], a[mapr$y, ]))
+    res <- gnps(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_true(res[2L] <= max(nrow(a), nrow(d)))
 
     map <- join_gnps(b[, 1L], d[, 1L], bpmz, dpmz, tolerance = 0.1, ppm = 0)
     expect_equal(round(gnps(b[map$x, ], d[map$y, ]), 2), 0.93)
     mapr <- join_gnps(d[, 1L], b[, 1L], dpmz, bpmz, tolerance = 0.1, ppm = 0)
     expect_equal(gnps(b[map$x, ], d[map$y, ]), gnps(d[mapr$x, ], b[mapr$y, ]))
+    res <- gnps(b[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_true(res[2L] <= max(nrow(b), nrow(d)))
 
     ## Second set.
     apmz <- 371.564
@@ -197,6 +225,13 @@ test_that("gnps works", {
     expect_equal(round(gnps(a[map$x, ], f[map$y, ]), 2), 0.91)
     mapr <- join_gnps(f[, 1L], a[, 1L], fpmz, apmz, tolerance = 0.1, ppm = 0)
     expect_equal(gnps(a[map$x, ], f[map$y, ]), gnps(f[mapr$x, ], a[mapr$y, ]))
+    ## matched peak count
+    map <- join(a[, 1L], b[, 1L], tolerance = 0.1, ppm = 0)
+    ref <- ndotproduct(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    map <- join_gnps(a[, 1L], b[, 1L], apmz, bpmz, tolerance = 0.1, ppm = 0)
+    res <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    expect_true(res[2L] <= max(nrow(a), nrow(b)))
+    expect_true(res[2L] > ref[2L])
 
     ## Third set
     apmz <- 488.358
