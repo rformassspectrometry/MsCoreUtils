@@ -64,6 +64,7 @@
 #'
 #' @param yPrecursorMz for `join_gnps`: `numeric(1)` with the precursor m/z
 #'     of the spectrum `y`.
+#' @param return_matched_peaks for `gnps`: `boolean`. Defaults to FALSE.
 #'
 #' @param ... for `join_gnps_r`: optional parameters passed to the [join()]
 #'     function. For `join`, `gnps_r`, and `gnps`: ignored.
@@ -305,13 +306,13 @@ gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
 #'                         yPrecursorMz = 105.0,
 #'                         tolerance = 0.01,
 #'                         ppm = 10)
-#' result$score    # Similarity score [0, 1]
-#' result$matches  # Number of matched peaks
+#' result[["score"]]
+#' result[["matches"]]
 #'
 #' # Compare with standard implementation (should agree within 1e-15)
 #' matches <- join_gnps(x[,1], y[,1], 91.0, 105.0, 0.01, 10)
 #' score_std <- gnps(x[matches$x, ], y[matches$y, ])
-#' abs(result$score - score_std) < 1e-10  # TRUE
+#' abs(result[["score"]] - score_std) < 1e-10  # TRUE
 #'
 #' @export
 gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {

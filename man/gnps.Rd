@@ -61,6 +61,8 @@ from the two spectra to be matched/mapped.}
 \item{type}{for \code{join_gnps_r}: \code{character(1)} specifying the type of join
 that should be performed. See \code{\link[=join]{join()}} for details and options. Defaults
 to \code{type = "outer"}.}
+
+\item{return_matched_peaks}{for \code{gnps}: \code{boolean}. Defaults to FALSE.}
 }
 \value{
 See function definition in the description section.

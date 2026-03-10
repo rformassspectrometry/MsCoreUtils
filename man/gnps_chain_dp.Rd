@@ -103,13 +103,13 @@ result <- gnps_chain_dp(x, y,
                         yPrecursorMz = 105.0,
                         tolerance = 0.01,
                         ppm = 10)
-result$score    # Similarity score [0, 1]
-result$matches  # Number of matched peaks
+result[["score"]]
+result[["matches"]]
 
 # Compare with standard implementation (should agree within 1e-15)
 matches <- join_gnps(x[,1], y[,1], 91.0, 105.0, 0.01, 10)
 score_std <- gnps(x[matches$x, ], y[matches$y, ])
-abs(result$score - score_std) < 1e-10  # TRUE
+abs(result[["score"]] - score_std) < 1e-10  # TRUE
 
 }
 \references{
