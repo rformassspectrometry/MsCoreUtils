@@ -180,11 +180,7 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
       map[[2L]] <- map[[2L]][idx]
     }
   }
-    best <- solve_LSAP(score_mat, maximum = TRUE)
-    res <- sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
-    if (matchedPeaksCount)
-        return(c(res, length(best))) # matched peaks are considered values
-    res
+  map
 }
 
 #' @rdname gnps
@@ -211,7 +207,7 @@ gnps <- function(x, y, matchedPeaksCount = FALSE, ...) {
   if (matchedPeaksCount) {
     res
   } else {
-    unname(res["score"])
+    res[1L]
   }
 }
 

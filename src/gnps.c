@@ -229,20 +229,13 @@ static int kp_cmp(const void *a, const void *b) {
 
 /* ── SEXP result builder ─────────────────────────────────────────────────── */
 
-/* Returns a named numeric vector: c(score = <score>, matches = <matches>)
- * This ensures consistent return type (always numeric) regardless of whether
- * the user wants both values or just the score. The R wrapper can then subset
- * as needed: result[1] for score only, result for both.
- * Note: matches is stored as numeric (not integer) for type consistency. */
+/* Returns a plain numeric vector of length 2: c(score, matches)
+ * Index 0 = score, Index 1 = matches (as double for type consistency) */
 static SEXP make_result(double score, int matches) {
-  SEXP r  = PROTECT(allocVector(REALSXP, 2));
-  SEXP nm = PROTECT(allocVector(STRSXP, 2));
+  SEXP r = PROTECT(allocVector(REALSXP, 2));
   REAL(r)[0] = score;
   REAL(r)[1] = (double)matches;
-  SET_STRING_ELT(nm, 0, mkChar("score"));
-  SET_STRING_ELT(nm, 1, mkChar("matches"));
-  setAttrib(r, R_NamesSymbol, nm);
-  UNPROTECT(2);
+  UNPROTECT(1);
   return r;
 }
 
