@@ -30,7 +30,7 @@ join_gnps(
   ...
 )
 
-gnps(x, y, return_matched_peaks = FALSE, ...)
+gnps(x, y, matchedPeaksCount = FALSE, ...)
 }
 \arguments{
 \item{x}{for \code{join_gnps_r}: \code{numeric} with m/z values from a spectrum. For
@@ -67,7 +67,7 @@ from the two spectra to be matched/mapped.}
 that should be performed. See \code{\link[=join]{join()}} for details and options. Defaults
 to \code{type = "outer"}.}
 
-\item{return_matched_peaks}{for \code{gnps}: \code{boolean}. Defaults to FALSE.}
+\item{matchedPeaksCount}{for \code{gnps}: \code{boolean}. Defaults to FALSE.}
 }
 \value{
 See function definition in the description section.
@@ -144,11 +144,11 @@ Analysis and Unknown Metabolite Annotation. \emph{Anal Chem.}
 2020 Nov 3;92(21):14476-14483. \doi{10.1021/acs.analchem.0c02521}.
 }
 \seealso{
-Other grouping/matching functions: 
+Other grouping/matching functions:
 \code{\link{bin}()},
 \code{\link{closest}()}
 
-Other distance/similarity functions: 
+Other distance/similarity functions:
 \code{\link{distance}}
 }
 \author{

@@ -71,7 +71,6 @@
 #'
 #' @param yPrecursorMz for `join_gnps`: `numeric(1)` with the precursor m/z
 #'     of the spectrum `y`.
-#' @param return_matched_peaks for `gnps`: `boolean`. Defaults to FALSE.
 #'
 #' @param matchedPeaksCount `logical(1)` whether the number of peak pairs on
 #'     which the score was calculated should be returned. Defaults to
@@ -207,9 +206,9 @@ join_gnps <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #' @rdname gnps
 #'
 #' @export
-gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
+gnps <- function(x, y, matchedPeaksCount = FALSE, ...) {
   res <- .Call(C_gnps, x = x, y = y)
-  if (return_matched_peaks) {
+  if (matchedPeaksCount) {
     res
   } else {
     unname(res["score"])
