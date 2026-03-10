@@ -236,7 +236,9 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #' @section Prerequisites:
 #' **CRITICAL**: Input spectra MUST be sanitized before calling this function:
 #' \itemize{
-#'   \item **Unique m/z values** (no two peaks within matching tolerance)
+#'   \item **Unique m/z values**: no two peaks in the same spectrum should have
+#'     m/z values close enough to match each other (i.e., |mz_i - mz_j| >
+#'     tolerance for all peak pairs i,j within the same spectrum)
 #'   \item **Non-negative intensities** (no NaN/NA/Inf)
 #'   \item **Sorted by m/z** in ascending order
 #' }

@@ -74,7 +74,9 @@ when \code{pdiff == 0.0} exactly. See References for details.
 
 \strong{CRITICAL}: Input spectra MUST be sanitized before calling this function:
 \itemize{
-\item \strong{Unique m/z values} (no two peaks within matching tolerance)
+\item \strong{Unique m/z values}: no two peaks in the same spectrum should have
+m/z values close enough to match each other (i.e., |mz_i - mz_j| >
+tolerance for all peak pairs i,j within the same spectrum)
 \item \strong{Non-negative intensities} (no NaN/NA/Inf)
 \item \strong{Sorted by m/z} in ascending order
 }
