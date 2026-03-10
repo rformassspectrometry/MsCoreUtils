@@ -25,15 +25,16 @@
 #'   indices of the peaks matching peaks in the other spectrum or `NA`
 #'   otherwise.
 #'
-#' - `gnps_r()`: calculates the GNPS similarity score on peak matrices' previously
-#'   *aligned* (matched) with `join_gnps`. For multi-mapping peaks the pair with
-#'   the higher similarity are considered in the final score calculation. By
-#'   setting `matchedPeaksCount = TRUE` the number of peak pairs on which the
-#'   score was calculated is returned in addition to the similarity score. By
-#'   default (with `matchedPeaksCount = FALSE`) a `numeric(1)` with the
-#'   similarity score is returned. For `matchedPeaksCount = TRUE` a
-#'   `numeric(2)` is returned with the first element being the similarity score
-#'   and the second the number of matched peak pairs.
+#' - `gnps_r()`: calculates the GNPS similarity score on peak matrices'
+#'   previously *aligned* (matched) with `join_gnps`. For multi-mapping peaks
+#'   the pair with the higher similarity are considered in the final score
+#'   calculation. By setting `matchedPeaksCount = TRUE` the number of peak pairs
+#'   on which the score was calculated is returned in addition to the
+#'   similarity score. By default (with `matchedPeaksCount = FALSE`) a
+#'   `numeric(1)` with the similarity score is returned. For
+#'   `matchedPeaksCount = TRUE` a `numeric(2)` is returned with the first
+#'   element being the similarity scoreand the second the number of matched peak
+#'   pairs.
 #'
 #' - `join_gnps`: C implementation of `join_gnps_r`, with `type ="outer"`
 #'   default.
@@ -179,6 +180,7 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
       map[[1L]] <- map[[1L]][idx]
       map[[2L]] <- map[[2L]][idx]
     }
+  }
     best <- solve_LSAP(score_mat, maximum = TRUE)
     res <- sum(score_mat[cbind(seq_l, as.integer(best))], na.rm = TRUE)
     if (matchedPeaksCount)
@@ -263,7 +265,7 @@ gnps <- function(x, y, return_matched_peaks = FALSE, ...) {
 #'
 #' @return A list with two elements:
 #' \describe{
-#'   \item{score}{Numeric scalar, the modified cosine similarity score [0, 1].}
+#'   \item{score}{Numeric scalar, the modified cosine similarity score \[0, 1\].}
 #'   \item{matches}{Integer scalar, number of matched peak pairs.}
 #' }
 #'

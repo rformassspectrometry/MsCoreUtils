@@ -24,7 +24,7 @@ Must be sorted by mz in ascending order.}
 \value{
 A list with two elements:
 \describe{
-\item{score}{Numeric scalar, the modified cosine similarity score \link{0, 1}.}
+\item{score}{Numeric scalar, the modified cosine similarity score [0, 1].}
 \item{matches}{Integer scalar, number of matched peak pairs.}
 }
 }
