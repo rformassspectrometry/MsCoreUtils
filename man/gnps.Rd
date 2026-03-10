@@ -20,9 +20,17 @@ join_gnps_r(
   ...
 )
 
-join_gnps(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, ...)
+join_gnps(
+  x,
+  y,
+  xPrecursorMz = NA_real_,
+  yPrecursorMz = NA_real_,
+  tolerance = 0,
+  ppm = 0,
+  ...
+)
 
-gnps(x, y, ...)
+gnps(x, y, return_matched_peaks = FALSE, ...)
 }
 \arguments{
 \item{x}{for \code{join_gnps_r}: \code{numeric} with m/z values from a spectrum. For
