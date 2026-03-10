@@ -6,15 +6,31 @@ measurements.
 ## Usage
 
 ``` r
-ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+ndotproduct(
+  x,
+  y,
+  m = 0L,
+  n = 0.5,
+  na.rm = TRUE,
+  ...,
+  matchedPeaksCount = FALSE
+)
 
 dotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE, ..., matchedPeaksCount = FALSE)
 
-navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE, ..., matchedPeaksCount = FALSE)
 
-nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+nspectraangle(
+  x,
+  y,
+  m = 0L,
+  n = 0.5,
+  na.rm = TRUE,
+  ...,
+  matchedPeaksCount = FALSE
+)
 ```
 
 ## Arguments
@@ -48,15 +64,28 @@ nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
   ignored.
 
+- matchedPeaksCount:
+
+  `logical(1)` whether also the number of matched peaks should be
+  reported (defaults to `matchedPeaksCount = FALSE`). Note that with
+  `matchedPeaksCount = TRUE` a `numeric` of length 2 is returned.
+
 ## Value
 
-`double(1)` value between `0:1`, where `0` is completely different and
-`1` identically.
+For `matchedPeaksCount = FALSE` (the default): `double(1)` value between
+`0:1`, where `0` is completely different and `1` identically. For
+`matchedPeaksCount = TRUE`: `double(2)` with the first element being the
+similarity score and the second the number of matched peaks on which the
+score was calculated.
 
 ## Details
 
 All functions that calculate normalized similarity/distance measurements
 are prefixed with a *n*.
+
+All functions support reporting in addition to the similarity score also
+the number of matched peaks (values) on which the similarity was
+calculated by setting `matchedPeaksCount = TRUE`.
 
 `ndotproduct`: the normalized dot product is described in Stein and
 Scott 1994 as: \\NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2

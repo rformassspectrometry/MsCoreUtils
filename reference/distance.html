@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,15 +39,31 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ndotproduct</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ndotproduct</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  m <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  matchedPeaksCount <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">dotproduct</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">neuclidean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">neuclidean</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span>, matchedPeaksCount <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">navdist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">navdist</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span>, matchedPeaksCount <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">nspectraangle</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, m <span class="op">=</span> <span class="fl">0L</span>, n <span class="op">=</span> <span class="fl">0.5</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">nspectraangle</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  m <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  n <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>  na.rm <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  matchedPeaksCount <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -82,16 +98,28 @@ see the <code>ndotproduct</code> details section.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>ignored.</p></dd>
 
+
+<dt id="arg-matchedpeakscount">matchedPeaksCount<a class="anchor" aria-label="anchor" href="#arg-matchedpeakscount"></a></dt>
+<dd><p><code>logical(1)</code> whether also the number of matched
+peaks should be reported (defaults to <code>matchedPeaksCount = FALSE</code>). Note
+that with <code>matchedPeaksCount = TRUE</code> a <code>numeric</code> of length 2 is returned.</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p><code>double(1)</code> value between <code>0:1</code>, where <code>0</code> is completely different
-and <code>1</code> identically.</p>
+    <p>For <code>matchedPeaksCount = FALSE</code> (the default): <code>double(1)</code> value between
+<code>0:1</code>, where <code>0</code> is completely different and <code>1</code> identically.
+For <code>matchedPeaksCount = TRUE</code>: <code>double(2)</code> with the first element being the
+similarity score and the second the number of matched peaks on which the
+score was calculated.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>All functions that calculate normalized similarity/distance measurements are
 prefixed with a <em>n</em>.</p>
+<p>All functions support reporting in addition to the similarity score also the
+number of matched peaks (values) on which the similarity was calculated by
+setting <code>matchedPeaksCount = TRUE</code>.</p>
 <p><code>ndotproduct</code>: the normalized dot product is described in Stein and Scott
 1994 as: \(NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}\); where
 \(W_i = x^m * y^n\), where \(x\) and \(y\) are the m/z and intensity

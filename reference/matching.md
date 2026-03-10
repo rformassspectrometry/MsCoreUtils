@@ -1,7 +1,8 @@
 # Relaxed Value Matching
 
 These functions offer relaxed matching of one vector in another. In
-contrast to the similar [`match()`](https://rdrr.io/r/base/match.html)
+contrast to the similar
+[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
 and [`%in%`](https://rdrr.io/r/base/match.html) functions they just
 accept `numeric` arguments but have an additional `tolerance` argument
 that allows relaxed matching.
@@ -44,14 +45,16 @@ join(
 - x:
 
   `numeric`, the values to be matched. In contrast to
-  [`match()`](https://rdrr.io/r/base/match.html) `x` has to be sorted in
-  increasing order and must not contain any `NA`.
+  [`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
+  `x` has to be sorted in increasing order and must not contain any
+  `NA`.
 
 - table:
 
   `numeric`, the values to be matched against. In contrast to
-  [`match()`](https://rdrr.io/r/base/match.html) `table` has to be
-  sorted in increasing order and must not contain any `NA`.
+  [`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
+  `table` has to be sorted in increasing order and must not contain any
+  `NA`.
 
 - tolerance:
 
@@ -110,7 +113,7 @@ value in `y` (or `NA` if the value does not match).
 
 For `closest`/`common` the `tolerance` argument could be set to `0` to
 get the same results as for
-[`match()`](https://rdrr.io/r/base/match.html)/[`%in%`](https://rdrr.io/r/base/match.html).
+[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)/[`%in%`](https://rdrr.io/r/base/match.html).
 If it is set to `Inf` (default) the index of the closest values is
 returned without any restriction.
 
@@ -120,8 +123,8 @@ It is not guaranteed that there is a one-to-one matching for neither the
 If multiple elements in `x` match a single element in `table` all their
 corresponding indices are returned if `duplicates="keep"` is set
 (default). This behaviour is identical to
-[`match()`](https://rdrr.io/r/base/match.html). For
-`duplicates="closest"` just the closest element in `x` gets the
+[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html).
+For `duplicates="closest"` just the closest element in `x` gets the
 corresponding index in `table` and for `duplicates="remove"` all
 elements in `x` that match to the same element in `table` are set to
 `nomatch`.
@@ -168,7 +171,7 @@ That means for multiple matches just the closest one is reported.
 
 ## See also
 
-[`match()`](https://rdrr.io/r/base/match.html)
+[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
 
 [`%in%`](https://rdrr.io/r/base/match.html)
 
