@@ -7,7 +7,7 @@
 \alias{gnps}
 \title{GNPS spectrum similarity scores}
 \usage{
-gnps_r(x, y, ...)
+gnps(x, y, ..., matchedPeaksCount = FALSE)
 
 join_gnps_r(
   x,
@@ -44,7 +44,12 @@ the peaks \strong{aligned} with peaks in \code{x} (with \code{join_gnps_r}).}
 \item{...}{for \code{join_gnps_r}: optional parameters passed to the \code{\link[=join]{join()}}
 function. For \code{join}, \code{gnps_r}, and \code{gnps}: ignored.}
 
-\item{xPrecursorMz}{for \code{join_gnps_r}: \code{numeric(1)} with the precursor m/z
+\item{matchedPeaksCount}{\code{logical(1)} whether the number of peak pairs on
+which the score was calculated should be returned. Defaults to
+\code{matchedPeaksCount = FALSE}. If set to \code{matchedPeaksCount = TRUE} a
+\code{numeric} of length 2 is returned.}
+
+\item{xPrecursorMz}{for \code{join_gnps}: \code{numeric(1)} with the precursor m/z
 of the spectrum \code{x}.}
 
 \item{yPrecursorMz}{for \code{join_gnps}: \code{numeric(1)} with the precursor m/z
@@ -78,10 +83,10 @@ other spectrum only the matching peak pair with the higher value/similarity
 is considered in the final similarity score calculation. Note that GNPS
 similarity scores are calculated only if the two functions are used together.
 \itemize{
-\item \code{join_gnps_r}: matches/maps peaks between spectra with the same approach
+\item \code{join_gnps_r()}: matches/maps peaks between spectra with the same approach
 as in GNPS: peaks are considered matching if a) the
 difference in their m/z values is smaller than defined by \code{tolerance}
-and \code{ppm} (this is the same as \code{joinPeaks}) \strong{and} b) the difference of
+and \code{ppm} (this is the same as \code{joinPeaks()}) \strong{and} b) the difference of
 their m/z \emph{adjusted} for the difference of the spectras' precursor is
 smaller than defined by \code{tolerance} and \code{ppm}. Based on this definition,
 peaks in \code{x} can match up to two peaks in \code{y} hence returned peak indices
@@ -90,16 +95,19 @@ are \code{NA} or if both are the same, the results are the same as with
 \code{\link[=join]{join()}}. The function returns a \code{list} of two \code{integer} vectors with the
 indices of the peaks matching peaks in the other spectrum or \code{NA}
 otherwise.
-\item \code{gnps_r}: calculates the GNPS similarity score on peak matrices' previously
+\item \code{gnps_r()}: calculates the GNPS similarity score on peak matrices' previously
 \emph{aligned} (matched) with \code{join_gnps}. For multi-mapping peaks the pair with
-the higher similarity are considered in the final score calculation.
-\item \code{join_gnps}: C implementation of \code{join_gnps_r}, with \code{type ="outer"}
-default.
-\item \code{gnps}: C implementation of \code{gnps_r}, with \code{type = "outer"} default.
+the higher similarity are considered in the final score calculation. By
+setting \code{matchedPeaksCount = TRUE} the number of peak pairs on which the
+score was calculated is returned in addition to the similarity score. By
+default (with \code{matchedPeaksCount = FALSE}) a \code{numeric(1)} with the
+similarity score is returned. For \code{matchedPeaksCount = TRUE} a
+\code{numeric(2)} is returned with the first element being the similarity score
+and the second the number of matched peak pairs.
 }
 }
 \details{
-The implementation of \code{gnps_r} bases on the R code from the publication
+The implementation of \code{gnps()} bases on the R code from the publication
 listed in the references.
 }
 \examples{

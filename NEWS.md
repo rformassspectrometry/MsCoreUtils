@@ -2,6 +2,11 @@
 
 ## MsCoreUtils 1.24.0
 
+- Add parameter `matchedPeaksCount` to spectra similarity/distance functions to
+  report, in addition to the similarity, also the number of matched peaks.
+
+## MsCoreUtils 1.23.2
+
 - `gnps()` and `join_gnps()` use C implementations for modified cosine similarity calculation. The original R implementations are available as `gnps_r()` and `join_gnps_r()`. See [issue #131](https://github.com/rformassspectrometry/MsCoreUtils/issues/131) for discussion and performance comparison.
 - *FastCosine* spectral similarity calculation implementation: `gnps_chain_dp()`.
 
