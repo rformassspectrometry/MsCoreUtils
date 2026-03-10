@@ -89,8 +89,8 @@ test_that("gnps works", {
     map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
     res <- gnps(x[map$x, ], y[map$y, ], matchedPeaksCount = TRUE)
     ## here matched peaks count is the number of scores (peak pairs) on which
-    ## the final score was calculated.
-    expect_equal(res[2L], 6)
+    ## the final score was calculated after optimal assignment.
+    expect_equal(res[2L], 4)
     expect_true(res[2L] <= max(nrow(x), nrow(y)))
 
     a <- cbind(mz = c(10, 36, 63, 91, 93),
