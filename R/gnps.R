@@ -323,13 +323,13 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #'                         yPrecursorMz = 105.0,
 #'                         tolerance = 0.01,
 #'                         ppm = 10)
-#' result[["score"]]
-#' result[["matches"]]
+#' result[1L]
+#' result[2L]
 #'
 #' # Compare with standard implementation (should agree within 1e-15)
 #' matches <- join_gnps(x[,1], y[,1], 91.0, 105.0, 0.01, 10)
 #' score_std <- gnps(x[matches$x, ], y[matches$y, ])
-#' abs(result[["score"]] - score_std) < 1e-10  # TRUE
+#' abs(result[1L] - score_std) < 1e-10  # TRUE
 #'
 #' @export
 gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
