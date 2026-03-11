@@ -62,7 +62,7 @@ test_that("join_gnps works", {
     expect_equal(canonicalize_join(res), canonicalize_join(res_r))
 })
 
-test_that("gnps works", {
+test_that("gnps and gnps_r work", {
     x <- cbind(mz = c(10, 12, 14, 16, 19),
                intensity = 1:5)
     xpmz <- 4
@@ -71,19 +71,27 @@ test_that("gnps works", {
     ypmz <- 8
 
     expect_error(gnps(x, y), "number of rows")
+    expect_error(gnps_r(x, y), "number of rows")
     a <- cbind(c(1, 2), c(0, 0))
     expect_equal(gnps(a, a), 0)
+    expect_equal(gnps_r(a, a), 0)
     a <- rbind(c(NA, NA), a)
     b <- a
     b[2:3, 1] <- NA
     expect_equal(gnps(a, b), 0)
+    expect_equal(gnps_r(a, b), 0)
 
     map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
     res <- gnps(x[map$x, ], y[map$y, ])
     expect_true(res > 0.5)
+    res_r <- gnps_r(x[map$x, ], y[map$y, ])
+    expect_true(res_r > 0.5)
+    expect_equal(res, res_r)
     map <- join_gnps(y[, 1L], x[, 1L], ypmz, xpmz)
     res_2 <- gnps(y[map$x, ], x[map$y, ])
     expect_equal(res, res_2)
+    res_r <- gnps_r(y[map$x, ], x[map$y, ])
+    expect_equal(res_2, res_r)
 
     ## peak count
     map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
@@ -92,6 +100,9 @@ test_that("gnps works", {
     ## the final score was calculated after optimal assignment.
     expect_equal(res[2L], 4)
     expect_true(res[2L] <= max(nrow(x), nrow(y)))
+
+    res_r <- gnps_r(x[map$x, ], y[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     a <- cbind(mz = c(10, 36, 63, 91, 93),
                intensity = c(14, 15, 999, 650, 1))
@@ -106,6 +117,8 @@ test_that("gnps works", {
     res <- gnps(a[map[[1L]], ], b[map[[2L]], ], matchedPeaksCount = TRUE)
     expect_true(length(res) == 2L)
     expect_equal(res[[2L]], 4)
+    res_r <- gnps_r(a[map[[1L]], ], b[map[[2L]], ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     ## Unit tests with reference values from GNPS online kindly provided by
     ## Liesa Salzer
@@ -128,6 +141,8 @@ test_that("gnps works", {
     expect_equal(gnps(a[map$x, ], b[map$y, ]), gnps(b[mapr$x, ], a[mapr$y, ]))
     res <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
     expect_true(res[2L] <= max(nrow(a), nrow(b)))
+    res_r <- gnps_r(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     dpmz <- 220.12
     d <- cbind(
@@ -142,6 +157,8 @@ test_that("gnps works", {
     expect_equal(gnps(a[map$x, ], d[map$y, ]), gnps(d[mapr$x, ], a[mapr$y, ]))
     res <- gnps(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
     expect_true(res[2L] <= max(nrow(a), nrow(d)))
+    res_r <- gnps_r(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     map <- join_gnps(b[, 1L], d[, 1L], bpmz, dpmz, tolerance = 0.1, ppm = 0)
     expect_equal(round(gnps(b[map$x, ], d[map$y, ]), 2), 0.93)
@@ -149,6 +166,8 @@ test_that("gnps works", {
     expect_equal(gnps(b[map$x, ], d[map$y, ]), gnps(d[mapr$x, ], b[mapr$y, ]))
     res <- gnps(b[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
     expect_true(res[2L] <= max(nrow(b), nrow(d)))
+    res_r <- gnps_r(b[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     ## Second set.
     apmz <- 371.564
@@ -242,6 +261,16 @@ test_that("gnps works", {
     res <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
     expect_true(res[2L] <= max(nrow(a), nrow(b)))
     expect_true(res[2L] > ref[2L])
+    res_r <- gnps_r(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
+    map <- join(a[, 1L], d[, 1L], tolerance = 0.1, ppm = 0)
+    ref <- ndotproduct(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    map <- join_gnps(a[, 1L], d[, 1L], apmz, bpmz, tolerance = 0.1, ppm = 0)
+    res <- gnps(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_true(res[2L] <= max(nrow(a), nrow(b)))
+    expect_true(res[1L] > ref[1L])
+    res_r <- gnps_r(a[map$x, ], d[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
 
     ## Third set
     apmz <- 488.358
@@ -273,4 +302,65 @@ test_that("gnps works", {
     expect_equal(round(gnps(a[map$x, ], b[map$y, ]), 2), 0.86)
     mapr <- join_gnps(b[, 1L], a[, 1L], bpmz, apmz, tolerance = 0.1, ppm = 0)
     expect_equal(gnps(a[map$x, ], b[map$y, ]), gnps(b[mapr$x, ], a[mapr$y, ]))
+    res <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    res_r <- gnps_r(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    expect_equal(res, res_r)
+    map <- join(a[, 1L], b[, 1L], apmz, bpmz, tolerance = 0.1, ppm = 0)
+    expect_null(map)
+})
+
+test_that("gnps_chain_dp works", {
+    x <- cbind(mz = c(10, 12, 14, 16, 19),
+               intensity = 1:5)
+    xpmz <- 4
+    y <- cbind(mz = c(10, 14, 16, 17, 19, 22),
+               intensity = 1:6)
+    ypmz <- 8
+    map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
+
+    ref <- gnps(x[map$x, ], y[map$y, ])
+    res <- gnps_chain_dp(x, y, xpmz, ypmz, 0.0, 0.0)
+    expect_equal(ref, res)
+
+    ref <- gnps(x[map$x, ], y[map$y, ], matchedPeaksCount = TRUE)
+    res <- gnps_chain_dp(x, y, xpmz, ypmz, 0.0, 0.0, matchedPeaksCount = TRUE)
+    expect_equal(ref, res)
+
+    expect_true(length(gnps_chain_dp(x, y, xpmz, ypmz, 0, 0)) == 1L)
+    expect_true(length(gnps_chain_dp(x, y, xpmz, ypmz, 0, 0,
+                                     matchedPeaksCount = TRUE)) == 2L)
+
+    ## Next set
+    a <- cbind(mz = c(10, 36, 63, 91, 93),
+               intensity = c(14, 15, 999, 650, 1))
+    a_pmz <- 91
+    b <- cbind(mz = c(10, 12, 50, 63, 105),
+               intensity = c(35, 5, 16, 999, 450))
+    b_pmz <- 105
+    map <- join_gnps(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+                     yPrecursorMz = b_pmz)
+    ref <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    res <- gnps_chain_dp(a, b, a_pmz, b_pmz, 0.0, 0.0,
+                         matchedPeaksCount = TRUE)
+    expect_equal(ref, res)
+
+    ## Real data
+    apmz <- 184.097
+    a <- cbind(
+        mz = c(59.049, 82.065002, 100.075996, 110.059998, 124.075996,
+               125.059998, 142.085999),
+        intensity = c(346.036011, 705.127014, 752.387024, 2193.239014,
+                      2194.920898, 2455.741943, 3176.063965))
+    bpmz <- 202.108
+    b <- cbind(
+        mz = c(55.018002, 59.049, 82.065002, 84.044998, 100.075996, 110.059998,
+               125.059998, 142.085999, 152.070999, 156.065002),
+        intensity = c(163.115997, 788.68103, 345.580994, 298.221008, 556.021973,
+                      1938.749023, 1202.94104, 1801.137939, 1728.411011,
+                      77.516998))
+    map <- join_gnps(a[, 1L], b[, 1L], apmz, bpmz, tolerance = 0.1, ppm = 0)
+    ref <- gnps(a[map$x, ], b[map$y, ], matchedPeaksCount = TRUE)
+    res <- gnps_chain_dp(a, b, apmz, bpmz, tolerance = 0.1,
+                         ppm = 0.0, matchedPeaksCount = TRUE)
+    expect_equal(ref, res)
 })

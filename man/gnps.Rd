@@ -33,56 +33,62 @@ join_gnps(
 gnps(x, y, ..., matchedPeaksCount = FALSE)
 }
 \arguments{
-\item{x}{for \code{join_gnps_r}: \code{numeric} with m/z values from a spectrum. For
-\code{gnps_r}: \code{matrix} with two columns \code{"mz"} and \code{"intensity"} containing
-the peaks \strong{aligned} with peaks in \code{y} (with \code{join_gnps_r}).}
+\item{x}{for \code{join_gnps()} and \code{join_gnps_r()}: \code{numeric} with m/z values
+from a spectrum. For \code{gnps()} and \code{gnps_r()}: \code{matrix} with two
+columns \code{"mz"} and \code{"intensity"} containing the peaks \strong{aligned} with
+peaks in \code{y} (with \code{join_gnps()} or \code{join_gnps_r()}).}
 
-\item{y}{for \code{join_gnps_r}: \code{numeric} with m/z values from a spectrum. For
-\code{gnps_r}: \code{matrix} with two columns \code{"mz"} and \code{"intensity"} containing
-the peaks \strong{aligned} with peaks in \code{x} (with \code{join_gnps_r}).}
+\item{y}{for \code{join_gnps()} and \code{join_gnps_r()}: \code{numeric} with m/z values
+from a spectrum. For \code{gnps()} and \code{gnps_r()}: \code{matrix} with two columns
+\code{"mz"} and \code{"intensity"} containing the peaks \strong{aligned} with peaks
+in \code{x} (with \code{join_gnps()} or \code{join_gnps_r()}).}
 
-\item{...}{for \code{join_gnps}: optional parameters passed to the \code{\link[=join]{join()}}
-function. For \code{gnps}: ignored.}
+\item{...}{for \code{join_gnps()} and \code{join_gnps_r()}: optional parameters passed
+to the \code{\link[=join]{join()}} function. For \code{gnps()} and \code{gnps_r()}: ignored.}
 
 \item{matchedPeaksCount}{\code{logical(1)} whether the number of peak pairs on
 which the score was calculated should be returned. Defaults to
 \code{matchedPeaksCount = FALSE}. If set to \code{matchedPeaksCount = TRUE} a
 \code{numeric} of length 2 is returned.}
 
-\item{xPrecursorMz}{for \code{join_gnps_r}: \code{numeric(1)} with the precursor m/z
-of the spectrum \code{x}.}
+\item{xPrecursorMz}{for \code{join_gnps()} and \code{join_gnps_r()}: \code{numeric(1)} with
+the precursor m/z of the spectrum \code{x}.}
 
-\item{yPrecursorMz}{for \code{join_gnps}: \code{numeric(1)} with the precursor m/z
-of the spectrum \code{y}.}
+\item{yPrecursorMz}{for \code{join_gnps()} or \code{join_gnps_r()}: \code{numeric(1)} with
+the precursor m/z of the spectrum \code{y}.}
 
-\item{tolerance}{for \code{join_gnps_r}: \code{numeric(1)} defining a constant maximal
-accepted difference between m/z values of peaks from the two spectra to
-be matched/mapped.}
+\item{tolerance}{for \code{join_gnps()} and \code{join_gnps_r()}: \code{numeric(1)}
+defining a constant maximal accepted difference between m/z values of
+peaks from the two spectra to be matched/mapped.}
 
-\item{ppm}{for \code{join_gnps_r}: \code{numeric(1)} defining a relative,
-m/z-dependent, maximal accepted difference between m/z values of peaks
-from the two spectra to be matched/mapped.}
+\item{ppm}{for \code{join_gnps()} and \code{join_gnps_r()}: \code{numeric(1)} defining a
+relative, m/z-dependent, maximal accepted difference between m/z values
+of peaks from the two spectra to be matched/mapped.}
 
-\item{type}{for \code{join_gnps_r}: \code{character(1)} specifying the type of join
+\item{type}{for \code{join_gnps_r()}: \code{character(1)} specifying the type of join
 that should be performed. See \code{\link[=join]{join()}} for details and options. Defaults
-to \code{type = "outer"}.}
+to \code{type = "outer"}. \code{join_gnps()} only uses \code{type = "outer"}.}
 }
 \value{
 See function definition in the description section.
 }
 \description{
-The \code{join_gnps_r} and \code{gnps_r} functions allow to calculate spectra
-similarity scores as used in \href{https://gnps.ucsd.edu/}{GNPS}. The approach
-matches first peaks between the two spectra directly using a user-defined ppm
-and/or tolerance as well as using a fixed delta m/z (considering the same ppm
-and tolerance) that is defined by the difference of the two spectras'
-precursor m/z values. For peaks that match multiple peaks in the
-other spectrum only the matching peak pair with the higher value/similarity
-is considered in the final similarity score calculation. Note that GNPS
-similarity scores are calculated only if the two functions are used together.
+The \code{join_gnps()}, \code{join_gnps_r()}, \code{gnps()} and \code{gnps_r()} functions allow
+to calculate spectra similarity scores as used in
+\href{https://gnps.ucsd.edu/}{GNPS}. The \verb{_r} versions are the reference
+implementation in R with full support of all parameters, while \code{join_gnps()}
+and \code{gnps()} are implemented in C and therefore faster. The geneal approach
+of the similarity calculation matches first peaks between the two spectra
+directly using a user-defined \code{ppm} and/or \code{tolerance} as well as using a
+fixed delta m/z (considering the same \code{ppm} and \code{tolerance}) that is
+defined by the difference of the compared spectras' precursor m/z values.
+For peaks that match multiple peaks in the other spectrum only the matching
+peak pair with the higher value/similarity is considered in the final
+similarity score calculation. Note that GNPS similarity scores are
+calculated only if \strong{both} functions are used together.
 \itemize{
-\item \code{join_gnps_r()}: matches/maps peaks between spectra with the same approach
-as in GNPS: peaks are considered matching if a) the
+\item \code{join_gnps_r()}, \code{join_gnps()}: matches/maps peaks between spectra with
+the same approach as in GNPS: peaks are considered matching if a) the
 difference in their m/z values is smaller than defined by \code{tolerance}
 and \code{ppm} (this is the same as \code{joinPeaks()}) \strong{and} b) the difference of
 their m/z \emph{adjusted} for the difference of the spectras' precursor is
@@ -92,9 +98,10 @@ might be duplicated. Note that if one of \code{xPrecursorMz} or \code{yPrecursor
 are \code{NA} or if both are the same, the results are the same as with
 \code{\link[=join]{join()}}. The function returns a \code{list} of two \code{integer} vectors with the
 indices of the peaks matching peaks in the other spectrum or \code{NA}
-otherwise.
-\item \code{gnps_r()}: calculates the GNPS similarity score on peak matrices'
-previously \emph{aligned} (matched) with \code{join_gnps}. For multi-mapping peaks
+otherwise. The \code{join_gnps()} function is implemented in C and uses an
+\emph{outer} join of the peaks (i.e., \code{type = "outer"}).
+\item \code{gnps_r()}, gnps(): calculates the GNPS similarity score on peak matrices'
+previously \emph{aligned} (matched) with \code{join_gnps()}. For multi-mapping peaks
 the pair with the higher similarity are considered in the final score
 calculation. By setting \code{matchedPeaksCount = TRUE} the number of peak pairs
 on which the score was calculated is returned in addition to the
@@ -102,10 +109,8 @@ similarity score. By default (with \code{matchedPeaksCount = FALSE}) a
 \code{numeric(1)} with the similarity score is returned. For
 \code{matchedPeaksCount = TRUE} a \code{numeric(2)} is returned with the first
 element being the similarity scoreand the second the number of matched peak
-pairs.
-\item \code{join_gnps}: C implementation of \code{join_gnps_r}, with \code{type ="outer"}
-default.
-\item \code{gnps}: C implementation of \code{gnps_r}, with \code{type = "outer"} default.
+pairs. The \code{gnps()} function is implemented in C while the \code{gnps_r()}
+function is based on the implementation from the references below.
 }
 }
 \details{
@@ -142,6 +147,9 @@ Analysis and Unknown Metabolite Annotation. \emph{Anal Chem.}
 2020 Nov 3;92(21):14476-14483. \doi{10.1021/acs.analchem.0c02521}.
 }
 \seealso{
+\code{\link[=gnps_chain_dp]{gnps_chain_dp()}} for am optimized and fast implementation based
+on the Chain-DP algorithm.
+
 Other grouping/matching functions: 
 \code{\link{bin}()},
 \code{\link{closest}()}
@@ -151,7 +159,7 @@ Other distance/similarity functions:
 }
 \author{
 Johannes Rainer, Michael Witting, based on the code from
-Xing \emph{et al.} (2020).
+Xing \emph{et al.} (2020). Adriano Rutz for the C implementations.
 }
 \concept{distance/similarity functions}
 \concept{grouping/matching functions}
