@@ -2,8 +2,8 @@
 
 ## Introduction
 
-The `MsCoreUtils` package low-level functions for mass spectrometry data
-and is independent of any high-level data structures
+The *MsCoreUtils* package provides low-level functions for mass
+spectrometry data and is independent of any high-level data structures
 \[@rainer_modular_2022\]. These functions include mass spectra
 processing functions (noise estimation, smoothing, binning),
 quantitative aggregation functions (median polish, robust summarisation,

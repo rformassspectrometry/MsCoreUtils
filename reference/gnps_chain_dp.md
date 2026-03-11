@@ -23,10 +23,11 @@ for full Hungarian).
 gnps_chain_dp(
   x,
   y,
-  xPrecursorMz,
-  yPrecursorMz,
-  tolerance,
-  ppm,
+  xPrecursorMz = NA_real_,
+  yPrecursorMz = NA_real_,
+  tolerance = 0,
+  ppm = 0,
+  ...,
   matchedPeaksCount = FALSE
 )
 ```
@@ -35,51 +36,58 @@ gnps_chain_dp(
 
 - x:
 
-  Numeric matrix with query spectrum peaks (2 columns: mz, intensity).
+  Numeric `matrix` with query spectrum peaks (2 columns: mz, intensity).
   Must be sorted by mz in ascending order.
 
 - y:
 
-  Numeric matrix with library spectrum peaks (2 columns: mz, intensity).
-  Must be sorted by mz in ascending order.
+  Numeric `matrix` with library spectrum peaks (2 columns: mz,
+  intensity). Must be sorted by mz in ascending order.
 
 - xPrecursorMz:
 
-  Numeric scalar, precursor m/z for query spectrum.
+  `numeric(1)`, precursor m/z for query spectrum.
 
 - yPrecursorMz:
 
-  Numeric scalar, precursor m/z for library spectrum.
+  `numeric(1)`, precursor m/z for library spectrum.
 
 - tolerance:
 
-  Numeric scalar, absolute tolerance in Daltons.
+  `numeric(1)`, absolute tolerance in Daltons.
 
 - ppm:
 
-  Numeric scalar, relative tolerance in ppm.
+  `numeric(1)`, relative tolerance in ppm.
+
+- ...:
+
+  ignored.
 
 - matchedPeaksCount:
 
-  Logical flag; if `TRUE`, return both score and matched-peak count,
+  `logical(1)`; if `TRUE`, return both score and matched-peak count,
   otherwise return score only.
 
 ## Value
 
-A numeric vector of length 1 by default (score), or length 2 when
+A `numeric` vector of length 1 by default (score), or length 2 when
 `matchedPeaksCount = TRUE` (`c(score, matched_peaks)`).
 
 ## Details
 
-The modified cosine score is computed as: \$\$ \text{score}(i,j) =
-\frac{\sqrt{I_x(i)}}{\sqrt{\sum I_x}} \times
-\frac{\sqrt{I_y(j)}}{\sqrt{\sum I_y}} \$\$ where the sum is over unique
-m/z values (first occurrence of duplicates).
+The modified cosine score is computed as:
+
+\$\$ \text{score}(i,j) = \frac{\sqrt{I_x(i)}}{\sqrt{\sum I_x}} \times
+\frac{\sqrt{I_y(j)}}{\sqrt{\sum I_y}} \$\$
+
+where the sum is over unique m/z values (first occurrence of
+duplicates).
 
 The total score is the sum of all optimally assigned peak pairs, found
 via:
 
-1.  **Direct matching**: `join(x, y, type="outer")` — closest one-to-one
+1.  **Direct matching**: `join(x, y, type="outer")` - closest one-to-one
 
 2.  **Shifted matching**: `join(x + pdiff, y, type="outer")` where
     `pdiff = yPrecursorMz - xPrecursorMz`
@@ -104,8 +112,9 @@ References for details.
 function:
 
 - **Unique m/z values**: no two peaks in the same spectrum should have
-  m/z values close enough to match each other (i.e., \|mz_i - mz_j\| \>
-  tolerance for all peak pairs i,j within the same spectrum)
+  m/z values close enough to match each other (i.e.,
+  `|mz_i - mz_j| > tolerance` for all peak pairs i,j within the same
+  spectrum)
 
 - **Non-negative intensities** (no NaN/NA/Inf)
 
@@ -145,6 +154,10 @@ for the standard (backward-compatible) implementation.
 
 [`join_gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
 for peak matching only.
+
+## Author
+
+Adriano Rutz
 
 ## Examples
 

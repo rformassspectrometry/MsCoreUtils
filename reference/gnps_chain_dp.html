@@ -53,7 +53,7 @@ for full Hungarian)."><meta property="og:image" content="https://rformassspectro
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Optimized GNPS Modified Cosine Similarity via Chain-DP</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/R/gnps.R" class="external-link"><code>R/gnps.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/R/gnps.R" class="external-link"><code>R/gnps.R</code></a></small>
       <div class="d-none name"><code>gnps_chain_dp.Rd</code></div>
     </div>
 
@@ -78,10 +78,11 @@ for full Hungarian).</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gnps_chain_dp</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">y</span>,</span>
-<span>  <span class="va">xPrecursorMz</span>,</span>
-<span>  <span class="va">yPrecursorMz</span>,</span>
-<span>  <span class="va">tolerance</span>,</span>
-<span>  <span class="va">ppm</span>,</span>
+<span>  xPrecursorMz <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  yPrecursorMz <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
+<span>  tolerance <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  ppm <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  matchedPeaksCount <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -91,50 +92,55 @@ for full Hungarian).</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>Numeric matrix with query spectrum peaks (2 columns: mz, intensity).
-Must be sorted by mz in ascending order.</p></dd>
+<dd><p>Numeric <code>matrix</code> with query spectrum peaks (2 columns: mz,
+intensity). Must be sorted by mz in ascending order.</p></dd>
 
 
 <dt id="arg-y">y<a class="anchor" aria-label="anchor" href="#arg-y"></a></dt>
-<dd><p>Numeric matrix with library spectrum peaks (2 columns: mz, intensity).
-Must be sorted by mz in ascending order.</p></dd>
+<dd><p>Numeric <code>matrix</code> with library spectrum peaks (2 columns: mz,
+intensity). Must be sorted by mz in ascending order.</p></dd>
 
 
 <dt id="arg-xprecursormz">xPrecursorMz<a class="anchor" aria-label="anchor" href="#arg-xprecursormz"></a></dt>
-<dd><p>Numeric scalar, precursor m/z for query spectrum.</p></dd>
+<dd><p><code>numeric(1)</code>, precursor m/z for query spectrum.</p></dd>
 
 
 <dt id="arg-yprecursormz">yPrecursorMz<a class="anchor" aria-label="anchor" href="#arg-yprecursormz"></a></dt>
-<dd><p>Numeric scalar, precursor m/z for library spectrum.</p></dd>
+<dd><p><code>numeric(1)</code>, precursor m/z for library spectrum.</p></dd>
 
 
 <dt id="arg-tolerance">tolerance<a class="anchor" aria-label="anchor" href="#arg-tolerance"></a></dt>
-<dd><p>Numeric scalar, absolute tolerance in Daltons.</p></dd>
+<dd><p><code>numeric(1)</code>, absolute tolerance in Daltons.</p></dd>
 
 
 <dt id="arg-ppm">ppm<a class="anchor" aria-label="anchor" href="#arg-ppm"></a></dt>
-<dd><p>Numeric scalar, relative tolerance in ppm.</p></dd>
+<dd><p><code>numeric(1)</code>, relative tolerance in ppm.</p></dd>
+
+
+<dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
+<dd><p>ignored.</p></dd>
 
 
 <dt id="arg-matchedpeakscount">matchedPeaksCount<a class="anchor" aria-label="anchor" href="#arg-matchedpeakscount"></a></dt>
-<dd><p>Logical flag; if <code>TRUE</code>, return both score and
+<dd><p><code>logical(1)</code>; if <code>TRUE</code>, return both score and
 matched-peak count, otherwise return score only.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A numeric vector of length 1 by default (score), or length 2 when
+    <p>A <code>numeric</code> vector of length 1 by default (score), or length 2 when
 <code>matchedPeaksCount = TRUE</code> (<code>c(score, matched_peaks)</code>).</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The modified cosine score is computed as:
-$$
+    <p>The modified cosine score is computed as:</p>
+<p>$$
   \text{score}(i,j) = \frac{\sqrt{I_x(i)}}{\sqrt{\sum I_x}}
                     \times \frac{\sqrt{I_y(j)}}{\sqrt{\sum I_y}}
-$$
-where the sum is over unique m/z values (first occurrence of duplicates).</p>
-<p>The total score is the sum of all optimally assigned peak pairs, found via:</p><ol><li><p><strong>Direct matching</strong>: <code>join(x, y, type="outer")</code> — closest one-to-one</p></li>
+$$</p>
+<p>where the sum is over unique m/z values (first occurrence of duplicates).</p>
+<p>The total score is the sum of all optimally assigned peak pairs, found via:</p>
+<ol><li><p><strong>Direct matching</strong>: <code>join(x, y, type="outer")</code> - closest one-to-one</p></li>
 <li><p><strong>Shifted matching</strong>: <code>join(x + pdiff, y, type="outer")</code> where
 <code>pdiff = yPrecursorMz - xPrecursorMz</code></p></li>
 <li><p><strong>Optimal assignment via Chain-DP</strong>: For each query peak, pick the
@@ -143,17 +149,17 @@ conflicts are rare (~1%) and resolved optimally with exact Hungarian.</p></li>
 </ol><p><strong>Precursor threshold</strong>: Shifted matching is skipped when
 <code>|pdiff| ≤ tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6</code>,
 i.e., when the precursor difference is within the peak matching tolerance.
-This is scientifically correct (no meaningful neutral loss when pdiff ≈ tolerance)
-but differs from the existing <code><a href="gnps.html">gnps()</a></code> implementation, which only skips
-when <code>pdiff == 0.0</code> exactly. See References for details.</p>
+This is scientifically correct (no meaningful neutral loss when
+pdiff ≈ tolerance) but differs from the existing <code><a href="gnps.html">gnps()</a></code> implementation,
+which only skips when <code>pdiff == 0.0</code> exactly. See References for details.</p>
     </div>
     <div class="section level2">
     <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a></h2>
 
 
+
 <p><strong>CRITICAL</strong>: Input spectra MUST be sanitized before calling this function:</p><ul><li><p><strong>Unique m/z values</strong>: no two peaks in the same spectrum should have
-m/z values close enough to match each other (i.e., |mz_i - mz_j| &gt;
-tolerance for all peak pairs i,j within the same spectrum)</p></li>
+m/z values close enough to match each other (i.e., <code>|mz_i - mz_j| &gt; tolerance</code> for all peak pairs i,j within the same spectrum)</p></li>
 <li><p><strong>Non-negative intensities</strong> (no NaN/NA/Inf)</p></li>
 <li><p><strong>Sorted by m/z</strong> in ascending order</p></li>
 </ul><p>The chain-DP algorithm assumes at most one direct match and one shifted
@@ -181,6 +187,10 @@ for turning tandem mass spectra into metabolite structure information."
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="gnps.html">gnps()</a></code> for the standard (backward-compatible) implementation.</p>
 <p><code><a href="gnps.html">join_gnps()</a></code> for peak matching only.</p></div>
+    </div>
+    <div class="section level2">
+    <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>
+    <p>Adriano Rutz</p>
     </div>
 
     <div class="section level2">

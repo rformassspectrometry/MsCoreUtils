@@ -15,7 +15,7 @@
   See issue
   [\#131](https://github.com/RforMassSpectrometry/MsCoreUtils/issues/131)
   for discussion and performance comparison.
-- `FastCosine` spectral similarity calculation implementation:
+- *FastCosine* spectral similarity calculation implementation:
   [`gnps_chain_dp()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps_chain_dp.md).
 
 ### MsCoreUtils 1.23.3
