@@ -2,6 +2,22 @@
 
 ## MsCoreUtils 1.23
 
+### MsCoreUtils 1.23.4
+
+- [`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  and
+  [`join_gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  use C implementations for modified cosine similarity calculation. The
+  original R implementations are available as
+  [`gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  and
+  [`join_gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md).
+  See issue
+  [\#131](https://github.com/RforMassSpectrometry/MsCoreUtils/issues/131)
+  for discussion and performance comparison.
+- `FastCosine` spectral similarity calculation implementation:
+  [`gnps_chain_dp()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps_chain_dp.md).
+
 ### MsCoreUtils 1.23.3
 
 - Add parameter `matchedPeaksCount` to spectra similarity/distance

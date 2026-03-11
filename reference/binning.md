@@ -73,7 +73,7 @@ Depending on the value of `returnMids`:
 
 Other grouping/matching functions:
 [`closest()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.md),
-[`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+[`gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
 
 ## Author
 

@@ -177,7 +177,7 @@ That means for multiple matches just the closest one is reported.
 
 Other grouping/matching functions:
 [`bin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/binning.md),
-[`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+[`gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
 
 ## Author
 

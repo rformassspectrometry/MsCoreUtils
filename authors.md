@@ -13,6 +13,8 @@
 - **Philippine Louail**. Author.
   [](https://orcid.org/0009-0007-5429-6846)
 
+- **Adriano Rutz**. Author. [](https://orcid.org/0000-0003-0443-9902)
+
 - **Adriaan Sticker**. Contributor.
 
 - **Sigurdur Smarason**. Contributor.
@@ -36,7 +38,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/inst/CITATION)
+[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/inst/CITATION)
 
 Rainer J, Vicini A, Salzer L, Stanstrup J, Badia JM, Neumann S, Stravs
 MA, Verri Hernandes V, Gatto L, Gibb S and Wittin M. A Modular and

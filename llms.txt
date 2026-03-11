@@ -97,9 +97,13 @@ vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/R
   [`rt2character()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.md)
   [`formatRt()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/formatRt.md)
   : Format Retention Time
-- [`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+- [`gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  [`join_gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
   [`join_gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  [`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
   : GNPS spectrum similarity scores
+- [`gnps_chain_dp()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps_chain_dp.md)
+  : Optimized GNPS Modified Cosine Similarity via Chain-DP
 - [`group()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group.md)
   : Grouping of numeric values by similarity
 - [`i2index()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/i2index.md)

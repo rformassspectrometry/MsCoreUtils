@@ -32,31 +32,32 @@ ls(pos = "package:MsCoreUtils")
     ## [21] "estimateBaselineSnip"       "estimateBaselineTopHat"    
     ## [23] "force_sorted"               "formatRt"                  
     ## [25] "getImputeMargin"            "gnps"                      
-    ## [27] "group"                      "i2index"                   
-    ## [29] "impute_bpca"                "impute_fun"                
-    ## [31] "impute_knn"                 "impute_matrix"             
-    ## [33] "impute_min"                 "impute_MinDet"             
-    ## [35] "impute_MinProb"             "impute_mixed"              
-    ## [37] "impute_mle"                 "impute_neighbour_average"  
-    ## [39] "impute_QRILC"               "impute_RF"                 
-    ## [41] "impute_with"                "impute_zero"               
-    ## [43] "imputeMethods"              "isPeaksMatrix"             
-    ## [45] "join"                       "join_gnps"                 
-    ## [47] "localMaxima"                "maxi"                      
-    ## [49] "medianPolish"               "navdist"                   
-    ## [51] "ndotproduct"                "nentropy"                  
-    ## [53] "neuclidean"                 "noise"                     
-    ## [55] "normalize_matrix"           "normalizeMethods"          
-    ## [57] "nspectraangle"              "ppm"                       
-    ## [59] "rbindFill"                  "reduce"                    
-    ## [61] "refineCentroids"            "rla"                       
-    ## [63] "robustSummary"              "rowRla"                    
-    ## [65] "rt2character"               "rt2numeric"                
-    ## [67] "smooth"                     "sumi"                      
-    ## [69] "validPeaksMatrix"           "valleys"                   
-    ## [71] "vapply1c"                   "vapply1d"                  
-    ## [73] "vapply1l"                   "which.first"               
-    ## [75] "which.last"
+    ## [27] "gnps_chain_dp"              "gnps_r"                    
+    ## [29] "group"                      "i2index"                   
+    ## [31] "impute_bpca"                "impute_fun"                
+    ## [33] "impute_knn"                 "impute_matrix"             
+    ## [35] "impute_min"                 "impute_MinDet"             
+    ## [37] "impute_MinProb"             "impute_mixed"              
+    ## [39] "impute_mle"                 "impute_neighbour_average"  
+    ## [41] "impute_QRILC"               "impute_RF"                 
+    ## [43] "impute_with"                "impute_zero"               
+    ## [45] "imputeMethods"              "isPeaksMatrix"             
+    ## [47] "join"                       "join_gnps"                 
+    ## [49] "join_gnps_r"                "localMaxima"               
+    ## [51] "maxi"                       "medianPolish"              
+    ## [53] "navdist"                    "ndotproduct"               
+    ## [55] "nentropy"                   "neuclidean"                
+    ## [57] "noise"                      "normalize_matrix"          
+    ## [59] "normalizeMethods"           "nspectraangle"             
+    ## [61] "ppm"                        "rbindFill"                 
+    ## [63] "reduce"                     "refineCentroids"           
+    ## [65] "rla"                        "robustSummary"             
+    ## [67] "rowRla"                     "rt2character"              
+    ## [69] "rt2numeric"                 "smooth"                    
+    ## [71] "sumi"                       "validPeaksMatrix"          
+    ## [73] "valleys"                    "vapply1c"                  
+    ## [75] "vapply1d"                   "vapply1l"                  
+    ## [77] "which.first"                "which.last"
 
 or the [reference
 page](https://rformassspectrometry.github.io/MsCoreUtils/reference/index.html)
@@ -151,7 +152,7 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MsCoreUtils_1.23.3 BiocStyle_2.39.0  
+    ## [1] MsCoreUtils_1.23.4 BiocStyle_2.39.0  
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] cli_3.6.5           knitr_1.51          rlang_1.1.7        

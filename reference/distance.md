@@ -169,7 +169,7 @@ Pull Request for these distance/similarity measurements:
 ## See also
 
 Other distance/similarity functions:
-[`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+[`gnps_r()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
 
 ## Author
 
