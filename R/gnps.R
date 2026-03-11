@@ -152,9 +152,9 @@ gnps_r <- function(x, y, ..., matchedPeaksCount = FALSE) {
   score_mat[(y_idx - 1L) * n + x_idx] <- scores
   best <- solve_LSAP(score_mat, maximum = TRUE)
   res <- sum(score_mat[(best - 1L) * n + seq_len(n)], na.rm = TRUE)
-    if (matchedPeaksCount) {
-      return(c(res, length(best))) # matched peaks are considered values
-    }
+  if (matchedPeaksCount) {
+    return(c(res, length(best))) # matched peaks are considered values
+  }
   res
 }
 
@@ -263,12 +263,11 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #' @param yPrecursorMz Numeric scalar, precursor m/z for library spectrum.
 #' @param tolerance Numeric scalar, absolute tolerance in Daltons.
 #' @param ppm Numeric scalar, relative tolerance in ppm.
+#' @param matchedPeaksCount Logical flag; if `TRUE`, return both score and
+#'   matched-peak count, otherwise return score only.
 #'
-#' @return A list with two elements:
-#' \describe{
-#'   \item{score}{Numeric scalar, the modified cosine similarity score \[0, 1\].}
-#'   \item{matches}{Integer scalar, number of matched peak pairs.}
-#' }
+#' @return A numeric vector of length 1 by default (score), or length 2 when
+#'   `matchedPeaksCount = TRUE` (`c(score, matched_peaks)`).
 #'
 #' @details
 #' The modified cosine score is computed as:
@@ -322,7 +321,8 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #'                         xPrecursorMz = 91.0,
 #'                         yPrecursorMz = 105.0,
 #'                         tolerance = 0.01,
-#'                         ppm = 10)
+#'                         ppm = 10,
+#'                         matchedPeaksCount=TRUE)
 #' result[1L]
 #' result[2L]
 #'
@@ -332,8 +332,10 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #' abs(result[1L] - score_std) < 1e-10  # TRUE
 #'
 #' @export
-gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
-  .Call(
+gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm,
+                          matchedPeaksCount = FALSE
+) {
+  res <- .Call(
     C_gnps_chain_dp,
     x = x,
     y = y,
@@ -342,4 +344,6 @@ gnps_chain_dp <- function(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm) {
     tolerance = tolerance,
     ppm = ppm
   )
+
+  if (matchedPeaksCount) res else res[1L]
 }

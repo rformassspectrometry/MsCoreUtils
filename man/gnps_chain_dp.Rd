@@ -4,7 +4,15 @@
 \alias{gnps_chain_dp}
 \title{Optimized GNPS Modified Cosine Similarity via Chain-DP}
 \usage{
-gnps_chain_dp(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm)
+gnps_chain_dp(
+  x,
+  y,
+  xPrecursorMz,
+  yPrecursorMz,
+  tolerance,
+  ppm,
+  matchedPeaksCount = FALSE
+)
 }
 \arguments{
 \item{x}{Numeric matrix with query spectrum peaks (2 columns: mz, intensity).
@@ -20,13 +28,13 @@ Must be sorted by mz in ascending order.}
 \item{tolerance}{Numeric scalar, absolute tolerance in Daltons.}
 
 \item{ppm}{Numeric scalar, relative tolerance in ppm.}
+
+\item{matchedPeaksCount}{Logical flag; if \code{TRUE}, return both score and
+matched-peak count, otherwise return score only.}
 }
 \value{
-A list with two elements:
-\describe{
-\item{score}{Numeric scalar, the modified cosine similarity score [0, 1].}
-\item{matches}{Integer scalar, number of matched peak pairs.}
-}
+A numeric vector of length 1 by default (score), or length 2 when
+\code{matchedPeaksCount = TRUE} (\code{c(score, matched_peaks)}).
 }
 \description{
 Computes the GNPS (Global Natural Products Social molecular networking)
@@ -104,14 +112,15 @@ result <- gnps_chain_dp(x, y,
                         xPrecursorMz = 91.0,
                         yPrecursorMz = 105.0,
                         tolerance = 0.01,
-                        ppm = 10)
-result[["score"]]
-result[["matches"]]
+                        ppm = 10,
+                        matchedPeaksCount=TRUE)
+result[1L]
+result[2L]
 
 # Compare with standard implementation (should agree within 1e-15)
 matches <- join_gnps(x[,1], y[,1], 91.0, 105.0, 0.01, 10)
 score_std <- gnps(x[matches$x, ], y[matches$y, ])
-abs(result[["score"]] - score_std) < 1e-10  # TRUE
+abs(result[1L] - score_std) < 1e-10  # TRUE
 
 }
 \references{
