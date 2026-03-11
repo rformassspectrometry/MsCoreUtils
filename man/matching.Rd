@@ -211,7 +211,7 @@ y[ji$y]
 
 Other grouping/matching functions: 
 \code{\link{bin}()},
-\code{\link{gnps}()}
+\code{\link{gnps_r}()}
 }
 \author{
 Sebastian Gibb, Johannes Rainer

@@ -1,3 +1,12 @@
+## Helper function to canonicalize join results for comparison
+## (sorts pairs by x then y, with NA sorted last)
+canonicalize_join <- function(j) {
+    pairs <- data.frame(x = j$x, y = j$y)
+    pairs <- pairs[order(pairs$x, pairs$y, na.last = TRUE), ]
+    rownames(pairs) <- NULL
+    pairs
+}
+
 test_that("join_gnps works", {
     a <- cbind(mz = c(10, 36, 63, 91, 93),
                intensity = c(14, 15, 999, 650, 1))
@@ -7,21 +16,22 @@ test_that("join_gnps works", {
                intensity = c(35, 5, 16, 999, 450))
     b_pmz <- 105
 
-    expect_equal(join_gnps(a[, 1L], b[, 1L]), join(a[, 1L], b[, 1L]))
-    expect_equal(join_gnps(a[, 1L], b[, 1L], xPrecursorMz = 91),
-                 join(a[, 1L], b[, 1L]))
-    expect_equal(join_gnps(a[, 1L], b[, 1L], xPrecursorMz = 3,
-                           yPrecursorMz = 3),
-                 join(a[, 1L], b[, 1L]))
+    expect_equal(canonicalize_join(join_gnps(a[, 1L], b[, 1L])),
+                 canonicalize_join(join(a[, 1L], b[, 1L])))
+    expect_equal(canonicalize_join(join_gnps(a[, 1L], b[, 1L], xPrecursorMz = 91)),
+                 canonicalize_join(join(a[, 1L], b[, 1L])))
+    expect_equal(canonicalize_join(join_gnps(a[, 1L], b[, 1L], xPrecursorMz = 3,
+                           yPrecursorMz = 3)),
+                 canonicalize_join(join(a[, 1L], b[, 1L])))
 
-    res <- join_gnps(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+    res <- join_gnps_r(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
                      yPrecursorMz = b_pmz, type = "left")
     expect_true(length(res$x) > nrow(a))  # peaks can match multiple
     ## peak 36 matches no peak in b directly, but matches peak 50 in b
     ## considering the precursor difference
     expect_true(sum(res$x == 2) == 2)
 
-    res_2 <- join_gnps(b[, 1L], a[, 1L], xPrecursorMz = b_pmz,
+    res_2 <- join_gnps_r(b[, 1L], a[, 1L], xPrecursorMz = b_pmz,
                        yPrecursorMz = a_pmz, type = "left")
     expect_equal(res_2$x, c(1, 2, 3, 3, 4, 5, 5))
 
@@ -34,7 +44,7 @@ test_that("join_gnps works", {
                intensity = c(35, 10, 5, 16, 999, 450))
     b_pmz <- 105
 
-    res <- join_gnps(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+    res <- join_gnps_r(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
                      yPrecursorMz = b_pmz, type = "left")
     expect_equal(res$x, c(1, 1, 2, 3, 3, 4, 5, 5, 6))
     expect_equal(res$y, c(1, 3, NA, NA, 4, 5, NA, 6, NA))
@@ -47,9 +57,9 @@ test_that("join_gnps works", {
                intensity = 1:6)
     b_pmz <- 8
 
-    res <- join_gnps(a[, 1L], b[, 1L], a_pmz, b_pmz, type = "outer")
-    expect_equal(res$x, c(1, 1, 2, 2, 3, 4, 5, NA, NA))
-    expect_equal(res$y, c(1, 2, NA, 3, 2, 3, 5, 4, 6))
+    res <- join_gnps(a[, 1L], b[, 1L], a_pmz, b_pmz)
+    res_r <- join_gnps_r(a[, 1L], b[, 1L], a_pmz, b_pmz, type = "outer")
+    expect_equal(canonicalize_join(res), canonicalize_join(res_r))
 })
 
 test_that("gnps works", {
@@ -79,8 +89,8 @@ test_that("gnps works", {
     map <- join_gnps(x[, 1L], y[, 1L], xpmz, ypmz)
     res <- gnps(x[map$x, ], y[map$y, ], matchedPeaksCount = TRUE)
     ## here matched peaks count is the number of scores (peak pairs) on which
-    ## the final score was calculated.
-    expect_equal(res[2L], 6)
+    ## the final score was calculated after optimal assignment.
+    expect_equal(res[2L], 4)
     expect_true(res[2L] <= max(nrow(x), nrow(y)))
 
     a <- cbind(mz = c(10, 36, 63, 91, 93),

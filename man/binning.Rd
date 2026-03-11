@@ -71,7 +71,7 @@ bin(ints, mz, size = 2, returnMids = FALSE)
 \seealso{
 Other grouping/matching functions: 
 \code{\link{closest}()},
-\code{\link{gnps}()}
+\code{\link{gnps_r}()}
 }
 \author{
 Johannes Rainer, Sebastian Gibb
