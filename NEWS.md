@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.5
+
+- `rbindFill()`: improve performance when joining only matrices.
+
 ## MsCoreUtils 1.23.4
 
 - `gnps()` and `join_gnps()` use C implementations for modified cosine
