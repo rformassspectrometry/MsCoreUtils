@@ -7,33 +7,36 @@
 gnps_chain_dp(
   x,
   y,
-  xPrecursorMz,
-  yPrecursorMz,
-  tolerance,
-  ppm,
+  xPrecursorMz = NA_real_,
+  yPrecursorMz = NA_real_,
+  tolerance = 0,
+  ppm = 0,
+  ...,
   matchedPeaksCount = FALSE
 )
 }
 \arguments{
-\item{x}{Numeric matrix with query spectrum peaks (2 columns: mz, intensity).
-Must be sorted by mz in ascending order.}
+\item{x}{Numeric \code{matrix} with query spectrum peaks (2 columns: mz,
+intensity). Must be sorted by mz in ascending order.}
 
-\item{y}{Numeric matrix with library spectrum peaks (2 columns: mz, intensity).
-Must be sorted by mz in ascending order.}
+\item{y}{Numeric \code{matrix} with library spectrum peaks (2 columns: mz,
+intensity). Must be sorted by mz in ascending order.}
 
-\item{xPrecursorMz}{Numeric scalar, precursor m/z for query spectrum.}
+\item{xPrecursorMz}{\code{numeric(1)}, precursor m/z for query spectrum.}
 
-\item{yPrecursorMz}{Numeric scalar, precursor m/z for library spectrum.}
+\item{yPrecursorMz}{\code{numeric(1)}, precursor m/z for library spectrum.}
 
-\item{tolerance}{Numeric scalar, absolute tolerance in Daltons.}
+\item{tolerance}{\code{numeric(1)}, absolute tolerance in Daltons.}
 
-\item{ppm}{Numeric scalar, relative tolerance in ppm.}
+\item{ppm}{\code{numeric(1)}, relative tolerance in ppm.}
 
-\item{matchedPeaksCount}{Logical flag; if \code{TRUE}, return both score and
+\item{...}{ignored.}
+
+\item{matchedPeaksCount}{\code{logical(1)}; if \code{TRUE}, return both score and
 matched-peak count, otherwise return score only.}
 }
 \value{
-A numeric vector of length 1 by default (score), or length 2 when
+A \code{numeric} vector of length 1 by default (score), or length 2 when
 \code{matchedPeaksCount = TRUE} (\code{c(score, matched_peaks)}).
 }
 \description{
@@ -41,7 +44,7 @@ Computes the GNPS (Global Natural Products Social molecular networking)
 modified cosine similarity score between two mass spectra using a fused
 join + score algorithm based on Chain-DP (Chain Dynamic Programming).
 This function combines peak matching and scoring in a single C call,
-achieving consequent speedup over the standard \code{\link{gnps}()}
+achieving consequent speedup over the standard \code{\link[=gnps]{gnps()}}
 implementation while maintaining exact mathematical equivalence
 (differences ≤ 2.2e-16).
 
@@ -55,15 +58,18 @@ for full Hungarian).
 }
 \details{
 The modified cosine score is computed as:
+
 \deqn{
   \text{score}(i,j) = \frac{\sqrt{I_x(i)}}{\sqrt{\sum I_x}}
                     \times \frac{\sqrt{I_y(j)}}{\sqrt{\sum I_y}}
 }
+
 where the sum is over unique m/z values (first occurrence of duplicates).
 
 The total score is the sum of all optimally assigned peak pairs, found via:
+
 \enumerate{
-\item \strong{Direct matching}: \code{join(x, y, type="outer")} — closest one-to-one
+\item \strong{Direct matching}: \code{join(x, y, type="outer")} - closest one-to-one
 \item \strong{Shifted matching}: \code{join(x + pdiff, y, type="outer")} where
 \code{pdiff = yPrecursorMz - xPrecursorMz}
 \item \strong{Optimal assignment via Chain-DP}: For each query peak, pick the
@@ -72,19 +78,19 @@ conflicts are rare (~1\%) and resolved optimally with exact Hungarian.
 }
 
 \strong{Precursor threshold}: Shifted matching is skipped when
-\code{|pdiff| ≤ tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6},
+\verb{|pdiff| ≤ tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6},
 i.e., when the precursor difference is within the peak matching tolerance.
-This is scientifically correct (no meaningful neutral loss when pdiff ≈ tolerance)
-but differs from the existing \code{gnps()} implementation, which only skips
-when \code{pdiff == 0.0} exactly. See References for details.
+This is scientifically correct (no meaningful neutral loss when
+pdiff ≈ tolerance) but differs from the existing \code{gnps()} implementation,
+which only skips when \code{pdiff == 0.0} exactly. See References for details.
 }
 \section{Prerequisites}{
+
 
 \strong{CRITICAL}: Input spectra MUST be sanitized before calling this function:
 \itemize{
 \item \strong{Unique m/z values}: no two peaks in the same spectrum should have
-m/z values close enough to match each other (i.e., |mz_i - mz_j| >
-tolerance for all peak pairs i,j within the same spectrum)
+m/z values close enough to match each other (i.e., \verb{|mz_i - mz_j| > tolerance} for all peak pairs i,j within the same spectrum)
 \item \strong{Non-negative intensities} (no NaN/NA/Inf)
 \item \strong{Sorted by m/z} in ascending order
 }
@@ -136,7 +142,10 @@ Chain-DP algorithm implementation:
 \url{https://github.com/sirius-ms/sirius/blob/stable/spectral_alignment/src/main/java/de/unijena/bionf/fastcosine/FastCosine.java}
 }
 \seealso{
-\code{\link{gnps}()} for the standard (backward-compatible) implementation.
+\code{\link[=gnps]{gnps()}} for the standard (backward-compatible) implementation.
 
-\code{\link{join_gnps}()} for peak matching only.
+\code{\link[=join_gnps]{join_gnps()}} for peak matching only.
+}
+\author{
+Adriano Rutz
 }

@@ -19,7 +19,7 @@ objects into a single instance adding eventually missing columns (filling
 them with \code{NA}s).
 }
 \note{
-\code{rbindFill} might not work if one of the columns contains S4 classes.
+\code{rbindFill()} might not work if one of the columns contains S4 classes.
 }
 \examples{
 ## Combine matrices
@@ -29,6 +29,16 @@ b <- matrix(1:12, nrow = 3, ncol = 4)
 colnames(b) <- c("b", "a", "d", "e")
 rbindFill(a, b)
 rbindFill(b, a, b)
+
+## Combine data.frame
+d <- data.frame(a = 1:4, z = rep(TRUE, 4))
+g <- data.frame(b = 1:3, z = rep(FALSE, 3))
+rbindFill(d, g)
+
+## Combine matrix and data.frames
+res <- rbindFill(a, d)
+res
+class(res)
 }
 \seealso{
 Other helper functions for developers: 

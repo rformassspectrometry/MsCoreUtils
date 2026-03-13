@@ -1,9 +1,17 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.5
+
+- `rbindFill()`: improve performance when joining only matrices.
+
 ## MsCoreUtils 1.23.4
 
-- `gnps()` and `join_gnps()` use C implementations for modified cosine similarity calculation. The original R implementations are available as `gnps_r()` and `join_gnps_r()`. See issue #131 for discussion and performance comparison.
-- `FastCosine` spectral similarity calculation implementation: `gnps_chain_dp()`.
+- `gnps()` and `join_gnps()` use C implementations for modified cosine
+  similarity calculation. The original R implementations are available as
+  `gnps_r()` and `join_gnps_r()`. See issue #131 for discussion and
+  performance comparison.
+- *FastCosine* spectral similarity calculation implementation:
+  `gnps_chain_dp()`.
 
 ## MsCoreUtils 1.23.3
 
