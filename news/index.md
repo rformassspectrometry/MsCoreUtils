@@ -2,6 +2,11 @@
 
 ## MsCoreUtils 1.23
 
+### MsCoreUtils 1.23.5
+
+- [`rbindFill()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rbindFill.md):
+  improve performance when joining only matrices.
+
 ### MsCoreUtils 1.23.4
 
 - [`gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)

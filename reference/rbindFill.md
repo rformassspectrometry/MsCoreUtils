@@ -22,7 +22,7 @@ Depending on the input a single `matrix`, `data.frame` or `DataFrame`.
 
 ## Note
 
-`rbindFill` might not work if one of the columns contains S4 classes.
+`rbindFill()` might not work if one of the columns contains S4 classes.
 
 ## See also
 
@@ -64,4 +64,31 @@ rbindFill(b, a, b)
 #>  [7,] 1 4  7 10 NA
 #>  [8,] 2 5  8 11 NA
 #>  [9,] 3 6  9 12 NA
+
+## Combine data.frame
+d <- data.frame(a = 1:4, z = rep(TRUE, 4))
+g <- data.frame(b = 1:3, z = rep(FALSE, 3))
+rbindFill(d, g)
+#>    a     z  b
+#> 1  1  TRUE NA
+#> 2  2  TRUE NA
+#> 3  3  TRUE NA
+#> 4  4  TRUE NA
+#> 5 NA FALSE  1
+#> 6 NA FALSE  2
+#> 7 NA FALSE  3
+
+## Combine matrix and data.frames
+res <- rbindFill(a, d)
+res
+#>   a  b  c    z
+#> 1 1  4  7   NA
+#> 2 2  5  8   NA
+#> 3 3  6  9   NA
+#> 4 1 NA NA TRUE
+#> 5 2 NA NA TRUE
+#> 6 3 NA NA TRUE
+#> 7 4 NA NA TRUE
+class(res)
+#> [1] "data.frame"
 ```
