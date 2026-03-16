@@ -2,6 +2,10 @@
 
 ## MsCoreUtils 1.23
 
+### MsCoreUtils 1.23.6
+
+- Fix unsupported Unicode characters in documentation.
+
 ### MsCoreUtils 1.23.5
 
 - [`rbindFill()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rbindFill.md):

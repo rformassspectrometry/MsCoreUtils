@@ -38,7 +38,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/inst/CITATION)
 
 Rainer J, Vicini A, Salzer L, Stanstrup J, Badia JM, Neumann S, Stravs
 MA, Verri Hernandes V, Gatto L, Gibb S and Wittin M. A Modular and

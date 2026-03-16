@@ -5,11 +5,11 @@ join + score algorithm based on Chain-DP (Chain Dynamic Programming).
 This function combines peak matching and scoring in a single C call,
 achieving consequent speedup over the standard gnps()
 implementation while maintaining exact mathematical equivalence
-(differences ≤ 2.2e-16).
+(differences &amp;lt;= 2.2e-16).
 Algorithm: Chain-DP optimal assignment. When spectra are sanitized,
 the bipartite matching graph forms simple chains (not arbitrary networks).
 This enables O(n+m) greedy scoring for most of the pairs, with exact
-Hungarian solver O(k³) only for rare conflicts (k ≈ 3–5).
+Hungarian solver O(k³) only for rare conflicts (k about 3–5).
 Complexity: O(n+m) time, O(n+m) memory (vs. O(n³) time, O(n²) memory
 for full Hungarian)."><meta property="og:description" content="Computes the GNPS (Global Natural Products Social molecular networking)
 modified cosine similarity score between two mass spectra using a fused
@@ -17,11 +17,11 @@ join + score algorithm based on Chain-DP (Chain Dynamic Programming).
 This function combines peak matching and scoring in a single C call,
 achieving consequent speedup over the standard gnps()
 implementation while maintaining exact mathematical equivalence
-(differences ≤ 2.2e-16).
+(differences &amp;lt;= 2.2e-16).
 Algorithm: Chain-DP optimal assignment. When spectra are sanitized,
 the bipartite matching graph forms simple chains (not arbitrary networks).
 This enables O(n+m) greedy scoring for most of the pairs, with exact
-Hungarian solver O(k³) only for rare conflicts (k ≈ 3–5).
+Hungarian solver O(k³) only for rare conflicts (k about 3–5).
 Complexity: O(n+m) time, O(n+m) memory (vs. O(n³) time, O(n²) memory
 for full Hungarian)."><meta property="og:image" content="https://rformassspectrometry.github.io/MsCoreUtils/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -31,7 +31,7 @@ for full Hungarian)."><meta property="og:image" content="https://rformassspectro
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@ for full Hungarian)."><meta property="og:image" content="https://rformassspectro
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Optimized GNPS Modified Cosine Similarity via Chain-DP</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/R/gnps.R" class="external-link"><code>R/gnps.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/R/gnps.R" class="external-link"><code>R/gnps.R</code></a></small>
       <div class="d-none name"><code>gnps_chain_dp.Rd</code></div>
     </div>
 
@@ -64,11 +64,11 @@ join + score algorithm based on Chain-DP (Chain Dynamic Programming).
 This function combines peak matching and scoring in a single C call,
 achieving consequent speedup over the standard <code><a href="gnps.html">gnps()</a></code>
 implementation while maintaining exact mathematical equivalence
-(differences ≤ 2.2e-16).</p>
+(<code>differences &lt;= 2.2e-16</code>).</p>
 <p><strong>Algorithm</strong>: Chain-DP optimal assignment. When spectra are sanitized,
 the bipartite matching graph forms simple chains (not arbitrary networks).
 This enables O(n+m) greedy scoring for most of the pairs, with exact
-Hungarian solver O(k³) only for rare conflicts (k ≈ 3–5).</p>
+Hungarian solver O(k³) only for rare conflicts (k about 3–5).</p>
 <p><strong>Complexity</strong>: O(n+m) time, O(n+m) memory (vs. O(n³) time, O(n²) memory
 for full Hungarian).</p>
     </div>
@@ -147,11 +147,12 @@ $$</p>
 better of its direct and shifted matches. When spectra are sanitized,
 conflicts are rare (~1%) and resolved optimally with exact Hungarian.</p></li>
 </ol><p><strong>Precursor threshold</strong>: Shifted matching is skipped when
-<code>|pdiff| ≤ tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6</code>,
+<code>|pdiff| &lt;= tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6</code>,
 i.e., when the precursor difference is within the peak matching tolerance.
 This is scientifically correct (no meaningful neutral loss when
-pdiff ≈ tolerance) but differs from the existing <code><a href="gnps.html">gnps()</a></code> implementation,
-which only skips when <code>pdiff == 0.0</code> exactly. See References for details.</p>
+pdiff close to tolerance) but differs from the existing <code><a href="gnps.html">gnps()</a></code>
+implementation, which only skips when <code>pdiff == 0.0</code> exactly. See
+References for details.</p>
     </div>
     <div class="section level2">
     <h2 id="prerequisites">Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"></a></h2>
