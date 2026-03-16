@@ -27,6 +27,7 @@ join_gnps(
   yPrecursorMz = NA_real_,
   tolerance = 0,
   ppm = 0,
+  type = "outer",
   ...
 )
 
@@ -67,7 +68,7 @@ of peaks from the two spectra to be matched/mapped.}
 
 \item{type}{for \code{join_gnps_r()}: \code{character(1)} specifying the type of join
 that should be performed. See \code{\link[=join]{join()}} for details and options. Defaults
-to \code{type = "outer"}. \code{join_gnps()} only uses \code{type = "outer"}.}
+to \code{type = "outer"}.}
 }
 \value{
 See function definition in the description section.

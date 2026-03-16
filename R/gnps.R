@@ -57,7 +57,7 @@
 #'
 #' @param type for `join_gnps_r()`: `character(1)` specifying the type of join
 #'     that should be performed. See [join()] for details and options. Defaults
-#'     to `type = "outer"`. `join_gnps()` only uses `type = "outer"`.
+#'     to `type = "outer"`.
 #'
 #' @param x for `join_gnps()` and `join_gnps_r()`: `numeric` with m/z values
 #'     from a spectrum. For `gnps()` and `gnps_r()`: `matrix` with two
@@ -195,16 +195,11 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #'
 #' @export
 join_gnps <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
-                      tolerance = 0, ppm = 0, ...) {
-    .Call(
-        C_join_gnps,
-        x = x,
-        y = y,
-        xPrecursorMz = xPrecursorMz,
-        yPrecursorMz = yPrecursorMz,
-        tolerance = tolerance,
-        ppm = ppm
-    )
+                      tolerance = 0, ppm = 0, type = "outer", ...) {
+    if (type == "outer")
+        .Call(C_join_gnps, x = x, y = y, xPrecursorMz = xPrecursorMz,
+              yPrecursorMz = yPrecursorMz, tolerance = tolerance, ppm = ppm)
+    else join_gnps_r(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, type)
 }
 
 #' @rdname gnps
@@ -225,12 +220,12 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #' This function combines peak matching and scoring in a single C call,
 #' achieving consequent speedup over the standard [gnps()]
 #' implementation while maintaining exact mathematical equivalence
-#' (differences ≤ 2.2e-16).
+#' (`differences <= 2.2e-16`).
 #'
 #' **Algorithm**: Chain-DP optimal assignment. When spectra are sanitized,
 #' the bipartite matching graph forms simple chains (not arbitrary networks).
 #' This enables O(n+m) greedy scoring for most of the pairs, with exact
-#' Hungarian solver O(k³) only for rare conflicts (k ≈ 3–5).
+#' Hungarian solver O(k³) only for rare conflicts (k about 3–5).
 #'
 #' **Complexity**: O(n+m) time, O(n+m) memory (vs. O(n³) time, O(n²) memory
 #' for full Hungarian).
@@ -304,11 +299,12 @@ gnps <- function(x, y, ..., matchedPeaksCount = FALSE) {
 #' }
 #'
 #' **Precursor threshold**: Shifted matching is skipped when
-#' `|pdiff| ≤ tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6`,
+#' `|pdiff| <= tolerance + ppm × max(xPrecursorMz, yPrecursorMz) × 1e-6`,
 #' i.e., when the precursor difference is within the peak matching tolerance.
 #' This is scientifically correct (no meaningful neutral loss when
-#' pdiff ≈ tolerance) but differs from the existing `gnps()` implementation,
-#' which only skips when `pdiff == 0.0` exactly. See References for details.
+#' pdiff close to tolerance) but differs from the existing `gnps()`
+#' implementation, which only skips when `pdiff == 0.0` exactly. See
+#' References for details.
 #'
 #' @author Adriano Rutz
 #'
