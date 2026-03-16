@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.6
+
+- Fix unsupported Unicode characters in documentation.
+
 ## MsCoreUtils 1.23.5
 
 - `rbindFill()`: improve performance when joining only matrices.
