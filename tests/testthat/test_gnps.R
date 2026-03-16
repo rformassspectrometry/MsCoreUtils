@@ -24,12 +24,15 @@ test_that("join_gnps works", {
                            yPrecursorMz = 3)),
                  canonicalize_join(join(a[, 1L], b[, 1L])))
 
-    res <- join_gnps_r(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+    ref <- join_gnps_r(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
+                       yPrecursorMz = b_pmz, type = "left")
+    res <- join_gnps(a[, 1L], b[, 1L], xPrecursorMz = a_pmz,
                      yPrecursorMz = b_pmz, type = "left")
     expect_true(length(res$x) > nrow(a))  # peaks can match multiple
     ## peak 36 matches no peak in b directly, but matches peak 50 in b
     ## considering the precursor difference
     expect_true(sum(res$x == 2) == 2)
+    expect_equal(res, ref)
 
     res_2 <- join_gnps_r(b[, 1L], a[, 1L], xPrecursorMz = b_pmz,
                        yPrecursorMz = a_pmz, type = "left")

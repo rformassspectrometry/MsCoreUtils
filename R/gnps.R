@@ -57,7 +57,7 @@
 #'
 #' @param type for `join_gnps_r()`: `character(1)` specifying the type of join
 #'     that should be performed. See [join()] for details and options. Defaults
-#'     to `type = "outer"`. `join_gnps()` only uses `type = "outer"`.
+#'     to `type = "outer"`.
 #'
 #' @param x for `join_gnps()` and `join_gnps_r()`: `numeric` with m/z values
 #'     from a spectrum. For `gnps()` and `gnps_r()`: `matrix` with two
@@ -195,16 +195,11 @@ join_gnps_r <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
 #'
 #' @export
 join_gnps <- function(x, y, xPrecursorMz = NA_real_, yPrecursorMz = NA_real_,
-                      tolerance = 0, ppm = 0, ...) {
-    .Call(
-        C_join_gnps,
-        x = x,
-        y = y,
-        xPrecursorMz = xPrecursorMz,
-        yPrecursorMz = yPrecursorMz,
-        tolerance = tolerance,
-        ppm = ppm
-    )
+                      tolerance = 0, ppm = 0, type = "outer", ...) {
+    if (type == "outer")
+        .Call(C_join_gnps, x = x, y = y, xPrecursorMz = xPrecursorMz,
+              yPrecursorMz = yPrecursorMz, tolerance = tolerance, ppm = ppm)
+    else join_gnps_r(x, y, xPrecursorMz, yPrecursorMz, tolerance, ppm, type)
 }
 
 #' @rdname gnps

@@ -3,6 +3,7 @@
 ## MsCoreUtils 1.23.6
 
 - Fix unsupported Unicode characters in documentation.
+- Fix `join_gnps()` to support also `type` being different from `"outer"`.
 
 ## MsCoreUtils 1.23.5
 
