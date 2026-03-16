@@ -67,6 +67,7 @@ join_gnps(
   yPrecursorMz = NA_real_,
   tolerance = 0,
   ppm = 0,
+  type = "outer",
   ...
 )
 
@@ -130,8 +131,7 @@ gnps(x, y, ..., matchedPeaksCount = FALSE)
   for `join_gnps_r()`: `character(1)` specifying the type of join that
   should be performed. See
   [`join()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/matching.md)
-  for details and options. Defaults to `type = "outer"`. `join_gnps()`
-  only uses `type = "outer"`.
+  for details and options. Defaults to `type = "outer"`.
 
 ## Value
 

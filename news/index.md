@@ -5,6 +5,9 @@
 ### MsCoreUtils 1.23.6
 
 - Fix unsupported Unicode characters in documentation.
+- Fix
+  [`join_gnps()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/gnps.md)
+  to support also `type` being different from `"outer"`.
 
 ### MsCoreUtils 1.23.5
 
