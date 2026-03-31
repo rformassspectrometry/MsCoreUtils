@@ -1,5 +1,36 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.6
+
+- Fix unsupported Unicode characters in documentation.
+- Fix `join_gnps()` to support also `type` being different from `"outer"`.
+
+## MsCoreUtils 1.23.5
+
+- `rbindFill()`: improve performance when joining only matrices.
+
+## MsCoreUtils 1.23.4
+
+- `gnps()` and `join_gnps()` use C implementations for modified cosine
+  similarity calculation. The original R implementations are available as
+  `gnps_r()` and `join_gnps_r()`. See issue #131 for discussion and
+  performance comparison.
+- *FastCosine* spectral similarity calculation implementation:
+  `gnps_chain_dp()`.
+
+## MsCoreUtils 1.23.3
+
+- Add parameter `matchedPeaksCount` to spectra similarity/distance functions to
+  report, in addition to the similarity, also the number of matched peaks.
+
+## MsCoreUtils 1.23.2
+
+- Fix *Found non-API call to R: ‘SETLENGTH’* in `C_reduce`, `C_join_inner`,
+  and `C_join_outer` by using `lengthgets()` instead
+  (see [issue 136](https://github.com/rformassspectrometry/MsCoreUtils/issues/136)).
+- Use `Rf_` prefix for R API functions and set R_NO_REMAP to avoid use of
+  accidentially using non-`Rf_` prefixed functions in future.
+
 ## MsCoreUtils 1.23.1
 
 - Fix RF imputation, that now needs dimnames.

@@ -20,17 +20,17 @@ SEXP C_snip(SEXP y, SEXP iterations, SEXP decreasing) {
   int d;
   double a, b;
 
-  PROTECT(dup=duplicate(y));
-  PROTECT(y=coerceVector(dup, REALSXP));
+  PROTECT(dup=Rf_duplicate(y));
+  PROTECT(y=Rf_coerceVector(dup, REALSXP));
   n=XLENGTH(y);
-  d=asInteger(decreasing);
+  d=Rf_asInteger(decreasing);
 
-  PROTECT(output=allocVector(REALSXP, n));
+  PROTECT(output=Rf_allocVector(REALSXP, n));
 
   double* xo=REAL(output);
   double* xy=REAL(y);
 
-  k=asInteger(iterations);
+  k=Rf_asInteger(iterations);
 
   /* code duplication to use faster ++i/--i instead of i+=step */
   if (d) {

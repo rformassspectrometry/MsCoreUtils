@@ -1,17 +1,23 @@
 #ifndef MSCOREUTILS_H
 #define MSCOREUTILS_H
 
+#define R_NO_REMAP /* don't allow to use R API without Rf_ prefix */
+
 #include <R.h>
 #include <Rinternals.h>
-#include <stdlib.h> // for NULL
+#include <stdlib.h> /* for NULL */
 #include <R_ext/Rdynload.h>
 
 extern SEXP C_closest_dup_keep(SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_closest_dup_closest(SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_closest_dup_remove(SEXP, SEXP, SEXP, SEXP);
 
+extern SEXP C_gnps(SEXP, SEXP);
+extern SEXP C_gnps_chain_dp(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+
 extern SEXP C_impNeighbourAvg(SEXP, SEXP);
 
+extern SEXP C_join_gnps(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_join_left(SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_join_right(SEXP, SEXP, SEXP, SEXP);
 extern SEXP C_join_inner(SEXP, SEXP, SEXP, SEXP);

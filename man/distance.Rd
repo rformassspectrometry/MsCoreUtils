@@ -9,15 +9,31 @@
 \alias{nspectraangle}
 \title{Spectra Distance/Similarity Measurements}
 \usage{
-ndotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+ndotproduct(
+  x,
+  y,
+  m = 0L,
+  n = 0.5,
+  na.rm = TRUE,
+  ...,
+  matchedPeaksCount = FALSE
+)
 
 dotproduct(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
 
-neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+neuclidean(x, y, m = 0L, n = 0.5, na.rm = TRUE, ..., matchedPeaksCount = FALSE)
 
-navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+navdist(x, y, m = 0L, n = 0.5, na.rm = TRUE, ..., matchedPeaksCount = FALSE)
 
-nspectraangle(x, y, m = 0L, n = 0.5, na.rm = TRUE, ...)
+nspectraangle(
+  x,
+  y,
+  m = 0L,
+  n = 0.5,
+  na.rm = TRUE,
+  ...,
+  matchedPeaksCount = FALSE
+)
 }
 \arguments{
 \item{x}{\code{matrix}, two-columns e.g. m/z, intensity}
@@ -36,10 +52,17 @@ see the \code{ndotproduct} details section.}
 (default \code{TRUE}).}
 
 \item{...}{ignored.}
+
+\item{matchedPeaksCount}{\code{logical(1)} whether also the number of matched
+peaks should be reported (defaults to \code{matchedPeaksCount = FALSE}). Note
+that with \code{matchedPeaksCount = TRUE} a \code{numeric} of length 2 is returned.}
 }
 \value{
-\code{double(1)} value between \code{0:1}, where \code{0} is completely different
-and \code{1} identically.
+For \code{matchedPeaksCount = FALSE} (the default): \code{double(1)} value between
+\code{0:1}, where \code{0} is completely different and \code{1} identically.
+For \code{matchedPeaksCount = TRUE}: \code{double(2)} with the first element being the
+similarity score and the second the number of matched peaks on which the
+score was calculated.
 }
 \description{
 These functions provide different normalized similariy/distance measurements.
@@ -47,6 +70,10 @@ These functions provide different normalized similariy/distance measurements.
 \details{
 All functions that calculate normalized similarity/distance measurements are
 prefixed with a \emph{n}.
+
+All functions support reporting in addition to the similarity score also the
+number of matched peaks (values) on which the similarity was calculated by
+setting \code{matchedPeaksCount = TRUE}.
 
 \code{ndotproduct}: the normalized dot product is described in Stein and Scott
 1994 as: \eqn{NDP = \frac{\sum(W_1 W_2)^2}{\sum(W_1)^2 \sum(W_2)^2}}; where
@@ -146,7 +173,7 @@ Pull Request for these distance/similarity measurements:
 }
 \seealso{
 Other distance/similarity functions: 
-\code{\link{gnps}()}
+\code{\link{gnps_r}()}
 }
 \author{
 \code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb

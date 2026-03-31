@@ -27,16 +27,16 @@ SEXP C_localMaxima(SEXP y, SEXP s) {
   SEXP output;
   R_xlen_t n, q, m, windowSize, i, l, mid;
 
-  PROTECT(y=coerceVector(y, REALSXP));
+  PROTECT(y=Rf_coerceVector(y, REALSXP));
   n=XLENGTH(y);
 
-  PROTECT(output=allocVector(LGLSXP, n));
+  PROTECT(output=Rf_allocVector(LGLSXP, n));
 
   double* xy=REAL(y);
   int* xo=LOGICAL(output);
   memset(xo, 0, n*sizeof(int));
 
-  q=asInteger(s);
+  q=Rf_asInteger(s);
   windowSize=q*2;
   m=windowMaxIdx(xy, 0, windowSize);
 

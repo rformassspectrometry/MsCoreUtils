@@ -38,18 +38,18 @@ SEXP C_dilation(SEXP y, SEXP s) {
   SEXP f, g, h, output;
   R_xlen_t n, fn,  k, q, i, r, j, gi, hi;
 
-  PROTECT(y=coerceVector(y, REALSXP));
+  PROTECT(y=Rf_coerceVector(y, REALSXP));
   n=XLENGTH(y);
-  q=asInteger(s);
+  q=Rf_asInteger(s);
   k=2*q+1;
 
   /* add q (== halfWindowSize) values left/right
    * increase n to make n%windowSize == 0 */
   fn=n+2*q+(k-(n%k));
-  PROTECT(f=allocVector(REALSXP, fn));
-  PROTECT(g=allocVector(REALSXP, fn));
-  PROTECT(h=allocVector(REALSXP, fn));
-  PROTECT(output=allocVector(REALSXP, n));
+  PROTECT(f=Rf_allocVector(REALSXP, fn));
+  PROTECT(g=Rf_allocVector(REALSXP, fn));
+  PROTECT(h=Rf_allocVector(REALSXP, fn));
+  PROTECT(output=Rf_allocVector(REALSXP, n));
 
   double* xy=REAL(y);
   double* xf=REAL(f);
@@ -113,18 +113,18 @@ SEXP C_erosion(SEXP y, SEXP s) {
   SEXP f, g, h, output;
   R_xlen_t n, fn,  k, q, i, r, j, gi, hi;
 
-  PROTECT(y=coerceVector(y, REALSXP));
+  PROTECT(y=Rf_coerceVector(y, REALSXP));
   n=XLENGTH(y);
-  q=asInteger(s);
+  q=Rf_asInteger(s);
   k=2*q+1;
 
   /* add q (== halfWindowSize) values left/right
    * increase n to make n%windowSize == 0 */
   fn=n+2*q+(k-(n%k));
-  PROTECT(f=allocVector(REALSXP, fn));
-  PROTECT(g=allocVector(REALSXP, fn));
-  PROTECT(h=allocVector(REALSXP, fn));
-  PROTECT(output=allocVector(REALSXP, n));
+  PROTECT(f=Rf_allocVector(REALSXP, fn));
+  PROTECT(g=Rf_allocVector(REALSXP, fn));
+  PROTECT(h=Rf_allocVector(REALSXP, fn));
+  PROTECT(output=Rf_allocVector(REALSXP, n));
 
   double* xy=REAL(y);
   double* xf=REAL(f);

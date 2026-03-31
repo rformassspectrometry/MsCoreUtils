@@ -75,4 +75,61 @@ test_that("rbindFill works", {
     expect_equal(rbindFill(a), a)
     b <- data.frame(a = 1:3)
     expect_equal(rbindFill(b), b)
+
+    ## data.frame
+    a <- data.frame(char = c("a", "b", "c"), int = c(1L, 2L, 3L),
+                    num = c(1.23, 1.45, 1.2))
+    b <- data.frame(int = c(4L, 5L), char = c("d", "e"))
+    res <- rbindFill(a, b)
+    expect_equal(res$char, c("a", "b", "c", "d", "e"))
+    expect_equal(res$int, c(1L, 2L, 3L, 4L, 5L))
+    expect_equal(res$num, c(1.23, 1.45, 1.2, NA_real_, NA_real_))
+
+    res <- rbindFill(b, a)
+    expect_equal(res$char, c("d", "e", "a", "b", "c"))
+    expect_equal(res$int, c(4L, 5L, 1L, 2L, 3L))
+    expect_equal(res$num, c(NA_real_, NA_real_, 1.23, 1.45, 1.2))
+
+    ## only matrices
+    a <- matrix(1:10, ncol = 2, nrow = 5)
+    colnames(a) <- c("A", "B")
+    b <- matrix(1:10, ncol = 5, nrow = 2)
+    colnames(b) <- c("D", "E", "B", "F", "A")
+    d <- matrix(TRUE, ncol = 3, nrow = 2)
+    colnames(d) <- c("B", "F", "E")
+    res <- rbindFill(a, b, d)
+    expect_true(is.matrix(res))
+    expect_equal(colnames(res), c("A", "B", "D", "E", "F"))
+    expect_true(is.integer(res[, 1L]))
+})
+
+test_that(".rbind_fill_matrix works", {
+    a <- matrix(1:10, ncol = 2, nrow = 5)
+    colnames(a) <- c("A", "B")
+    b <- matrix(1:10, ncol = 5, nrow = 2)
+    colnames(b) <- c("D", "E", "B", "F", "A")
+    d <- matrix(TRUE, ncol = 3, nrow = 2)
+    colnames(d) <- c("B", "F", "E")
+
+    res <- .rbind_fill_matrix(list(a, b, d))
+    expect_true(is.matrix(res))
+    expect_true(is.integer(res[, 1L]))
+    expect_equal(colnames(res), c("A", "B", "D", "E", "F"))
+    expect_equal(res[1:nrow(a), c("A", "B")], a)
+    expect_true(all(is.na(res[1:nrow(a), c("D", "E", "F")])))
+    expect_equal(res[6:7, ], b[, c("A", "B", "D", "E", "F")])
+    expect_true(all(res[8:9, c("B", "F", "E")] == 1L))
+
+    ## empty matrix
+    e <- matrix(ncol = 2, nrow = 0)
+    expect_error(.rbind_fill_matrix(list(a, e)), "column names")
+    colnames(e) <- c("Z", "Y")
+    res <- .rbind_fill_matrix(list(a, e))
+    expect_true(is.matrix(res))
+    expect_equal(colnames(res), c("A", "B", "Z", "Y"))
+    expect_equal(res[, c("A", "B")], a)
+
+    ## no colnames
+    z <- matrix(1:10, ncol = 2)
+    expect_error(.rbind_fill_matrix(list(a, z)), "column names")
 })

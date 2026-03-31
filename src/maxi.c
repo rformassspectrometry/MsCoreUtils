@@ -10,12 +10,12 @@
  * 0 or if all values are missing.
  */
 SEXP C_maxi(SEXP x) {
-    if (!isReal(x))
-        x = coerceVector(x, REALSXP);
+    if (!Rf_isReal(x))
+        x = Rf_coerceVector(x, REALSXP);
     double* xp = REAL(x);
     const R_len_t n = XLENGTH(x);
 
-    SEXP r = PROTECT(allocVector(REALSXP, 1));
+    SEXP r = PROTECT(Rf_allocVector(REALSXP, 1));
     double* rp = REAL(r);
     *rp = R_NegInf;
 
