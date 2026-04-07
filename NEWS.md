@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.7
+
+- Add `retry()` function.
+
 ## MsCoreUtils 1.23.6
 
 - Fix unsupported Unicode characters in documentation.
