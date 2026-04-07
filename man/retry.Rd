@@ -16,7 +16,7 @@ time (in seconds).}
 
 \item{retry_on}{\code{character(1)} pattern for the error message to retry \code{expr}.
 Defaults to \code{retry_on = "*"} hence retrying \code{expr} on any error that
-occurrs. This allows to restrict retrying \code{expr} for specific cases,
+occurs. This allows to restrict retrying \code{expr} for specific cases,
 such as temporary internet connection problems. The pattern defined by
 \code{retry_on} is directly passed to the \code{grepl()} function.}
 
@@ -30,6 +30,18 @@ each try \code{i}. If \code{expr} fails for \code{ntimes} times an error will be
 }
 \note{
 Warnings are suppressed.
+}
+\examples{
+
+## In the example below content is read from a web page that might
+## temporarily be offline. It is assumed that the error message contains
+## the pattern `"temporarily"` in which case the call is repeated 7 times
+## with an increasing interval between tries to allow the resource to
+## become available again.
+\dontrun{
+    res <- retry(readLines("https://some-unreliable-web-content"),
+                 retry_on = "temporarily", ntimes = 7L, sleep_mult = 10)
+}
 }
 \author{
 Johannes Rainer
