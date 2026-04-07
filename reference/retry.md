@@ -8,7 +8,7 @@ i.e., waiting for `Sys.sleep(i * sleep_mult)` seconds between each try
 ## Usage
 
 ``` r
-retry(expr, ntimes = 5L, sleep_mult = 0L, immediate_failure = "not found")
+retry(expr, ntimes = 5L, sleep_mult = 0L, retry_on = "*", ...)
 ```
 
 ## Arguments
@@ -26,13 +26,19 @@ retry(expr, ntimes = 5L, sleep_mult = 0L, immediate_failure = "not found")
   `numeric(1)` multiplier to define the increasing waiting time (in
   seconds).
 
-- immediate_failure:
+- retry_on:
 
-  `character(1)` with a pattern that, if found in the error message
-  eventually thrown by evaluating `expr`, would cause an immediate
-  failure without retrying `expr`. This parameter is passed along to
-  [`grepl()`](https://rdrr.io/r/base/grep.html) hence any regular
-  expression is supported.
+  `character(1)` pattern for the error message to retry `expr`. Defaults
+  to `retry_on = "*"` hence retrying `expr` on any error that occurrs.
+  This allows to restrict retrying `expr` for specific cases, such as
+  temporary internet connection problems. The pattern defined by
+  `retry_on` is directly passed to the
+  [`grepl()`](https://rdrr.io/r/base/grep.html) function.
+
+- ...:
+
+  optional parameters passed to
+  [`grepl()`](https://rdrr.io/r/base/grep.html).
 
 ## Note
 
