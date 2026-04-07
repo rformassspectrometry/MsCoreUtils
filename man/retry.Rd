@@ -4,7 +4,7 @@
 \alias{retry}
 \title{Retry expression on failure}
 \usage{
-retry(expr, ntimes = 5L, sleep_mult = 0L, immediate_failure = "not found")
+retry(expr, ntimes = 5L, sleep_mult = 0L, retry_on = "*", ...)
 }
 \arguments{
 \item{expr}{Expression to be evaluated.}
@@ -14,10 +14,13 @@ retry(expr, ntimes = 5L, sleep_mult = 0L, immediate_failure = "not found")
 \item{sleep_mult}{\code{numeric(1)} multiplier to define the increasing waiting
 time (in seconds).}
 
-\item{immediate_failure}{\code{character(1)} with a pattern that, if found in
-the error message eventually thrown by evaluating \code{expr}, would cause an
-immediate failure without retrying \code{expr}. This parameter is passed
-along to \code{grepl()} hence any regular expression is supported.}
+\item{retry_on}{\code{character(1)} pattern for the error message to retry \code{expr}.
+Defaults to \code{retry_on = "*"} hence retrying \code{expr} on any error that
+occurrs. This allows to restrict retrying \code{expr} for specific cases,
+such as temporary internet connection problems. The pattern defined by
+\code{retry_on} is directly passed to the \code{grepl()} function.}
+
+\item{...}{optional parameters passed to \code{grepl()}.}
 }
 \description{
 \code{retry()} retries, upon failure, the evaluation of an expression \code{exp} for
