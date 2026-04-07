@@ -10,4 +10,6 @@ test_that("retry works", {
     ## Failure
     set.seed(123)
     expect_error(retry(a(), ntimes = 3L), "A, got a 0")
+
+    expect_error(retry(hello, ntimes = 7L), "not found")
 })
