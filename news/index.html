@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,43 +29,47 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.23" id="mscoreutils-123">MsCoreUtils 1.23<a class="anchor" aria-label="anchor" href="#mscoreutils-123"></a></h2>
 <div class="section level3">
-<h3 id="mscoreutils-1-23">MsCoreUtils 1.23.6<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23"></a></h3>
+<h3 id="mscoreutils-1-23">MsCoreUtils 1.23.7<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23"></a></h3>
+<ul><li>Add <code><a href="../reference/retry.html">retry()</a></code> function.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mscoreutils-1-23-1">MsCoreUtils 1.23.6<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-1"></a></h3>
 <ul><li>Fix unsupported Unicode characters in documentation.</li>
 <li>Fix <code><a href="../reference/gnps.html">join_gnps()</a></code> to support also <code>type</code> being different from <code>"outer"</code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-1">MsCoreUtils 1.23.5<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-1"></a></h3>
+<h3 id="mscoreutils-1-23-2">MsCoreUtils 1.23.5<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-2"></a></h3>
 <ul><li>
 <code><a href="../reference/rbindFill.html">rbindFill()</a></code>: improve performance when joining only matrices.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-2">MsCoreUtils 1.23.4<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-2"></a></h3>
+<h3 id="mscoreutils-1-23-3">MsCoreUtils 1.23.4<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-3"></a></h3>
 <ul><li>
 <code><a href="../reference/gnps.html">gnps()</a></code> and <code><a href="../reference/gnps.html">join_gnps()</a></code> use C implementations for modified cosine similarity calculation. The original R implementations are available as <code><a href="../reference/gnps.html">gnps_r()</a></code> and <code><a href="../reference/gnps.html">join_gnps_r()</a></code>. See issue <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/issues/131" class="external-link">#131</a> for discussion and performance comparison.</li>
 <li>
 <em>FastCosine</em> spectral similarity calculation implementation: <code><a href="../reference/gnps_chain_dp.html">gnps_chain_dp()</a></code>.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-3">MsCoreUtils 1.23.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-3"></a></h3>
+<h3 id="mscoreutils-1-23-4">MsCoreUtils 1.23.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-4"></a></h3>
 <ul><li>Add parameter <code>matchedPeaksCount</code> to spectra similarity/distance functions to report, in addition to the similarity, also the number of matched peaks.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-4">MsCoreUtils 1.23.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-4"></a></h3>
+<h3 id="mscoreutils-1-23-5">MsCoreUtils 1.23.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-5"></a></h3>
 <ul><li>Fix <em>Found non-API call to R: ‘SETLENGTH’</em> in <code>C_reduce</code>, <code>C_join_inner</code>, and <code>C_join_outer</code> by using <code>lengthgets()</code> instead (see <a href="https://github.com/rformassspectrometry/MsCoreUtils/issues/136" class="external-link">issue 136</a>).</li>
 <li>Use <code>Rf_</code> prefix for R API functions and set R_NO_REMAP to avoid use of accidentially using non-<code>Rf_</code> prefixed functions in future.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-5">MsCoreUtils 1.23.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-5"></a></h3>
+<h3 id="mscoreutils-1-23-6">MsCoreUtils 1.23.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-6"></a></h3>
 <ul><li>Fix RF imputation, that now needs dimnames.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-23-6">MsCoreUtils 1.23.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-6"></a></h3>
+<h3 id="mscoreutils-1-23-7">MsCoreUtils 1.23.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-23-7"></a></h3>
 <ul><li>New devel version</li>
 </ul></div>
 </div>

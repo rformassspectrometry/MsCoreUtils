@@ -151,6 +151,8 @@ vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/R
   : Reduce overlapping numeric ranges to disjoined ranges
 - [`refineCentroids()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/refineCentroids.md)
   : Refine Peak Centroids
+- [`retry()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/retry.md)
+  : Retry expression on failure
 - [`rla()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rla.md)
   [`rowRla()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/rla.md)
   : Calculate relative log abundances

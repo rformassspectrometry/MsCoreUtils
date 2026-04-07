@@ -2,6 +2,12 @@
 
 ## MsCoreUtils 1.23
 
+### MsCoreUtils 1.23.7
+
+- Add
+  [`retry()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/retry.md)
+  function.
+
 ### MsCoreUtils 1.23.6
 
 - Fix unsupported Unicode characters in documentation.
