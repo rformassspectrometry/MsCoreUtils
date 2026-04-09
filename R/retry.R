@@ -20,6 +20,12 @@
 #'     such as temporary internet connection problems. The pattern defined by
 #'     `retry_on` is directly passed to the `grepl()` function.
 #'
+#' @param warningsAsErrors `logical(1)` whether warnings should be converted
+#'     to errors. Defaults to `warningsAsErrors = FALSE`.
+#'
+#' @param verbose `logical(1)` whether additional messages on eventually caught
+#'     errors should be printed. Defaults to `verbose = FALSE`.
+#'
 #' @param ... optional parameters passed to `grepl()`.
 #'
 #' @note
@@ -44,13 +50,24 @@
 #'                  retry_on = "temporarily", ntimes = 7L, sleep_mult = 10)
 #' }
 retry <- function(expr, ntimes = 5L, sleep_mult = 0L,
-                  retry_on = "*", ...) {
+                  retry_on = "*", warningsAsErrors = FALSE,
+                  verbose = FALSE,...) {
     res <- NULL
+    if (warningsAsErrors) {
+        w <- getOption("warn")
+        options(warn = 2)
+        on.exit(options(warn = w))
+    }
     for (i in seq_len(ntimes)) {
-        res <- suppressWarnings(tryCatch(expr, error = function(e) e))
+        ## the `eval.parent` comes from https://stackoverflow.com/questions/20596902/r-avoiding-restarting-interrupted-promise-evaluation-warning
+        res <- tryCatch(eval.parent(substitute(expr)), error = function(e) e)
         if (is(res, "simpleError")) {
-            if (grepl(retry_on, res$message, ...) && i < ntimes)
+            if (grepl(retry_on, res$message, ...) && i < ntimes) {
+                if (verbose)
+                    message("Caught error: ", res$message, ". Will retry in ",
+                            i * sleep_mult, " seconds")
                 Sys.sleep(i * sleep_mult)
+            }
             else stop(res)
         } else break
     }

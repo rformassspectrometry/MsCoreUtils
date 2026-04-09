@@ -4,7 +4,15 @@
 \alias{retry}
 \title{Retry expression on failure}
 \usage{
-retry(expr, ntimes = 5L, sleep_mult = 0L, retry_on = "*", ...)
+retry(
+  expr,
+  ntimes = 5L,
+  sleep_mult = 0L,
+  retry_on = "*",
+  warningsAsErrors = FALSE,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{expr}{Expression to be evaluated.}
@@ -19,6 +27,12 @@ Defaults to \code{retry_on = "*"} hence retrying \code{expr} on any error that
 occurs. This allows to restrict retrying \code{expr} for specific cases,
 such as temporary internet connection problems. The pattern defined by
 \code{retry_on} is directly passed to the \code{grepl()} function.}
+
+\item{warningsAsErrors}{\code{logical(1)} whether warnings should be converted
+to errors. Defaults to \code{warningsAsErrors = FALSE}.}
+
+\item{verbose}{\code{logical(1)} whether additional messages on eventually caught
+errors should be printed. Defaults to \code{verbose = FALSE}.}
 
 \item{...}{optional parameters passed to \code{grepl()}.}
 }
