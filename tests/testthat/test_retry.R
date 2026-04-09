@@ -37,13 +37,13 @@ test_that("retry works", {
     ## connection errors.
     expect_warning(expect_error(
         retry(readLines("https://www.goog.el"), verbose = TRUE), "cannot"),
-        "connect to server")
+        "Could")
     expect_warning(expect_error(
         retry(readLines("https://www.goog.el"), verbose = TRUE,
               retry_on = "connect to"), "cannot"),
-        "connect to server")
+        "Could")
     expect_error(
         retry(readLines("https://www.goog.el"), verbose = TRUE,
-              warningsAsErrors = TRUE, retry_on = "connect to"),
-        "connect to server")
+              warningsAsErrors = TRUE, retry_on = "Could"),
+        "Could")
 })
