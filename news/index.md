@@ -2,6 +2,11 @@
 
 ## MsCoreUtils 1.23
 
+### MsCoreUtils 1.23.8
+
+- Add parameters `warningsAsErrors` and `verbose` to
+  [`retry()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/retry.md).
+
 ### MsCoreUtils 1.23.7
 
 - Add

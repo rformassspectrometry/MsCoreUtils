@@ -13,7 +13,7 @@ each try i. If expr fails for ntimes times an error will be thrown."><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.23.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@ each try i. If expr fails for ntimes times an error will be thrown."><meta prope
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Retry expression on failure</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/R/retry.R" class="external-link"><code>R/retry.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/jomain/R/retry.R" class="external-link"><code>R/retry.R</code></a></small>
       <div class="d-none name"><code>retry.Rd</code></div>
     </div>
 
@@ -48,7 +48,15 @@ each try <code>i</code>. If <code>expr</code> fails for <code>ntimes</code> time
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">retry</span><span class="op">(</span><span class="va">expr</span>, ntimes <span class="op">=</span> <span class="fl">5L</span>, sleep_mult <span class="op">=</span> <span class="fl">0L</span>, retry_on <span class="op">=</span> <span class="st">"*"</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">retry</span><span class="op">(</span></span>
+<span>  <span class="va">expr</span>,</span>
+<span>  ntimes <span class="op">=</span> <span class="fl">5L</span>,</span>
+<span>  sleep_mult <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  retry_on <span class="op">=</span> <span class="st">"*"</span>,</span>
+<span>  warningsAsErrors <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -74,6 +82,16 @@ Defaults to <code>retry_on = "*"</code> hence retrying <code>expr</code> on any 
 occurs. This allows to restrict retrying <code>expr</code> for specific cases,
 such as temporary internet connection problems. The pattern defined by
 <code>retry_on</code> is directly passed to the <code><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl()</a></code> function.</p></dd>
+
+
+<dt id="arg-warningsaserrors">warningsAsErrors<a class="anchor" aria-label="anchor" href="#arg-warningsaserrors"></a></dt>
+<dd><p><code>logical(1)</code> whether warnings should be converted
+to errors. Defaults to <code>warningsAsErrors = FALSE</code>.</p></dd>
+
+
+<dt id="arg-verbose">verbose<a class="anchor" aria-label="anchor" href="#arg-verbose"></a></dt>
+<dd><p><code>logical(1)</code> whether additional messages on eventually caught
+errors should be printed. Defaults to <code>verbose = FALSE</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>

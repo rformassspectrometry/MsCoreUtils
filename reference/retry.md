@@ -8,7 +8,15 @@ i.e., waiting for `Sys.sleep(i * sleep_mult)` seconds between each try
 ## Usage
 
 ``` r
-retry(expr, ntimes = 5L, sleep_mult = 0L, retry_on = "*", ...)
+retry(
+  expr,
+  ntimes = 5L,
+  sleep_mult = 0L,
+  retry_on = "*",
+  warningsAsErrors = FALSE,
+  verbose = FALSE,
+  ...
+)
 ```
 
 ## Arguments
@@ -34,6 +42,16 @@ retry(expr, ntimes = 5L, sleep_mult = 0L, retry_on = "*", ...)
   temporary internet connection problems. The pattern defined by
   `retry_on` is directly passed to the
   [`grepl()`](https://rdrr.io/r/base/grep.html) function.
+
+- warningsAsErrors:
+
+  `logical(1)` whether warnings should be converted to errors. Defaults
+  to `warningsAsErrors = FALSE`.
+
+- verbose:
+
+  `logical(1)` whether additional messages on eventually caught errors
+  should be printed. Defaults to `verbose = FALSE`.
 
 - ...:
 
