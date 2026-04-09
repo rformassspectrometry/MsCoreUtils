@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.8
+
+- Add parameters `warningsAsErrors` and `verbose` to `retry()`.
+
 ## MsCoreUtils 1.23.7
 
 - Add `retry()` function.
