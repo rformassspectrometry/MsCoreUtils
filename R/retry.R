@@ -34,8 +34,6 @@
 #'
 #' @author Johannes Rainer
 #'
-#' @importFrom methods is
-#'
 #' @export
 #'
 #' @examples
@@ -61,7 +59,7 @@ retry <- function(expr, ntimes = 5L, sleep_mult = 0L,
     for (i in seq_len(ntimes)) {
         ## the `eval.parent` comes from https://stackoverflow.com/questions/20596902/r-avoiding-restarting-interrupted-promise-evaluation-warning
         res <- tryCatch(eval.parent(substitute(expr)), error = function(e) e)
-        if (is(res, "simpleError")) {
+        if (inherits(res, "error")) {
             if (grepl(retry_on, res$message, ...) && i < ntimes) {
                 if (verbose)
                     message("Caught error: ", res$message, ". Will retry in ",
