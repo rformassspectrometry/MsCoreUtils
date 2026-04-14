@@ -35,6 +35,9 @@
 - **Mar Garcia-Aloy**. Contributor.
   [](https://orcid.org/0000-0002-1330-6610)
 
+- **Gabriele Tomè**. Contributor.
+  [](https://orcid.org/0000-0002-3976-6068)
+
 ## Citation
 
 Source:

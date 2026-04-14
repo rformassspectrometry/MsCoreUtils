@@ -64,7 +64,7 @@ Warnings are suppressed.
 
 ## Author
 
-Johannes Rainer
+Johannes Rainer, Gabriele Tomè
 
 ## Examples
 
