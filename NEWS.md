@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.9
+
+- Handle all type of error in `retry()`, not only `simpleError`.
+
 ## MsCoreUtils 1.23.8
 
 - Add parameters `warningsAsErrors` and `verbose` to `retry()`.

@@ -58,5 +58,5 @@ Warnings are suppressed.
 }
 }
 \author{
-Johannes Rainer
+Johannes Rainer, Gabriele Tomè
 }

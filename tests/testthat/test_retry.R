@@ -12,6 +12,19 @@ test_that("retry works", {
     set.seed(123)
     expect_error(retry(a(), ntimes = 3L, verbose = TRUE), "A, got a 0")
 
+    ## Catch rlang error
+    expect_error(retry(rlang::abort("rlang class error"),
+                       ntimes = 1L, verbose = TRUE), "rlang class error")
+
+    ## Catch custom error class
+    custom_error <- function() {
+        e <- structure(list(message = "custom error", call = NULL),
+                       class = c("custom_error", "error", "condition"))
+        stop(e)
+    }
+    expect_error(retry(custom_error(), ntimes = 1L, verbose = TRUE),
+                 "custom error")
+
     ## Always fails
     expect_error(retry(hello, ntimes = 5L, retry_on = "not found",
                        verbose = TRUE), "not found")
