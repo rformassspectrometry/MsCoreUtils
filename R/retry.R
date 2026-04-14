@@ -32,7 +32,7 @@
 #'
 #' Warnings are suppressed.
 #'
-#' @author Johannes Rainer
+#' @author Johannes Rainer, Gabriele Tomè
 #'
 #' @export
 #'
