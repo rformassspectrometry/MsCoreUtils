@@ -16,7 +16,7 @@ test_that("test all default margins", {
     expect_identical(getImputeMargin(impute_min), NA)
     expect_identical(getImputeMargin(impute_MinDet), 2L)
     expect_identical(getImputeMargin(impute_MinProb), 2L)
-    expect_identical(getImputeMargin(impute_mixed), 1L)
+    expect_identical(eval(getImputeMargin(impute_mixed)), c(1L, 1L))
     ## expect_identical(getImputeMargin(impute_mle), 2L)
     ## expect_identical(getImputeMargin(impute_mle2), 2L)
     expect_identical(getImputeMargin(impute_neighbour_average), 1L)

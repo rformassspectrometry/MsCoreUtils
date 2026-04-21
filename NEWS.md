@@ -3,6 +3,7 @@
 ## MsCoreUtils 1.23.10
 
 - Fix partial argument match warnings.
+- Fix bug in `impute_mixed()` and allow for two MARGINs.
 
 ## MsCoreUtils 1.23.9
 

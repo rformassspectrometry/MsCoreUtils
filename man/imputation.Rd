@@ -33,7 +33,7 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = 1L, ...)
+impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L), ...)
 
 impute_min(x)
 
@@ -67,23 +67,23 @@ function.}
 first and last samples if they contain an \code{NA}. The default is
 to use the smallest value in the data.}
 
-\item{MARGIN}{\code{integer(1)} defining the margin along which to
-apply imputation, with \code{1L} for rows and \code{2L} for columns. The
-default value will depend on the imputation method. Use
-\code{getImputeMargin(fun)} to get the default margin of imputation
-function \code{fun}. If the function doesn't take a margin
-argument, \code{NA} is returned.}
+\item{MARGIN}{\code{integer(1)} defining the margin along which to apply
+imputation, with \code{1L} for rows and \code{2L} for columns. The default value
+will depend on the imputation method. Use \code{getImputeMargin(fun)} to get
+the default margin of imputation function \code{fun}. If the function doesn't
+take a margin argument, \code{NA} is returned. For mixed imputation, two
+margins can be provided, the first one for the MAR imputation, and the
+second one for MNAR imputation.}
 
-\item{randna}{\code{logical} of length equal to \code{nrow(object)} defining
-which rows are missing at random. The other ones are
-considered missing not at random. Only relevant when \code{methods}
-is \code{mixed}.}
+\item{randna}{\code{logical} of length equal to \code{nrow(object)} defining which
+rows are missing at random. The other ones are considered missing not at
+random. Only relevant when \code{methods} is \code{mixed}.}
 
-\item{mar}{Imputation method for values missing at random. See
-\code{method} above.}
+\item{mar}{Imputation method for values missing at random. See \code{method}
+above.}
 
-\item{mnar}{Imputation method for values missing not at
-random. See \code{method} above.}
+\item{mnar}{Imputation method for values missing not at random. See \code{method}
+above.}
 
 \item{q}{\code{numeric(1)} indicating the quantile to be used to
 estimate the minimum in \code{MinDet} and \code{MinProb}. Default is
