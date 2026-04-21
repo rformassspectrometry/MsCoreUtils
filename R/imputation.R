@@ -460,7 +460,7 @@ impute_min <- function(x) {
 impute_MinDet <- function(x, q = 0.01, MARGIN = 2L) {
     MARGIN <- .checkMargin(MARGIN)
     n <- dim(x)[MARGIN]
-    impVals <- apply(x, MARGIN, quantile, prob = q, na.rm = TRUE)
+    impVals <- apply(x, MARGIN, quantile, probs = q, na.rm = TRUE)
     if (MARGIN == 1L) x <- t(x)
     for (i in seq_len(n))
         x[is.na(x[, i]), i] = impVals[i]
