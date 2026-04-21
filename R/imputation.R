@@ -426,16 +426,13 @@ impute_mixed <- function(x, randna, mar, mnar, MARGIN = 1L, ...) {
     if (missing(mnar))
         stop("Mixed imputation requires 'mnar' argument. See ?impute_mixed.",
              call. = FALSE)
-    suppressMessages(MARGIN <- .checkMargin(MARGIN))
-    if (MARGIN == 2L) x <- t(x)
     if (length(randna) != nrow(x))
-        stop("Number of proteins and length of randna must be equal.",
+        stop("Number of rows and length of randna must be equal.",
              call. = FALSE)
     x[randna, ] <- impute_matrix(x[randna, ], mar,
                                  MARGIN = MARGIN, ...)
     x[!randna, ] <- impute_matrix(x[!randna, ], mnar,
                                   MARGIN = MARGIN, ...)
-    if (MARGIN == 2L) x <- t(x)
     x
 }
 

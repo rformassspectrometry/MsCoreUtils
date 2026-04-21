@@ -68,27 +68,6 @@ test_that("impute_fun(margin) works", {
     expect_identical(m_imp[2, 2], 2)
 })
 
-
-test_that("impute_mixed(margin) works", {
-    m <- matrix(1:12, ncol = 4)
-    m[2:3, 2] <- m[3, 3] <- NA
-    rand1 <- c(TRUE, TRUE, FALSE)
-    rand2 <- c(FALSE, FALSE, TRUE, TRUE)
-    m_imp <- impute_mixed(m, randna = rand1,
-                          mar = "MinDet",
-                          mnar = "zero",
-                          MARGIN = 1L)
-    expect_true(m_imp[2, 2] > 0)
-    expect_identical(m_imp[3, 2:3], c(0, 0))
-    m_imp <- impute_mixed(m, randna = rand2,
-                          mar = "MinDet",
-                          mnar = "zero",
-                          MARGIN = 2L)
-    expect_identical(m_imp[2:3, 2], c(0, 0))
-    expect_true(m_imp[3, 3] > 0)
-})
-
-
 test_that("impute_bpca(margin) works", {
     m <- matrix(1:1000, ncol = 100)
     m[2, 2] <- NA
@@ -145,4 +124,71 @@ test_that("impute_MinDet(margin) works", {
     expect_identical(m_imp2[1, 1], 2.02)
     expect_identical(dim(m), dim(m_imp1))
     expect_identical(dim(m), dim(m_imp2))
+})
+
+test_that("impute_mixed(margin) works (1/2)", {
+    m <- matrix(1:15, ncol = 3)
+    m[2:4, 2] <- m[1, 3] <- m[5, 1] <- NA
+    randna <- c(rep(FALSE, 3), rep(TRUE, 2))
+    ## MARGIN 1
+    m_imp <- impute_mixed(m, randna = randna,
+                          mar = "zero",
+                          mnar = "MinDet",
+                          MARGIN = 1)
+    ## Expected:
+    ## - m[1, 3] is quantile(m[1, ], 0.01, na.rm = TRUE)
+    ## - m[2, 2] is quantile(m[2, ], 0.01, na.rm = TRUE)
+    ## - m[3, 2] is quantile(m[3, ], 0.01, na.rm = TRUE)
+    ## - m[4, 2] is zero
+    ## - m[5, 1] is zero
+    expect_identical(m_imp[1, 3],
+                     quantile(m[1, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[2, 2],
+                     quantile(m[2, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[2, 2],
+                     quantile(m[2, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[4, 2], 0)
+    expect_identical(m_imp[5, 1], 0)
+    ## MARGIN 2
+    m_imp <- impute_mixed(m, randna = randna,
+                          mar = "zero",
+                          mnar = "MinDet",
+                          MARGIN = 2)
+    ## Expected:
+    ## - m[1, 3] is quantile(m[1:3, 3], 0.01, na.rm = TRUE)
+    ## - m[2:3, 2] is quantile(m[1:3, 2], 0.01, na.rm = TRUE)
+    ## - m[4, 2] is zero
+    ## - m[5, 1] is zero
+    expect_identical(m_imp[1, 3],
+                     quantile(m[1:3, 3], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(m_imp[2:3, 2],
+                     c(quantile(m[1:3, 2], 0.01, na.rm = TRUE, names = FALSE),
+                       quantile(m[1:3, 2], 0.01, na.rm = TRUE, names = FALSE)))
+    expect_identical(m_imp[4, 2], 0)
+    expect_identical(m_imp[5, 1], 0)
+})
+
+test_that("impute_mixed(margin) works (2/2)", {
+    m <- matrix(1:12, ncol = 4)
+    m[2:3, 2] <- m[3, 3] <- NA
+    rand <- c(TRUE, TRUE, FALSE)
+    ## MARGIN 1
+    m_imp <- impute_mixed(m, randna = rand,
+                          mar = "MinDet",
+                          mnar = "zero",
+                          MARGIN = 1L)
+    expect_identical(m_imp[2, 2],
+                     quantile(m[2, ], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(m_imp[3, 2:3], c(0, 0))
+    ## MARGIN 2
+    m_imp <- impute_mixed(m, randna = rand,
+                          mar = "MinDet",
+                          mnar = "zero",
+                          MARGIN = 2L)
+    expect_identical(m_imp[2, 2],
+                     quantile(m[, 2], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(m_imp[3, 2:3], c(0, 0))
 })
