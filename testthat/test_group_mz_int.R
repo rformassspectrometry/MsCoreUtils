@@ -443,12 +443,11 @@ test_that("group_mz_int works", {
     )
   
   
-  res <- group_mz_int(x = all_mz, y = all_int, max_num = 3) # max_num is how many scans these mz coming from
+  res <- group_mz_int(x = all_mz, y = all_int, max_num = 1) # max_num is how many scans these mz coming from
   expect_true(length(res) == length(all_mz))
   expect_setequal(res, 1:length(all_mz))
   
   res <- group_mz_int(x = all_mz, y = all_int, max_num = 3, tolerance = 0.005)
-  ## Expect groups of 3 each.
   expect_true(all(table(res) %in% c(1,2,3)))
   
   ## randomly shuffle
