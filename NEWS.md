@@ -1,5 +1,9 @@
 # MsCoreUtils 1.23
 
+## MsCoreUtils 1.23.10
+
+- Fix partial argument match warnings.
+
 ## MsCoreUtils 1.23.9
 
 - Handle all type of error in `retry()`, not only `simpleError`.
