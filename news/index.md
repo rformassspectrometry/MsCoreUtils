@@ -5,6 +5,9 @@
 ### MsCoreUtils 1.23.10
 
 - Fix partial argument match warnings.
+- Fix bug in
+  [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  and allow for two MARGINs.
 
 ### MsCoreUtils 1.23.9
 

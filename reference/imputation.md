@@ -24,7 +24,7 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = 1L, ...)
+impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L), ...)
 
 impute_min(x)
 
@@ -75,7 +75,9 @@ getImputeMargin(fun)
   `1L` for rows and `2L` for columns. The default value will depend on
   the imputation method. Use `getImputeMargin(fun)` to get the default
   margin of imputation function `fun`. If the function doesn't take a
-  margin argument, `NA` is returned.
+  margin argument, `NA` is returned. For mixed imputation, two margins
+  can be provided, the first one for the MAR imputation, and the second
+  one for MNAR imputation.
 
 - randna:
 
@@ -426,14 +428,46 @@ getImputeMargin(impute_zero) ## NA: no margin here
 
 ## default margin for all MsCoreUtils::impute_* functions
 sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
-#>            impute_MinDet           impute_MinProb             impute_QRILC 
-#>                        2                        2                        2 
-#>                impute_RF              impute_bpca               impute_fun 
-#>                        2                        1                        1 
-#>               impute_knn            impute_matrix               impute_min 
-#>                        1                       NA                       NA 
-#>             impute_mixed               impute_mle impute_neighbour_average 
-#>                        1                        2                        1 
-#>              impute_with              impute_zero 
-#>                       NA                       NA 
+#> $impute_MinDet
+#> [1] 2
+#> 
+#> $impute_MinProb
+#> [1] 2
+#> 
+#> $impute_QRILC
+#> [1] 2
+#> 
+#> $impute_RF
+#> [1] 2
+#> 
+#> $impute_bpca
+#> [1] 1
+#> 
+#> $impute_fun
+#> [1] 1
+#> 
+#> $impute_knn
+#> [1] 1
+#> 
+#> $impute_matrix
+#> [1] NA
+#> 
+#> $impute_min
+#> [1] NA
+#> 
+#> $impute_mixed
+#> c(1L, 1L)
+#> 
+#> $impute_mle
+#> [1] 2
+#> 
+#> $impute_neighbour_average
+#> [1] 1
+#> 
+#> $impute_with
+#> [1] NA
+#> 
+#> $impute_zero
+#> [1] NA
+#> 
 ```
