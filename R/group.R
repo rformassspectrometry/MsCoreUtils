@@ -135,11 +135,11 @@ group <- function(x, tolerance = 0, ppm = 0) {
 
 group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
     #group m/z within tolerance based on the intensity decreasingly
-    if(is.unsorted(x)) {
-        idx <- order(x)
-        x <- x[idx]
-        y <- y[idx]
-    } else idx <- integer()
+    # if(is.unsorted(x)) {
+    #     idx <- order(x)
+    #     x <- x[idx]
+    #     y <- y[idx]
+    # } else idx <- integer()
     
     tolerance <- rep(tolerance + sqrt(.Machine$double.eps), length(x))
     if (ppm > 0)
@@ -204,7 +204,7 @@ group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
     
     #res <- df_xy$group_id
     res <- group_ids
-    res[idx] <- res
+    #res[idx] <- res
     
     res
 }
