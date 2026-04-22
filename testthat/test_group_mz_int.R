@@ -489,7 +489,7 @@ test_that("group_mz_int works", {
   res_group_mz_int <- group_mz_int(x, y, max_num = 2, tolerance = 0.005)
   
   expect_equal(res_group, c(1L, 1L, 1L, 1L, 1L, 1L))
-  expect_equal(res_group_mz_int, c(1L, 1L, -1L, 2L, 2L, 3L))   # -1 means these masses are from two scnas so number of peaks from each group could not exceed 2, so give the one with lowest intensity as -1
+  expect_equal(res_group_mz_int, c(1L, 1L, 2L, 2L, 3L, 3L))   
   
 })
 

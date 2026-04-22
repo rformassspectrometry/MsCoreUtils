@@ -67,7 +67,72 @@ group <- function(x, tolerance = 0, ppm = 0) {
 }
 
 
+
+
+
+
+
 #---- New lines for adding new function for grouping based on the corresponding intensity decreasingly --#
+
+#' @title Grouping of numeric values by similarity by considering element of intensity
+#'
+#' @description
+#'
+#' The `group_mz_int` function groups numeric values by first ordering based on intensity decreasingly, 
+#' and then picking up the mass with the highest intensity, putting
+#' all values into the same group if their difference is smaller defined by
+#' parameters `tolerance` (a constant value) and `ppm` (a value-specific
+#' relative value expressed in parts-per-million). If the number of mass within that group higher the defined max_num (scans),
+#' then the number of scans of top peaks would be kept. Interactively, do the above steps until gettting the final group
+#'
+#' @note
+#'
+#' This method solves the scenario like the difference between the smallest and largest value
+#' in a group can be larger than `tolerance` and `ppm`.
+#'
+#' @param x increasingly ordered `numeric` with the values to be grouped.
+#'
+#' @param tolerance `numeric(1)` with the maximal accepted difference between
+#'     values in `x` to be grouped into the same entity.
+#'
+#' @param ppm `numeric(1)` defining a value-dependent maximal accepted
+#'     difference between values in `x` expressed in parts-per-million.
+#'
+#' @return `integer` of length equal to `x` with the groups.
+#'
+#' @author Muyao Xi
+#'
+#' @rdname group_mz_int
+#'
+#' @export group_mz_int
+#'
+#' @examples
+#'
+#' ## Define a (sorted) numeric vector
+#' x = c(56, 56.004, 56.008, 56.012, 56.016, 56.02)
+#' y = c(52151, 125584, 582, 58452, 458, 57452)
+#' max_num = 2
+#'
+#' ## With `ppm = 0` and `tolerance = 0` only identical values are grouped
+#' group_mz_int(x, y, max_num)
+#'
+#' ## With `tolerance = 0.005`
+#' group_mz_int(x, y, max_num, tolerance = 0.005)
+#'
+#' ## three groups were made.
+#'
+#' ## With ppm
+#' group_mz_int(x, y, num_max, ppm = 10)
+#'
+#' ## Same on an unsorted vector
+#' x <- c(56, 56.012, 56.016, 56.004, 56.008, 56.02)
+#' y = c(52151, 58452, 458, 125584, 582, 57452)
+#' group_mz_int(x, y, max_num, tolerance = 0.005)
+#'
+#' ## the same three groups were made.
+
+
+
 group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
     #group m/z within tolerance based on the intensity decreasingly
     if(is.unsorted(x)) {
@@ -101,7 +166,7 @@ group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
             index_mimus1_int <- setdiff(index_sel_int, index_top_int)
             
             df_xy[int_index[index_top_int, "index"], "group_id"] <- rep(group_id, length(index_top_int))
-            df_xy[int_index[index_mimus1_int, "index"], "group_id"] <- rep(-1, length(index_mimus1_int))
+            df_xy[int_index[index_mimus1_int, "index"], "group_id"] <- rep(0, length(index_mimus1_int))
         } else {
             df_xy[group_id_zero[logi_id], "group_id"] <- rep(group_id, sum(logi_id))
         } 
