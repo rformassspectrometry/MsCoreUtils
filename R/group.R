@@ -76,9 +76,9 @@ group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
         y <- y[idx]
     } else idx <- integer()
     
-    tolerance <- tolerance + sqrt(.Machine$double.eps)
+    tolerance <- rep(tolerance + sqrt(.Machine$double.eps), length(x))
     if (ppm > 0)
-        tolerance <- tolerance + ppm(x[-length(x)], ppm)
+        tolerance <- tolerance + ppm(x[1:length(x)], ppm)
     
     df_xy <- data.frame("mz" = x, "int" = y, "group_id" = rep(0, length(x)), "index" = 1:length(x))
     group_id_zero <- which(df_xy$group_id == 0)
@@ -89,7 +89,7 @@ group_mz_int <- function(x, y, max_num, tolerance = 0, ppm = 0) {
         group_id <- group_id + 1
         id_int_max <- group_id_zero[which.max(df_xy[group_id_zero, "int"])]
         
-        logi_id <- with(df_xy, abs(df_xy[group_id_zero, "mz"]-df_xy[id_int_max, "mz"])<=tolerance)
+        logi_id <- with(df_xy, abs(df_xy[group_id_zero, "mz"]-df_xy[id_int_max, "mz"])<=tolerance[group_id_zero])
         
         if (sum(logi_id) == 0) {
             df_xy[id_int_max, "group_id"] <- group_id
