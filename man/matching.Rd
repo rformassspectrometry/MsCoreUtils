@@ -37,15 +37,15 @@ join(
 }
 \arguments{
 \item{x}{\code{numeric}, the values to be matched. In contrast to
-\code{\link[BiocGenerics:match]{BiocGenerics::match()}} \code{x} has to be sorted in increasing order and must not contain any
-\code{NA}.}
+\code{\link[base:match]{base::match()}} \code{x} has to be sorted in increasing order and must not
+contain any \code{NA}.}
 
 \item{table}{\code{numeric}, the values to be matched against. In contrast to
-\code{\link[BiocGenerics:match]{BiocGenerics::match()}} \code{table} has to be sorted in increasing order and must not contain
-any \code{NA}.}
+\code{\link[base:match]{base::match()}} \code{table} has to be sorted in increasing order and must not
+contain any \code{NA}.}
 
-\item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or
-the same length as \code{x}.}
+\item{tolerance}{\code{numeric}, accepted tolerance. Could be of length one or the
+same length as \code{x}.}
 
 \item{ppm}{\code{numeric(1)} representing a relative, value-specific
 parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
@@ -53,9 +53,8 @@ parts-per-million (PPM) tolerance that is added to \code{tolerance}.}
 \item{duplicates}{\code{character(1)}, how to handle duplicated matches. Has to be
 one of \code{c("keep", "closest", "remove")}. No abbreviations allowed.}
 
-\item{nomatch}{\code{integer(1)}, if the difference
-between the value in \code{x} and \code{table} is larger than
-\code{tolerance} \code{nomatch} is returned.}
+\item{nomatch}{\code{integer(1)}, if the difference between the value in \code{x} and
+\code{table} is larger than \code{tolerance} \code{nomatch} is returned.}
 
 \item{.check}{\code{logical(1)} turn off checks for increasingly sorted \code{x} and
 \code{y}. This should just be done if it is ensured by other methods that \code{x} and
@@ -74,30 +73,31 @@ giving the closest position in \code{table} of the first match or \code{nomatch}
 there is no match.
 
 \code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
-element in \code{x} was found in \code{table}. It is similar to \code{\link{\%in\%}}.
+element in \code{x} was found in \code{table}. It is similar to \code{\link[base:match]{base::\%in\%}}.
 
 \code{join} returns a \code{matrix} with two columns, namely \code{x} and \code{y},
 representing the index of the values in \code{x} matching the corresponding value
 in \code{y} (or \code{NA} if the value does not match).
 }
 \description{
-These functions offer relaxed matching of one vector in another.
-In contrast to the similar \code{\link[BiocGenerics:match]{BiocGenerics::match()}} and \code{\link{\%in\%}} functions they
-just accept \code{numeric} arguments but have an additional \code{tolerance}
-argument that allows relaxed matching.
+These functions offer relaxed matching of one vector in another.  In contrast
+to the similar \code{\link[base:match]{base::match()}} and \code{\link[base:match]{base::\%in\%}} functions they just accept \code{numeric}
+arguments but have an additional \code{tolerance} argument that allows relaxed
+matching.
 }
 \details{
-For \code{closest}/\code{common} the \code{tolerance} argument could be set to \code{0} to get
-the same results as for \code{\link[BiocGenerics:match]{BiocGenerics::match()}}/\code{\link{\%in\%}}. If it is set to \code{Inf} (default)
-the index of the closest values is returned without any restriction.
+For \code{closest}/\code{common} the \code{tolerance} argument could be set to \code{0}
+to get the same results as for \code{\link[base:match]{base::match()}}/\code{\link[base:match]{base::\%in\%}}. If it is
+set to \code{Inf} (default) the index of the closest values is returned
+without any restriction.
 
-It is not guaranteed that there is a one-to-one matching for neither the
-\code{x} to \code{table} nor the \code{table} to \code{x} matching.
+It is not guaranteed that there is a one-to-one matching for neither the \code{x}
+to \code{table} nor the \code{table} to \code{x} matching.
 
 If multiple elements in \code{x} match a single element in \code{table} all their
 corresponding indices are returned if \code{duplicates="keep"} is set (default).
-This behaviour is identical to \code{\link[BiocGenerics:match]{BiocGenerics::match()}}. For \code{duplicates="closest"} just
-the closest element in \code{x} gets the corresponding index in \code{table} and
+This behaviour is identical to \code{\link[base:match]{base::match()}}. For \code{duplicates="closest"}
+just the closest element in \code{x} gets the corresponding index in \code{table} and
 for \code{duplicates="remove"} all elements in \code{x} that match to the same element
 in \code{table} are set to \code{nomatch}.
 
@@ -107,23 +107,20 @@ multiple matches isn't possible in this case because the return value should
 be of the same length as \code{x}). If the differences between \code{x} and the
 corresponding matches in \code{table} are identical the lower index (the smaller
 element in \code{table}) is returned. There is one exception: if the lower index
-is already returned for another \code{x} with a smaller difference to this
-\code{index} the higher one is returned for \code{duplicates = "closer"}
-(but only if there is no other \code{x} that is closer to the higher one).
-For \code{duplicates="remove"} all multiple matches are returned as \code{nomatch} as
-above.
+is already returned for another \code{x} with a smaller difference to this \code{index}
+the higher one is returned for \code{duplicates = "closer"} (but only if there is
+no other \code{x} that is closer to the higher one).  For \code{duplicates="remove"}
+all multiple matches are returned as \code{nomatch} as above.
 
 \code{.checks = TRUE} tests among other input validation checks for increasingly
 sorted \code{x} and \code{table} arguments that are mandatory assumptions for the
 \code{closest} algorithm. These checks require to loop through both vectors and
-compare each element against its precursor.
-Depending on the length and distribution of \code{x} and \code{table} these checks take
-equal/more time than the whole \code{closest} algorithm. If it is ensured by other
-methods that both arguments \code{x} and \code{table} are sorted the tests could be
-skipped by \code{.check = FALSE}. In the case that \code{.check = FALSE} is used
-and one of \code{x} and \code{table} is not sorted (or decreasingly sorted)
-the output would be incorrect in the best case and result in infinity
-loop in the average and worst case.
+compare each element against its precursor.  Depending on the length and
+distribution of \code{x} and \code{table} these checks take equal/more time than the
+whole \code{closest} algorithm. If it is ensured by other methods that both
+arguments \code{x} and \code{table} are sorted the tests could be skipped by \code{.check = FALSE}. In the case that \code{.check = FALSE} is used and one of \code{x} and \code{table}
+is not sorted (or decreasingly sorted) the output would be incorrect in the
+best case and result in infinity loop in the average and worst case.
 
 \code{join}: joins two \code{numeric} vectors by mapping values in \code{x} with
 values in \code{y} and \emph{vice versa} if they are similar enough (provided the
@@ -205,9 +202,9 @@ x[ji$x]
 y[ji$y]
 }
 \seealso{
-\code{\link[BiocGenerics:match]{BiocGenerics::match()}}
+\code{\link[base:match]{base::match()}}
 
-\code{\link{\%in\%}}
+\code{\link[base:match]{base::\%in\%}}
 
 Other grouping/matching functions: 
 \code{\link{bin}()},
