@@ -2,64 +2,64 @@
 ##'
 ##' @description
 ##'
-##' The `impute_matrix` function performs data imputation on `matrix`
-##' objects instance using a variety of methods (see below).
+##' The `impute_matrix` function performs data imputation on `matrix` objects
+##' using a variety of methods (see below).
 ##'
-##' Users should proceed with care when imputing data and take
-##' precautions to assure that the imputation produces valid results,
-##' in particular with naive imputations such as replacing missing
-##' values with 0.
+##' Users should proceed with care when imputing data and take precautions to
+##' assure that the imputation produces valid results, in particular with naive
+##' imputations such as replacing missing values with 0.
 ##'
 ##' @section Types of missing values:
 ##'
-##' There are two types of mechanisms resulting in missing values in
-##' LC/MSMS experiments.
+##' There are two types of mechanisms resulting in missing values in LC/MSMS
+##' experiments.
 ##'
-##' - Missing values resulting from absence of detection of a feature,
-##'   despite ions being present at detectable concentrations. For
-##'   example in the case of ion suppression or as a result from the
-##'   stochastic, data-dependent nature of the DDA MS acquisition
-##'   method. These missing value are expected to be randomly
-##'   distributed in the data and are defined, in statistical terms,
-##'   as missing at random (MAR) or missing completely at random (MCAR).
+##' - Missing values resulting from absence of detection of a feature, despite
+##'   ions being present at detectable concentrations. For example in the case
+##'   of ion suppression or as a result from the stochastic, data-dependent
+##'   nature of the DDA MS acquisition method. These missing value are expected
+##'   to be randomly distributed in the data and are defined, in statistical
+##'   terms, as missing at random (MAR) or missing completely at random (MCAR).
 ##'
-##' - Biologically relevant missing values resulting from the absence
-##'   or the low abundance of ions (i.e. below the limit of detection of
-##'   the instrument). These missing values are not expected to be
-##'   randomly distributed in the data and are defined as missing not
-##'   at random (MNAR).
+##' - Biologically relevant missing values resulting from the absence or the low
+##'   abundance of ions (i.e. below the limit of detection of the
+##'   instrument). These missing values are not expected to be randomly
+##'   distributed in the data and are defined as missing not at random (MNAR).
 ##'
-##' MNAR features should ideally be imputed with a left-censor method,
-##' such as `QRILC` below. Conversely, it is recommended to use hot
-##' deck methods such nearest neighbours, Bayesian missing value
-##' imputation or maximum likelihood methods when values are missing
-##' at random.
+##' MNAR features should ideally be imputed with a left-censor method, such as
+##' `QRILC` below. Conversely, it is recommended to use hot deck methods such
+##' nearest neighbours, Bayesian missing value imputation or maximum likelihood
+##' methods when values are missing at random.
 ##'
 ##' @section Imputing by rows or columns:
 ##'
-##' We assume that the input matrix `x` contains features along the
-##' rows and samples along the columns, as is generally the case in
-##' omics data analysis. When performing imputation, the missing
-##' values are taken as a feature-specific property: feature *x* is
-##' missing because it is absent (in a sample or group), or because it
-##' was missed during acquisition (not selected during data dependent
-##' acquisition) or data processing (not identified or with an
-##' identification score below a chosen false discovery threshold). As
-##' such, imputation is by default performed at the *feature
-##' level*. In some cases, such as imputation by zero or a global
-##' minimum value, it doesn't matter. In other cases, it does matter
-##' very much, such as for example when using the minimum value
-##' computed for each margin (i.e. row or column) as in the *MinDet*
-##' method (see below) - do we want to use the minimum of the sample
-##' or of that feature? KNN is another such example: do we consider
-##' the most similar features to impute a feature with missing values,
+##' We assume that the input matrix `x` contains features along the rows and
+##' samples along the columns, as is generally the case in omics data
+##' analysis. When performing imputation, the missing values are taken as a
+##' feature-specific property: feature *x* is missing because it is absent (in a
+##' sample or group), or because it was missed during acquisition (not selected
+##' during data dependent acquisition) or data processing (not identified or
+##' with an identification score below a chosen false discovery threshold). As
+##' such, imputation is by default performed at the *feature level* (along the
+##' rows, i.e first margin).
+##'
+##' In some cases, such as imputation by zero or a global minimum value, the
+##' direction/margin doesn't matter, as all missing values are imputed
+##' deteministically with a predefined value.
+##'
+##' In other cases, the direction/margin does matter very much, such as for
+##' example when using the minimum value computed for a given margin (i.e. row or
+##' column) as in the *MinDet* method (see below) - do we want to use the
+##' minimum of the sample or of that feature? KNN is another such example: do we
+##' consider the most similar features to impute a feature with missing values,
 ##' or the most similar samples to impute all missing in a sample.
 ##'
-##' The `MARGIN` argument can be used to change the imputation margin
-##' from features/rows (`MARGIN = 1`) to samples/columns (`MARGIN = 2`).
-##' Different imputations will have different default values, and
-##' changing this parameter can have a major impact on imputation results
-##' and downstream results.
+##' The `MARGIN` argument can be used to change the imputation margin from
+##' features/rows (`MARGIN = 1`) to samples/columns (`MARGIN = 2`).  Different
+##' imputations will have different default values, and changing this parameter
+##' can have a major impact on imputation results and downstream results. Use
+##' `getImputeMargin(fun)` to get the default margin of imputation function
+##' `fun`.
 ##'
 ##' @section Imputation methods:
 ##'
@@ -67,104 +67,99 @@
 ##'
 ##' - *MLE*: Maximum likelihood-based imputation method using the EM
 ##'   algorithm. The `impute_mle()` function relies on
-##'   `norm::imp.norm()`. function. See [norm::imp.norm()] for details
-##'   and additional parameters. Note that here, `...` are passed to
-##'   the [norm::em.norm()] function, rather to the actual imputation
-##'   function `imp.norm`.
+##'   `norm::imp.norm()`. function. See [norm::imp.norm()] for details and
+##'   additional parameters. Note that here, `...` are passed to the
+##'   [norm::em.norm()] function, rather to the actual imputation function
+##'   `imp.norm`.
 ##'
-##' - *bpca*: Bayesian missing value imputation are available, as
-##'   implemented in the `pcaMethods::pca()` function. See
-##'   [pcaMethods::pca()] for details and additional parameters.
+##' - *bpca*: Bayesian missing value imputation are available, as implemented in
+##'   the `pcaMethods::pca()` function. See [pcaMethods::pca()] for details and
+##'   additional parameters.
 ##'
 ##' - *RF*: Random Forest imputation, as implemented in the
 ##'   `missForest::missForest` function. See [missForest::missForest()]] for
 ##'   details and additional parameters.
 ##'
 ##' - *knn*: Nearest neighbour averaging, as implemented in the
-##'   `impute::impute.knn` function. See [impute::impute.knn()]] for
-##'   details and additional parameters.
+##'   `impute::impute.knn` function. See [impute::impute.knn()]] for details and
+##'   additional parameters.
 ##'
-##' - *QRILC*: A missing data imputation method that performs the
-##'   imputation of left-censored missing data using random draws from
-##'   a truncated distribution with parameters estimated using
-##'   quantile regression. The `impute_QRILC()` function calls
-##'   [imputeLCMD::impute.QRILC()] from the `imputeLCMD` package.
+##' - *QRILC*: A missing data imputation method that performs the imputation of
+##'   left-censored missing data using random draws from a truncated
+##'   distribution with parameters estimated using quantile regression. The
+##'   `impute_QRILC()` function calls [imputeLCMD::impute.QRILC()] from the
+##'   `imputeLCMD` package.
 ##'
-##' - *MinDet*: Performs the imputation of left-censored missing data
-##'   using a deterministic minimal value approach. Considering a
-##'   expression data with *n* samples and *p* features, for each
-##'   sample, the missing entries are replaced with a minimal value
-##'   observed in that sample. The minimal value observed is estimated
-##'   as being the q-th quantile (default `q = 0.01`) of the observed
-##'   values in that sample. The implementation in based on the
+##' - *MinDet*: Performs the imputation of left-censored missing data using a
+##'   deterministic minimal value approach. Considering a expression data with
+##'   *n* samples and *p* features, for each sample, the missing entries are
+##'   replaced with a minimal value observed in that sample. The minimal value
+##'   observed is estimated as being the q-th quantile (default `q = 0.01`) of
+##'   the observed values in that sample. The implementation in based on the
 ##'   `imputeLCMD::impute.MinDet()` function.
 ##'
-##' - *MinProb*: Performs the imputation of left-censored missing data
-##'   by random draws from a Gaussian distribution centred to a
-##'   minimal value. Considering an expression data matrix with *n*
-##'   samples and *p* features, for each sample, the mean value of the
-##'   Gaussian distribution is set to a minimal observed value in that
-##'   sample. The minimal value observed is estimated as being the
-##'   q-th quantile (default `q = 0.01`) of the observed values in
-##'   that sample. The standard deviation is estimated as the median
-##'   of the feature (or sample) standard deviations. Note that when
-##'   estimating the standard deviation of the Gaussian distribution,
-##'   only the peptides/proteins which present more than 50\% recorded
-##'   values are considered. The `impute_MinProb()` function calls
+##' - *MinProb*: Performs the imputation of left-censored missing data by random
+##'   draws from a Gaussian distribution centred to a minimal value. Considering
+##'   an expression data matrix with *n* samples and *p* features, for each
+##'   sample, the mean value of the Gaussian distribution is set to a minimal
+##'   observed value in that sample. The minimal value observed is estimated as
+##'   being the q-th quantile (default `q = 0.01`) of the observed values in
+##'   that sample. The standard deviation is estimated as the median of the
+##'   feature (or sample) standard deviations. Note that when estimating the
+##'   standard deviation of the Gaussian distribution, only the
+##'   peptides/proteins which present more than 50\% recorded values are
+##'   considered. The `impute_MinProb()` function calls
 ##'   [imputeLCMD::impute.MinProb()] from the `imputeLCMD` package.
 ##'
-##' - *min*: Replaces the missing values with the smallest non-missing
-##'   value in the data.
+##' - *min*: Replaces the missing values with the smallest non-missing value in
+##'   the data.
 ##'
 ##' - *zero*: Replaces the missing values with 0.
 ##'
-##' - *mixed*: A mixed imputation applying two methods (to be defined
-##'   by the user as `mar` for values missing at random and `mnar` for
-##'   values missing not at random, see example) on two M[C]AR/MNAR
-##'   subsets of the data (as defined by the user by a `randna`
-##'   logical, of length equal to nrow(object)).
+##' - *mixed*: A mixed imputation applying two methods (to be defined by the
+##'   user as `mar` for values missing at random and `mnar` for values missing
+##'   not at random, see example) on two M[C]AR/MNAR subsets of the data (as
+##'   defined by the user by a `randna` logical, of length equal to
+##'   `nrow(object)`).
 ##'
-##' - *nbavg*: Average neighbour imputation for fractions collected
-##'   along a fractionation/separation gradient, such as sub-cellular
-##'   fractions. The method assumes that the fraction are ordered
-##'   along the gradient and is invalid otherwise.
+##' - *nbavg*: Average neighbour imputation for fractions collected along a
+##'   fractionation/separation gradient, such as sub-cellular fractions. The
+##'   method assumes that the fraction are ordered along the gradient and is
+##'   invalid otherwise.
 ##'
 ##'   Continuous sets `NA` value at the beginning and the end of the
-##'   quantitation vectors are set to the lowest observed value in the
-##'   data or to a user defined value passed as argument `k`. Then,
-##'   when a missing value is flanked by two non-missing neighbouring
-##'   values, it is imputed by the mean of its direct neighbours.
+##'   quantitation vectors are set to the lowest observed value in the data or
+##'   to a user defined value passed as argument `k`. Then, when a missing value
+##'   is flanked by two non-missing neighbouring values, it is imputed by the
+##'   mean of its direct neighbours.
 ##'
 ##' - *with*: Replaces all missing values with a user-provided value.
 ##'
-##' - *none*: No imputation is performed and the missing values are
-##'   left untouched. Implemented in case one wants to only impute
-##'   value missing at random or not at random with the *mixed*
-##'   method.
+##' - *none*: No imputation is performed and the missing values are left
+##'   untouched. Implemented in case one wants to only impute value missing at
+##'   random or not at random with the *mixed* method.
 ##'
-##' The `imputeMethods()` function returns a vector with valid
-##' imputation method names. Use `getImputeMargin()` to get the
-##' default margin for each imputation function.
+##' The `imputeMethods()` function returns a vector with valid imputation method
+##' names. Use `getImputeMargin()` to get the default margin for each imputation
+##' function.
 ##'
 ##' @references
 ##'
-##' Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,
-##' Trevor Hastie, Robert Tibshirani, David Botstein and Russ B.
-##' Altman, Missing value estimation methods for DNA microarrays
-##' Bioinformatics (2001) 17 (6): 520-525.
+##' Troyanskaya O, Cantor M, Sherlock G, Brown P, Hastie T, Tibshirani R,
+##' Botstein D and Altman RB, *Missing value estimation methods for DNA
+##' microarrays*, Bioinformatics (2001) 17 (6): 520-525.
 ##'
-##' Oba et al., A Bayesian missing value estimation method for gene
-##' expression profile data, Bioinformatics (2003) 19 (16): 2088-2096.
+##' Oba et al., *A Bayesian missing value estimation method for gene expression
+##' profile data*, Bioinformatics (2003) 19 (16): 2088-2096.
 ##'
-##' Cosmin Lazar (2015). imputeLCMD: A collection of methods for
-##' left-censored missing data imputation. R package version
+##' Lazar C (2015). *imputeLCMD: A collection of methods for left-censored
+##' missing data imputation*. R package version
 ##' 2.0. \url{http://CRAN.R-project.org/package=imputeLCMD}.
 ##'
-##' Lazar C, Gatto L, Ferro M, Bruley C, Burger T. Accounting for the
-##' Multiple Natures of Missing Values in Label-Free Quantitative
-##' Proteomics Data Sets to Compare Imputation Strategies. J Proteome
-##' Res. 2016 Apr 1;15(4):1116-25. doi:
-##' 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
+##' Lazar C, Gatto L, Ferro M, Bruley C and Burger T. *Accounting for the
+##' Multiple Natures of Missing Values in Label-Free Quantitative Proteomics
+##' Data Sets to Compare Imputation Strategies*. J Proteome Res. 2016 Apr
+##' 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
 ##'
 ##' @rdname imputation
 ##'
@@ -213,15 +208,17 @@
 ##' @param method `character(1)` defining the imputation method. See
 ##'     `imputeMethods()` for available ones.
 ##'
-##' @param ... Additional parameters passed to the inner imputation
-##'     function.
+##' @param ... Additional parameters passed to the inner imputation function.
 ##'
-##' @param MARGIN `integer(1)` defining the margin along which to
-##'     apply imputation, with `1L` for rows and `2L` for columns. The
-##'     default value will depend on the imputation method. Use
-##'     `getImputeMargin(fun)` to get the default margin of imputation
-##'     function `fun`. If the function doesn't take a margin
-##'     argument, `NA` is returned.
+##' @param MARGIN `integer(1)` defining the margin along which to apply
+##'     imputation, with `1L` for rows and `2L` for columns. The default value
+##'     will depend on the imputation method. Use `getImputeMargin(fun)` to get
+##'     the default margin of imputation function `fun`. If the function doesn't
+##'     take a margin argument, `NA` is returned. For mixed imputation,
+##'     `integer(2)` can be provided to set two margins, the first one for the
+##'     MAR imputation, and the second one for MNAR imputation. If only one
+##'     margin is passed (i.e. as `integer(1)`), the single margin is reused for
+##'     both MAR and MNAR.
 ##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
@@ -401,21 +398,21 @@ impute_RF <- function(x, MARGIN = 2L, ...) {
     res
 }
 
-##' @param randna `logical` of length equal to `nrow(object)` defining
-##'     which rows are missing at random. The other ones are
-##'     considered missing not at random. Only relevant when `methods`
-##'     is `mixed`.
+##' @param randna `logical` of length equal to `nrow(object)` defining which
+##'     rows are missing at random. The other ones are considered missing not at
+##'     random. Only relevant when `methods` is `mixed`.
 ##'
-##' @param mar Imputation method for values missing at random. See
-##'     `method` above.
+##' @param mar Imputation method for values missing at random. See `method`
+##'     above.
 ##'
-##' @param mnar Imputation method for values missing not at
-##'     random. See `method` above.
+##' @param mnar Imputation method for values missing not at random. See `method`
+##'     above.
 ##'
 ##' @export
 ##'
 ##' @rdname imputation
-impute_mixed <- function(x, randna, mar, mnar, MARGIN = 1L, ...) {
+impute_mixed <- function(x, randna, mar, mnar,
+                         MARGIN = c(1L, 1L)) {
     if (missing(randna))
         stop("Mixed imputation requires 'randna' argument. See ?impute_mixed.",
              call. = FALSE)
@@ -426,16 +423,20 @@ impute_mixed <- function(x, randna, mar, mnar, MARGIN = 1L, ...) {
     if (missing(mnar))
         stop("Mixed imputation requires 'mnar' argument. See ?impute_mixed.",
              call. = FALSE)
-    suppressMessages(MARGIN <- .checkMargin(MARGIN))
-    if (MARGIN == 2L) x <- t(x)
+    ## Allow length(MARGIN) == 1 for backward compatibility.
+    if (length(MARGIN) == 1)
+        MARGIN <- c(MARGIN, MARGIN)
+    if (length(MARGIN) != 2)
+        stop("MARGIN must be of length 1 or 2.")
     if (length(randna) != nrow(x))
-        stop("Number of proteins and length of randna must be equal.",
+        stop("Number of rows and length of randna must be equal.",
              call. = FALSE)
+    ## MAR imputation - first MARGIN
     x[randna, ] <- impute_matrix(x[randna, ], mar,
-                                 MARGIN = MARGIN, ...)
+                                 MARGIN = MARGIN[[1]])
+    ## MAR imputation - second MARGIN
     x[!randna, ] <- impute_matrix(x[!randna, ], mnar,
-                                  MARGIN = MARGIN, ...)
-    if (MARGIN == 2L) x <- t(x)
+                                  MARGIN = MARGIN[[2]])
     x
 }
 

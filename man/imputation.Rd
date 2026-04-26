@@ -33,7 +33,7 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = 1L, ...)
+impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L))
 
 impute_min(x)
 
@@ -60,30 +60,31 @@ getImputeMargin(fun)
 \item{FUN}{A user-provided function that takes a \code{matrix} as input and
 returns an imputed \code{matrix} of identical dimensions.}
 
-\item{...}{Additional parameters passed to the inner imputation
-function.}
+\item{...}{Additional parameters passed to the inner imputation function.}
 
 \item{k}{\code{numeric(1)} providing the imputation value used for the
 first and last samples if they contain an \code{NA}. The default is
 to use the smallest value in the data.}
 
-\item{MARGIN}{\code{integer(1)} defining the margin along which to
-apply imputation, with \code{1L} for rows and \code{2L} for columns. The
-default value will depend on the imputation method. Use
-\code{getImputeMargin(fun)} to get the default margin of imputation
-function \code{fun}. If the function doesn't take a margin
-argument, \code{NA} is returned.}
+\item{MARGIN}{\code{integer(1)} defining the margin along which to apply
+imputation, with \code{1L} for rows and \code{2L} for columns. The default value
+will depend on the imputation method. Use \code{getImputeMargin(fun)} to get
+the default margin of imputation function \code{fun}. If the function doesn't
+take a margin argument, \code{NA} is returned. For mixed imputation,
+\code{integer(2)} can be provided to set two margins, the first one for the
+MAR imputation, and the second one for MNAR imputation. If only one
+margin is passed (i.e. as \code{integer(1)}), the single margin is reused for
+both MAR and MNAR.}
 
-\item{randna}{\code{logical} of length equal to \code{nrow(object)} defining
-which rows are missing at random. The other ones are
-considered missing not at random. Only relevant when \code{methods}
-is \code{mixed}.}
+\item{randna}{\code{logical} of length equal to \code{nrow(object)} defining which
+rows are missing at random. The other ones are considered missing not at
+random. Only relevant when \code{methods} is \code{mixed}.}
 
-\item{mar}{Imputation method for values missing at random. See
-\code{method} above.}
+\item{mar}{Imputation method for values missing at random. See \code{method}
+above.}
 
-\item{mnar}{Imputation method for values missing not at
-random. See \code{method} above.}
+\item{mnar}{Imputation method for values missing not at random. See \code{method}
+above.}
 
 \item{q}{\code{numeric(1)} indicating the quantile to be used to
 estimate the minimum in \code{MinDet} and \code{MinProb}. Default is
@@ -100,67 +101,67 @@ MNAR distribution in \code{MinProb} and \code{QRILC}. Default is 1.}
 A matrix of same class as \code{x} with dimensions \code{dim(x)}.
 }
 \description{
-The \code{impute_matrix} function performs data imputation on \code{matrix}
-objects instance using a variety of methods (see below).
+The \code{impute_matrix} function performs data imputation on \code{matrix} objects
+using a variety of methods (see below).
 
-Users should proceed with care when imputing data and take
-precautions to assure that the imputation produces valid results,
-in particular with naive imputations such as replacing missing
-values with 0.
+Users should proceed with care when imputing data and take precautions to
+assure that the imputation produces valid results, in particular with naive
+imputations such as replacing missing values with 0.
 }
 \section{Types of missing values}{
 
 
-There are two types of mechanisms resulting in missing values in
-LC/MSMS experiments.
+There are two types of mechanisms resulting in missing values in LC/MSMS
+experiments.
 \itemize{
-\item Missing values resulting from absence of detection of a feature,
-despite ions being present at detectable concentrations. For
-example in the case of ion suppression or as a result from the
-stochastic, data-dependent nature of the DDA MS acquisition
-method. These missing value are expected to be randomly
-distributed in the data and are defined, in statistical terms,
-as missing at random (MAR) or missing completely at random (MCAR).
-\item Biologically relevant missing values resulting from the absence
-or the low abundance of ions (i.e. below the limit of detection of
-the instrument). These missing values are not expected to be
-randomly distributed in the data and are defined as missing not
-at random (MNAR).
+\item Missing values resulting from absence of detection of a feature, despite
+ions being present at detectable concentrations. For example in the case
+of ion suppression or as a result from the stochastic, data-dependent
+nature of the DDA MS acquisition method. These missing value are expected
+to be randomly distributed in the data and are defined, in statistical
+terms, as missing at random (MAR) or missing completely at random (MCAR).
+\item Biologically relevant missing values resulting from the absence or the low
+abundance of ions (i.e. below the limit of detection of the
+instrument). These missing values are not expected to be randomly
+distributed in the data and are defined as missing not at random (MNAR).
 }
 
-MNAR features should ideally be imputed with a left-censor method,
-such as \code{QRILC} below. Conversely, it is recommended to use hot
-deck methods such nearest neighbours, Bayesian missing value
-imputation or maximum likelihood methods when values are missing
-at random.
+MNAR features should ideally be imputed with a left-censor method, such as
+\code{QRILC} below. Conversely, it is recommended to use hot deck methods such
+nearest neighbours, Bayesian missing value imputation or maximum likelihood
+methods when values are missing at random.
 }
 
 \section{Imputing by rows or columns}{
 
 
-We assume that the input matrix \code{x} contains features along the
-rows and samples along the columns, as is generally the case in
-omics data analysis. When performing imputation, the missing
-values are taken as a feature-specific property: feature \emph{x} is
-missing because it is absent (in a sample or group), or because it
-was missed during acquisition (not selected during data dependent
-acquisition) or data processing (not identified or with an
-identification score below a chosen false discovery threshold). As
-such, imputation is by default performed at the \emph{feature
-level}. In some cases, such as imputation by zero or a global
-minimum value, it doesn't matter. In other cases, it does matter
-very much, such as for example when using the minimum value
-computed for each margin (i.e. row or column) as in the \emph{MinDet}
-method (see below) - do we want to use the minimum of the sample
-or of that feature? KNN is another such example: do we consider
-the most similar features to impute a feature with missing values,
+We assume that the input matrix \code{x} contains features along the rows and
+samples along the columns, as is generally the case in omics data
+analysis. When performing imputation, the missing values are taken as a
+feature-specific property: feature \emph{x} is missing because it is absent (in a
+sample or group), or because it was missed during acquisition (not selected
+during data dependent acquisition) or data processing (not identified or
+with an identification score below a chosen false discovery threshold). As
+such, imputation is by default performed at the \emph{feature level} (along the
+rows, i.e first margin).
+
+In some cases, such as imputation by zero or a global minimum value, the
+direction/margin doesn't matter, as all missing values are imputed
+deteministically with a predefined value.
+
+In other cases, the direction/margin does matter very much, such as for
+example when using the minimum value computed for a given margin (i.e. row or
+column) as in the \emph{MinDet} method (see below) - do we want to use the
+minimum of the sample or of that feature? KNN is another such example: do we
+consider the most similar features to impute a feature with missing values,
 or the most similar samples to impute all missing in a sample.
 
-The \code{MARGIN} argument can be used to change the imputation margin
-from features/rows (\code{MARGIN = 1}) to samples/columns (\code{MARGIN = 2}).
-Different imputations will have different default values, and
-changing this parameter can have a major impact on imputation results
-and downstream results.
+The \code{MARGIN} argument can be used to change the imputation margin from
+features/rows (\code{MARGIN = 1}) to samples/columns (\code{MARGIN = 2}).  Different
+imputations will have different default values, and changing this parameter
+can have a major impact on imputation results and downstream results. Use
+\code{getImputeMargin(fun)} to get the default margin of imputation function
+\code{fun}.
 }
 
 \section{Imputation methods}{
@@ -170,73 +171,70 @@ Currently, the following imputation methods are available.
 \itemize{
 \item \emph{MLE}: Maximum likelihood-based imputation method using the EM
 algorithm. The \code{impute_mle()} function relies on
-\code{norm::imp.norm()}. function. See \code{\link[norm:imp.norm]{norm::imp.norm()}} for details
-and additional parameters. Note that here, \code{...} are passed to
-the \code{\link[norm:em.norm]{norm::em.norm()}} function, rather to the actual imputation
-function \code{imp.norm}.
-\item \emph{bpca}: Bayesian missing value imputation are available, as
-implemented in the \code{pcaMethods::pca()} function. See
-\code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and additional parameters.
+\code{norm::imp.norm()}. function. See \code{\link[norm:imp.norm]{norm::imp.norm()}} for details and
+additional parameters. Note that here, \code{...} are passed to the
+\code{\link[norm:em.norm]{norm::em.norm()}} function, rather to the actual imputation function
+\code{imp.norm}.
+\item \emph{bpca}: Bayesian missing value imputation are available, as implemented in
+the \code{pcaMethods::pca()} function. See \code{\link[pcaMethods:pca]{pcaMethods::pca()}} for details and
+additional parameters.
 \item \emph{RF}: Random Forest imputation, as implemented in the
 \code{missForest::missForest} function. See \code{\link[missForest:missForest]{missForest::missForest()}}] for
 details and additional parameters.
 \item \emph{knn}: Nearest neighbour averaging, as implemented in the
-\code{impute::impute.knn} function. See \code{\link[impute:impute.knn]{impute::impute.knn()}}] for
-details and additional parameters.
-\item \emph{QRILC}: A missing data imputation method that performs the
-imputation of left-censored missing data using random draws from
-a truncated distribution with parameters estimated using
-quantile regression. The \code{impute_QRILC()} function calls
-\code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} from the \code{imputeLCMD} package.
-\item \emph{MinDet}: Performs the imputation of left-censored missing data
-using a deterministic minimal value approach. Considering a
-expression data with \emph{n} samples and \emph{p} features, for each
-sample, the missing entries are replaced with a minimal value
-observed in that sample. The minimal value observed is estimated
-as being the q-th quantile (default \code{q = 0.01}) of the observed
-values in that sample. The implementation in based on the
+\code{impute::impute.knn} function. See \code{\link[impute:impute.knn]{impute::impute.knn()}}] for details and
+additional parameters.
+\item \emph{QRILC}: A missing data imputation method that performs the imputation of
+left-censored missing data using random draws from a truncated
+distribution with parameters estimated using quantile regression. The
+\code{impute_QRILC()} function calls \code{\link[imputeLCMD:impute.QRILC]{imputeLCMD::impute.QRILC()}} from the
+\code{imputeLCMD} package.
+\item \emph{MinDet}: Performs the imputation of left-censored missing data using a
+deterministic minimal value approach. Considering a expression data with
+\emph{n} samples and \emph{p} features, for each sample, the missing entries are
+replaced with a minimal value observed in that sample. The minimal value
+observed is estimated as being the q-th quantile (default \code{q = 0.01}) of
+the observed values in that sample. The implementation in based on the
 \code{imputeLCMD::impute.MinDet()} function.
-\item \emph{MinProb}: Performs the imputation of left-censored missing data
-by random draws from a Gaussian distribution centred to a
-minimal value. Considering an expression data matrix with \emph{n}
-samples and \emph{p} features, for each sample, the mean value of the
-Gaussian distribution is set to a minimal observed value in that
-sample. The minimal value observed is estimated as being the
-q-th quantile (default \code{q = 0.01}) of the observed values in
-that sample. The standard deviation is estimated as the median
-of the feature (or sample) standard deviations. Note that when
-estimating the standard deviation of the Gaussian distribution,
-only the peptides/proteins which present more than 50\\% recorded
-values are considered. The \code{impute_MinProb()} function calls
+\item \emph{MinProb}: Performs the imputation of left-censored missing data by random
+draws from a Gaussian distribution centred to a minimal value. Considering
+an expression data matrix with \emph{n} samples and \emph{p} features, for each
+sample, the mean value of the Gaussian distribution is set to a minimal
+observed value in that sample. The minimal value observed is estimated as
+being the q-th quantile (default \code{q = 0.01}) of the observed values in
+that sample. The standard deviation is estimated as the median of the
+feature (or sample) standard deviations. Note that when estimating the
+standard deviation of the Gaussian distribution, only the
+peptides/proteins which present more than 50\\% recorded values are
+considered. The \code{impute_MinProb()} function calls
 \code{\link[imputeLCMD:impute.MinProb]{imputeLCMD::impute.MinProb()}} from the \code{imputeLCMD} package.
-\item \emph{min}: Replaces the missing values with the smallest non-missing
-value in the data.
+\item \emph{min}: Replaces the missing values with the smallest non-missing value in
+the data.
 \item \emph{zero}: Replaces the missing values with 0.
-\item \emph{mixed}: A mixed imputation applying two methods (to be defined
-by the user as \code{mar} for values missing at random and \code{mnar} for
-values missing not at random, see example) on two M\link{C}AR/MNAR
-subsets of the data (as defined by the user by a \code{randna}
-logical, of length equal to nrow(object)).
-\item \emph{nbavg}: Average neighbour imputation for fractions collected
-along a fractionation/separation gradient, such as sub-cellular
-fractions. The method assumes that the fraction are ordered
-along the gradient and is invalid otherwise.
+\item \emph{mixed}: A mixed imputation applying two methods (to be defined by the
+user as \code{mar} for values missing at random and \code{mnar} for values missing
+not at random, see example) on two M\link{C}AR/MNAR subsets of the data (as
+defined by the user by a \code{randna} logical, of length equal to
+\code{nrow(object)}).
+\item \emph{nbavg}: Average neighbour imputation for fractions collected along a
+fractionation/separation gradient, such as sub-cellular fractions. The
+method assumes that the fraction are ordered along the gradient and is
+invalid otherwise.
 
 Continuous sets \code{NA} value at the beginning and the end of the
-quantitation vectors are set to the lowest observed value in the
-data or to a user defined value passed as argument \code{k}. Then,
-when a missing value is flanked by two non-missing neighbouring
-values, it is imputed by the mean of its direct neighbours.
+quantitation vectors are set to the lowest observed value in the data or
+to a user defined value passed as argument \code{k}. Then, when a missing value
+is flanked by two non-missing neighbouring values, it is imputed by the
+mean of its direct neighbours.
 \item \emph{with}: Replaces all missing values with a user-provided value.
-\item \emph{none}: No imputation is performed and the missing values are
-left untouched. Implemented in case one wants to only impute
-value missing at random or not at random with the \emph{mixed}
-method.
+\item \emph{none}: No imputation is performed and the missing values are left
+untouched. Implemented in case one wants to only impute value missing at
+random or not at random with the \emph{mixed} method.
 }
 
-The \code{imputeMethods()} function returns a vector with valid
-imputation method names. Use \code{getImputeMargin()} to get the
-default margin for each imputation function.
+The \code{imputeMethods()} function returns a vector with valid imputation method
+names. Use \code{getImputeMargin()} to get the default margin for each imputation
+function.
 }
 
 \examples{
@@ -296,23 +294,21 @@ getImputeMargin(impute_zero) ## NA: no margin here
 sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
 }
 \references{
-Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown,
-Trevor Hastie, Robert Tibshirani, David Botstein and Russ B.
-Altman, Missing value estimation methods for DNA microarrays
-Bioinformatics (2001) 17 (6): 520-525.
+Troyanskaya O, Cantor M, Sherlock G, Brown P, Hastie T, Tibshirani R,
+Botstein D and Altman RB, \emph{Missing value estimation methods for DNA
+microarrays}, Bioinformatics (2001) 17 (6): 520-525.
 
-Oba et al., A Bayesian missing value estimation method for gene
-expression profile data, Bioinformatics (2003) 19 (16): 2088-2096.
+Oba et al., \emph{A Bayesian missing value estimation method for gene expression
+profile data}, Bioinformatics (2003) 19 (16): 2088-2096.
 
-Cosmin Lazar (2015). imputeLCMD: A collection of methods for
-left-censored missing data imputation. R package version
+Lazar C (2015). \emph{imputeLCMD: A collection of methods for left-censored
+missing data imputation}. R package version
 2.0. \url{http://CRAN.R-project.org/package=imputeLCMD}.
 
-Lazar C, Gatto L, Ferro M, Bruley C, Burger T. Accounting for the
-Multiple Natures of Missing Values in Label-Free Quantitative
-Proteomics Data Sets to Compare Imputation Strategies. J Proteome
-Res. 2016 Apr 1;15(4):1116-25. doi:
-10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
+Lazar C, Gatto L, Ferro M, Bruley C and Burger T. \emph{Accounting for the
+Multiple Natures of Missing Values in Label-Free Quantitative Proteomics
+Data Sets to Compare Imputation Strategies}. J Proteome Res. 2016 Apr
+1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
 }
 \author{
 Laurent Gatto
