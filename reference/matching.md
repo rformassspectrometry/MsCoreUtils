@@ -2,8 +2,8 @@
 
 These functions offer relaxed matching of one vector in another. In
 contrast to the similar
-[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
-and [`%in%`](https://rdrr.io/r/base/match.html) functions they just
+[`base::match()`](https://rdrr.io/r/base/match.html) and
+[`base::%in%`](https://rdrr.io/r/base/match.html) functions they just
 accept `numeric` arguments but have an additional `tolerance` argument
 that allows relaxed matching.
 
@@ -45,16 +45,14 @@ join(
 - x:
 
   `numeric`, the values to be matched. In contrast to
-  [`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
-  `x` has to be sorted in increasing order and must not contain any
-  `NA`.
+  [`base::match()`](https://rdrr.io/r/base/match.html) `x` has to be
+  sorted in increasing order and must not contain any `NA`.
 
 - table:
 
   `numeric`, the values to be matched against. In contrast to
-  [`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
-  `table` has to be sorted in increasing order and must not contain any
-  `NA`.
+  [`base::match()`](https://rdrr.io/r/base/match.html) `table` has to be
+  sorted in increasing order and must not contain any `NA`.
 
 - tolerance:
 
@@ -103,7 +101,7 @@ is no match.
 
 `common` returns a `logical` vector of length `x` that is `TRUE` if the
 element in `x` was found in `table`. It is similar to
-[`%in%`](https://rdrr.io/r/base/match.html).
+[`base::%in%`](https://rdrr.io/r/base/match.html).
 
 `join` returns a `matrix` with two columns, namely `x` and `y`,
 representing the index of the values in `x` matching the corresponding
@@ -113,7 +111,7 @@ value in `y` (or `NA` if the value does not match).
 
 For `closest`/`common` the `tolerance` argument could be set to `0` to
 get the same results as for
-[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)/[`%in%`](https://rdrr.io/r/base/match.html).
+[`base::match()`](https://rdrr.io/r/base/match.html)/[`base::%in%`](https://rdrr.io/r/base/match.html).
 If it is set to `Inf` (default) the index of the closest values is
 returned without any restriction.
 
@@ -123,8 +121,8 @@ It is not guaranteed that there is a one-to-one matching for neither the
 If multiple elements in `x` match a single element in `table` all their
 corresponding indices are returned if `duplicates="keep"` is set
 (default). This behaviour is identical to
-[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html).
-For `duplicates="closest"` just the closest element in `x` gets the
+[`base::match()`](https://rdrr.io/r/base/match.html). For
+`duplicates="closest"` just the closest element in `x` gets the
 corresponding index in `table` and for `duplicates="remove"` all
 elements in `x` that match to the same element in `table` are set to
 `nomatch`.
@@ -171,9 +169,9 @@ That means for multiple matches just the closest one is reported.
 
 ## See also
 
-[`BiocGenerics::match()`](https://rdrr.io/pkg/BiocGenerics/man/match.html)
+[`base::match()`](https://rdrr.io/r/base/match.html)
 
-[`%in%`](https://rdrr.io/r/base/match.html)
+[`base::%in%`](https://rdrr.io/r/base/match.html)
 
 Other grouping/matching functions:
 [`bin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/binning.md),

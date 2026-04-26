@@ -1,7 +1,7 @@
 # Quantitative mass spectrometry data imputation
 
 The `impute_matrix` function performs data imputation on `matrix`
-objects instance using a variety of methods (see below).
+objects using a variety of methods (see below).
 
 Users should proceed with care when imputing data and take precautions
 to assure that the imputation produces valid results, in particular with
@@ -24,7 +24,7 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L), ...)
+impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L))
 
 impute_min(x)
 
@@ -75,9 +75,11 @@ getImputeMargin(fun)
   `1L` for rows and `2L` for columns. The default value will depend on
   the imputation method. Use `getImputeMargin(fun)` to get the default
   margin of imputation function `fun`. If the function doesn't take a
-  margin argument, `NA` is returned. For mixed imputation, two margins
-  can be provided, the first one for the MAR imputation, and the second
-  one for MNAR imputation.
+  margin argument, `NA` is returned. For mixed imputation, `integer(2)`
+  can be provided to set two margins, the first one for the MAR
+  imputation, and the second one for MNAR imputation. If only one margin
+  is passed (i.e. as `integer(1)`), the single margin is reused for both
+  MAR and MNAR.
 
 - randna:
 
@@ -150,20 +152,26 @@ feature-specific property: feature *x* is missing because it is absent
 selected during data dependent acquisition) or data processing (not
 identified or with an identification score below a chosen false
 discovery threshold). As such, imputation is by default performed at the
-*feature level*. In some cases, such as imputation by zero or a global
-minimum value, it doesn't matter. In other cases, it does matter very
-much, such as for example when using the minimum value computed for each
-margin (i.e. row or column) as in the *MinDet* method (see below) - do
-we want to use the minimum of the sample or of that feature? KNN is
-another such example: do we consider the most similar features to impute
-a feature with missing values, or the most similar samples to impute all
-missing in a sample.
+*feature level* (along the rows, i.e first margin).
+
+In some cases, such as imputation by zero or a global minimum value, the
+direction/margin doesn't matter, as all missing values are imputed
+deteministically with a predefined value.
+
+In other cases, the direction/margin does matter very much, such as for
+example when using the minimum value computed for a given margin (i.e.
+row or column) as in the *MinDet* method (see below) - do we want to use
+the minimum of the sample or of that feature? KNN is another such
+example: do we consider the most similar features to impute a feature
+with missing values, or the most similar samples to impute all missing
+in a sample.
 
 The `MARGIN` argument can be used to change the imputation margin from
 features/rows (`MARGIN = 1`) to samples/columns (`MARGIN = 2`).
 Different imputations will have different default values, and changing
 this parameter can have a major impact on imputation results and
-downstream results.
+downstream results. Use `getImputeMargin(fun)` to get the default margin
+of imputation function `fun`.
 
 ## Imputation methods
 
@@ -224,7 +232,7 @@ Currently, the following imputation methods are available.
   estimated as the median of the feature (or sample) standard
   deviations. Note that when estimating the standard deviation of the
   Gaussian distribution, only the peptides/proteins which present more
-  than 50\\ values are considered. The `impute_MinProb()` function calls
+  than 50\\ considered. The `impute_MinProb()` function calls
   [`imputeLCMD::impute.MinProb()`](https://rdrr.io/pkg/imputeLCMD/man/impute.MinProb.html)
   from the `imputeLCMD` package.
 
@@ -238,7 +246,7 @@ Currently, the following imputation methods are available.
   missing not at random, see example) on two
   M[C](https://rdrr.io/r/stats/zC.html)AR/MNAR subsets of the data (as
   defined by the user by a `randna` logical, of length equal to
-  nrow(object)).
+  `nrow(object)`).
 
 - *nbavg*: Average neighbour imputation for fractions collected along a
   fractionation/separation gradient, such as sub-cellular fractions. The
@@ -263,21 +271,20 @@ imputation function.
 
 ## References
 
-Olga Troyanskaya, Michael Cantor, Gavin Sherlock, Pat Brown, Trevor
-Hastie, Robert Tibshirani, David Botstein and Russ B. Altman, Missing
-value estimation methods for DNA microarrays Bioinformatics (2001) 17
-(6): 520-525.
+Troyanskaya O, Cantor M, Sherlock G, Brown P, Hastie T, Tibshirani R,
+Botstein D and Altman RB, *Missing value estimation methods for DNA
+microarrays*, Bioinformatics (2001) 17 (6): 520-525.
 
-Oba et al., A Bayesian missing value estimation method for gene
-expression profile data, Bioinformatics (2003) 19 (16): 2088-2096.
+Oba et al., *A Bayesian missing value estimation method for gene
+expression profile data*, Bioinformatics (2003) 19 (16): 2088-2096.
 
-Cosmin Lazar (2015). imputeLCMD: A collection of methods for
-left-censored missing data imputation. R package version 2.0.
+Lazar C (2015). *imputeLCMD: A collection of methods for left-censored
+missing data imputation*. R package version 2.0.
 <http://CRAN.R-project.org/package=imputeLCMD>.
 
-Lazar C, Gatto L, Ferro M, Bruley C, Burger T. Accounting for the
+Lazar C, Gatto L, Ferro M, Bruley C and Burger T. *Accounting for the
 Multiple Natures of Missing Values in Label-Free Quantitative Proteomics
-Data Sets to Compare Imputation Strategies. J Proteome Res. 2016 Apr
+Data Sets to Compare Imputation Strategies*. J Proteome Res. 2016 Apr
 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed
 PMID:26906401.
 
