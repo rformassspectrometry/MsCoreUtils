@@ -1,6 +1,6 @@
 * Allow two different MARGINs, for MAR and MNAR
 
-See `mixedMargins` branch and [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]].
+See [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]] and [[https://github.com/rformassspectrometry/MsCoreUtils/pull/149][PR 149]].
 
 * Use full matrix for mixed imputation
 
