@@ -1,5 +1,11 @@
 # Changelog
 
+## MsCoreUtils 1.25
+
+### MsCoreUtils 1.25.0
+
+- New devel version.
+
 ## MsCoreUtils 1.23
 
 ### MsCoreUtils 1.23.10
