@@ -33,7 +33,15 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L))
+impute_mixed(
+  x,
+  randna,
+  mar,
+  mnar,
+  MARGIN = c(1L, 1L),
+  marArgs = list(),
+  mnarArgs = list()
+)
 
 impute_min(x)
 
@@ -85,6 +93,12 @@ above.}
 
 \item{mnar}{Imputation method for values missing not at random. See \code{method}
 above.}
+
+\item{marArgs}{\code{list()} of arguments to be passed to the \code{mar} imputation
+function.}
+
+\item{mnarArgs}{\code{list()} of arguments to be passed to the \code{mnar} imputation
+function.}
 
 \item{q}{\code{numeric(1)} indicating the quantile to be used to
 estimate the minimum in \code{MinDet} and \code{MinProb}. Default is

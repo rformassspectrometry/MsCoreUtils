@@ -408,11 +408,19 @@ impute_RF <- function(x, MARGIN = 2L, ...) {
 ##' @param mnar Imputation method for values missing not at random. See `method`
 ##'     above.
 ##'
+##' @param marArgs `list()` of arguments to be passed to the `mar` imputation
+##'     function.
+##'
+##' @param mnarArgs `list()` of arguments to be passed to the `mnar` imputation
+##'     function.
+##'
 ##' @export
 ##'
 ##' @rdname imputation
 impute_mixed <- function(x, randna, mar, mnar,
-                         MARGIN = c(1L, 1L)) {
+                         MARGIN = c(1L, 1L),
+                         marArgs = list(),
+                         mnarArgs = list()) {
     if (missing(randna))
         stop("Mixed imputation requires 'randna' argument. See ?impute_mixed.",
              call. = FALSE)
@@ -432,11 +440,17 @@ impute_mixed <- function(x, randna, mar, mnar,
         stop("Number of rows and length of randna must be equal.",
              call. = FALSE)
     ## MAR imputation - first MARGIN
-    x[randna, ] <- impute_matrix(x[randna, ], mar,
-                                 MARGIN = MARGIN[[1]])
-    ## MAR imputation - second MARGIN
-    x[!randna, ] <- impute_matrix(x[!randna, ], mnar,
-                                  MARGIN = MARGIN[[2]])
+    args <- append(list(x = x[randna, ],
+                        method = mar,
+                        MARGIN = MARGIN[[1]]),
+                   marArgs)
+    x[randna, ] <- do.call(impute_matrix, args)
+    ## MNAR imputation - second MARGIN
+    args <- append(list(x = x[!randna, ],
+                        method = mnar,
+                        MARGIN = MARGIN[[2]]),
+                   mnarArgs)
+    x[!randna, ] <- do.call(impute_matrix, args)
     x
 }
 

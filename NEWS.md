@@ -1,5 +1,10 @@
 # MsCoreUtils 1.25
 
+## MsCoreUtils 1.25.1
+- `impute_mixed()`: new `marArgs` and `mnarArgs` arguments that allow
+  to prive different sets of arguments for the missing-at-random `mar`
+  and missing-not-at-random `mnar` imputation function.
+
 ## MsCoreUtils 1.25.0
 - New devel version.
 
