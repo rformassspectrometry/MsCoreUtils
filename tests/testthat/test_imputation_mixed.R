@@ -180,3 +180,146 @@ test_that("impute_mixed(MARGIN = c(2,1)) works", {
                      quantile(m[4:6, 3], 0.01, na.rm = TRUE,
                               names = FALSE))
 })
+
+
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (1)) ", {
+    m <- matrix(1:18, ncol = 3)
+    m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
+    randna <- c(rep(FALSE, 3), rep(TRUE, 3))
+    m_imp <- impute_mixed(m, randna = randna,
+                          mar = "MinDet",
+                          mnar = "MinDet",
+                          MARGIN = c(1, 2),
+                          marArgs = list(q = 0.01), ## default value
+                          mnarArgs = list(q = 0))   ## use min value
+    ###########################################################
+    ## Expected: m[1:3, ] MNAR, MARGIN 2
+    ##       +------------- m[3, 1] is quantile(m[1:3, 1], 0)
+    ##       |     +------- m[2, 2] is quantile(m[1:3, 2], 0)
+    ##       |     |    +-- m[1, 3] is quantile(m[1:3, 3], 0)
+    ##       |     |    |
+    ##       V     V    V
+    ##      [,1] [,2] [,3]
+    ## [1,]    1    7   NA
+    ## [2,]    2   NA   14
+    ## [3,]   NA    9   15
+    expect_identical(m_imp[1, 3],
+                     quantile(m[1:3, 3], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[2, 2],
+                     quantile(m[1:3, 2], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[3, 1],
+                     quantile(m[1:3, 1], 0, na.rm = TRUE,
+                              names = FALSE))
+    ###########################################################
+    ## Expected: m[4:6, ] MAR, MARGIN 1
+    ##      [,1] [,2] [,3]
+    ## [4,]    4   NA   16 <--- m[4, 2] is quantile(m[4, ], 0.01)
+    ## [5,]   NA   11   17 <--- m[5, 1] is quantile(m[5, ], 0.01)
+    ## [6,]    6   12   NA <--- m[6, 3] is quantile(m[6, ], 0.01)
+    expect_identical(m_imp[4, 2],
+                     quantile(m[4, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[5, 1],
+                     quantile(m[5, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[6, 3],
+                     quantile(m[6, ], 0.01, na.rm = TRUE,
+                              names = FALSE))
+})
+
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (2)) ", {
+    m <- matrix(1:18, ncol = 3)
+    m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
+    randna <- c(rep(FALSE, 3), rep(TRUE, 3))
+    m_imp <- impute_mixed(m, randna = randna,
+                          mar = "MinDet",
+                          mnar = "MinDet",
+                          MARGIN = c(1, 2),
+                          marArgs = list(q = 0),     ## use min value
+                          mnarArgs = list(q = 0.01)) ## default value
+    ###########################################################
+    ## Expected: m[1:3, ] MNAR, MARGIN 2
+    ##       +------------- m[3, 1] is quantile(m[1:3, 1], 0.01)
+    ##       |     +------- m[2, 2] is quantile(m[1:3, 2], 0.01)
+    ##       |     |    +-- m[1, 3] is quantile(m[1:3, 3], 0.01)
+    ##       |     |    |
+    ##       V     V    V
+    ##      [,1] [,2] [,3]
+    ## [1,]    1    7   NA
+    ## [2,]    2   NA   14
+    ## [3,]   NA    9   15
+    expect_identical(m_imp[1, 3],
+                     quantile(m[1:3, 3], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[2, 2],
+                     quantile(m[1:3, 2], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[3, 1],
+                     quantile(m[1:3, 1], 0.01, na.rm = TRUE,
+                              names = FALSE))
+    ###########################################################
+    ## Expected: m[4:6, ] MAR, MARGIN 1
+    ##      [,1] [,2] [,3]
+    ## [4,]    4   NA   16 <--- m[4, 2] is quantile(m[4, ], 0)
+    ## [5,]   NA   11   17 <--- m[5, 1] is quantile(m[5, ], 0)
+    ## [6,]    6   12   NA <--- m[6, 3] is quantile(m[6, ], 0)
+    expect_identical(m_imp[4, 2],
+                     quantile(m[4, ], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[5, 1],
+                     quantile(m[5, ], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[6, 3],
+                     quantile(m[6, ], 0, na.rm = TRUE,
+                              names = FALSE))
+})
+
+
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (3)) ", {
+    m <- matrix(1:18, ncol = 3)
+    m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
+    randna <- c(rep(FALSE, 3), rep(TRUE, 3))
+    m_imp <- impute_mixed(m, randna = randna,
+                          mar = "MinDet",
+                          mnar = "MinDet",
+                          MARGIN = c(1, 2),
+                          marArgs = list(q = 0),  ## use min value
+                          mnarArgs = list(q = 1)) ## use max value
+    ###########################################################
+    ## Expected: m[1:3, ] MNAR, MARGIN 2
+    ##       +------------- m[3, 1] is quantile(m[1:3, 1], 1)
+    ##       |     +------- m[2, 2] is quantile(m[1:3, 2], 1)
+    ##       |     |    +-- m[1, 3] is quantile(m[1:3, 3], 1)
+    ##       |     |    |
+    ##       V     V    V
+    ##      [,1] [,2] [,3]
+    ## [1,]    1    7   NA
+    ## [2,]    2   NA   14
+    ## [3,]   NA    9   15
+    expect_identical(m_imp[1, 3],
+                     quantile(m[1:3, 3], 1, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[2, 2],
+                     quantile(m[1:3, 2], 1, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[3, 1],
+                     quantile(m[1:3, 1], 1, na.rm = TRUE,
+                              names = FALSE))
+    ###########################################################
+    ## Expected: m[4:6, ] MAR, MARGIN 1
+    ##      [,1] [,2] [,3]
+    ## [4,]    4   NA   16 <--- m[4, 2] is quantile(m[4, ], 0)
+    ## [5,]   NA   11   17 <--- m[5, 1] is quantile(m[5, ], 0)
+    ## [6,]    6   12   NA <--- m[6, 3] is quantile(m[6, ], 0)
+    expect_identical(m_imp[4, 2],
+                     quantile(m[4, ], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[5, 1],
+                     quantile(m[5, ], 0, na.rm = TRUE,
+                              names = FALSE))
+    expect_identical(m_imp[6, 3],
+                     quantile(m[6, ], 0, na.rm = TRUE,
+                              names = FALSE))
+})
