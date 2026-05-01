@@ -15,7 +15,7 @@ imputations such as replacing missing values with 0."><meta property="og:image" 
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.25.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.25.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,15 @@ imputations such as replacing missing values with 0.</p>
 <span></span>
 <span><span class="fu">impute_RF</span><span class="op">(</span><span class="va">x</span>, MARGIN <span class="op">=</span> <span class="fl">2L</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">impute_mixed</span><span class="op">(</span><span class="va">x</span>, <span class="va">randna</span>, <span class="va">mar</span>, <span class="va">mnar</span>, MARGIN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">1L</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">impute_mixed</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">randna</span>,</span>
+<span>  <span class="va">mar</span>,</span>
+<span>  <span class="va">mnar</span>,</span>
+<span>  MARGIN <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1L</span>, <span class="fl">1L</span><span class="op">)</span>,</span>
+<span>  marArgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  mnarArgs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">impute_min</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span></span>
@@ -138,6 +146,16 @@ above.</p></dd>
 <dt id="arg-mnar">mnar<a class="anchor" aria-label="anchor" href="#arg-mnar"></a></dt>
 <dd><p>Imputation method for values missing not at random. See <code>method</code>
 above.</p></dd>
+
+
+<dt id="arg-marargs">marArgs<a class="anchor" aria-label="anchor" href="#arg-marargs"></a></dt>
+<dd><p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of arguments to be passed to the <code>mar</code> imputation
+function.</p></dd>
+
+
+<dt id="arg-mnarargs">mnarArgs<a class="anchor" aria-label="anchor" href="#arg-mnarargs"></a></dt>
+<dd><p><code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code> of arguments to be passed to the <code>mnar</code> imputation
+function.</p></dd>
 
 
 <dt id="arg-q">q<a class="anchor" aria-label="anchor" href="#arg-q"></a></dt>

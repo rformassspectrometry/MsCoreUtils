@@ -24,7 +24,15 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L))
+impute_mixed(
+  x,
+  randna,
+  mar,
+  mnar,
+  MARGIN = c(1L, 1L),
+  marArgs = list(),
+  mnarArgs = list()
+)
 
 impute_min(x)
 
@@ -95,6 +103,16 @@ getImputeMargin(fun)
 
   Imputation method for values missing not at random. See `method`
   above.
+
+- marArgs:
+
+  [`list()`](https://rdrr.io/r/base/list.html) of arguments to be passed
+  to the `mar` imputation function.
+
+- mnarArgs:
+
+  [`list()`](https://rdrr.io/r/base/list.html) of arguments to be passed
+  to the `mnar` imputation function.
 
 - q:
 
