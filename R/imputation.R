@@ -607,11 +607,16 @@ impute_fun <- function(x, FUN, MARGIN = 1L, ...) {
 ##' getImputeMargin(impute_zero) ## NA: no margin here
 ##'
 ##' ## default margin for all MsCoreUtils::impute_* functions
-##' sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
+##' getImputeMargin()
 getImputeMargin <- function(fun) {
+    if (missing(fun))
+        return(.getAllImputeMargin())
     args <- formals(fun)
     i <- grep("MARGIN", names(args))
     if (length(i)) ans <- args[[i]]
     else ans <- NA
     ans
 }
+
+.getAllImputeMargin <- function()
+    sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)

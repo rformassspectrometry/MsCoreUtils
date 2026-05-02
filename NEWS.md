@@ -1,5 +1,9 @@
 # MsCoreUtils 1.25
 
+## MsCoreUtils 1.25.3
+- `getImputeMargin()` works without argument, and return the default
+  margins for all `MsCoreUtils::impute_*` function.
+
 ## MsCoreUtils 1.25.2
 - `impute_mixed()`: new `split` argument that controls of imputed
   values are computed from the whole matrix of MAR and MNAR
