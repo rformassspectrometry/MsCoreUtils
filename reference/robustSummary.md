@@ -30,7 +30,7 @@ robustSummary(x, ...)
 ## See also
 
 Other Quantitative feature aggregation:
-[`aggregate()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md),
+[`aggregate`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md),
 [`colCounts()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/colCounts.md),
 [`medianPolish()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/medianPolish.md)
 

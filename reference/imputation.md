@@ -463,7 +463,7 @@ getImputeMargin(impute_zero) ## NA: no margin here
 #> [1] NA
 
 ## default margin for all MsCoreUtils::impute_* functions
-sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
+getImputeMargin()
 #> $impute_MinDet
 #> [1] 2
 #> 

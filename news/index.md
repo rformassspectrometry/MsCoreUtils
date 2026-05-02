@@ -4,7 +4,9 @@
 
 ### MsCoreUtils 1.25.3
 
-- Add an imputation vignette.
+- [`getImputeMargin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  works without argument, and return the default margins for all
+  `MsCoreUtils::impute_*` function.
 
 ### MsCoreUtils 1.25.2
 

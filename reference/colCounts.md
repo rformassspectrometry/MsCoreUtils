@@ -25,7 +25,7 @@ A `numeric` vector of length identical to `ncol(x)`.
 ## See also
 
 Other Quantitative feature aggregation:
-[`aggregate()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md),
+[`aggregate`](https://rformassspectrometry.github.io/MsCoreUtils/reference/aggregate.md),
 [`medianPolish()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/medianPolish.md),
 [`robustSummary()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/robustSummary.md)
 
