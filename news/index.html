@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">MsCoreUtils</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.25.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.25.3</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,6 +17,10 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/MsCoreUtils.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/imputation.html">Imputation functions</a></li>
+  </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -29,23 +33,27 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Changelog</h1>
-      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
+      <small>Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/imputeVignette/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.25" id="mscoreutils-125">MsCoreUtils 1.25<a class="anchor" aria-label="anchor" href="#mscoreutils-125"></a></h2>
 <div class="section level3">
-<h3 id="mscoreutils-1-25">MsCoreUtils 1.25.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25"></a></h3>
+<h3 id="mscoreutils-1-25">MsCoreUtils 1.25.3<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25"></a></h3>
+<ul><li>Add an imputation vignette.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="mscoreutils-1-25-1">MsCoreUtils 1.25.2<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25-1"></a></h3>
 <ul><li>
 <code><a href="../reference/imputation.html">impute_mixed()</a></code>: new <code>split</code> argument that controls of imputed values are computed from the whole matrix of MAR and MNAR sub-matrices (see <a href="https://github.com/rformassspectrometry/MsCoreUtils/issues/139" class="external-link">issue 139</a>).</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-25-1">MsCoreUtils 1.25.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25-1"></a></h3>
+<h3 id="mscoreutils-1-25-2">MsCoreUtils 1.25.1<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25-2"></a></h3>
 <ul><li>
 <code><a href="../reference/imputation.html">impute_mixed()</a></code>: new <code>marArgs</code> and <code>mnarArgs</code> arguments that allow to prive different sets of arguments for the missing-at-random <code>mar</code> and missing-not-at-random <code>mnar</code> imputation function.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="mscoreutils-1-25-2">MsCoreUtils 1.25.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25-2"></a></h3>
+<h3 id="mscoreutils-1-25-3">MsCoreUtils 1.25.0<a class="anchor" aria-label="anchor" href="#mscoreutils-1-25-3"></a></h3>
 <ul><li>New devel version.</li>
 </ul></div>
 </div>

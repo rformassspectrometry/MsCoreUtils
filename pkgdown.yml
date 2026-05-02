@@ -2,8 +2,9 @@ pandoc: 3.9.0.2
 pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
+  imputation: imputation.html
   MsCoreUtils: MsCoreUtils.html
-last_built: 2026-05-02T17:14Z
+last_built: 2026-05-02T17:30Z
 urls:
   reference: https://rformassspectrometry.github.io/MsCoreUtils/reference
   article: https://rformassspectrometry.github.io/MsCoreUtils/articles

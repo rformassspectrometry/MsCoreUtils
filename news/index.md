@@ -2,6 +2,10 @@
 
 ## MsCoreUtils 1.25
 
+### MsCoreUtils 1.25.3
+
+- Add an imputation vignette.
+
 ### MsCoreUtils 1.25.2
 
 - [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md):
