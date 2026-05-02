@@ -40,7 +40,8 @@ impute_mixed(
   mnar,
   MARGIN = c(1L, 1L),
   marArgs = list(),
-  mnarArgs = list()
+  mnarArgs = list(),
+  split = TRUE
 )
 
 impute_min(x)
@@ -89,16 +90,21 @@ rows are missing at random. The other ones are considered missing not at
 random. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{mar}{Imputation method for values missing at random. See \code{method}
-above.}
+above. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{mnar}{Imputation method for values missing not at random. See \code{method}
-above.}
+above. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{marArgs}{\code{list()} of arguments to be passed to the \code{mar} imputation
-function.}
+function. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{mnarArgs}{\code{list()} of arguments to be passed to the \code{mnar} imputation
-function.}
+function. Only relevant when \code{methods} is \code{mixed}.}
+
+\item{split}{\code{logical(1)} defining if the MAR and MNAR sub-matrices are to
+be split before imputation (default is \code{TRUE}), or if the whole data
+should be used to compute imputed values for the individual
+sub-matrices. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{q}{\code{numeric(1)} indicating the quantile to be used to
 estimate the minimum in \code{MinDet} and \code{MinProb}. Default is

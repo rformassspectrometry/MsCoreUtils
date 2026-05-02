@@ -403,16 +403,21 @@ impute_RF <- function(x, MARGIN = 2L, ...) {
 ##'     random. Only relevant when `methods` is `mixed`.
 ##'
 ##' @param mar Imputation method for values missing at random. See `method`
-##'     above.
+##'     above. Only relevant when `methods` is `mixed`.
 ##'
 ##' @param mnar Imputation method for values missing not at random. See `method`
-##'     above.
+##'     above. Only relevant when `methods` is `mixed`.
 ##'
 ##' @param marArgs `list()` of arguments to be passed to the `mar` imputation
-##'     function.
+##'     function. Only relevant when `methods` is `mixed`.
 ##'
 ##' @param mnarArgs `list()` of arguments to be passed to the `mnar` imputation
-##'     function.
+##'     function. Only relevant when `methods` is `mixed`.
+##'
+##' @param split `logical(1)` defining if the MAR and MNAR sub-matrices are to
+##'     be split before imputation (default is `TRUE`), or if the whole data
+##'     should be used to compute imputed values for the individual
+##'     sub-matrices. Only relevant when `methods` is `mixed`.
 ##'
 ##' @export
 ##'
@@ -420,7 +425,8 @@ impute_RF <- function(x, MARGIN = 2L, ...) {
 impute_mixed <- function(x, randna, mar, mnar,
                          MARGIN = c(1L, 1L),
                          marArgs = list(),
-                         mnarArgs = list()) {
+                         mnarArgs = list(),
+                         split = TRUE) {
     if (missing(randna))
         stop("Mixed imputation requires 'randna' argument. See ?impute_mixed.",
              call. = FALSE)
@@ -435,22 +441,39 @@ impute_mixed <- function(x, randna, mar, mnar,
     if (length(MARGIN) == 1)
         MARGIN <- c(MARGIN, MARGIN)
     if (length(MARGIN) != 2)
-        stop("MARGIN must be of length 1 or 2.")
+        stop("MARGIN must be of length 1 or 2.", call. = FALSE)
     if (length(randna) != nrow(x))
         stop("Number of rows and length of randna must be equal.",
              call. = FALSE)
-    ## MAR imputation - first MARGIN
-    args <- append(list(x = x[randna, ],
-                        method = mar,
-                        MARGIN = MARGIN[[1]]),
-                   marArgs)
-    x[randna, ] <- do.call(impute_matrix, args)
-    ## MNAR imputation - second MARGIN
-    args <- append(list(x = x[!randna, ],
-                        method = mnar,
-                        MARGIN = MARGIN[[2]]),
-                   mnarArgs)
-    x[!randna, ] <- do.call(impute_matrix, args)
+    if (split) { ## impute separately
+        ## MAR imputation - first MARGIN
+        args <- append(list(x = x[randna, ],
+                            method = mar,
+                            MARGIN = MARGIN[[1]]),
+                       marArgs)
+        x[randna, ] <- do.call(impute_matrix, args)
+        ## MNAR imputation - second MARGIN
+        args <- append(list(x = x[!randna, ],
+                            method = mnar,
+                            MARGIN = MARGIN[[2]]),
+                       mnarArgs)
+        x[!randna, ] <- do.call(impute_matrix, args)
+    } else { ## use the whole matrix for imputation
+        ## MAR imputation - first MARGIN
+        args <- append(list(x = x,
+                            method = mar,
+                            MARGIN = MARGIN[[1]]),
+                       marArgs)
+        ximp <- do.call(impute_matrix, args)
+        x[randna, ] <- ximp[randna, ]
+        ## MNAR imputation - second MARGIN
+        args <- append(list(x = x,
+                            method = mnar,
+                            MARGIN = MARGIN[[2]]),
+                       mnarArgs)
+        ximp <- do.call(impute_matrix, args)
+        x[!randna, ] <- ximp[!randna, ]
+    }
     x
 }
 
