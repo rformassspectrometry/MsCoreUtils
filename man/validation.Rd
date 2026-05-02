@@ -25,12 +25,12 @@ try(validPeaksMatrix(1:2))
 validPeaksMatrix(cbind(mz = 1:2, intensity = 1:2))
 }
 \seealso{
-Other helper functions for developers: 
-\code{\link{between}()},
-\code{\link{isPeaksMatrix}()},
-\code{\link{rbindFill}()},
-\code{\link{vapply1c}()},
-\code{\link{which.first}()}
+Other helper functions for developers:
+\code{\link[=between]{between()}},
+\code{\link[=isPeaksMatrix]{isPeaksMatrix()}},
+\code{\link[=rbindFill]{rbindFill()}},
+\code{\link[=vapply1c]{vapply1c()}},
+\code{\link[=which.first]{which.first()}}
 }
 \author{
 Sebastian Gibb

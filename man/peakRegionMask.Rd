@@ -31,10 +31,10 @@ peaks <- which(localMaxima(ints, hws = 3L))
 m <- MsCoreUtils:::.peakRegionMask(ints, peaks, k = 5L)
 }
 \seealso{
-Other extreme value functions: 
-\code{\link{localMaxima}()},
-\code{\link{refineCentroids}()},
-\code{\link{valleys}()}
+Other extreme value functions:
+\code{\link[=localMaxima]{localMaxima()}},
+\code{\link[=refineCentroids]{refineCentroids()}},
+\code{\link[=valleys]{valleys()}}
 }
 \author{
 Sebastian Gibb

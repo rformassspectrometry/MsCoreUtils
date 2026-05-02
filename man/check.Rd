@@ -25,12 +25,12 @@ isPeaksMatrix(cbind(mz = 2:1, intensity = 1:2))
 isPeaksMatrix(cbind(mz = 1:2, intensity = 1:2))
 }
 \seealso{
-Other helper functions for developers: 
-\code{\link{between}()},
-\code{\link{rbindFill}()},
-\code{\link{validPeaksMatrix}()},
-\code{\link{vapply1c}()},
-\code{\link{which.first}()}
+Other helper functions for developers:
+\code{\link[=between]{between()}},
+\code{\link[=rbindFill]{rbindFill()}},
+\code{\link[=validPeaksMatrix]{validPeaksMatrix()}},
+\code{\link[=vapply1c]{vapply1c()}},
+\code{\link[=which.first]{which.first()}}
 }
 \author{
 Sebastian Gibb

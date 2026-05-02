@@ -311,7 +311,7 @@ getImputeMargin(impute_mle) ## default imputes along samples
 getImputeMargin(impute_zero) ## NA: no margin here
 
 ## default margin for all MsCoreUtils::impute_* functions
-sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
+getImputeMargin()
 }
 \references{
 Troyanskaya O, Cantor M, Sherlock G, Brown P, Hastie T, Tibshirani R,

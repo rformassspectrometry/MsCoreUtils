@@ -151,11 +151,11 @@ Analysis and Unknown Metabolite Annotation. \emph{Anal Chem.}
 \code{\link[=gnps_chain_dp]{gnps_chain_dp()}} for am optimized and fast implementation based
 on the Chain-DP algorithm.
 
-Other grouping/matching functions: 
-\code{\link{bin}()},
-\code{\link{closest}()}
+Other grouping/matching functions:
+\code{\link[=bin]{bin()}},
+\code{\link[=closest]{closest()}}
 
-Other distance/similarity functions: 
+Other distance/similarity functions:
 \code{\link{distance}}
 }
 \author{

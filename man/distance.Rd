@@ -172,8 +172,8 @@ Pull Request for these distance/similarity measurements:
 \url{https://github.com/rformassspectrometry/MsCoreUtils/pull/33}
 }
 \seealso{
-Other distance/similarity functions: 
-\code{\link{gnps_r}()}
+Other distance/similarity functions:
+\code{\link[=gnps_r]{gnps_r()}}
 }
 \author{
 \code{navdist}, \code{neuclidean}, \code{nspectraangle}: Sebastian Gibb

@@ -41,12 +41,12 @@ res
 class(res)
 }
 \seealso{
-Other helper functions for developers: 
-\code{\link{between}()},
-\code{\link{isPeaksMatrix}()},
-\code{\link{validPeaksMatrix}()},
-\code{\link{vapply1c}()},
-\code{\link{which.first}()}
+Other helper functions for developers:
+\code{\link[=between]{between()}},
+\code{\link[=isPeaksMatrix]{isPeaksMatrix()}},
+\code{\link[=validPeaksMatrix]{validPeaksMatrix()}},
+\code{\link[=vapply1c]{vapply1c()}},
+\code{\link[=which.first]{which.first()}}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

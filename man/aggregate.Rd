@@ -66,9 +66,9 @@ decomposition) using Tukey's median polish procedure using
 \code{\link[stats:medpolish]{stats::medpolish()}};
 \item \code{\link[=robustSummary]{robustSummary()}} to calculate a robust aggregation using
 \code{\link[MASS:rlm]{MASS::rlm()}};
-\item \code{\link[base:colSums]{base::colMeans()}} to use the mean of each column;
+\item \code{\link[base:colMeans]{base::colMeans()}} to use the mean of each column;
 \item \code{\link[base:colSums]{base::colSums()}} to use the sum of each column;
-\item \code{\link[matrixStats:rowMedians]{matrixStats::colMedians()}} to use the median of each column.
+\item \code{\link[matrixStats:colMedians]{matrixStats::colMedians()}} to use the median of each column.
 }
 }
 
@@ -159,10 +159,10 @@ aggregate_by_matrix(x, adj, colSumsMat, na.rm = TRUE)
 
 }
 \seealso{
-Other Quantitative feature aggregation: 
-\code{\link{colCounts}()},
-\code{\link{medianPolish}()},
-\code{\link{robustSummary}()}
+Other Quantitative feature aggregation:
+\code{\link[=colCounts]{colCounts()}},
+\code{\link[=medianPolish]{medianPolish()}},
+\code{\link[=robustSummary]{robustSummary()}}
 }
 \author{
 Laurent Gatto and Samuel Wieczorek (aggregation from an
