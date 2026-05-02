@@ -31,7 +31,8 @@ impute_mixed(
   mnar,
   MARGIN = c(1L, 1L),
   marArgs = list(),
-  mnarArgs = list()
+  mnarArgs = list(),
+  split = TRUE
 )
 
 impute_min(x)
@@ -98,21 +99,31 @@ getImputeMargin(fun)
 - mar:
 
   Imputation method for values missing at random. See `method` above.
+  Only relevant when `methods` is `mixed`.
 
 - mnar:
 
   Imputation method for values missing not at random. See `method`
-  above.
+  above. Only relevant when `methods` is `mixed`.
 
 - marArgs:
 
   [`list()`](https://rdrr.io/r/base/list.html) of arguments to be passed
-  to the `mar` imputation function.
+  to the `mar` imputation function. Only relevant when `methods` is
+  `mixed`.
 
 - mnarArgs:
 
   [`list()`](https://rdrr.io/r/base/list.html) of arguments to be passed
-  to the `mnar` imputation function.
+  to the `mnar` imputation function. Only relevant when `methods` is
+  `mixed`.
+
+- split:
+
+  `logical(1)` defining if the MAR and MNAR sub-matrices are to be split
+  before imputation (default is `TRUE`), or if the whole data should be
+  used to compute imputed values for the individual sub-matrices. Only
+  relevant when `methods` is `mixed`.
 
 - q:
 

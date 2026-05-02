@@ -2,6 +2,13 @@
 
 ## MsCoreUtils 1.25
 
+### MsCoreUtils 1.25.2
+
+- [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md):
+  new `split` argument that controls of imputed values are computed from
+  the whole matrix of MAR and MNAR sub-matrices (see [issue
+  139](https://github.com/rformassspectrometry/MsCoreUtils/issues/139)).
+
 ### MsCoreUtils 1.25.1
 
 - [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md):
@@ -20,7 +27,8 @@
 - Fix partial argument match warnings.
 - Fix bug in
   [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
-  and allow for two MARGINs for mixed imputation.
+  and allow for two MARGINs for mixed imputation. (see [issue
+  139](https://github.com/rformassspectrometry/MsCoreUtils/issues/139)).
 - Remove the `...` in impute_mixed()\`.
 
 ### MsCoreUtils 1.23.9
