@@ -182,7 +182,7 @@ test_that("impute_mixed(MARGIN = c(2,1)) works", {
 })
 
 
-test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (1)) ", {
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs) works (1)", {
     m <- matrix(1:18, ncol = 3)
     m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
     randna <- c(rep(FALSE, 3), rep(TRUE, 3))
@@ -229,7 +229,7 @@ test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (1)) ", {
                               names = FALSE))
 })
 
-test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (2)) ", {
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs) works (2)", {
     m <- matrix(1:18, ncol = 3)
     m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
     randna <- c(rep(FALSE, 3), rep(TRUE, 3))
@@ -277,7 +277,7 @@ test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (2)) ", {
 })
 
 
-test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (3)) ", {
+test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs) works (3)", {
     m <- matrix(1:18, ncol = 3)
     m[c(2, 4), 2] <- m[1, 3] <- m[c(3,5), 1] <- m[6, 3] <- NA
     randna <- c(rep(FALSE, 3), rep(TRUE, 3))
@@ -322,4 +322,183 @@ test_that("impute_mixed(MARGIN = c(1,2), marArgs, mnarArgs (3)) ", {
     expect_identical(m_imp[6, 3],
                      quantile(m[6, ], 0, na.rm = TRUE,
                               names = FALSE))
+})
+
+test_that("impute_mixed(MARGIN = 1, split) works", {
+    ## When MARGIN = 1, the splitting does not change the results
+    set.seed(123)
+    m <- matrix(rnorm(50), nrow = 10)
+    diag(m) <- NA
+    randna <- rep(c(TRUE, FALSE), each = 5)
+    mimp1 <- impute_mixed(m, randna,
+                          mar = "MinDet",
+                          mnar = "knn",
+                          MARGIN = c(1L, 1L),
+                          split = TRUE) ## DEFAULT
+    mimp2 <- impute_mixed(m, randna,
+                          mar = "MinDet",
+                          mnar = "knn",
+                          MARGIN = c(1L, 1L),
+                          split = FALSE)
+    expect_identical(mimp1, mimp2)
+})
+
+test_that("impute_mixed(MARGIN = 2, split) works", {
+    ## When MARGIN = 2, the splitting does change the results.
+    m <- matrix(1:32, nrow = 8)
+    diag(m) <- NA
+    randna <- rep(c(TRUE, FALSE), each = 4)
+    ###########################################################
+    ## SPLITTING -- only consider the MAR sub-matrix
+    ##
+    ##       +---- quantile(m[1:4, i], 0.01)
+    ##       |
+    ##       V
+    ##      [,1] [,2] [,3] [,4]
+    ## [1,]   NA    9   17   25
+    ## [2,]    2   NA   18   26
+    ## [3,]    3   11   NA   27
+    ## [4,]    4   12   20   NA
+    mimp <- impute_mixed(m, randna,
+                         mar = "MinDet",
+                         mnar = "zero",
+                         MARGIN = c(2L, 2L),
+                         split = TRUE)
+    expect_identical(
+        mimp[1, 1],
+        quantile(m[1:4, 1], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[2, 2],
+        quantile(m[1:4, 2], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[3, 3],
+        quantile(m[1:4, 3], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[4, 4],
+        quantile(m[1:4, 4], 0.01, na.rm = TRUE, names = FALSE))
+    ###########################################################
+    ## NOT SPLITTING -- consider the full matrix
+    ##       +---- quantile(m[, i], 0.01)
+    ##       |
+    ##       V
+    ##      [,1] [,2] [,3] [,4]
+    ## [1,]   NA    9   17   25
+    ## [2,]    2   NA   18   26
+    ## [3,]    3   11   NA   27
+    ## [4,]    4   12   20   NA
+    ## [5,]    5   13   21   29
+    ## [6,]    6   14   22   30
+    ## [7,]    7   15   23   31
+    ## [8,]    8   16   24   32
+    mimp <- impute_mixed(m, randna,
+                         mar = "MinDet",
+                         mnar = "zero",
+                         MARGIN = c(2L, 2L),
+                         split = FALSE)
+    expect_identical(
+        mimp[1, 1],
+        quantile(m[, 1], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[2, 2],
+        quantile(m[, 2], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[3, 3],
+        quantile(m[, 3], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp[4, 4],
+        quantile(m[, 4], 0.01, na.rm = TRUE, names = FALSE))
+})
+
+test_that("impute_mixed(MARGIN = c(2, 1), split) works", {
+    ## When MARGIN = 2, the splitting does change the results.
+    ## We keep MARGIN = 1 for MNAR (using MinDet).
+    m <- matrix(1:32, nrow = 8)
+    diag(m) <- NA
+    m[5, 1] <- m[6, 2] <- m[7, 3] <- m[8, 4] <- NA
+    randna <- rep(c(TRUE, FALSE), each = 4)
+    ###########################################################
+    ## SPLITTING -- only consider the MAR sub-matrix
+    ##
+    ##       +---- quantile(m[1:4, i], 0.01)
+    ##       |
+    ##       V
+    ##      [,1] [,2] [,3] [,4]
+    ## [1,]   NA    9   17   25
+    ## [2,]    2   NA   18   26
+    ## [3,]    3   11   NA   27
+    ## [4,]    4   12   20   NA
+    ## [5,]   NA   13   21   29 <- quantile(m[i, ], 0.01)
+    ## [6,]    6   NA   22   30 <- quantile(m[i, ], 0.01)
+    ## [7,]    7   15   NA   31 <- quantile(m[i, ], 0.01)
+    ## [8,]    8   16   24   NA <- quantile(m[i, ], 0.01)
+    mimp1 <- impute_mixed(m, randna,
+                          mar = "MinDet",
+                          mnar = "MinDet",
+                          MARGIN = c(2L, 1L),
+                          split = TRUE)
+    ## As in previous test "impute_mixed(MARGIN = 2, split) works"
+    expect_identical(
+        mimp1[1, 1],
+        quantile(m[1:4, 1], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp1[2, 2],
+        quantile(m[1:4, 2], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp1[3, 3],
+        quantile(m[1:4, 3], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp1[4, 4],
+        quantile(m[1:4, 4], 0.01, na.rm = TRUE, names = FALSE))
+    ###########################################################
+    ## NOT SPLITTING -- consider the full matrix
+    ##       +---- quantile(m[, i], 0.01)
+    ##       |
+    ##       V
+    ##      [,1] [,2] [,3] [,4]
+    ## [1,]   NA    9   17   25
+    ## [2,]    2   NA   18   26
+    ## [3,]    3   11   NA   27
+    ## [4,]    4   12   20   NA
+    ## [5,]   NA   13   21   29 <- quantile(m[i, ], 0.01)
+    ## [6,]    6   NA   22   30 <- quantile(m[i, ], 0.01)
+    ## [7,]    7   15   NA   31 <- quantile(m[i, ], 0.01)
+    ## [8,]    8   16   24   NA <- quantile(m[i, ], 0.01)
+    mimp2 <- impute_mixed(m, randna,
+                          mar = "MinDet",
+                          mnar = "MinDet",
+                          MARGIN = c(2L, 1L),
+                          split = FALSE)
+    ## As in previous test "impute_mixed(MARGIN = 2, split) works"
+    expect_identical(
+        mimp2[1, 1],
+        quantile(m[, 1], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[2, 2],
+        quantile(m[, 2], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[3, 3],
+        quantile(m[, 3], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[4, 4],
+        quantile(m[, 4], 0.01, na.rm = TRUE, names = FALSE))
+    ###########################################################
+    ## Bottom MNAR sub-matrices, impute with MinDet (MARGIN = 1) are identical
+    ##
+    ## [5,]   NA   13   21   29 <- quantile(m[i, ], 0.01)
+    ## [6,]    6   NA   22   30 <- quantile(m[i, ], 0.01)
+    ## [7,]    7   15   NA   31 <- quantile(m[i, ], 0.01)
+    ## [8,]    8   16   24   NA <- quantile(m[i, ], 0.01)
+    expect_identical(mimp1[5:8, ], mimp2[5:8, ])
+    expect_identical(
+        mimp2[5, 1],
+        quantile(m[5, ], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[6, 2],
+        quantile(m[6, ], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[7, 3],
+        quantile(m[7, ], 0.01, na.rm = TRUE, names = FALSE))
+    expect_identical(
+        mimp2[8, 4],
+        quantile(m[8, ], 0.01, na.rm = TRUE, names = FALSE))
 })
