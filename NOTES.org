@@ -1,13 +1,13 @@
-* Allow two different MARGINs, for MAR and MNAR
-
-See [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]] and [[https://github.com/rformassspectrometry/MsCoreUtils/pull/149][PR 149]].
-
 * Use full matrix for mixed imputation
 
 See [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]].
 
-* Pass own extra args to mar and mnar function in mixed imputation
+* Allow two different MARGINs, for MAR and MNAR [DONE]
+
+See [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]] and [[https://github.com/rformassspectrometry/MsCoreUtils/pull/149][PR 149]].
+
+* Pass own extra args to mar and mnar function in mixed imputation [DONE]
 
 =impute_mixed(...)= used to pass the same set of extra arguments to
 both inner functions, which doesn't work. The =...= have been removed
-in version 1.23.10.
+in version 1.23.10. See [[https://github.com/rformassspectrometry/MsCoreUtils/commit/1fbaae69fde1d70ae3be8fba6cd14cd00f82dd42][1fbaae6]].
