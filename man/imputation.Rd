@@ -330,6 +330,11 @@ Multiple Natures of Missing Values in Label-Free Quantitative Proteomics
 Data Sets to Compare Imputation Strategies}. J Proteome Res. 2016 Apr
 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
 }
+\seealso{
+The \emph{Imputation} vignette in the \code{QFeatures} package available with
+\code{vignette("Imputation", package = "QFeatures")} and online at
+\url{https://rformassspectrometry.github.io/QFeatures/articles/Imputation.html}.
+}
 \author{
 Laurent Gatto
 }
