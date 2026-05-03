@@ -317,6 +317,12 @@ Data Sets to Compare Imputation Strategies*. J Proteome Res. 2016 Apr
 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed
 PMID:26906401.
 
+## See also
+
+The *Imputation* vignette in the `QFeatures` package available with
+`vignette("Imputation", package = "QFeatures")` and online at
+<https://rformassspectrometry.github.io/QFeatures/articles/Imputation.html>.
+
 ## Author
 
 Laurent Gatto
