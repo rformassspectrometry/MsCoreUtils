@@ -7,6 +7,9 @@
 - [`getImputeMargin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
   works without argument, and return the default margins for all
   `MsCoreUtils::impute_*` function.
+- Add link to QFeatures’s *Imputation* vignette in the
+  [`impute_matrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  man page.
 
 ### MsCoreUtils 1.25.2
 
