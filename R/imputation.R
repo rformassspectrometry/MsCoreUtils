@@ -161,6 +161,10 @@
 ##' Data Sets to Compare Imputation Strategies*. J Proteome Res. 2016 Apr
 ##' 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
 ##'
+##' @seealso The *Imputation* vignette in the `QFeatures` package available with
+##'     `vignette("Imputation", package = "QFeatures")` and online at
+##'     <https://rformassspectrometry.github.io/QFeatures/articles/Imputation.html>.
+##'
 ##' @rdname imputation
 ##'
 ##' @aliases imputeMethods impute_neighbour_average impute_knn impute_mle impute_bpca impute_mixed impute_min impute_zero impute_with impute_matrix impute_MinDet impute_MinProb impute_QRILC

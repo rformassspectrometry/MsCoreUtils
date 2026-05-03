@@ -3,6 +3,8 @@
 ## MsCoreUtils 1.25.3
 - `getImputeMargin()` works without argument, and return the default
   margins for all `MsCoreUtils::impute_*` function.
+- Add link to QFeatures's *Imputation* vignette in the
+  `impute_matrix()` man page.
 
 ## MsCoreUtils 1.25.2
 - `impute_mixed()`: new `split` argument that controls of imputed
