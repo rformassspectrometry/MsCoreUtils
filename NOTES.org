@@ -1,3 +1,8 @@
+* Suggested changes
+- Margins for mixed imputation should chose, by default, the
+  method-specific margins.
+- =split = FALSE= could be the new default.
+
 * Use full matrix for mixed imputation [DONE]
 
 See [[https://github.com/rformassspectrometry/MsCoreUtils/issues/139][issue 139]] and [[https://github.com/rformassspectrometry/MsCoreUtils/pull/150][PR 150]].
