@@ -1,6 +1,6 @@
 * Suggested changes
 - Margins for mixed imputation should chose, by default, the
-  method-specific margins.
+  method-specific margins. See =mixedNaMARGIN= branch.
 - =split = FALSE= could be the new default.
 
 * Use full matrix for mixed imputation [DONE]
