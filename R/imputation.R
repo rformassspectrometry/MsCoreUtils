@@ -218,11 +218,12 @@
 ##'     imputation, with `1L` for rows and `2L` for columns. The default value
 ##'     will depend on the imputation method. Use `getImputeMargin(fun)` to get
 ##'     the default margin of imputation function `fun`. If the function doesn't
-##'     take a margin argument, `NA` is returned. For mixed imputation,
-##'     `integer(2)` can be provided to set two margins, the first one for the
-##'     MAR imputation, and the second one for MNAR imputation. If only one
-##'     margin is passed (i.e. as `integer(1)`), the single margin is reused for
-##'     both MAR and MNAR.
+##'     take a margin argument, `NA` is returned. For mixed imputation, two
+##'     margins can be provided to set two margins, the first one for the MAR
+##'     imputation, and the second one for MNAR imputation. The default is
+##'     `c(NA, NA)`, indicating that default margins for `mar` and `mnar`
+##'     methods should be used. If only one margin is passed (i.e. as
+##'     `integer(1)`), the single margin is reused for both MAR and MNAR.
 ##'
 ##' @return A matrix of same class as `x` with dimensions `dim(x)`.
 ##'
@@ -427,7 +428,7 @@ impute_RF <- function(x, MARGIN = 2L, ...) {
 ##'
 ##' @rdname imputation
 impute_mixed <- function(x, randna, mar, mnar,
-                         MARGIN = c(1L, 1L),
+                         MARGIN = c(NA, NA),
                          marArgs = list(),
                          mnarArgs = list(),
                          split = TRUE) {
@@ -446,6 +447,9 @@ impute_mixed <- function(x, randna, mar, mnar,
         MARGIN <- c(MARGIN, MARGIN)
     if (length(MARGIN) != 2)
         stop("MARGIN must be of length 1 or 2.", call. = FALSE)
+    if (all(is.na(MARGIN)))
+        MARGIN <- c(getImputeMargin(paste0("impute_", mar)),
+                    getImputeMargin(paste0("impute_", mnar)))
     if (length(randna) != nrow(x))
         stop("Number of rows and length of randna must be equal.",
              call. = FALSE)

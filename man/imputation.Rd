@@ -38,7 +38,7 @@ impute_mixed(
   randna,
   mar,
   mnar,
-  MARGIN = c(1L, 1L),
+  MARGIN = c(NA, NA),
   marArgs = list(),
   mnarArgs = list(),
   split = TRUE
@@ -79,11 +79,12 @@ to use the smallest value in the data.}
 imputation, with \code{1L} for rows and \code{2L} for columns. The default value
 will depend on the imputation method. Use \code{getImputeMargin(fun)} to get
 the default margin of imputation function \code{fun}. If the function doesn't
-take a margin argument, \code{NA} is returned. For mixed imputation,
-\code{integer(2)} can be provided to set two margins, the first one for the
-MAR imputation, and the second one for MNAR imputation. If only one
-margin is passed (i.e. as \code{integer(1)}), the single margin is reused for
-both MAR and MNAR.}
+take a margin argument, \code{NA} is returned. For mixed imputation, two
+margins can be provided to set two margins, the first one for the MAR
+imputation, and the second one for MNAR imputation. The default is
+\code{c(NA, NA)}, indicating that default margins for \code{mar} and \code{mnar}
+methods should be used. If only one margin is passed (i.e. as
+\code{integer(1)}), the single margin is reused for both MAR and MNAR.}
 
 \item{randna}{\code{logical} of length equal to \code{nrow(object)} defining which
 rows are missing at random. The other ones are considered missing not at
