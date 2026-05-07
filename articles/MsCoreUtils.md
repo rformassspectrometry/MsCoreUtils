@@ -153,7 +153,7 @@ issue](https://github.com/RforMassSpectrometry/MsCoreUtils/issues).
     ## [1] stats     graphics  grDevices utils     datasets  methods   base     
     ## 
     ## other attached packages:
-    ## [1] MsCoreUtils_1.25.3 BiocStyle_2.41.0  
+    ## [1] MsCoreUtils_1.25.4 BiocStyle_2.41.0  
     ## 
     ## loaded via a namespace (and not attached):
     ##  [1] cli_3.6.6           knitr_1.51          rlang_1.2.0        

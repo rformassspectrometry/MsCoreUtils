@@ -2,6 +2,13 @@
 
 ## MsCoreUtils 1.25
 
+### MsCoreUtils 1.25.4
+
+- Default margins for
+  [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
+  are now `c(NA, NA)` and are set based on the default margins of the
+  respective MAR and MNAR methods set in `mar` and `mnar`.
+
 ### MsCoreUtils 1.25.3
 
 - [`getImputeMargin()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
