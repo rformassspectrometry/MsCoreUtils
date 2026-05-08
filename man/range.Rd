@@ -25,12 +25,12 @@ between(1:4, 2:3)
 1:4 \%between\% 2:3
 }
 \seealso{
-Other helper functions for developers: 
-\code{\link{isPeaksMatrix}()},
-\code{\link{rbindFill}()},
-\code{\link{validPeaksMatrix}()},
-\code{\link{vapply1c}()},
-\code{\link{which.first}()}
+Other helper functions for developers:
+\code{\link[=isPeaksMatrix]{isPeaksMatrix()}},
+\code{\link[=rbindFill]{rbindFill()}},
+\code{\link[=validPeaksMatrix]{validPeaksMatrix()}},
+\code{\link[=vapply1c]{vapply1c()}},
+\code{\link[=which.first]{which.first()}}
 }
 \author{
 Sebastian Gibb

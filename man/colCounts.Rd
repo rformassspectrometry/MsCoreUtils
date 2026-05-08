@@ -26,10 +26,10 @@ m <- matrix(rnorm(30), nrow = 3)
 colCounts(m)
 }
 \seealso{
-Other Quantitative feature aggregation: 
-\code{\link{aggregate}()},
-\code{\link{medianPolish}()},
-\code{\link{robustSummary}()}
+Other Quantitative feature aggregation:
+\code{\link{aggregate}},
+\code{\link[=medianPolish]{medianPolish()}},
+\code{\link[=robustSummary]{robustSummary()}}
 }
 \author{
 Laurent Gatto

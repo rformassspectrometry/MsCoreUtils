@@ -28,10 +28,10 @@ rownames(x) <- LETTERS[1:3]
 robustSummary(x)
 }
 \seealso{
-Other Quantitative feature aggregation: 
-\code{\link{aggregate}()},
-\code{\link{colCounts}()},
-\code{\link{medianPolish}()}
+Other Quantitative feature aggregation:
+\code{\link{aggregate}},
+\code{\link[=colCounts]{colCounts()}},
+\code{\link[=medianPolish]{medianPolish()}}
 }
 \author{
 Adriaan Sticker, Sebastian Gibb and Laurent Gatto

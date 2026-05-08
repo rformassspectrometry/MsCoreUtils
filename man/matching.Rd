@@ -73,7 +73,7 @@ giving the closest position in \code{table} of the first match or \code{nomatch}
 there is no match.
 
 \code{common} returns a \code{logical} vector of length \code{x} that is \code{TRUE} if the
-element in \code{x} was found in \code{table}. It is similar to \code{\link[base:match]{base::\%in\%}}.
+element in \code{x} was found in \code{table}. It is similar to \code{\link[base:\%in\%]{base::\%in\%}}.
 
 \code{join} returns a \code{matrix} with two columns, namely \code{x} and \code{y},
 representing the index of the values in \code{x} matching the corresponding value
@@ -81,13 +81,13 @@ in \code{y} (or \code{NA} if the value does not match).
 }
 \description{
 These functions offer relaxed matching of one vector in another.  In contrast
-to the similar \code{\link[base:match]{base::match()}} and \code{\link[base:match]{base::\%in\%}} functions they just accept \code{numeric}
+to the similar \code{\link[base:match]{base::match()}} and \code{\link[base:\%in\%]{base::\%in\%}} functions they just accept \code{numeric}
 arguments but have an additional \code{tolerance} argument that allows relaxed
 matching.
 }
 \details{
 For \code{closest}/\code{common} the \code{tolerance} argument could be set to \code{0}
-to get the same results as for \code{\link[base:match]{base::match()}}/\code{\link[base:match]{base::\%in\%}}. If it is
+to get the same results as for \code{\link[base:match]{base::match()}}/\code{\link[base:\%in\%]{base::\%in\%}}. If it is
 set to \code{Inf} (default) the index of the closest values is returned
 without any restriction.
 
@@ -204,11 +204,11 @@ y[ji$y]
 \seealso{
 \code{\link[base:match]{base::match()}}
 
-\code{\link[base:match]{base::\%in\%}}
+\code{\link[base:\%in\%]{base::\%in\%}}
 
-Other grouping/matching functions: 
-\code{\link{bin}()},
-\code{\link{gnps_r}()}
+Other grouping/matching functions:
+\code{\link[=bin]{bin()}},
+\code{\link[=gnps_r]{gnps_r()}}
 }
 \author{
 Sebastian Gibb, Johannes Rainer

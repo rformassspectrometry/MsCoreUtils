@@ -33,7 +33,16 @@ impute_bpca(x, MARGIN = 1L, ...)
 
 impute_RF(x, MARGIN = 2L, ...)
 
-impute_mixed(x, randna, mar, mnar, MARGIN = c(1L, 1L))
+impute_mixed(
+  x,
+  randna,
+  mar,
+  mnar,
+  MARGIN = c(1L, 1L),
+  marArgs = list(),
+  mnarArgs = list(),
+  split = TRUE
+)
 
 impute_min(x)
 
@@ -81,10 +90,21 @@ rows are missing at random. The other ones are considered missing not at
 random. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{mar}{Imputation method for values missing at random. See \code{method}
-above.}
+above. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{mnar}{Imputation method for values missing not at random. See \code{method}
-above.}
+above. Only relevant when \code{methods} is \code{mixed}.}
+
+\item{marArgs}{\code{list()} of arguments to be passed to the \code{mar} imputation
+function. Only relevant when \code{methods} is \code{mixed}.}
+
+\item{mnarArgs}{\code{list()} of arguments to be passed to the \code{mnar} imputation
+function. Only relevant when \code{methods} is \code{mixed}.}
+
+\item{split}{\code{logical(1)} defining if the MAR and MNAR sub-matrices are to
+be split before imputation (default is \code{TRUE}), or if the whole data
+should be used to compute imputed values for the individual
+sub-matrices. Only relevant when \code{methods} is \code{mixed}.}
 
 \item{q}{\code{numeric(1)} indicating the quantile to be used to
 estimate the minimum in \code{MinDet} and \code{MinProb}. Default is
@@ -291,7 +311,7 @@ getImputeMargin(impute_mle) ## default imputes along samples
 getImputeMargin(impute_zero) ## NA: no margin here
 
 ## default margin for all MsCoreUtils::impute_* functions
-sapply(ls("package:MsCoreUtils", pattern = "impute_"), getImputeMargin)
+getImputeMargin()
 }
 \references{
 Troyanskaya O, Cantor M, Sherlock G, Brown P, Hastie T, Tibshirani R,
@@ -309,6 +329,11 @@ Lazar C, Gatto L, Ferro M, Bruley C and Burger T. \emph{Accounting for the
 Multiple Natures of Missing Values in Label-Free Quantitative Proteomics
 Data Sets to Compare Imputation Strategies}. J Proteome Res. 2016 Apr
 1;15(4):1116-25. doi: 10.1021/acs.jproteome.5b00981. PubMed PMID:26906401.
+}
+\seealso{
+The \emph{Imputation} vignette in the \code{QFeatures} package available with
+\code{vignette("Imputation", package = "QFeatures")} and online at
+\url{https://rformassspectrometry.github.io/QFeatures/articles/Imputation.html}.
 }
 \author{
 Laurent Gatto

@@ -25,10 +25,10 @@ x <- matrix(rnorm(30), nrow = 3)
 medianPolish(x)
 }
 \seealso{
-Other Quantitative feature aggregation: 
-\code{\link{aggregate}()},
-\code{\link{colCounts}()},
-\code{\link{robustSummary}()}
+Other Quantitative feature aggregation:
+\code{\link{aggregate}},
+\code{\link[=colCounts]{colCounts()}},
+\code{\link[=robustSummary]{robustSummary()}}
 }
 \author{
 Laurent Gatto

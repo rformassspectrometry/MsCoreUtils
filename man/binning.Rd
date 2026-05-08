@@ -69,9 +69,9 @@ bin(ints, mz, size = 2, FUN = sum)
 bin(ints, mz, size = 2, returnMids = FALSE)
 }
 \seealso{
-Other grouping/matching functions: 
-\code{\link{closest}()},
-\code{\link{gnps_r}()}
+Other grouping/matching functions:
+\code{\link[=closest]{closest()}},
+\code{\link[=gnps_r]{gnps_r()}}
 }
 \author{
 Johannes Rainer, Sebastian Gibb

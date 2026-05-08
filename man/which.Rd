@@ -29,12 +29,12 @@ which.last(l)
 \seealso{
 \code{\link[=which.min]{which.min()}}
 
-Other helper functions for developers: 
-\code{\link{between}()},
-\code{\link{isPeaksMatrix}()},
-\code{\link{rbindFill}()},
-\code{\link{validPeaksMatrix}()},
-\code{\link{vapply1c}()}
+Other helper functions for developers:
+\code{\link[=between]{between()}},
+\code{\link[=isPeaksMatrix]{isPeaksMatrix()}},
+\code{\link[=rbindFill]{rbindFill()}},
+\code{\link[=validPeaksMatrix]{validPeaksMatrix()}},
+\code{\link[=vapply1c]{vapply1c()}}
 }
 \author{
 Sebastian Gibb

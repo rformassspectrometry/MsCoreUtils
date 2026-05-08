@@ -1,5 +1,22 @@
 # MsCoreUtils 1.25
 
+## MsCoreUtils 1.25.3
+- `getImputeMargin()` works without argument, and return the default
+  margins for all `MsCoreUtils::impute_*` function.
+- Add link to QFeatures's *Imputation* vignette in the
+  `impute_matrix()` man page.
+
+## MsCoreUtils 1.25.2
+- `impute_mixed()`: new `split` argument that controls of imputed
+  values are computed from the whole matrix of MAR and MNAR
+  sub-matrices (see [issue
+  139](https://github.com/rformassspectrometry/MsCoreUtils/issues/139)).
+
+## MsCoreUtils 1.25.1
+- `impute_mixed()`: new `marArgs` and `mnarArgs` arguments that allow
+  to prive different sets of arguments for the missing-at-random `mar`
+  and missing-not-at-random `mnar` imputation function.
+
 ## MsCoreUtils 1.25.0
 - New devel version.
 
@@ -9,7 +26,8 @@
 
 - Fix partial argument match warnings.
 - Fix bug in `impute_mixed()` and allow for two MARGINs for mixed
-  imputation.
+  imputation.  (see [issue
+  139](https://github.com/rformassspectrometry/MsCoreUtils/issues/139)).
 - Remove the `...` in impute_mixed()`.
 
 ## MsCoreUtils 1.23.9
