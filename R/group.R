@@ -78,12 +78,15 @@ group <- function(x, tolerance = 0, ppm = 0) {
 #'
 #' @description
 #'
-#' The `group_mz_int` function groups numeric values by first ordering based on intensity decreasingly, 
-#' and then picking up the mass with the highest intensity, putting
-#' all values into the same group if their difference is smaller defined by
+#' The `group_mz_int` function aims to group similar m/z across several scans.
+#' it groups numeric values by first ordering based on intensity decreasingly, 
+#' and then picking up the m/z with the highest intensity, putting
+#' all values into the same group if their difference is smaller than defined by
 #' parameters `tolerance` (a constant value) and `ppm` (a value-specific
-#' relative value expressed in parts-per-million). If the number of mass within that group higher the defined max_num (scans),
-#' then the number of scans of top peaks would be kept. Interactively, do the above steps until gettting the final group
+#' relative value expressed in parts-per-million). 
+#' If the number of mass within that group higher than the defined max_num (scans),
+#' then the number of defined scans of top peaks would be kept. 
+#' Interactively, do the above steps until the last m/z gettting the group id
 #'
 #' @note
 #'
