@@ -149,7 +149,7 @@ group_mz_int <- function(x, y, max_num = Inf, tolerance = 0, ppm = 0) {
     mz <- x
     int <- y
     group_ids <- rep(0, length(x))
-    index <- 1:length(x)
+    index <- seq_along(x)
     
     group_id_zero <- which(group_ids == 0)
     group_id <- 0
