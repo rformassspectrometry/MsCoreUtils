@@ -1,6 +1,12 @@
 # MsCoreUtils 1.25
 
+## MsCoreUtils 1.25.4
+
+- Add `group_mz_int()` function to group peaks based on m/z similarity
+  considering also their intensity.
+
 ## MsCoreUtils 1.25.3
+
 - `getImputeMargin()` works without argument, and return the default
   margins for all `MsCoreUtils::impute_*` function.
 - Add link to QFeatures's *Imputation* vignette in the

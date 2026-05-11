@@ -27,7 +27,9 @@ relative value expressed in parts-per-million).
 \note{
 Since grouping is performed on pairwise differences between consecutive
 values (after ordering \code{x}), the difference between the smallest and largest
-value in a group can be larger than \code{tolerance} and \code{ppm}.
+value in a group can be larger than \code{tolerance} and \code{ppm}. See
+\code{\link[=group_mz_int]{group_mz_int()}} for an alternative that ensures all peaks within a group
+have an m/z closer than defined by \code{tolerance} and \code{ppm}.
 }
 \examples{
 
@@ -53,6 +55,9 @@ x <- c(65, 34, 65.1, 35, 66, 65.2)
 group(x, tolerance = 0.1)
 
 ## Values 65, 65.1 and 65.2 have been grouped into the same group.
+}
+\seealso{
+\code{\link[=group_mz_int]{group_mz_int()}}
 }
 \author{
 Johannes Rainer, Sebastin Gibb
