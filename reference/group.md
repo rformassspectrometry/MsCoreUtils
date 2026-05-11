@@ -35,7 +35,14 @@ group(x, tolerance = 0, ppm = 0)
 
 Since grouping is performed on pairwise differences between consecutive
 values (after ordering `x`), the difference between the smallest and
-largest value in a group can be larger than `tolerance` and `ppm`.
+largest value in a group can be larger than `tolerance` and `ppm`. See
+[`group_mz_int()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group_mz_int.md)
+for an alternative that ensures all peaks within a group have an m/z
+closer than defined by `tolerance` and `ppm`.
+
+## See also
+
+[`group_mz_int()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group_mz_int.md)
 
 ## Author
 

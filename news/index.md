@@ -4,10 +4,10 @@
 
 ### MsCoreUtils 1.25.4
 
-- Default margins for
-  [`impute_mixed()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
-  are now `c(NA, NA)` and are set based on the default margins of the
-  respective MAR and MNAR methods set in `mar` and `mnar`.
+- Add
+  [`group_mz_int()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group_mz_int.md)
+  function to group peaks based on m/z similarity considering also their
+  intensity.
 
 ### MsCoreUtils 1.25.3
 

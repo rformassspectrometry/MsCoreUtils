@@ -38,10 +38,12 @@
 - **Gabriele Tomè**. Contributor.
   [](https://orcid.org/0000-0002-3976-6068)
 
+- **Muyao Xi**. Contributor.
+
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/mixedNaMARGIN/inst/CITATION)
+[`inst/CITATION`](https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/inst/CITATION)
 
 Rainer J, Vicini A, Salzer L, Stanstrup J, Badia JM, Neumann S, Stravs
 MA, Verri Hernandes V, Gatto L, Gibb S and Wittin M. A Modular and

@@ -35,7 +35,7 @@ relative value expressed in parts-per-million)."><meta property="og:image" conte
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Grouping of numeric values by similarity</h1>
-      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/mixedNaMARGIN/R/group.R" class="external-link"><code>R/group.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/RforMassSpectrometry/MsCoreUtils/blob/main/R/group.R" class="external-link"><code>R/group.R</code></a></small>
       <div class="d-none name"><code>group.Rd</code></div>
     </div>
 
@@ -77,7 +77,13 @@ difference between values in <code>x</code> expressed in parts-per-million.</p><
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
     <p>Since grouping is performed on pairwise differences between consecutive
 values (after ordering <code>x</code>), the difference between the smallest and largest
-value in a group can be larger than <code>tolerance</code> and <code>ppm</code>.</p>
+value in a group can be larger than <code>tolerance</code> and <code>ppm</code>. See
+<code><a href="group_mz_int.html">group_mz_int()</a></code> for an alternative that ensures all peaks within a group
+have an m/z closer than defined by <code>tolerance</code> and <code>ppm</code>.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p><code><a href="group_mz_int.html">group_mz_int()</a></code></p></div>
     </div>
     <div class="section level2">
     <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a></h2>

@@ -106,6 +106,8 @@ vignette](https://rformassspectrometry.github.io/RforMassSpectrometry/articles/R
   : Optimized GNPS Modified Cosine Similarity via Chain-DP
 - [`group()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group.md)
   : Grouping of numeric values by similarity
+- [`group_mz_int()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/group_mz_int.md)
+  : Grouping of numeric values by similarity of m/z and intensity
 - [`i2index()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/i2index.md)
   : Input parameter check for subsetting operations
 - [`impute_matrix()`](https://rformassspectrometry.github.io/MsCoreUtils/reference/imputation.md)
