@@ -55,6 +55,9 @@ Authors@R: c(person(given = "RforMassSpectrometry Package Maintainer",
              person(given = "Gabriele", family = "Tomè",
                     email = "gabriele.tome@eurac.edu",
                     comment = c(ORCID = "0000-0002-3976-6068"),
+                    role = "ctb"),
+             person(given = "Muyao", family = "Xi",
+                    email = "muyao.xi@sund.ku.dk",
                     role = "ctb"))
 Depends:
     R (>= 3.6.0)
